@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27ba6c8851c930341ae596901de07d0d, type: 3}
-  m_Name: UnimoStat
+  m_Script: {fileID: 11500000, guid: 72155e4ae4134e5408776156063dc36e, type: 3}
+  m_Name: ProceduralMapGeneratorSO
   m_EditorClassIdentifier: 
-  unimoDataCsv: {fileID: 4900000, guid: 38a0c58253fcc7d4aadab448c7c2848a, type: 3}
+  proceduralMapCsv: {fileID: 4900000, guid: 4156a11466d7ae440bf4b0257473f736, type: 3}

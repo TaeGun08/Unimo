@@ -6,7 +6,7 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
     public static LocalPlayer Instance { get; private set; }
 
     [Header("UnimoStatDataSO")]
-    [SerializeField] private UnimoStatData unimoStatData;
+    [SerializeField] private UnimoStatDataSO unimoStatData;
     
     private PlayerController playerController;
     

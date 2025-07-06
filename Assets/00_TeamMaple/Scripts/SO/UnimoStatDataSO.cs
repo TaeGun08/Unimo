@@ -23,8 +23,8 @@ public class UnimoData
     public float drop_count { get; set; }
 }
 
-[CreateAssetMenu(fileName = "UnimoStatData", menuName = "Scriptable Object/UnimoStatData")]
-public class UnimoStatData : ScriptableObject
+[CreateAssetMenu(fileName = "UnimoStatDataSO", menuName = "Scriptable Object/UnimoStatDataSO")]
+public class UnimoStatDataSO : ScriptableObject
 {
     [Header("UnimoDataCsv")]
     [SerializeField] private TextAsset unimoDataCsv;
