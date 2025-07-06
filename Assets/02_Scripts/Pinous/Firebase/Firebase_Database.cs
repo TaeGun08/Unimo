@@ -8,7 +8,7 @@ using static UnityEngine.Rendering.DebugUI;
 
 public partial class Firebase_Mng: MonoBehaviour
 {
-    // µ¥ÀÌÅÍº£ÀÌ½º¿¡ µ¥ÀÌÅÍ ¾²±â
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void WriteData(string key, string value)
     {
         if(Application.internetReachability == NetworkReachability.NotReachable)
@@ -20,11 +20,11 @@ public partial class Firebase_Mng: MonoBehaviour
         childReference.SetRawJsonValueAsync(value).ContinueWithOnMainThread(task => {
             if (task.Exception != null)
             {
-                Debug.LogError($"µ¥ÀÌÅÍ ¾²±â ¿À·ù: {task.Exception}");
+                Debug.LogError($"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: {task.Exception}");
             }
             else
             {
-                Debug.Log("µ¥ÀÌÅÍ ¾²±â ¼º°ø!");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!");
             }
         });
     }
@@ -35,20 +35,21 @@ public partial class Firebase_Mng: MonoBehaviour
         childReference.GetValueAsync().ContinueWithOnMainThread(task => {
             if (task.Exception != null)
             {
-                Debug.LogError($"µ¥ÀÌÅÍ ÀÐ±â ¿À·ù: {task.Exception}");
+                Debug.LogError($"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð±ï¿½ ï¿½ï¿½ï¿½ï¿½: {task.Exception}");
             }
             else if (task.Result.Exists)
             {
-                string versionValue = task.Result.Value.ToString();
-                if(versionValue != Application.version)
-                {
-                    VersionCheck.instance.GetVersionPopUP();
-                    return;
-                }
-                else
-                {
-                    AccountInitializer.instance.GetCheckVersionAndLogin();
-                }
+                AccountInitializer.instance.GetCheckVersionAndLogin();
+                // string versionValue = task.Result.Value.ToString();
+                // if(versionValue != Application.version)
+                // {
+                //     VersionCheck.instance.GetVersionPopUP();
+                //     return;
+                // }
+                // else
+                // {
+                //     AccountInitializer.instance.GetCheckVersionAndLogin();
+                // }
             }
             else
             {
@@ -57,14 +58,18 @@ public partial class Firebase_Mng: MonoBehaviour
         });
     }
 
-    // µ¥ÀÌÅÍº£ÀÌ½º¿¡¼­ µ¥ÀÌÅÍ ÀÐ±â
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð±ï¿½
     public void ReadData(string key, System.Action<string> onDataReceived)
     {
         DatabaseReference childReference = reference.Child("USER").Child(key);
+        // TODO : ìµëª… ë¡œê·¸ì¸ ì´ˆê¸°í™”
+        // reference.Child("USER")
+        //     .Child(key)
+        //     .RemoveValueAsync();
         childReference.GetValueAsync().ContinueWithOnMainThread(task => {
             if (task.Exception != null)
             {
-                Debug.LogError($"µ¥ÀÌÅÍ ÀÐ±â ¿À·ù: {task.Exception}");
+                Debug.LogError($"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð±ï¿½ ï¿½ï¿½ï¿½ï¿½: {task.Exception}");
             }
             else if (task.Result.Exists)
             {

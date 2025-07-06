@@ -13,7 +13,7 @@ public partial class Firebase_Mng
     DatabaseReference reference;
     public void Init()
     {
-        // Firebase ÃÊ±âÈ­ ¹× ÀÎ½ºÅÏ½º »ý¼º
+        // Firebase ï¿½Ê±ï¿½È­ ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
         {
             FirebaseApp app = FirebaseApp.DefaultInstance;

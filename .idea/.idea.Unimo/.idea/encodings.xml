@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="EUC-KR">
+    <file url="file://$PROJECT_DIR$/Assets/02_Scripts/Pinous/Firebase/Firebase_Database.cs" charset="EUC-KR" />
+    <file url="file://$PROJECT_DIR$/Assets/02_Scripts/Pinous/IAP_Manager.cs" charset="EUC-KR" />
+    <file url="file://$PROJECT_DIR$/Assets/02_Scripts/Play/Player/PlayerMover_ST001.cs" charset="EUC-KR" />
+  </component>
+</project>
