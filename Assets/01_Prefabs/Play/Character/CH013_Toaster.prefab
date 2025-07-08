@@ -15322,7 +15322,6 @@ GameObject:
   - component: {fileID: 6672979641051642547}
   - component: {fileID: 6486351193115919584}
   - component: {fileID: -6313974584859903849}
-  - component: {fileID: 6807603824795317208}
   m_Layer: 10
   m_Name: CH013_Toaster
   m_TagString: Untagged
@@ -15381,20 +15380,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 760b2aaeab12b6342901087158699371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6807603824795317208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4686072303681706856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98441c7c8ecd91d4ebe72eedd1bb2dc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blinkTargets:
-  - {fileID: 6774972453776218650}
 --- !u!1 &5173327478181089624
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class VirtualJoystickCtrl_ST002 : MonoBehaviour
 {
+    // 모바일용 가상 조이스틱 입력을 처리하여 캐릭터(Player)를 이동시키는 코드 
     private PlayerMover_ST002 mover;
     private VitualStickImager virtualStick;
     private Vector2 stickCenterPos;
