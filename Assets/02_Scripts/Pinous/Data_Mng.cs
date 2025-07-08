@@ -1,9 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.U2D;
-using static UnityEngine.Rendering.DebugUI;
 
 [System.Serializable]
 public class Server_Data
@@ -14,7 +13,9 @@ public class Server_Data
     public int Level = 0;
     public double Second_Base = 5;
     public double NextLevel_Base = 5;
-    public double Yellow, Red, Blue;
+    public double Yellow, Red, Blue, Green;
+
+    public int Stage;
 
     public float[] BuffFloating = new float[3];
 
@@ -58,6 +59,42 @@ public class Server_Data
     public bool GetReview = false;
     public bool GetInGame = false;
     public bool GetVane = false;
+
+    public Server_Data(Server_Data data = null)
+    {
+        if (data == null) return;
+        
+        this.UserName = data.UserName;
+        this.EXP = data.EXP;
+        this.Level = data.Level;
+        this.Second_Base = data.Second_Base;
+        this.NextLevel_Base = data.NextLevel_Base;
+        this.Yellow = data.Yellow;
+        this.Red = data.Red;
+        this.Blue = data.Blue;
+        this.Green = data.Green;
+        this.Stage = data.Stage;
+        this.BuffFloating = data.BuffFloating;
+        this.GetCharacterData = data.GetCharacterData;
+            
+        this.GetEQData = data.GetEQData;
+        this.GetADS = data.GetADS;
+        this.GetTouch = data.GetTouch;
+        this.GetTimeItem = data.GetTimeItem;
+        this.GetRePlay = data.GetRePlay;
+        this.GetArchivements = data.GetArchivements;
+        this.S_DateTime = data.S_DateTime;
+        this.E_DateTime = data.E_DateTime;
+        this.CharCount = data.CharCount;
+        this.EQCount = data.EQCount;
+        this.BonusRewardCount = data.BonusRewardCount;
+        this.GetOarkTong = data.GetOarkTong;
+        this.GetStarChange = data.GetStarChange;
+        this.GetGameTwo = data.GetGameTwo;
+        this.GetReview = data.GetReview;
+        this.GetInGame = data.GetInGame;
+        this.GetVane = data.GetVane;
+    }
 }
 public enum Asset_State
 {
@@ -214,13 +251,12 @@ public class Data_Mng
         }
 
         data.E_DateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-        string jsonData = JsonUtility.ToJson(data);
-        Base_Mng.Firebase.WriteData(Base_Mng.Firebase.UserID, jsonData);
+        JsonDataManager.Instance.SaveServerData(data);
     }
 
     public void Load()
     {
-        Base_Mng.Firebase.ReadData(Base_Mng.Firebase.UserID, (value) =>
+        Base_Mng.Firebase.ReadData("PlayerData", (value) =>
         {
             data = JsonUtility.FromJson<Server_Data>(value);
             data.S_DateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");

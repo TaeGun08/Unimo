@@ -11,6 +11,7 @@ public partial class Firebase_Mng
     public bool isSetFirebase = false;
     FirebaseAuth auth;
     DatabaseReference reference;
+    
     public void Init()
     {
         // Firebase �ʱ�ȭ �� �ν��Ͻ� ����

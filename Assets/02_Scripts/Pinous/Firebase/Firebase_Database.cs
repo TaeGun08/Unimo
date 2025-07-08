@@ -1,10 +1,9 @@
 using Firebase.Database;
 using Firebase.Extensions;
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public partial class Firebase_Mng: MonoBehaviour
 {
@@ -16,17 +15,17 @@ public partial class Firebase_Mng: MonoBehaviour
             Canvas_Holder.instance.GetUI("##Network");
         }
 
-        DatabaseReference childReference = reference.Child("USER").Child(key);
-        childReference.SetRawJsonValueAsync(value).ContinueWithOnMainThread(task => {
-            if (task.Exception != null)
-            {
-                Debug.LogError($"������ ���� ����: {task.Exception}");
-            }
-            else
-            {
-                Debug.Log("������ ���� ����!");
-            }
-        });
+        // DatabaseReference childReference = reference.Child("USER").Child(key);
+        // childReference.SetRawJsonValueAsync(value).ContinueWithOnMainThread(task => {
+        //     if (task.Exception != null)
+        //     {
+        //         Debug.LogError($"������ ���� ����: {task.Exception}");
+        //     }
+        //     else
+        //     {
+        //         Debug.Log("������ ���� ����!");
+        //     }
+        // });
     }
 
     public void ReadDataOnVersion()
@@ -61,37 +60,65 @@ public partial class Firebase_Mng: MonoBehaviour
     // �����ͺ��̽����� ������ �б�
     public void ReadData(string key, System.Action<string> onDataReceived)
     {
-        DatabaseReference childReference = reference.Child("USER").Child(key);
-        // TODO : 익명 로그인 초기화
-        // reference.Child("USER")
-        //     .Child(key)
-        //     .RemoveValueAsync();
-        childReference.GetValueAsync().ContinueWithOnMainThread(task => {
-            if (task.Exception != null)
-            {
-                Debug.LogError($"������ �б� ����: {task.Exception}");
-            }
-            else if (task.Result.Exists)
-            {
-                string value = task.Result.GetRawJsonValue();
-                if(value == "" || value == null)
-                {
-                    value = NewData();
-                }
-                isSetFirebase = true;
+        if (!string.IsNullOrEmpty(PlayerPrefs.GetString(key)))
+        {
+            // ✅ 역직렬화: JSON → Server_Data 객체
+            Server_Data data = JsonDataManager.Instance.LoadServerData();
 
-                onDataReceived?.Invoke(value);
-            }
-            else
-            {
-                string data = NewData();
-                
-                Base_Mng.Firebase.WriteData(Base_Mng.Firebase.UserID, data);
-                isSetFirebase = true;
+            // ✅ 다시 직렬화: Server_Data 객체 → JSON (정상)
+            string json = JsonConvert.SerializeObject(data, Formatting.Indented);
 
-                onDataReceived?.Invoke(data);
-            }
-        });
+            // ✅ json 확장자 파일로 저장
+            string filePath = Path.Combine(Application.persistentDataPath, "PlayerData.json");
+            File.WriteAllText(filePath, json);
+
+            onDataReceived?.Invoke(json);
+        }
+        else
+        {
+            string newDataJson = NewData(); // JSON string 반환
+            PlayerPrefs.SetString(key, newDataJson);
+
+            // ✅ 그대로 저장해도 됨
+            string filePath = Path.Combine(Application.persistentDataPath, "PlayerData.json");
+            File.WriteAllText(filePath, newDataJson);
+
+            onDataReceived?.Invoke(newDataJson);
+        }
+        
+        isSetFirebase = true; // TODO : 이 변수가 로딩 시작 제어 함, 평범한 bool 값 바꿔서 쓰면 될듯
+        
+        // DatabaseReference childReference = reference.Child("USER").Child(key);
+        // // TODO : 익명 로그인 초기화
+        // // reference.Child("USER")
+        // //     .Child(key)
+        // //     .RemoveValueAsync();
+        // childReference.GetValueAsync().ContinueWithOnMainThread(task => {
+        //     if (task.Exception != null)
+        //     {
+        //         Debug.LogError($"������ �б� ����: {task.Exception}");
+        //     }
+        //     else if (task.Result.Exists)
+        //     {
+        //         string value = task.Result.GetRawJsonValue();
+        //         if(value == "" || value == null)
+        //         {
+        //             value = NewData();
+        //         }
+        //         isSetFirebase = true;
+        //     
+        //         onDataReceived?.Invoke(value);
+        //     }
+        //     else
+        //     {
+        //         string data = NewData();
+        //         
+        //         Base_Mng.Firebase.WriteData(Base_Mng.Firebase.UserID, data);
+        //         isSetFirebase = true;
+        //     
+        //         onDataReceived?.Invoke(data);
+        //     }
+        // });
     }
 
     string NewData()
@@ -102,13 +129,15 @@ public partial class Firebase_Mng: MonoBehaviour
         Sound_Manager.instance.SoundCheck();
 
         Server_Data data = new Server_Data();
-        data.UserName = Base_Mng.Firebase.UserName;
+        data.UserName = "Test";
         data.EXP = 0;
         data.Level = 0;
         data.Second_Base = 5;
         data.Yellow = 0;
         data.Red = 0;
         data.Blue = 0;
+        data.Green = 0;
+        data.Stage = 0;
         data.NextLevel_Base = 10;
         data.GetReview = false;
         data.GetOarkTong = false;
