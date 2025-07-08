@@ -71,14 +71,15 @@ public partial class Firebase_Mng: MonoBehaviour
             // ✅ json 확장자 파일로 저장
             string filePath = Path.Combine(Application.persistentDataPath, "PlayerData.json");
             File.WriteAllText(filePath, json);
-
+            
+            Debug.Log(Application.persistentDataPath);
             onDataReceived?.Invoke(json);
         }
         else
         {
             string newDataJson = NewData(); // JSON string 반환
             PlayerPrefs.SetString(key, newDataJson);
-
+            Debug.Log(Application.persistentDataPath);
             // ✅ 그대로 저장해도 됨
             string filePath = Path.Combine(Application.persistentDataPath, "PlayerData.json");
             File.WriteAllText(filePath, newDataJson);
