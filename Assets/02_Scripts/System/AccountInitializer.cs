@@ -8,6 +8,9 @@ public class AccountInitializer : MonoBehaviour
 {
     public static AccountInitializer instance;
 
+    private string userName;
+    public string UserName => userName;
+    
     private void Awake()
     {
         if(instance == null)
@@ -98,7 +101,8 @@ public class AccountInitializer : MonoBehaviour
             go.GetPopUp("NameCheck");
             return;
         }
-        Base_Mng.Firebase.UserName = inputField.text;
+        
+        userName = inputField.text;
         nameSetter.SetActive(false);
 
         EndAccountInitialize();

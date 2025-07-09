@@ -86,6 +86,7 @@ public partial class Firebase_Mng
                 AddToInformation("Sign In Successful.");
                 FirebaseUser newUser = auth.CurrentUser;
                 UserID = newUser.UserId;
+                Debug.Log("ºÐ±â1");
                 Base_Mng.Data.Load();
                 Base_Mng.instance.GetStartGame = true;
             }

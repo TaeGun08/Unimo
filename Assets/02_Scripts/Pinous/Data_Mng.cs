@@ -59,46 +59,10 @@ public class Server_Data
     public bool GetReview = false;
     public bool GetInGame = false;
     public bool GetVane = false;
-
-    public Server_Data(Server_Data data = null)
-    {
-        if (data == null) return;
-        
-        this.UserName = data.UserName;
-        this.EXP = data.EXP;
-        this.Level = data.Level;
-        this.Second_Base = data.Second_Base;
-        this.NextLevel_Base = data.NextLevel_Base;
-        this.Yellow = data.Yellow;
-        this.Red = data.Red;
-        this.Blue = data.Blue;
-        this.Green = data.Green;
-        this.Stage = data.Stage;
-        this.BuffFloating = data.BuffFloating;
-        this.GetCharacterData = data.GetCharacterData;
-            
-        this.GetEQData = data.GetEQData;
-        this.GetADS = data.GetADS;
-        this.GetTouch = data.GetTouch;
-        this.GetTimeItem = data.GetTimeItem;
-        this.GetRePlay = data.GetRePlay;
-        this.GetArchivements = data.GetArchivements;
-        this.S_DateTime = data.S_DateTime;
-        this.E_DateTime = data.E_DateTime;
-        this.CharCount = data.CharCount;
-        this.EQCount = data.EQCount;
-        this.BonusRewardCount = data.BonusRewardCount;
-        this.GetOarkTong = data.GetOarkTong;
-        this.GetStarChange = data.GetStarChange;
-        this.GetGameTwo = data.GetGameTwo;
-        this.GetReview = data.GetReview;
-        this.GetInGame = data.GetInGame;
-        this.GetVane = data.GetVane;
-    }
 }
 public enum Asset_State
 {
-    Yellow, Red, Blue
+    Yellow, Red, Blue, Green
 }
 
 public class EXP_DATA

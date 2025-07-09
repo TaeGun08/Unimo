@@ -62,25 +62,24 @@ public partial class Firebase_Mng: MonoBehaviour
     {
         if (!string.IsNullOrEmpty(PlayerPrefs.GetString(key)))
         {
-            // ✅ 역직렬화: JSON → Server_Data 객체
+            //역직렬화: JSON → Server_Data 객체
             Server_Data data = JsonDataManager.Instance.LoadServerData();
 
-            // ✅ 다시 직렬화: Server_Data 객체 → JSON (정상)
+            //다시 직렬화: Server_Data 객체 → JSON (정상)
             string json = JsonConvert.SerializeObject(data, Formatting.Indented);
 
-            // ✅ json 확장자 파일로 저장
+            //json 확장자 파일로 저장
             string filePath = Path.Combine(Application.persistentDataPath, "PlayerData.json");
             File.WriteAllText(filePath, json);
             
-            Debug.Log(Application.persistentDataPath);
             onDataReceived?.Invoke(json);
         }
         else
         {
             string newDataJson = NewData(); // JSON string 반환
             PlayerPrefs.SetString(key, newDataJson);
-            Debug.Log(Application.persistentDataPath);
-            // ✅ 그대로 저장해도 됨
+            
+            //그대로 저장해도 됨
             string filePath = Path.Combine(Application.persistentDataPath, "PlayerData.json");
             File.WriteAllText(filePath, newDataJson);
 
@@ -130,7 +129,8 @@ public partial class Firebase_Mng: MonoBehaviour
         Sound_Manager.instance.SoundCheck();
 
         Server_Data data = new Server_Data();
-        data.UserName = "Test";
+        data.UserName = string.IsNullOrEmpty(AccountInitializer.instance.UserName) ?  
+               "null" : AccountInitializer.instance.UserName;
         data.EXP = 0;
         data.Level = 0;
         data.Second_Base = 5;

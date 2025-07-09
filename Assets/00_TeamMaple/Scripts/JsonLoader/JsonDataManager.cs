@@ -18,7 +18,7 @@ public class JsonDataManager : SingletonBehaviour<JsonDataManager>
         string readPath = Path.Combine(Application.persistentDataPath, "PlayerData.json");
         string rawJson = File.ReadAllText(readPath);
 
-        // ? 开流纺拳: JSON ℃ Server_Data 按眉
+        //开流纺拳: JSON ℃ Server_Data 按眉
         Server_Data data = JsonConvert.DeserializeObject<Server_Data>(rawJson);
         
         return data;
