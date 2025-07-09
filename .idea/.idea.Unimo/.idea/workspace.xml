@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="336f0a6d-2cdb-483f-b77e-b331b3f9fb5f" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Unimo/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unimo/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Unimo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unimo/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/00_Scenes/GameScene/LobbyScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_Scenes/GameScene/LobbyScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Anton SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Anton SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_Scenes/GameScene/PlayScene_ST001.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_Scenes/GameScene/PlayScene_ST001.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03_Graphics/TestResource/RenderTexture_ChaSet.renderTexture" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03_Graphics/TestResource/RenderTexture_ChaSet.renderTexture" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03_Graphics/TestResource/RewardTexture.renderTexture" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03_Graphics/TestResource/RewardTexture.renderTexture" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03_Graphics/TestResource/Test_RenderTexture.renderTexture" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03_Graphics/TestResource/Test_RenderTexture.renderTexture" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +45,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;Unity 에디터에 연결.Unity 에디터에 연결.executor&quot;: &quot;Debug&quot;,
     &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.35358256&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Develop&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Feature/Gimmick&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -115,6 +116,8 @@
       <workItem from="1751804569160" duration="1121000" />
       <workItem from="1751805784817" duration="315000" />
       <workItem from="1751936688742" duration="21057000" />
+      <workItem from="1752028781675" duration="2182000" />
+      <workItem from="1752047478805" duration="57000" />
     </task>
     <servers />
   </component>

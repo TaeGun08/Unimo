@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff107d30df034064d9b027870e993361, type: 3}
+  m_Name: LightningStrike
+  m_EditorClassIdentifier: 
+  lightningStrikePrefab: {fileID: 5349816962912851264, guid: 9c8033631f62a194abd6fbefd3ec16c3,
+    type: 3}
+  warningPrefab: {fileID: 5349816962912851264, guid: 30198be125c49944cbecda268ff42e0d,
+    type: 3}
+  spawnOffset: {x: 0, y: 5, z: 0}
+  duration: 10
+  interval: 5
+  lightningPerWave: 3
+  spawnRadius: 5
+  warningDelay: 1
