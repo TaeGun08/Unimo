@@ -20,7 +20,7 @@ public class MonsterGenerator : MonoBehaviour
     // Start is called before the first frame update
     protected void OnEnable()
     {
-        PlayerMover mover= FindAnyObjectByType<PlayerMover>();
+        PlayerController mover= FindAnyObjectByType<PlayerController>();
         if (mover != null ) { playerTransform = mover.transform; }
         monGenCalculator.InitTime();
         isPaused = true;

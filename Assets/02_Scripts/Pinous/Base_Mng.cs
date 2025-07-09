@@ -37,7 +37,13 @@ public class Base_Mng : MonoBehaviour
         if (GetStartGame && Firebase.isSetFirebase)
         {
             timer += Time.deltaTime;
-            if (timer >= 15.0f)
+            // if (timer >= 15.0f)
+            // {
+            //     timer = 0.0f;
+            //     Data.Save();
+            // }
+            
+            if (timer >= 5.0f)
             {
                 timer = 0.0f;
                 Data.Save();
@@ -55,11 +61,11 @@ public class Base_Mng : MonoBehaviour
                     Canvas_Holder.instance.GetUI("##SavingMode");
                     saveTimer = 0.0f;
                 }
-
-                if (Input.GetMouseButtonDown(0))
-                {
-                    saveTimer = 0.0f;
-                }
+                //
+                // if (Input.GetMouseButtonDown(0))
+                // {
+                //     saveTimer = 0.0f;
+                // }
             }
 
             for(int i = 0; i < Data.data.BuffFloating.Length; i++)

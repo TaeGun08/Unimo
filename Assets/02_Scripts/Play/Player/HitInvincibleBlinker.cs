@@ -24,7 +24,7 @@ public class HitInvincibleBlinker : MonoBehaviour
         dampStartRemain = 3f * blinkTime;
         downBlinkCycle = 1f - upBlinkCycle;
 
-        FindAnyObjectByType<PlayerVisualController>().AddInvincibleBlinker(this);
+        //FindAnyObjectByType<PlayerController>().AddInvincibleBlinker(this);
     }
 
     public void StartBlink(float duration)
