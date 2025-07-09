@@ -17,7 +17,7 @@ public class FlowerController_ST002 : FlowerController
     {
         base.Start();
         fallVector = new Vector3(0f, -fallingSpeed, 0f);
-        if (playerTransform == null) { playerTransform = PlaySystemRefStorage.playerStatManager.transform; }
+        if (playerTransform == null) { playerTransform = LocalPlayer.Instance.transform; }
     }
 
     // Update is called once per frame

@@ -9,6 +9,10 @@ public class PlayerIdleState : PlayerState
 
     protected override void StateUpdate()
     {
+        if (PlayerController.VirtualJoystickCtrl.dir.magnitude > 0.01f)
+        {
+            PlayerController.ChangeState(IPlayerState.EState.Move);
+        }
     }
 
     public override void StateExit()
