@@ -10,6 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a84879357db9b6f45ba3896ad4e96f8a, type: 3}
-  m_Name: SkillTable
+  m_Name: EquipmentSkillTable
   m_EditorClassIdentifier: 
-  prefabEntries: []
+  prefabEntries:
+  - prefabKey: 2001
+    prefab: {fileID: 3229748233546060778, guid: 58bd099da9198314b99d44e742cd9119,
+      type: 3}
