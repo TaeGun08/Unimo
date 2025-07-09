@@ -1239,6 +1239,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1217114931}
     m_Modifications:
     - target: {fileID: 1350029606, guid: c9c50b29dd8e50040bed425684f530ec, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 981523602}
+    - target: {fileID: 1350029606, guid: c9c50b29dd8e50040bed425684f530ec, type: 3}
       propertyPath: havestVFXRenderer
       value: 
       objectReference: {fileID: 610831022}
@@ -1283,17 +1287,17 @@ PrefabInstance:
     - target: {fileID: 7559124805378360472, guid: c9c50b29dd8e50040bed425684f530ec,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7559124805378360472, guid: c9c50b29dd8e50040bed425684f530ec,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7559124805378360472, guid: c9c50b29dd8e50040bed425684f530ec,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7559124805378360472, guid: c9c50b29dd8e50040bed425684f530ec,
         type: 3}
@@ -2177,8 +2181,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9034130852324184809}
-  - {fileID: 981523602}
   - {fileID: 1350029603}
+  - {fileID: 981523602}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1239680597 stripped
@@ -7193,6 +7197,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5953960002914474849, guid: 35ca479c1a46ff444b6adde214f7cc9f,
+        type: 3}
+      propertyPath: unimoTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 447d2b6ead6de374d99502fbda4cbe47,
+        type: 2}
+    - target: {fileID: 5953960002914474849, guid: 35ca479c1a46ff444b6adde214f7cc9f,
+        type: 3}
+      propertyPath: engineTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 9222c37c2cb3c17438c828e98b97e820,
+        type: 2}
+    - target: {fileID: 5953960002914474849, guid: 35ca479c1a46ff444b6adde214f7cc9f,
+        type: 3}
+      propertyPath: unimoStatData
+      value: 
+      objectReference: {fileID: 11400000, guid: 9d1dd542feb81e6459675e32630fd39f,
+        type: 2}
     - target: {fileID: 5958562109759819987, guid: 35ca479c1a46ff444b6adde214f7cc9f,
         type: 3}
       propertyPath: virtualJoystickCtrl
@@ -8718,7 +8740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53a96485a8a6bc44c899fedf6f438b74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapRadius: 16
+  mapRadius: 17.5
 --- !u!222 &9069257689681190135
 CanvasRenderer:
   m_ObjectHideFlags: 0

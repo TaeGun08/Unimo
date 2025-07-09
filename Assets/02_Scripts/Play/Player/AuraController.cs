@@ -7,7 +7,13 @@ public class AuraController : MonoBehaviour
     private float growthperSec = 12f;
     private float originalGrowth = 12f;
     private Vector3 originalScale;
-
+    public Transform target; 
+    
+    private void Update()
+    {
+        transform.localPosition = target.localPosition; 
+    }
+    
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Flower"))
@@ -18,20 +24,21 @@ public class AuraController : MonoBehaviour
             }
         }
     }
-    public void InitAura(float range)
-    {
-        transform.localScale = range * Vector3.one;
-        originalScale = transform.localScale;
-        growthperSec = originalGrowth;
-    }
-    public void Shrink()
-    {
-        StartCoroutine(CoroutineExtensions.ScaleInterpCoroutine(transform, 0.5f * originalScale, 0.1f));
-        growthperSec = 0.3f * originalGrowth;
-    }
-    public void Resume()
-    {
-        StartCoroutine(CoroutineExtensions.ScaleInterpCoroutine(transform, originalScale, 0.07f));
-        growthperSec = originalGrowth;
-    }
+    
+    // public void InitAura(float range)
+    // {
+    //     transform.localScale = range * Vector3.one;
+    //     originalScale = transform.localScale;
+    //     growthperSec = originalGrowth;
+    // }
+    // public void Shrink()
+    // {
+    //     StartCoroutine(CoroutineExtensions.ScaleInterpCoroutine(transform, 0.5f * originalScale, 0.1f));
+    //     growthperSec = 0.3f * originalGrowth;
+    // }
+    // public void Resume()
+    // {
+    //     StartCoroutine(CoroutineExtensions.ScaleInterpCoroutine(transform, originalScale, 0.07f));
+    //     growthperSec = originalGrowth;
+    // }
 }

@@ -11,6 +11,6 @@ public class PlaySceneStatMultiplier : MonoBehaviour
     void Awake()
     {
         FindAnyObjectByType<PlayerMover>().SetSpeed(speedMultiplier);
-        FindAnyObjectByType<AuraController>().InitAura(areaMultiplier);
+        //FindAnyObjectByType<AuraController>().InitAura(areaMultiplier);
     }
 }

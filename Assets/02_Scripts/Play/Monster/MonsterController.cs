@@ -34,11 +34,14 @@ public class MonsterController : MonoBehaviour
         if (!isExplode) { return; }
         if (other.CompareTag("Player"))
         {
-            if (other.TryGetComponent<PlayerStatManager>(out var player))
+            //if (other.TryGetComponent<PlayerStatManager>(out var player))
+            if (other.TryGetComponent<LocalPlayer>(out var player))
             {
                 Vector3 hitpos =  transform.position; //other.ClosestPoint(transform.position + new Vector3(0f, 1.5f, 0f))
                 hitpos.y = 0f;
-                player.Hit(collideStunTime, hitpos);
+                // 기존 hit처리
+                // player.Hit(collideStunTime, hitpos);
+                player.TakeDamage();
                 Vector3 fxPos = (isexplodeFXAtPlayer) ? (hitpos + other.transform.position) / 2f + 1.5f * Vector3.up : hitpos + 1.5f * Vector3.up;
                 GameObject obj = Instantiate(explodeFX, fxPos, Quaternion.identity);
                 obj.GetComponent<AudioSource>().volume = Sound_Manager.instance._audioSources[1].volume;
