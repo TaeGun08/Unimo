@@ -33,6 +33,7 @@ public class VirtualJoystickCtrl_ST001 : MonoBehaviour
             {
                 virtualStick.gameObject.SetActive(false);
             }
+            dir = Vector2.zero;
             return; 
         }
         
@@ -40,7 +41,6 @@ public class VirtualJoystickCtrl_ST001 : MonoBehaviour
         if (touch.phase == TouchPhase.Ended && touch.phase == TouchPhase.Canceled)
         {
             //mover.SetDirection(Vector2.zero);
-            dir = Vector2.zero;
             virtualStick.gameObject.SetActive(false);
         }
         else if (touch.phase == TouchPhase.Began)
@@ -54,6 +54,7 @@ public class VirtualJoystickCtrl_ST001 : MonoBehaviour
             dir = convertToDirection(touch.position);
             //mover.SetDirection(dir);
             virtualStick.setStickPos(dir);
+            
         }
     }
     private void OnDisable()

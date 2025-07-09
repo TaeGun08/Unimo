@@ -22,6 +22,54 @@
       <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/Player/PlayerStatManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/Player/PlayerStatManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/Player/VirtualJoystickCtrl_ST001.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/Player/VirtualJoystickCtrl_ST001.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Anton SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Anton SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ001_BeeTail.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ001_BeeTail.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ002_Box.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ002_Box.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ003_HoneyJar.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ003_HoneyJar.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ004_StoneMortar.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ004_StoneMortar.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ005_CleanBucket.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ005_CleanBucket.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ006_MonoPlane.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ006_MonoPlane.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ007_HatchedEgg.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ007_HatchedEgg.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ008_Scootus.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ008_Scootus.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ009_Vase.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ009_Vase.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ010_EmperorPenguin.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ010_EmperorPenguin.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ011_DogHouse.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ011_DogHouse.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ012_Sack.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ012_Sack.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ013_Toaster.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ013_Toaster.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC001_OakTong.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC001_OakTong.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC002_Icecream.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC002_Icecream.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC003_WitchSot.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC003_WitchSot.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC004_DogBowl.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC004_DogBowl.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC005_TrashCan.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC005_TrashCan.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC006_SandCastle.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC006_SandCastle.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC007_Bathtub.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC007_Bathtub.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC008_ElfCup.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC008_ElfCup.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC009_MagicHat.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC009_MagicHat.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC010_Cloud.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC010_Cloud.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/UnimoStatDataSO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/UnimoStatDataSO.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,8 +83,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/a133f2ea43c3458fa72b02b186ae0af812200/8d/d7be7421/DatabaseReference.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/JsonLoader/JsonLoader.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/PrefabsTable.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/02_Scripts/Pinous/Firebase/Firebase_Mng.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@2581a6be7421/Runtime/Addressables.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.purchasing@649c6c7b3b1b/Runtime/Purchasing/UnityPurchasing.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.services.analytics@3692623288ba/Runtime/AnalyticsService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.services.core@9e81a5e38245/Runtime/Core/Initialization/ServicesInitializationException.cs" root0="SKIP_HIGHLIGHTING" />
