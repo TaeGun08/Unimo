@@ -7,9 +7,69 @@
     <list default="true" id="336f0a6d-2cdb-483f-b77e-b331b3f9fb5f" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Unimo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unimo/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/00_Scenes/GameScene/PlayScene_ST001.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_Scenes/GameScene/PlayScene_ST001.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/03_Graphics/TestResource/RenderTexture_ChaSet.renderTexture" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03_Graphics/TestResource/RenderTexture_ChaSet.renderTexture" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/03_Graphics/TestResource/RewardTexture.renderTexture" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03_Graphics/TestResource/RewardTexture.renderTexture" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/03_Graphics/TestResource/Test_RenderTexture.renderTexture" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03_Graphics/TestResource/Test_RenderTexture.renderTexture" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerIdleState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerIdleState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerMoveState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerMoveState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Pinous/Base_Mng.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Pinous/Base_Mng.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Pinous/Data_Mng.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Pinous/Data_Mng.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/Flower/FlowerController_ST002.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/Flower/FlowerController_ST002.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/Flower/FlowerHarvestFX.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/Flower/FlowerHarvestFX.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/Monster/MonsterGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/Monster/MonsterGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/PlaySystem/PlaySceneController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/PlaySystem/PlaySceneController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/PlaySystem/PlaySystemRefStorage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/PlaySystem/PlaySystemRefStorage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/Player/CamMover_ST001.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/Player/CamMover_ST001.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/Player/HitInvincibleBlinker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/Player/HitInvincibleBlinker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/Player/PlayerStatManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/Player/PlayerStatManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/Player/VirtualJoystickCtrl_ST001.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/Player/VirtualJoystickCtrl_ST001.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Anton SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Anton SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ001_BeeTail.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ001_BeeTail.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ002_Box.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ002_Box.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ003_HoneyJar.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ003_HoneyJar.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ004_StoneMortar.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ004_StoneMortar.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ005_CleanBucket.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ005_CleanBucket.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ006_MonoPlane.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ006_MonoPlane.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ007_HatchedEgg.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ007_HatchedEgg.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ008_Scootus.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ008_Scootus.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ009_Vase.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ009_Vase.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ010_EmperorPenguin.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ010_EmperorPenguin.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ011_DogHouse.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ011_DogHouse.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ012_Sack.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ012_Sack.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ013_Toaster.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQ013_Toaster.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC001_OakTong.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC001_OakTong.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC002_Icecream.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC002_Icecream.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC003_WitchSot.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC003_WitchSot.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC004_DogBowl.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC004_DogBowl.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC005_TrashCan.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC005_TrashCan.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC006_SandCastle.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC006_SandCastle.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC007_Bathtub.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC007_Bathtub.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC008_ElfCup.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC008_ElfCup.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC009_MagicHat.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC009_MagicHat.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC010_Cloud.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Engine/EQC010_Cloud.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/UnimoStatDataSO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/UnimoStatDataSO.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +83,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/a133f2ea43c3458fa72b02b186ae0af812200/8d/d7be7421/DatabaseReference.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/JsonLoader/JsonLoader.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/PrefabsTable.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/02_Scripts/Pinous/Firebase/Firebase_Mng.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@2581a6be7421/Runtime/Addressables.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.purchasing@649c6c7b3b1b/Runtime/Purchasing/UnityPurchasing.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.services.analytics@3692623288ba/Runtime/AnalyticsService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.services.core@9e81a5e38245/Runtime/Core/Initialization/ServicesInitializationException.cs" root0="SKIP_HIGHLIGHTING" />
@@ -39,22 +100,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;Unity 에디터에 연결.Unity 에디터에 연결.executor&quot;: &quot;Debug&quot;,
-    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.35358256&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Feature/Gimmick&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Unity 에디터에 연결.Unity 에디터에 연결.executor": "Debug",
+    "XThreadsFramesViewSplitterKey": "0.35358256",
+    "git-widget-placeholder": "Feature/StageProcedural",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "File.Encoding",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Unity 에디터에 연결.Unity 에디터에 연결">
     <configuration name="유닛 테스트(배치 모드)" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.0.51f1\Editor\Unity.exe" />
@@ -116,8 +177,7 @@
       <workItem from="1751804569160" duration="1121000" />
       <workItem from="1751805784817" duration="315000" />
       <workItem from="1751936688742" duration="21057000" />
-      <workItem from="1752028781675" duration="2182000" />
-      <workItem from="1752047478805" duration="57000" />
+      <workItem from="1752029922352" duration="10006000" />
     </task>
     <servers />
   </component>

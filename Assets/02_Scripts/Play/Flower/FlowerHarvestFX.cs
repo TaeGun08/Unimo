@@ -7,7 +7,7 @@ public class FlowerHarvestFX : MonoBehaviour
     static private Transform targetTransform;
     private void Start()
     {
-        if (targetTransform == null) { targetTransform = PlaySystemRefStorage.playerStatManager.transform; }
+        if (targetTransform == null) { targetTransform = LocalPlayer.Instance.transform; }
         StartCoroutine(followCoroutine());
     }
     private IEnumerator followCoroutine()

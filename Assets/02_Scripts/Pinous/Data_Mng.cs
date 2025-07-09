@@ -186,8 +186,7 @@ public class Data_Mng
             }
         }
     }
-
-
+    
     public void AssetPlus(Asset_State state, double value)
     {
         switch(state)

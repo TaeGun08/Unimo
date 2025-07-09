@@ -20,7 +20,7 @@ public class PlayerStatManager : MonoBehaviour
     [SerializeField] private GameObject chaPrefab;
     private void Awake()
     {
-        PlaySystemRefStorage.playerStatManager = this;
+        //PlaySystemRefStorage.playerStatManager = this;
     }
     // Start is called before the first frame update
     void Start()
@@ -96,7 +96,7 @@ public class PlayerStatManager : MonoBehaviour
     private IEnumerator StunCoroutine(float duration, Vector3 hitPos)
     {
         playerMover.IsStop = true;
-        auraController.Shrink();
+        //auraController.Shrink();
         isInvincible = true;
         visualCtrl.StartHitBlink(duration);
         visualCtrl.SetHitFX(hitPos, duration);
@@ -107,7 +107,7 @@ public class PlayerStatManager : MonoBehaviour
         yield return new WaitForSeconds(0.8f * duration);
         playerMover.IsStop = false;
         yield return new WaitForSeconds(0.2f * duration);
-        auraController.Resume();
+        //auraController.Resume();
         visualCtrl.SetStunAnim(false);
         yield return new WaitForSeconds(invincibleTime);
         isInvincible = false;

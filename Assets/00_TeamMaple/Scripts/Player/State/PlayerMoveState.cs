@@ -1,30 +1,65 @@
+using System;
 using UnityEngine;
 
 public class PlayerMoveState : PlayerState
 {
+    private readonly float rotateThreshold = 0.05f;
+    private float rotateTime = 0.3f;
+    
+    private float turnCalmVelocity;
+    protected MapRangeSetter mapSetter;
+
+    private void Start()
+    {
+        mapSetter = PlaySystemRefStorage.mapSetter;
+    }
+
     public override void StateEnter()
     {
     }
 
     protected override void StateUpdate()
     {
-        // TODO : 이동로직
-        // PlayerController.transform.position += moveSpeed * Time.deltaTime * moveDir + pushSpeed * Time.deltaTime * pushDir;
-        // moveAudio.volume = moveSoundMax * Mathf.Clamp01(moveDir.magnitude);
-        // moveAudio.volume = Sound_Manager.instance._audioSources[1].volume;
-        //
-        // if (mapSetter.IsInMap(playerTransform.position) == false)
-        // {
-        //     playerTransform.position = mapSetter.FindNearestPoint(playerTransform.position);
-        // }
-        // auraCtrl.transform.position = playerTransform.position + new Vector3(0f, auraOffset, 0f);
-        // if (pushDir.magnitude < 0.01f)
-        // {
-        //     changeRotation(moveDir);
-        // }
+        if (mapSetter.IsInMap(PlayerController.transform.position) == false)
+        {
+            PlayerController.transform.position = mapSetter.FindNearestPoint(PlayerController.transform.position);
+        }
+        
+        UpdateRotation(PlayerController.VirtualJoystickCtrl.dir, 0.1f);
+
+        if (PlayerController.VirtualJoystickCtrl.dir.magnitude < 0.01f)
+        {
+            PlayerController.ChangeState(IPlayerState.EState.Idle);
+        }
     }
 
     public override void StateExit()
     {
+    }
+    
+    /// <summary>
+    /// 회전 처리
+    /// </summary>
+    /// <param name="inputAxis"></param>
+    /// <param name="smoothTime"></param>
+    private void UpdateRotation(Vector2 inputAxis, float smoothTime)
+    {
+        if (inputAxis.sqrMagnitude < 0.01f) return; // 입력 없으면 처리 안 함
+
+        float targetAngle = Mathf.Atan2(inputAxis.x, inputAxis.y) * Mathf.Rad2Deg;
+
+        float angle = Mathf.SmoothDampAngle(
+            PlayerController.transform.eulerAngles.y,
+            targetAngle,
+            ref turnCalmVelocity,
+            smoothTime
+        );
+
+        PlayerController.transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+        Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+        
+        float speed = 5f;
+        PlayerController.transform.position += moveDirection.normalized * (speed * Time.deltaTime);
     }
 }
