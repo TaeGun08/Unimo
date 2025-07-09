@@ -20,7 +20,7 @@ public class PlayerStatManager : MonoBehaviour
     [SerializeField] private GameObject chaPrefab;
     private void Awake()
     {
-        PlaySystemRefStorage.playerStatManager = this;
+        //PlaySystemRefStorage.playerStatManager = this;
     }
     // Start is called before the first frame update
     void Start()

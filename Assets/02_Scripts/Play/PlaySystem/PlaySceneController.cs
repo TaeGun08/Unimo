@@ -61,5 +61,7 @@ public class PlaySceneController : MonoBehaviour
             WholeSceneController.Instance.ReadyNextScene(0);
             Time.timeScale = 1f;
         }
+        
+        JsonDataManager.Instance.SaveServerData(Base_Mng.Data.data);
     }
 }

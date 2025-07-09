@@ -8,20 +8,13 @@ public class PlayerMoveState : PlayerState
 
     protected override void StateUpdate()
     {
-        // TODO : 이동로직
-        // PlayerController.transform.position += moveSpeed * Time.deltaTime * moveDir + pushSpeed * Time.deltaTime * pushDir;
-        // moveAudio.volume = moveSoundMax * Mathf.Clamp01(moveDir.magnitude);
-        // moveAudio.volume = Sound_Manager.instance._audioSources[1].volume;
-        //
-        // if (mapSetter.IsInMap(playerTransform.position) == false)
-        // {
-        //     playerTransform.position = mapSetter.FindNearestPoint(playerTransform.position);
-        // }
-        // auraCtrl.transform.position = playerTransform.position + new Vector3(0f, auraOffset, 0f);
-        // if (pushDir.magnitude < 0.01f)
-        // {
-        //     changeRotation(moveDir);
-        // }
+        Vector3 dir = new Vector3(PlayerController.VirtualJoystickCtrl.dir.x, 0, PlayerController.VirtualJoystickCtrl.dir.y);
+        PlayerController.transform.position += dir * (5f * Time.deltaTime); //방향, 속도
+        
+        if (PlayerController.VirtualJoystickCtrl.dir.magnitude < 0.01f)
+        {
+            PlayerController.ChangeState(IPlayerState.EState.Idle);
+        }
     }
 
     public override void StateExit()

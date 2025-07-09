@@ -9,7 +9,10 @@ public class PlayerController : MonoBehaviour
     
     public Dictionary<IPlayerState.EState, PlayerState> StatesDic { get; private set; }
     public PlayerState CurrentState { get; set; }
-
+    
+    [SerializeField] private VirtualJoystickCtrl_ST001  virtualJoystickCtrl;
+    public VirtualJoystickCtrl_ST001 VirtualJoystickCtrl => virtualJoystickCtrl;
+    
     private void Awake()
     {
         StatesDic = new Dictionary<IPlayerState.EState, PlayerState>();

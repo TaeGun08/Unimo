@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="336f0a6d-2cdb-483f-b77e-b331b3f9fb5f" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Unimo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unimo/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Player.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Resources/SOData/UnimoTable.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Resources/SOData/UnimoTable.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/LocalPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/LocalPlayer.cs" afterDir="false" />
@@ -19,6 +20,24 @@
       <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/Player/VirtualJoystickCtrl_ST001.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/Player/VirtualJoystickCtrl_ST001.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/GoogleMobileAds/Editor/Resources/PlaceholderAds/Interstitials/768x1024.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GoogleMobileAds/Editor/Resources/PlaceholderAds/Interstitials/768x1024.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/GoogleMobileAds/Editor/Resources/PlaceholderAds/Rewarded/768x1024.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GoogleMobileAds/Editor/Resources/PlaceholderAds/Rewarded/768x1024.prefab" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/Assets/00_Scenes/GameScene/PlayScene_ST001.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_Scenes/GameScene/PlayScene_ST001.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerIdleState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerIdleState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerMoveState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerMoveState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Pinous/Base_Mng.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Pinous/Base_Mng.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Pinous/Data_Mng.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Pinous/Data_Mng.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/Flower/FlowerController_ST002.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/Flower/FlowerController_ST002.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/Flower/FlowerHarvestFX.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/Flower/FlowerHarvestFX.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/Monster/MonsterGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/Monster/MonsterGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/PlaySystem/PlaySceneController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/PlaySystem/PlaySceneController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/PlaySystem/PlaySystemRefStorage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/PlaySystem/PlaySystemRefStorage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/Player/CamMover_ST001.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/Player/CamMover_ST001.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/Player/HitInvincibleBlinker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/Player/HitInvincibleBlinker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/Player/PlayerStatManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/Player/PlayerStatManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/Player/VirtualJoystickCtrl_ST001.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/Player/VirtualJoystickCtrl_ST001.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Anton SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Anton SDF.asset" afterDir="false" />
+>>>>>>> Develop
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +68,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -63,8 +83,24 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+=======
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Unity 에디터에 연결.Unity 에디터에 연결.executor": "Debug",
+    "XThreadsFramesViewSplitterKey": "0.35358256",
+    "git-widget-placeholder": "Feature/StageProcedural",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "File.Encoding",
+    "vue.rearranger.settings.migration": "true"
+>>>>>>> Develop
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Unity 에디터에 연결.Unity 에디터에 연결">
     <configuration name="유닛 테스트(배치 모드)" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.0.51f1\Editor\Unity.exe" />
@@ -126,6 +162,7 @@
       <workItem from="1751804569160" duration="1121000" />
       <workItem from="1751805784817" duration="315000" />
       <workItem from="1751936688742" duration="21057000" />
+      <workItem from="1752029922352" duration="10006000" />
     </task>
     <servers />
   </component>
