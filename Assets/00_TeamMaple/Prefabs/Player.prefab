@@ -29816,7 +29816,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.75
   m_Center: {x: 0, y: 0.8, z: 0}
@@ -29937,6 +29937,7 @@ MonoBehaviour:
   - {fileID: 6743703945203005140}
   - {fileID: 8629578489272376390}
   - {fileID: 8074658271197160745}
+  virtualJoystickCtrl: {fileID: 0}
 --- !u!114 &5953960002914474849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29950,6 +29951,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unimoStatData: {fileID: 11400000, guid: fdec7255e7d725346ba5e24c0b546042, type: 2}
+  unimoTable: {fileID: 0}
+  engineTable: {fileID: 0}
 --- !u!1 &7758220355625385911
 GameObject:
   m_ObjectHideFlags: 0
