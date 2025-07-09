@@ -5911,7 +5911,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 12.71051, y: -412.6316}
+  m_AnchoredPosition: {x: 12.710449, y: -412.6316}
   m_SizeDelta: {x: -89.2761, y: 104}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &5612858979199285471
@@ -7174,18 +7174,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5492473155825481224, guid: 35ca479c1a46ff444b6adde214f7cc9f,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7568252301386702235, guid: 35ca479c1a46ff444b6adde214f7cc9f,
         type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6910516429492202001, guid: 35ca479c1a46ff444b6adde214f7cc9f, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
