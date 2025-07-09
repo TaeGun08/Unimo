@@ -25,9 +25,9 @@ public class PlayerMoveState : PlayerState
             PlayerController.transform.position = mapSetter.FindNearestPoint(PlayerController.transform.position);
         }
         
-        UpdateRotation(PlayerController.VirtualJoystickCtrl.dir, 0.1f);
+        UpdateRotation(PlayerController.VirtualJoystickCtrl.Dir, 0.1f);
 
-        if (PlayerController.VirtualJoystickCtrl.dir.magnitude < 0.01f)
+        if (PlayerController.VirtualJoystickCtrl.Dir.magnitude < 0.01f)
         {
             PlayerController.ChangeState(IPlayerState.EState.Idle);
         }

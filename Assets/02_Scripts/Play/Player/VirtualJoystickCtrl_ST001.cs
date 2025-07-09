@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class VirtualJoystickCtrl_ST001 : MonoBehaviour
@@ -10,8 +11,8 @@ public class VirtualJoystickCtrl_ST001 : MonoBehaviour
     private Vector2 stickCenterPos;
     private float controlRadius = 140;
     private bool isStopControl = false;
-    public Vector2 dir;
-    
+    public Vector2 Dir { get; set; }
+
     private void Start()
     {
         //mover = GetComponent<PlayerMover_ST001>();
@@ -33,7 +34,7 @@ public class VirtualJoystickCtrl_ST001 : MonoBehaviour
             {
                 virtualStick.gameObject.SetActive(false);
             }
-            dir = Vector2.zero;
+            Dir = Vector2.zero;
             return; 
         }
         
@@ -51,9 +52,9 @@ public class VirtualJoystickCtrl_ST001 : MonoBehaviour
         }
         else if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) 
         {
-            dir = convertToDirection(touch.position);
+            Dir = convertToDirection(touch.position);
             //mover.SetDirection(dir);
-            virtualStick.setStickPos(dir);
+            virtualStick.setStickPos(Dir);
             
         }
     }

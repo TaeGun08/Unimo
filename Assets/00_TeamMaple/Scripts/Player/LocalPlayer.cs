@@ -28,8 +28,13 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
         var unimo =unimoTable.GetPrefabByKey(Base_Mng.Data.data.CharCount);
         var engine =engineTable.GetPrefabByKey(Base_Mng.Data.data.EQCount);
         
-        Instantiate(unimo, transform.position + Vector3.up, Quaternion.Euler(0,180f,0), transform);
-        Instantiate(engine, transform.position, Quaternion.Euler(0,180f,0), transform);
+        playerController.UnimoAnim = Instantiate(unimo, transform.position + Vector3.up,
+            Quaternion.Euler(0,180f,0), transform).GetComponent<Animator>();
+        playerController.EqAnim = Instantiate(engine, transform.position, 
+            Quaternion.Euler(0,180f,0), transform).GetComponent<Animator>();
+
+        playerController.UnimoAnim.enabled = true;
+        playerController.EqAnim.enabled = true;
     }
 
     public void TakeDamage()
