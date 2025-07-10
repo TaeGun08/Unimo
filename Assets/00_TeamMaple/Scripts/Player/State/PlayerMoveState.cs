@@ -25,7 +25,7 @@ public class PlayerMoveState : PlayerState
             PlayerController.transform.position = mapSetter.FindNearestPoint(PlayerController.transform.position);
         }
         
-        UpdateRotation(PlayerController.VirtualJoystickCtrl.Dir, 0.1f);
+        UpdateMoveAndRotation(PlayerController.VirtualJoystickCtrl.Dir, 0.1f);
 
         if (PlayerController.VirtualJoystickCtrl.Dir.magnitude < 0.01f)
         {
@@ -38,11 +38,11 @@ public class PlayerMoveState : PlayerState
     }
     
     /// <summary>
-    /// 회전 처리
+    /// 이동 및 회전 처리
     /// </summary>
     /// <param name="inputAxis"></param>
     /// <param name="smoothTime"></param>
-    private void UpdateRotation(Vector2 inputAxis, float smoothTime)
+    private void UpdateMoveAndRotation(Vector2 inputAxis, float smoothTime)
     {
         if (inputAxis.sqrMagnitude < 0.01f) return; // 입력 없으면 처리 안 함
 
@@ -59,7 +59,7 @@ public class PlayerMoveState : PlayerState
 
         Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
         
-        float speed = 5f;
+        float speed = LocalPlayer.Instance.UnimoData.Speed;
         PlayerController.transform.position += moveDirection.normalized * (speed * Time.deltaTime);
     }
 }

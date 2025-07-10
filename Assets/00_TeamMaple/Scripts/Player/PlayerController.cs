@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,8 +17,10 @@ public class PlayerController : MonoBehaviour
     public Animator UnimoAnim { get; set; }
     public Animator EqAnim { get; set; }
 
-    private void Awake()
+    private IEnumerator Start()
     {
+        yield return null;
+        
         virtualJoystickCtrl = GetComponent<VirtualJoystickCtrl_ST001>();
         
         StatesDic = new Dictionary<IPlayerState.EState, PlayerState>();

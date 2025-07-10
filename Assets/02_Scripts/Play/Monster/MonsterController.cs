@@ -41,7 +41,8 @@ public class MonsterController : MonoBehaviour
                 hitpos.y = 0f;
                 // 기존 hit처리
                 // player.Hit(collideStunTime, hitpos);
-                player.TakeDamage();
+                player.TakeDamage(transform.position);
+                
                 Vector3 fxPos = (isexplodeFXAtPlayer) ? (hitpos + other.transform.position) / 2f + 1.5f * Vector3.up : hitpos + 1.5f * Vector3.up;
                 GameObject obj = Instantiate(explodeFX, fxPos, Quaternion.identity);
                 obj.GetComponent<AudioSource>().volume = Sound_Manager.instance._audioSources[1].volume;
@@ -50,6 +51,7 @@ public class MonsterController : MonoBehaviour
             }
         }
     }
+    
     public void InitEnemy(Transform targetPlayer)
     {
         playerTransform = targetPlayer;

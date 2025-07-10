@@ -4,6 +4,9 @@
     <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/JsonLoader/JsonDataManager.cs" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerHitState.cs" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerMoveState.cs" charset="EUC-KR" />
+    <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerStunState.cs" charset="EUC-KR" />
+    <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/EquipmentStatDataSO.cs" charset="EUC-KR" />
+    <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/UnimoStatDataSO.cs" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/Assets/02_Scripts/Pinous/Firebase/Firebase_Database.cs" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/Assets/02_Scripts/Pinous/IAP_Manager.cs" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/Assets/02_Scripts/Play/Player/PlayerMover_ST001.cs" charset="EUC-KR" />
