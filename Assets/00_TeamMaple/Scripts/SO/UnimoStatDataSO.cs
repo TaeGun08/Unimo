@@ -49,6 +49,29 @@ public class UnimoData
     public float HpRecovery { get; set; }    // 체력 회복력
     public float FlowerDropSpeed { get; set; }    // 꽃 낙하 속도
     public float FlowerDropAmount { get; set; }    // 꽃 낙하량
+    
+    // 회피율 계산 
+    public bool DodgeCalculation(float dodge)
+    {
+        float evadeRate =  dodge * 100f;
+        int rand = Random.Range(0, 100);
+
+        if (rand < evadeRate)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    
+    // 스턴 지속시간 계산
+    public float stunDuration(float recovery)
+    {
+        float stunRecovery =   recovery * 100f;
+        return 1- stunRecovery;
+    }
 }
 
 [CreateAssetMenu(fileName = "UnimoStatDataSO", menuName = "Scriptable Object/UnimoStatDataSO")]
@@ -85,5 +108,39 @@ public class UnimoStatDataSO : ScriptableObject
 
         Debug.LogWarning($"UnimoData with ID {unimoID} not found.");
         return null;
+    }
+    
+    /// <summary>
+    /// 임시 유니모 데이터 
+    /// </summary>
+    public UnimoData CreateDefaultUnimo()
+    {
+        return new UnimoData
+        {
+            ID = 0,
+            Level = 1,
+            Name = "Unimo",
+
+            Rank = UnimoRank.Normal,
+
+            SpecialStat1 = UnimoStat.None,
+            SpecialStat2 = UnimoStat.None,
+            SpecialStat3 = UnimoStat.None,
+
+            Hp = 100,
+            Def = 10,
+            Speed = 1,
+
+            BloomRange = 1,
+            BloomSpeed = 1.0f,
+            FlowerRate = 5.0f,
+            RareFlowerRate = 20.0f,
+
+            Dodge = 0.3f,
+            StunRecovery = 1.0f,
+            HpRecovery = 0.5f,
+            FlowerDropSpeed = 1.0f,
+            FlowerDropAmount = 1.0f
+        };
     }
 }

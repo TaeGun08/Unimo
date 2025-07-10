@@ -22,6 +22,7 @@ public class PlayerMover : MonoBehaviour
     // Start is called before the first frame update
     protected void Start()
     {
+        SetSpeed(LocalPlayer.Instance.UnimoData.Speed);
         playerTransform = transform;
         mapSetter = PlaySystemRefStorage.mapSetter;
         visualCtrl = GetComponent<PlayerVisualController>();
@@ -37,10 +38,11 @@ public class PlayerMover : MonoBehaviour
     
     public void SetSpeed(float speed)
     {
+        Debug.Log($"{name} speed: {speed}");
         moveSpeed = speed;
-        if (Base_Mng.Data.data.BuffFloating[0] >= 0.0f)
-            moveSpeed = 16.0f;
-        else moveSpeed = 8.5f;
+        // if (Base_Mng.Data.data.BuffFloating[0] >= 0.0f)
+        //     moveSpeed = 16.0f;
+        // else moveSpeed = 8.5f;
     }
     public void StunPush(float stunTime, Vector3 hitPos)
     {
