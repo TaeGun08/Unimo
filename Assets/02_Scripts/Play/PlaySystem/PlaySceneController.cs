@@ -45,6 +45,7 @@ public class PlaySceneController : MonoBehaviour
     {
         PlayerPrefs.SetInt("GetRewardCount", PlayerPrefs.GetInt("GetRewardCount") - 1);
         Data_Mng.SetPlayScene = true;
+        JsonDataManager.Instance.SaveServerData(Base_Mng.Data.data);
         if (PlayerPrefs.GetInt("GetRewardCount") <= 0)
         {
             PlayerPrefs.SetInt("GetRewardCount", 2);
@@ -61,7 +62,5 @@ public class PlaySceneController : MonoBehaviour
             WholeSceneController.Instance.ReadyNextScene(0);
             Time.timeScale = 1f;
         }
-        
-        JsonDataManager.Instance.SaveServerData(Base_Mng.Data.data);
     }
 }

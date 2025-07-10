@@ -10,7 +10,7 @@ public class PlayTimeManager : MonoBehaviour
     [SerializeField] private float reduceIncTime = 120f;
     private float remainTime = 60f;
     private float minReduce = 1f;
-    private bool isPaused = true;
+    private bool isPaused;
     private ItemGenerator itemGenerator;
     [SerializeField] private TimeGaugeController timerGauge;
     void Awake()

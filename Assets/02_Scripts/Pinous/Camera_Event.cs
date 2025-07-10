@@ -85,7 +85,7 @@ public class Camera_Event : MonoBehaviour
 
     public void MoverChange(bool isBoolean)
     {
-        mover.enabled = isBoolean;
+        //mover.enabled = isBoolean;
         zoomer.enabled = isBoolean;
         moveClient.enabled = isBoolean;
         zoomClient.enabled = isBoolean;
