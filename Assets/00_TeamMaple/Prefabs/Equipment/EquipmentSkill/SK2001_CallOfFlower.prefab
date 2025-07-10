@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4289842337889880695}
   - component: {fileID: -79707234481804651}
   m_Layer: 0
-  m_Name: SK2001_BloomRangeUp
+  m_Name: SK2001_CallOfFlower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
