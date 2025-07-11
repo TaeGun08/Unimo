@@ -13,6 +13,7 @@ public enum UnimoRank
 public enum UnimoStat
 {
     None,
+    All,
     Hp,
     Def,
     Speed,
@@ -30,7 +31,7 @@ public enum UnimoStat
 [System.Serializable]
 public class UnimoData
 {
-    public int ID { get; set; }    // 유니모 아이디
+    public int Id { get; set; }    // 유니모 아이디
     public int Level { get; set; }    // 유니모 레벨
     public string Name { get; set; }    // 유니모 이름
     public UnimoRank Rank { get; set; }    // 유니모 등급
@@ -101,7 +102,7 @@ public class UnimoStatDataSO : ScriptableObject
 
             foreach (UnimoData record in records)
             {
-                if (record.ID == unimoID)
+                if (record.Id == unimoID)
                     return record;
             }
         }
@@ -117,7 +118,7 @@ public class UnimoStatDataSO : ScriptableObject
     {
         return new UnimoData
         {
-            ID = 0,
+            Id = 0,
             Level = 1,
             Name = "Unimo",
 

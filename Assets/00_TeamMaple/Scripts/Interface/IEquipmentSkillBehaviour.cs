@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IEquipmentSkillBehaviour
 {
-    void Excute(GameObject caster, EquipmentSkillType type, float cooldown, float duration, float param1, float param2);
+    void Excute(GameObject caster, EquipmentSkillType type, float cooldown, float duration, float param);
 }

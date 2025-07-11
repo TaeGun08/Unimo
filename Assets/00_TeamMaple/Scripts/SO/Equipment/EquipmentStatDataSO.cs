@@ -14,7 +14,7 @@ public enum EquipmentRank
 [System.Serializable]
 public class EquipmentData
 {
-    public int ID { get; set; }    // 엔진 아이디
+    public int Id { get; set; }    // 엔진 아이디
     public int Level { get; set; }    // 엔진 레벨
     public string Name { get; set; }    // 엔진 이름
     public EquipmentRank Rank { get; set; }    // 엔진 등급
@@ -57,7 +57,7 @@ public class EquipmentStatDataSO : ScriptableObject
 
             foreach (EquipmentData record in records)
             {
-                if (record.ID == equipmentID)
+                if (record.Id == equipmentID)
                     return record;
             }
         }

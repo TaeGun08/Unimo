@@ -4,7 +4,7 @@ using UnityEngine;
 // 개화 범위 증가 스킬
 public class BloomRangeUpSkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviour
 {
-    public void Excute(GameObject caster, EquipmentSkillType type, float cooldown, float duration, float param1, float param2)
+    public void Excute(GameObject caster, EquipmentSkillType type, float cooldown, float duration, float param)
     {
         switch (type)
         {

@@ -5,38 +5,52 @@ using UnityEngine.UI;
 public class SkillTestHelper : MonoBehaviour
 {
     [SerializeField] private PrefabsTable skillTable;
-    
-    [SerializeField] private Button skillButton1;
-    [SerializeField] private Button skillButton2;
-    
+    [SerializeField] private Button skillButton;
     [SerializeField] private GameObject player;
+    [SerializeField] private EquipmentSkillDataSO skillDataSO;
 
     private void Start()
     {
-        // 엔진이 가진 스킬 아이디 넣어주기
-        var skill1ID = 2001;
-        var skill2ID = 2002;
+        SetEngineSkills();
+    }
+
+    private void SetEngineSkills()
+    {
+        // 엔진이 가진 스킬 아이디 넣어주기 (엔진 데이터에서 갖고오기)
+        var skillId1 = 2001;
+        var skillId2 = 2002;
         
         // 프리팹 생성
-        var skill1Prefab = Instantiate(skillTable.GetPrefabByKey(skill1ID), player.transform);
-        var skill2Prefab = Instantiate(skillTable.GetPrefabByKey(skill2ID), player.transform);
+        var skillPrefab1 = Instantiate(skillTable.GetPrefabByKey(skillId1), player.transform);
+        var skillPrefab2 = Instantiate(skillTable.GetPrefabByKey(skillId2), player.transform);
 
         // 스킬 발동 위해 캐싱
-        var skill1 = skill1Prefab.GetComponent<IEquipmentSkillBehaviour>();
-        var skill2 = skill2Prefab.GetComponent<IEquipmentSkillBehaviour>();
+        var skillExcutor1 = skillPrefab1.GetComponent<IEquipmentSkillBehaviour>();
+        var skillExcutor2 = skillPrefab2.GetComponent<IEquipmentSkillBehaviour>();
         
-        // 스킬 데이터 캐싱도 해야함
-        
-        // 패시브 같은 경우에는 게임 시작할 때 바로 실행시켜주는 식으로 진행해야 함
-        skillButton1.onClick.AddListener(() =>
+        // 스킬 데이터 캐싱
+        var skillData1 = skillDataSO.GetEquipmentSkillData(skillId1);
+        var skillData2 = skillDataSO.GetEquipmentSkillData(skillId2);
+
+        // 패시브 적용
+        skillExcutor1.Excute(player, skillData1.Type, skillData1.Cooldown, skillData1.Duration, skillData1.Param);
+        Debug.Log($"[Skill1] " +
+                  $"Id: {skillId1} / " +
+                  $"Type: {skillData1.Type} / " +
+                  $"Cooldown: {skillData1.Cooldown} / " +
+                  $"Duration: {skillData1.Duration} / " +
+                  $"Param: {skillData1.Param}");
+
+        // 액티브 등록
+        skillButton.onClick.AddListener(() =>
         {
-            skill1.Excute(player, EquipmentSkillType.Passive, 10f, 5f, 10f, 50f);
-        });
-        
-        // 액티브는 버튼 누르면 발동되게끔 진행해야 함
-        skillButton2.onClick.AddListener(() =>
-        {
-            skill2.Excute(player, EquipmentSkillType.Active, 10f, 5f, 10f, 50f);
+            skillExcutor2.Excute(player, skillData2.Type, skillData2.Cooldown, skillData2.Duration, skillData2.Param);
+            Debug.Log($"[Skill2] " +
+                      $"Id: {skillId2} / " +
+                      $"Type: {skillData2.Type} / " +
+                      $"Cooldown: {skillData2.Cooldown} / " +
+                      $"Duration: {skillData2.Duration} / " +
+                      $"Param: {skillData2.Param}");
         });
     }
 }
