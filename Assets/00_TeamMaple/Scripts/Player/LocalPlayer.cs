@@ -1,5 +1,7 @@
 using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class LocalPlayer : MonoBehaviour, IDamageAble
@@ -10,10 +12,12 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
     [SerializeField] private UnimoStatDataSO unimoStatData;
     [SerializeField] private PrefabsTable unimoTable;
     [SerializeField] private PrefabsTable engineTable;
-    public UnimoData UnimoData => unimoStatData.CreateDefaultUnimo();
+    public UnimoData UnimoData;
     
     private PlayerController playerController;
     public Vector3 LastAttackerPos { get; private set; }
+
+    public TMP_Text RemainHp; 
     public int CurMaxHp {get; set;}
 
     private void Awake()
@@ -23,7 +27,8 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
         Instance = this;
         
         playerController = GetComponent<PlayerController>();
-        
+        UnimoData = unimoStatData.CreateDefaultUnimo();
+            
         // 장착된 유니모 체크 및 생성
         Debug.Log($"LocalPlayer CharCount:: {Base_Mng.Data.data.CharCount}");
         Debug.Log($"LocalPlayer EQCount:: {Base_Mng.Data.data.EQCount}");
@@ -33,6 +38,11 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
         
         SetPlayerAnimator(unimo,  engine);
         CurMaxHp = UnimoData.Hp;
+    }
+
+    private void Update()
+    {
+        RemainHp.text = UnimoData.Hp.ToString();
     }
 
     private void SetPlayerAnimator(GameObject unimo, GameObject engine)
