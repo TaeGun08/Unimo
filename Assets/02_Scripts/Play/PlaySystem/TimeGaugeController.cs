@@ -28,7 +28,9 @@ public class TimeGaugeController : MonoBehaviour
         cautionAudio = GetComponent<AudioSource>();
         maxWidth = timerRect.transform.parent.GetComponent<RectTransform>().rect.width;
         height = timerRect.rect.height;
+        
         SetGauge(1f);
+        
         PlaySystemRefStorage.playProcessController.SubscribePauseAction(stopCaution);
         PlaySystemRefStorage.playProcessController.SubscribeGameoverAction(stopCaution);
         PlaySystemRefStorage.playProcessController.SubscribeResumeAction(startCaution);
@@ -41,6 +43,7 @@ public class TimeGaugeController : MonoBehaviour
         setImageColors(ratio);
         timerRect.sizeDelta = new Vector2(ratio * maxWidth, height);
     }
+    
     private void checkClockShake(float ratio)
     {
         if (!canCaution) 

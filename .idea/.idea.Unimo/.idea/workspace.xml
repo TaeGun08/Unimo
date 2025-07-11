@@ -5,26 +5,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="336f0a6d-2cdb-483f-b77e-b331b3f9fb5f" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Unimo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unimo/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/00_Scenes/GameScene/PlayScene_ST001.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_Scenes/GameScene/PlayScene_ST001.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Resources/SOData/EquipmentSkill/EquimentSkillDataSO.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Resources/SOData/EquipmentSkill/EquimentSkillDataSO.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Equipment/EquipmentSkill/BloomRangeUpSkillBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Equipment/EquipmentSkill/BloomRangeUpSkillBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Equipment/EquipmentSkill/HpRecoverySkillBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Equipment/EquipmentSkill/HpRecoverySkillBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Equipment/EquipmentSkill/SkillTestHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Equipment/EquipmentSkill/SkillTestHelper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Equipment/EquipmentSkill/StunRecoverySkillBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Equipment/EquipmentSkill/StunRecoverySkillBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Interface/IEquipmentSkillBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Interface/IEquipmentSkillBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/EquimentSkillDataSO.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/EquimentSkillDataSO.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/EquipmentStatDataSO.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/EquipmentStatDataSO.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/UnimoStatDataSO.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/UnimoStatDataSO.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/03_Graphics/TestResource/RenderTexture_ChaSet.renderTexture" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03_Graphics/TestResource/RenderTexture_ChaSet.renderTexture" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/03_Graphics/TestResource/RewardTexture.renderTexture" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03_Graphics/TestResource/RewardTexture.renderTexture" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/03_Graphics/TestResource/Test_RenderTexture.renderTexture" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03_Graphics/TestResource/Test_RenderTexture.renderTexture" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GoogleMobileAds/Editor/Resources/PlaceholderAds/Banners/ADAPTIVE.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GoogleMobileAds/Editor/Resources/PlaceholderAds/Banners/ADAPTIVE.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GoogleMobileAds/Editor/Resources/PlaceholderAds/Interstitials/768x1024.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GoogleMobileAds/Editor/Resources/PlaceholderAds/Interstitials/768x1024.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GoogleMobileAds/Editor/Resources/PlaceholderAds/Rewarded/768x1024.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GoogleMobileAds/Editor/Resources/PlaceholderAds/Rewarded/768x1024.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQ001_BeeTail.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQ001_BeeTail.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQ002_Box.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQ002_Box.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQ003_HoneyJar.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQ003_HoneyJar.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQ004_StoneMortar.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQ004_StoneMortar.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQ005_CleanBucket.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQ005_CleanBucket.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQ006_MonoPlane.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQ006_MonoPlane.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQ007_HatchedEgg.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQ007_HatchedEgg.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQ008_Scootus.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQ008_Scootus.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQ009_Vase.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQ009_Vase.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQ010_EmperorPenguin.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQ010_EmperorPenguin.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQ011_DogHouse.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQ011_DogHouse.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQ012_Sack.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQ012_Sack.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQC001_OakTong.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQC001_OakTong.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQC002_Icecream.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQC002_Icecream.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQC003_WitchSot.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQC003_WitchSot.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQC004_DogBowl.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQC004_DogBowl.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQC005_TrashCan.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQC005_TrashCan.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQC006_SandCastle.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQC006_SandCastle.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQC007_Bathtub.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQC007_Bathtub.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQC008_ElfCup.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQC008_ElfCup.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQC009_MagicHat.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQC009_MagicHat.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQC010_Cloud.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Equipment/EQC010_Cloud.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Unimo/CH001_RiBee.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Unimo/CH001_RiBee.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Unimo/CH002_Sofo.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Unimo/CH002_Sofo.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Unimo/CH003_Gomgom.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Unimo/CH003_Gomgom.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Unimo/CH004_Jeomboon.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Unimo/CH004_Jeomboon.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Unimo/CH005_HighFish.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Unimo/CH005_HighFish.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Unimo/CH006_Cu.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Unimo/CH006_Cu.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Unimo/CH007_DoomDoom.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Unimo/CH007_DoomDoom.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Unimo/CH008_Augustus.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Unimo/CH008_Augustus.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Unimo/CH009_Al.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Unimo/CH009_Al.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Unimo/CH010_Primo.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Unimo/CH010_Primo.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Unimo/CH011_Muffin.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Unimo/CH011_Muffin.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Unimo/CH012_Matilda.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Prefabs/Unimo/CH012_Matilda.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/LocalPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/LocalPlayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerStunState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerStunState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/Unimo/UnimoStatDataSO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/Unimo/UnimoStatDataSO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/PlaySystem/PlayTimeManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/PlaySystem/PlayTimeManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/PlaySystem/TimeGaugeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/PlaySystem/TimeGaugeController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,8 +61,10 @@
     <setting file="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/PlayerController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerHitState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerStunState.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/Equipment/EquipmentSkillDataSO.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/PrefabsTable.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/Unimo/UnimoStatDataSO.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/UnityProject/Unimo/Assets/00_TeamMaple/Scripts/SO/Unimo/UnimoStatDataSO.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/UnityProject/Unimo/Assets/00_TeamMaple/Scripts/SO/Unimo/UnimoStatDataSO.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/02_Scripts/Pinous/Firebase/Firebase_Mng.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/02_Scripts/Play/Player/PlayerVisualController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@2581a6be7421/Runtime/Addressables.cs" root0="SKIP_HIGHLIGHTING" />
@@ -67,7 +88,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "Unity 에디터에 연결.Unity 에디터에 연결.executor": "Debug",
     "XThreadsFramesViewSplitterKey": "0.35358256",
-    "git-widget-placeholder": "Feature/EquipmentSkill",
+    "git-widget-placeholder": "Develop 병합 중",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",

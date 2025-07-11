@@ -14,7 +14,8 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
     
     private PlayerController playerController;
     public Vector3 LastAttackerPos { get; private set; }
-    
+    public int CurMaxHp {get; set;}
+
     private void Awake()
     {
         if (Instance != null) Destroy(gameObject);
@@ -31,6 +32,7 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
         var engine =engineTable.GetPrefabByKey(Base_Mng.Data.data.EQCount);
         
         SetPlayerAnimator(unimo,  engine);
+        CurMaxHp = UnimoData.Hp;
     }
 
     private void SetPlayerAnimator(GameObject unimo, GameObject engine)
