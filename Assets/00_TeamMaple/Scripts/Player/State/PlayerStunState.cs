@@ -13,8 +13,8 @@ public class PlayerStunState : PlayerState
     {
         Debug.Log("PlayerStunState !");
         
-        PlayerController.EqAnim.SetTrigger("stun");
-        PlayerController.EqAnim.SetBool("isstun", true);
+        PlayerController.EgineAnim.SetTrigger("stun");
+        PlayerController.EgineAnim.SetBool("isstun", true);
         PlayerController.UnimoAnim.SetBool("isstun", true);
         
         yield return new WaitForSeconds(duration);
@@ -28,7 +28,7 @@ public class PlayerStunState : PlayerState
 
     public override void StateExit()
     {
-        PlayerController.EqAnim.SetBool("isstun", false);
+        PlayerController.EgineAnim.SetBool("isstun", false);
         PlayerController.UnimoAnim.SetBool("isstun", false);
     }
     

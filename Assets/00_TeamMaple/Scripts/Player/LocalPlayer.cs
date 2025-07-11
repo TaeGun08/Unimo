@@ -36,7 +36,7 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
     private void SetPlayerAnimator(GameObject unimo, GameObject engine)
     {
         playerController.UnimoAnim = InstantiateAnimator(unimo, transform.position + Vector3.up);
-        playerController.EqAnim = InstantiateAnimator(engine, transform.position);
+        playerController.EgineAnim = InstantiateAnimator(engine, transform.position);
     }
 
     private Animator InstantiateAnimator(GameObject prefab, Vector3 position)

@@ -5,18 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="336f0a6d-2cdb-483f-b77e-b331b3f9fb5f" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Unimo/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unimo/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Unimo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unimo/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Interface/IDamageAble.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Interface/IDamageAble.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Resources/SOData/UnimoStatData.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Resources/SOData/UnimoStatData.asset.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/LocalPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/LocalPlayer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/PlayerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerHitState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerHitState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerMoveState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerMoveState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerStunState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerStunState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/UnimoStatDataSO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/UnimoStatDataSO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/Monster/MonsterController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/Monster/MonsterController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/02_Scripts/Play/Player/PlayerMover.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02_Scripts/Play/Player/PlayerMover.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/AddressableAssetSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AddressableAssetSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/UI/##Character.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/UI/##Character.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/UI/##Game.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/UI/##Game.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Anton SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Anton SDF.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,11 +30,17 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/Desktop/ClampedValue/ClampedFloat.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/Desktop/ClampedValue/ClampedInt.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/Desktop/ClampedValue/ClampedUInt.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/Desktop/ClampedValue/ClampedValue.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/Downloads/TransformExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/LocalPlayer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/PlayerController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerHitState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerStunState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/PrefabsTable.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Static/MovementExtentions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/02_Scripts/Pinous/Firebase/Firebase_Mng.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/02_Scripts/Play/Player/PlayerVisualController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@2581a6be7421/Runtime/Addressables.cs" root0="SKIP_HIGHLIGHTING" />
@@ -58,7 +64,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;Unity 에디터에 연결.Unity 에디터에 연결.executor&quot;: &quot;Debug&quot;,
     &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.35358256&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Develop&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Feature/StageProcedural&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -134,6 +140,8 @@
       <workItem from="1752051775117" duration="209000" />
       <workItem from="1752052128727" duration="387000" />
       <workItem from="1752053067657" duration="18000" />
+      <workItem from="1752198605225" duration="4341000" />
+      <workItem from="1752206255548" duration="3910000" />
     </task>
     <servers />
   </component>
@@ -143,6 +151,7 @@
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityProjectDiscoverer">
+    <option name="hasUnityReference" value="true" />
     <option name="unityProject" value="true" />
     <option name="unityProjectFolder" value="true" />
   </component>
