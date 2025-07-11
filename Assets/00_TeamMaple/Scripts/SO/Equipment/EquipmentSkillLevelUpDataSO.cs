@@ -7,13 +7,12 @@ using UnityEngine;
 [System.Serializable]
 public class EquipmentSkillLevelUpData
 {
-    public int Id { get; set; }    // 엔진 스킬 아이디
-    public string Name { get; set; }    // 엔진 스킬 이름
-    public EquipmentSkillType Type { get; set; }    // 엔진 스킬 타입 (패시브 or 액티브)
-    public int Cooldown { get; set; }   // 엔진 스킬 쿨타임
-    public int Duration { get; set; }   // 엔진 스킬 지속시간
+    public int Id { get; set; }
+    public int Level { get; set; }
+    public int Cooldown { get; set; }
+    public int Duration { get; set; }
     public float Param { get; set; }   // 엔진 스킬 파라미터
-    public string Description { get; set; }    // 엔진 스킬 설명
+    public string Description { get; set; }
 }
 
 [CreateAssetMenu(fileName = "EquipmentSkillLevelUpDataSO", menuName = "Scriptable Object/EquipmentSkillLevelUpDataSO")]
