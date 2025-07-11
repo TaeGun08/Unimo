@@ -13,8 +13,8 @@ public class PlayerStunState : PlayerState
     {
         Debug.Log("PlayerStunState !");
         
-        PlayerController.EqAnim.SetTrigger("stun");
-        PlayerController.EqAnim.SetBool("isstun", true);
+        PlayerController.EgineAnim.SetTrigger("stun");
+        PlayerController.EgineAnim.SetBool("isstun", true);
         PlayerController.UnimoAnim.SetBool("isstun", true);
         
         yield return new WaitForSeconds(duration);
@@ -28,18 +28,11 @@ public class PlayerStunState : PlayerState
 
     public override void StateExit()
     {
-        PlayerController.StartCoroutine(DelayedExitAnimationReset());
-    }
-
-    private IEnumerator DelayedExitAnimationReset()
-    {
-        yield return new WaitForSeconds(0.5f);
-        
-        PlayerController.EqAnim.SetBool("isstun", false);
+        PlayerController.EgineAnim.SetBool("isstun", false);
         PlayerController.UnimoAnim.SetBool("isstun", false);
     }
     
-    // ï¿½Ë¹ï¿½ ï¿½Ó½ï¿½ ï¿½Úµï¿½
+    // ³Ë¹é ÀÓ½Ã ÄÚµå
     private void ApplyKnockback()
     {
         Vector3 knockbackDir = (PlayerController.transform.position - LocalPlayer.Instance.LastAttackerPos).normalized;

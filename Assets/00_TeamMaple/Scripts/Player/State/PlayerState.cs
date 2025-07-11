@@ -8,19 +8,25 @@ public abstract class PlayerState : MonoBehaviour, IPlayerState
     public PlayerController PlayerController { get; set; }
     public LocalPlayer LocalPlayer {get; private set;}
     
+    protected MapRangeSetter mapSetter;
+    
     [Header("PlayerState Settings")]
     [SerializeField] private IPlayerState.EState state;
 
     public IPlayerState.EState State => state;
-
+    
     protected void Start()
     {
-        // 여기서 초기화 해주면 null뜨는 듯 ( ? )
         LocalPlayer = LocalPlayer.Instance;
+        mapSetter = PlaySystemRefStorage.mapSetter;
     }
 
     protected void Update()
     {
+        if (PlayerController == null || 
+            LocalPlayer == null || 
+            mapSetter == null) return;
+        
         StateUpdate();
     }
 

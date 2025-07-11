@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public VirtualJoystickCtrl_ST001 VirtualJoystickCtrl => virtualJoystickCtrl;
     
     public Animator UnimoAnim { get; set; }
-    public Animator EqAnim { get; set; }
+    public Animator EgineAnim { get; set; }
 
     private IEnumerator Start()
     {
@@ -27,8 +27,8 @@ public class PlayerController : MonoBehaviour
         
         foreach (PlayerState playerSate in playerSates)
         {
-            playerSate.PlayerController = this;
             StatesDic.Add(playerSate.State, playerSate);
+            StatesDic[playerSate.State].PlayerController = this;
             playerSate.gameObject.SetActive(false);
         }
         
