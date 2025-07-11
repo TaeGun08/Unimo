@@ -30,27 +30,27 @@ public enum UnimoStat
 [System.Serializable]
 public class UnimoData
 {
-    public int ID { get; set; }    // À¯´Ï¸ğ ¾ÆÀÌµğ
-    public int Level { get; set; }    // À¯´Ï¸ğ ·¹º§
-    public string Name { get; set; }    // À¯´Ï¸ğ ÀÌ¸§
-    public UnimoRank Rank { get; set; }    // À¯´Ï¸ğ µî±Ş
-    public UnimoStat SpecialStat1 { get; set; }    // À¯´Ï¸ğ Æ¯È­ ½ºÅÈ 1
-    public UnimoStat SpecialStat2 { get; set; }    // À¯´Ï¸ğ Æ¯È­ ½ºÅÈ 2
-    public UnimoStat SpecialStat3 { get; set; }    // À¯´Ï¸ğ Æ¯È­ ½ºÅÈ 3
-    public int Hp { get; set; }    // À¯´Ï¸ğ Ã¼·Â
-    public int Def { get; set; }    // À¯´Ï¸ğ ¹æ¾î·Â
-    public int Speed { get; set; }    // À¯´Ï¸ğ ¼Óµµ
-    public int BloomRange { get; set; }    // °³È­ ¹üÀ§
-    public float BloomSpeed { get; set; }    // °³È­ ¼Óµµ
-    public float FlowerRate { get; set; }    // ²É »ı¼º ÁÖ±â
-    public float RareFlowerRate { get; set; }    // Èñ±Í ²É »ı¼º ÁÖ±â 
-    public float Dodge { get; set; }    // È¸ÇÇÀ²
-    public float StunRecovery { get; set; }    // ½ºÅÏ È¸º¹·Â
-    public float HpRecovery { get; set; }    // Ã¼·Â È¸º¹·Â
-    public float FlowerDropSpeed { get; set; }    // ²É ³«ÇÏ ¼Óµµ
-    public float FlowerDropAmount { get; set; }    // ²É ³«ÇÏ·®
+    public int ID { get; set; }    // ìœ ë‹ˆëª¨ ì•„ì´ë””
+    public int Level { get; set; }    // ìœ ë‹ˆëª¨ ë ˆë²¨
+    public string Name { get; set; }    // ìœ ë‹ˆëª¨ ì´ë¦„
+    public UnimoRank Rank { get; set; }    // ìœ ë‹ˆëª¨ ë“±ê¸‰
+    public UnimoStat SpecialStat1 { get; set; }    // ìœ ë‹ˆëª¨ íŠ¹í™” ìŠ¤íƒ¯ 1
+    public UnimoStat SpecialStat2 { get; set; }    // ìœ ë‹ˆëª¨ íŠ¹í™” ìŠ¤íƒ¯ 2
+    public UnimoStat SpecialStat3 { get; set; }    // ìœ ë‹ˆëª¨ íŠ¹í™” ìŠ¤íƒ¯ 3
+    public int Hp { get; set; }    // ìœ ë‹ˆëª¨ ì²´ë ¥
+    public int Def { get; set; }    // ìœ ë‹ˆëª¨ ë°©ì–´ë ¥
+    public int Speed { get; set; }    // ìœ ë‹ˆëª¨ ì†ë„
+    public int BloomRange { get; set; }    // ê°œí™” ë²”ìœ„
+    public float BloomSpeed { get; set; }    // ê°œí™” ì†ë„
+    public float FlowerRate { get; set; }    // ê½ƒ ìƒì„± ì£¼ê¸°
+    public float RareFlowerRate { get; set; }    // í¬ê·€ ê½ƒ ìƒì„± ì£¼ê¸° 
+    public float Dodge { get; set; }    // íšŒí”¼ìœ¨
+    public float StunRecovery { get; set; }    // ìŠ¤í„´ íšŒë³µë ¥
+    public float HpRecovery { get; set; }    // ì²´ë ¥ íšŒë³µë ¥
+    public float FlowerDropSpeed { get; set; }    // ê½ƒ ë‚™í•˜ ì†ë„
+    public float FlowerDropAmount { get; set; }    // ê½ƒ ë‚™í•˜ëŸ‰
     
-    // È¸ÇÇÀ² °è»ê 
+    // íšŒí”¼ìœ¨ ê³„ì‚° 
     public bool DodgeCalculation(float dodge)
     {
         float evadeRate =  dodge * 100f;
@@ -66,7 +66,7 @@ public class UnimoData
         }
     }
     
-    // ½ºÅÏ Áö¼Ó½Ã°£ °è»ê
+    // ìŠ¤í„´ ì§€ì†ì‹œê°„ ê³„ì‚°
     public float stunDuration(float recovery)
     {
         float stunRecovery =   recovery * 100f;
@@ -81,7 +81,7 @@ public class UnimoStatDataSO : ScriptableObject
     [SerializeField] private TextAsset unimoDataCsv;
 
     /// <summary>
-    /// ÀÔ·Â ¹ŞÀº ¾ÆÀÌµğ¿¡ µû¶ó µ¥ÀÌÅÍ ¹İÈ¯
+    /// ì…ë ¥ ë°›ì€ ì•„ì´ë””ì— ë”°ë¼ ë°ì´í„° ë°˜í™˜
     /// </summary>
     public UnimoData GetUnimoData(int unimoID)
     {
@@ -95,7 +95,7 @@ public class UnimoStatDataSO : ScriptableObject
         using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
             csv.Read(); // unimo_id, name, hp, ...
-            csv.ReadHeader();   // Çì´õ µî·Ï
+            csv.ReadHeader();   // í—¤ë” ë“±ë¡
             
             IEnumerable<UnimoData> records = csv.GetRecords<UnimoData>();
 
@@ -111,7 +111,7 @@ public class UnimoStatDataSO : ScriptableObject
     }
     
     /// <summary>
-    /// ÀÓ½Ã À¯´Ï¸ğ µ¥ÀÌÅÍ 
+    /// ì„ì‹œ ìœ ë‹ˆëª¨ ë°ì´í„° 
     /// </summary>
     public UnimoData CreateDefaultUnimo()
     {

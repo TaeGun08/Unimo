@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,9 +7,9 @@ public class PlayTimeManager : MonoBehaviour
 {
     public float LapseTime { get; private set; } = 0f;
     [SerializeField] private bool isInfinite = false;
-    [SerializeField] private float maxTime = 60f;
     [SerializeField] private float reduceIncTime = 120f;
-    private float remainTime = 60f;
+    private float maxTime = 0f;
+    private float remainTime = 0f;
     private float minReduce = 1f;
     private bool isPaused;
     private ItemGenerator itemGenerator;
@@ -17,6 +18,11 @@ public class PlayTimeManager : MonoBehaviour
     {
         PlaySystemRefStorage.playTimeManager = this;
         itemGenerator = FindAnyObjectByType<ItemGenerator>();
+    }
+
+    private void Start()
+    {
+        maxTime = LocalPlayer.Instance.CurMaxHp;
         remainTime = maxTime;
         timerGauge.SetGauge(remainTime / maxTime);
     }
@@ -24,7 +30,9 @@ public class PlayTimeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isPaused) { return; }
+        if (LocalPlayer.Instance == null) return;
+        if (isPaused) return; 
+        
         LapseTime += Time.deltaTime;
         float rate = calcReduceRate(LapseTime);
         itemGenerator.DecreaseTick(Time.deltaTime * rate);
