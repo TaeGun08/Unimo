@@ -8,7 +8,7 @@ public class PlayTimeManager : MonoBehaviour
     public float LapseTime { get; private set; } = 0f;
     [SerializeField] private bool isInfinite = false;
     [SerializeField] private float reduceIncTime = 120f;
-    private float maxTime = 0f;
+    private float maxTime = 60f;
     private float remainTime = 0f;
     private float minReduce = 1f;
     private bool isPaused;
@@ -22,7 +22,6 @@ public class PlayTimeManager : MonoBehaviour
 
     private void Start()
     {
-        maxTime = LocalPlayer.Instance.CurMaxHp;
         remainTime = maxTime;
         timerGauge.SetGauge(remainTime / maxTime);
     }
@@ -30,7 +29,6 @@ public class PlayTimeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (LocalPlayer.Instance == null) return;
         if (isPaused) return; 
         
         LapseTime += Time.deltaTime;
