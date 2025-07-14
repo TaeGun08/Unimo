@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.U2D;
 
 [System.Serializable]
@@ -15,7 +16,8 @@ public class Server_Data
     public double NextLevel_Base = 5;
     public double Yellow, Red, Blue, Green;
 
-    public int Stage;
+    public int HighStage;
+    public int CurrentStage;
 
     public float[] BuffFloating = new float[3];
 
