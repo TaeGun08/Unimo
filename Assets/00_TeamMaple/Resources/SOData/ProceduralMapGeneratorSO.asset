@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72155e4ae4134e5408776156063dc36e, type: 3}
   m_Name: ProceduralMapGeneratorSO
   m_EditorClassIdentifier: 
-  proceduralMapCsv: {fileID: 4900000, guid: 0f46cec40d0bcb640ad4e0622aea08ba, type: 3}
+  proceduralMapCsv: {fileID: 4900000, guid: 6ca410d8c1cc2f445b6ad6cda208d363, type: 3}
