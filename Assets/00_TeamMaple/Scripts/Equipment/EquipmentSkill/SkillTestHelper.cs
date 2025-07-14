@@ -16,23 +16,23 @@ public class SkillTestHelper : MonoBehaviour
 
     private void SetEngineSkills()
     {
-        // ¿£ÁøÀÌ °¡Áø ½ºÅ³ ¾ÆÀÌµð ³Ö¾îÁÖ±â (¿£Áø µ¥ÀÌÅÍ¿¡¼­ °®°í¿À±â)
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ö¾ï¿½ï¿½Ö±ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
         var skillId1 = 2001;
         var skillId2 = 2002;
         
-        // ÇÁ¸®ÆÕ »ý¼º
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         var skillPrefab1 = Instantiate(skillTable.GetPrefabByKey(skillId1), player.transform);
         var skillPrefab2 = Instantiate(skillTable.GetPrefabByKey(skillId2), player.transform);
 
-        // ½ºÅ³ ¹ßµ¿ À§ÇØ Ä³½Ì
+        // ï¿½ï¿½Å³ ï¿½ßµï¿½ ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½
         var skillExcutor1 = skillPrefab1.GetComponent<IEquipmentSkillBehaviour>();
         var skillExcutor2 = skillPrefab2.GetComponent<IEquipmentSkillBehaviour>();
         
-        // ½ºÅ³ µ¥ÀÌÅÍ Ä³½Ì
+        // ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½
         var skillData1 = skillDataSO.GetEquipmentSkillData(skillId1);
         var skillData2 = skillDataSO.GetEquipmentSkillData(skillId2);
 
-        // ÆÐ½Ãºê Àû¿ë
+        // ï¿½Ð½Ãºï¿½ ï¿½ï¿½ï¿½ï¿½
         skillExcutor1.Excute(player, skillData1.Type, skillData1.Cooldown, skillData1.Duration, skillData1.Param);
         Debug.Log($"[Skill1] " +
                   $"Id: {skillId1} / " +
@@ -41,7 +41,7 @@ public class SkillTestHelper : MonoBehaviour
                   $"Duration: {skillData1.Duration} / " +
                   $"Param: {skillData1.Param}");
 
-        // ¾×Æ¼ºê µî·Ï
+        // ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½
         skillButton.onClick.AddListener(() =>
         {
             skillExcutor2.Excute(player, skillData2.Type, skillData2.Cooldown, skillData2.Duration, skillData2.Param);
