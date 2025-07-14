@@ -6,8 +6,8 @@ using CsvHelper;
 
 public enum UnimoRank
 {
-    Normal,
-    Premium
+    N,
+    P
 }
 
 public enum UnimoStat
@@ -40,7 +40,7 @@ public class UnimoStatData
     public UnimoStat SpecialStat3 { get; set; }    // 유니모 특화 스탯 3
     public int Hp { get; set; }    // 유니모 체력
     public int Def { get; set; }    // 유니모 방어력
-    public int Speed { get; set; }    // 유니모 속도
+    public float Speed { get; set; }    // 유니모 속도
     public int BloomRange { get; set; }    // 개화 범위
     public float BloomSpeed { get; set; }    // 개화 속도
     public float FlowerRate { get; set; }    // 꽃 생성 주기
@@ -112,7 +112,7 @@ public class UnimoStatDataSO : ScriptableObject
     }
     
     /// <summary>
-    /// 임시 유니모 데이터 
+    /// 임시 초기 유니모 데이터 생성
     /// </summary>
     public UnimoStatData CreateDefaultUnimo()
     {
@@ -122,7 +122,7 @@ public class UnimoStatDataSO : ScriptableObject
             Level = 1,
             Name = "Unimo",
 
-            Rank = UnimoRank.Normal,
+            Rank = UnimoRank.N,
 
             SpecialStat1 = UnimoStat.None,
             SpecialStat2 = UnimoStat.None,
@@ -143,5 +143,15 @@ public class UnimoStatDataSO : ScriptableObject
             FlowerDropSpeed = 1.0f,
             FlowerDropAmount = 1.0f
         };
+    }
+
+    /// <summary>
+    /// 임시 유니모 데이터 셋팅
+    /// </summary>
+    public UnimoData SettingsUnimoData(int Id)
+    {
+        Debug.Log(GetUnimoData(Id));
+        
+        return GetUnimoData(Id);
     }
 }

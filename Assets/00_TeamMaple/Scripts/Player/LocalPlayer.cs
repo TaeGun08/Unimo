@@ -27,14 +27,20 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
         Instance = this;
         
         playerController = GetComponent<PlayerController>();
-        UnimoData = unimoStatData.CreateDefaultUnimo();
-            
+        
+        // 유니모 데이터 셋팅 
+        //UnimoData = unimoStatData.CreateDefaultUnimo();
+        
         // 장착된 유니모 체크 및 생성
         Debug.Log($"LocalPlayer CharCount:: {Base_Mng.Data.data.CharCount}");
         Debug.Log($"LocalPlayer EQCount:: {Base_Mng.Data.data.EQCount}");
+        
+        UnimoData = unimoStatData.SettingsUnimoData(Base_Mng.Data.data.CharCount);
 
         var unimo =unimoTable.GetPrefabByKey(Base_Mng.Data.data.CharCount);
         var engine =engineTable.GetPrefabByKey(Base_Mng.Data.data.EQCount);
+        
+        Debug.Log($"UnimoData:: {UnimoData.Level},  {UnimoData.Name}, {UnimoData.FlowerRate}");
         
         SetPlayerAnimator(unimo,  engine);
         CurMaxHp = UnimoData.Hp;
