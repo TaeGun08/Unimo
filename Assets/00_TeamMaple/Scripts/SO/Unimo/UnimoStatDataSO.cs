@@ -29,7 +29,7 @@ public enum UnimoStat
 }
 
 [System.Serializable]
-public class UnimoData
+public class UnimoStatData
 {
     public int Id { get; set; }    // 유니모 아이디
     public int Level { get; set; }    // 유니모 레벨
@@ -78,45 +78,45 @@ public class UnimoData
 [CreateAssetMenu(fileName = "UnimoStatDataSO", menuName = "Scriptable Object/UnimoStatDataSO")]
 public class UnimoStatDataSO : ScriptableObject
 {
-    [Header("UnimoDataCsv")]
-    [SerializeField] private TextAsset unimoDataCsv;
+    [Header("UnimoStatDataCsv")]
+    [SerializeField] private TextAsset unimoStatDataCsv;
 
     /// <summary>
     /// 입력 받은 아이디에 따라 데이터 반환
     /// </summary>
-    public UnimoData GetUnimoData(int unimoID)
+    public UnimoStatData GetUnimoStatData(int unimoID)
     {
-        if (unimoDataCsv == null)
+        if (unimoStatDataCsv == null)
         {
-            Debug.LogError("UnimoDataCsv is null");
+            Debug.LogError("UnimoStatDataCsv is null");
             return null;
         }
 
-        using (StringReader reader = new StringReader(unimoDataCsv.text))
+        using (StringReader reader = new StringReader(unimoStatDataCsv.text))
         using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
             csv.Read(); // unimo_id, name, hp, ...
             csv.ReadHeader();   // 헤더 등록
             
-            IEnumerable<UnimoData> records = csv.GetRecords<UnimoData>();
+            IEnumerable<UnimoStatData> records = csv.GetRecords<UnimoStatData>();
 
-            foreach (UnimoData record in records)
+            foreach (UnimoStatData record in records)
             {
                 if (record.Id == unimoID)
                     return record;
             }
         }
 
-        Debug.LogWarning($"UnimoData with ID {unimoID} not found.");
+        Debug.LogWarning($"UnimoStatData with ID {unimoID} not found.");
         return null;
     }
     
     /// <summary>
     /// 임시 초기 유니모 데이터 생성
     /// </summary>
-    public UnimoData CreateDefaultUnimo()
+    public UnimoStatData CreateDefaultUnimo()
     {
-        return new UnimoData
+        return new UnimoStatData
         {
             Id = 0,
             Level = 1,
@@ -148,10 +148,10 @@ public class UnimoStatDataSO : ScriptableObject
     /// <summary>
     /// 임시 유니모 데이터 셋팅
     /// </summary>
-    public UnimoData SettingsUnimoData(int Id)
+    public UnimoStatData SettingsUnimoData(int Id)
     {
-        Debug.Log(GetUnimoData(Id));
+        Debug.Log(GetUnimoStatData(Id));
         
-        return GetUnimoData(Id);
+        return GetUnimoStatData(Id);
     }
 }

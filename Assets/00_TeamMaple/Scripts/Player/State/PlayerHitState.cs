@@ -4,7 +4,7 @@ public class PlayerHitState : PlayerState
 {
     public override void StateEnter()
     {
-        var res = LocalPlayer.Instance.UnimoData.DodgeCalculation(LocalPlayer.Instance.UnimoData.Dodge);      
+        var res = LocalPlayer.Instance.UnimoStatData.DodgeCalculation(LocalPlayer.Instance.UnimoStatData.Dodge);      
         
         if (res)
         {

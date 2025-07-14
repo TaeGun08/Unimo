@@ -7697,6 +7697,54 @@ PrefabInstance:
       propertyPath: RemainHp
       value: 
       objectReference: {fileID: 683887256}
+    - target: {fileID: 5953960002914474849, guid: 35ca479c1a46ff444b6adde214f7cc9f,
+        type: 3}
+      propertyPath: equipmentTable
+      value: 
+      objectReference: {fileID: 11400000, guid: 9222c37c2cb3c17438c828e98b97e820,
+        type: 2}
+    - target: {fileID: 5953960002914474849, guid: 35ca479c1a46ff444b6adde214f7cc9f,
+        type: 3}
+      propertyPath: unimoStatDataSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 9d1dd542feb81e6459675e32630fd39f,
+        type: 2}
+    - target: {fileID: 5953960002914474849, guid: 35ca479c1a46ff444b6adde214f7cc9f,
+        type: 3}
+      propertyPath: equipmentSkillTable
+      value: 
+      objectReference: {fileID: 11400000, guid: dc08681057585764bb821697c69f9c21,
+        type: 2}
+    - target: {fileID: 5953960002914474849, guid: 35ca479c1a46ff444b6adde214f7cc9f,
+        type: 3}
+      propertyPath: equipmentStatDataSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 5c1e008d9caf25c4c96cfeddb9d9d1be,
+        type: 2}
+    - target: {fileID: 5953960002914474849, guid: 35ca479c1a46ff444b6adde214f7cc9f,
+        type: 3}
+      propertyPath: equipmentSkillDataSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 28cf012214853794489021f808449e17,
+        type: 2}
+    - target: {fileID: 5953960002914474849, guid: 35ca479c1a46ff444b6adde214f7cc9f,
+        type: 3}
+      propertyPath: unimoStatLevelUpDataSO
+      value: 
+      objectReference: {fileID: 11400000, guid: d22d6938206f9e34e96943adf08a18b7,
+        type: 2}
+    - target: {fileID: 5953960002914474849, guid: 35ca479c1a46ff444b6adde214f7cc9f,
+        type: 3}
+      propertyPath: equipmentStatLevelUpDataSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 2516116a51031154ab2cedf1e92ef628,
+        type: 2}
+    - target: {fileID: 5953960002914474849, guid: 35ca479c1a46ff444b6adde214f7cc9f,
+        type: 3}
+      propertyPath: equipmentSkillLevelUpDataSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 41583e445e2d4364fb9f6971ebebd6e4,
+        type: 2}
     - target: {fileID: 7568252301386702235, guid: 35ca479c1a46ff444b6adde214f7cc9f,
         type: 3}
       propertyPath: m_Name
