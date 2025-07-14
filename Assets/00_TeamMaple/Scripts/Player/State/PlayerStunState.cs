@@ -6,7 +6,7 @@ public class PlayerStunState : PlayerState
     public override void StateEnter()
     {
         ApplyKnockback();
-        StartCoroutine(StunCoroutine(LocalPlayer.Instance.UnimoData.stunDuration(LocalPlayer.Instance.UnimoData.StunRecovery)));
+        StartCoroutine(StunCoroutine(LocalPlayer.Instance.UnimoStatData.stunDuration(LocalPlayer.Instance.UnimoStatData.StunRecovery)));
     }
     
     private IEnumerator StunCoroutine(float duration)
@@ -17,11 +17,11 @@ public class PlayerStunState : PlayerState
         PlayerController.EgineAnim.SetBool("isstun", true);
         PlayerController.UnimoAnim.SetBool("isstun", true);
 
-        LocalPlayer.Instance.UnimoData.Hp -= 10;
+        LocalPlayer.Instance.UnimoStatData.Hp -= 10;
         
         yield return new WaitForSeconds(duration);
 
-        if (LocalPlayer.Instance.UnimoData.Hp <= 0)
+        if (LocalPlayer.Instance.UnimoStatData.Hp <= 0)
         {
             PlayerController.ChangeState(IPlayerState.EState.Dead);
         }

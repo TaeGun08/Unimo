@@ -20,7 +20,7 @@ public class PlayerMoveState : PlayerState
         }
         
         PlayerController.transform.ApplyMovementAndRotation(PlayerController.VirtualJoystickCtrl.Dir, 
-            LocalPlayer.UnimoData.Speed, turnCalmVelocity, 0.1f);
+            LocalPlayer.UnimoStatData.Speed, turnCalmVelocity, 0.1f);
 
         if (PlayerController.VirtualJoystickCtrl.Dir.magnitude < 0.01f)
         {

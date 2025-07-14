@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46e8eb1b195022e42bc62e98b04d1c0f, type: 3}
-  m_Name: EquimentSkillDataSO
+  m_Script: {fileID: 11500000, guid: c58f6cc50a244ba469eea506a379e12e, type: 3}
+  m_Name: EquipmentStatDataSO
   m_EditorClassIdentifier: 
-  equipmentSkillDataCsv: {fileID: 4900000, guid: 96ef69a5f1972f24bab875bbcfb80f73,
+  equipmentStatDataCsv: {fileID: 4900000, guid: b6f88e47c238e2d4482650d3c455c819,
     type: 3}

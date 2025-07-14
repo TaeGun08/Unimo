@@ -10,10 +10,10 @@ public class EquipmentStatLevelUpData
 {
     // 이 중 각 엔진에 해당하는 스탯만 강화함
     public int Level { get; set; }
-    public int Hp { get; set; }
-    public int Def { get; set; }
-    public int Speed { get; set; }
-    public int BloomRange { get; set; }
+    public float Hp { get; set; }
+    public float Def { get; set; }
+    public float Speed { get; set; }
+    public float BloomRange { get; set; }
     public float BloomSpeed { get; set; }
     public float FlowerRate { get; set; }
     public float RareFlowerRate { get; set; }

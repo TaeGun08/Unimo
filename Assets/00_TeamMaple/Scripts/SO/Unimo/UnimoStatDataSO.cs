@@ -148,10 +148,10 @@ public class UnimoStatDataSO : ScriptableObject
     /// <summary>
     /// 임시 유니모 데이터 셋팅
     /// </summary>
-    public UnimoData SettingsUnimoData(int Id)
+    public UnimoStatData SettingsUnimoData(int Id)
     {
-        Debug.Log(GetUnimoData(Id));
+        Debug.Log(GetUnimoStatData(Id));
         
-        return GetUnimoData(Id);
+        return GetUnimoStatData(Id);
     }
 }

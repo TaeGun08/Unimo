@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27ba6c8851c930341ae596901de07d0d, type: 3}
   m_Name: UnimoStatDataSO
   m_EditorClassIdentifier: 
-  unimoDataCsv: {fileID: 4900000, guid: 5adea121b45545619fc5862a610d3beb, type: 3}
+  unimoStatDataCsv: {fileID: 4900000, guid: 5adea121b45545619fc5862a610d3beb, type: 3}

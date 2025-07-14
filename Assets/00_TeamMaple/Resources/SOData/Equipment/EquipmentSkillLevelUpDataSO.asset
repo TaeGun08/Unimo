@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493b62ea3acee344a9f4eec0510f1c77, type: 3}
   m_Name: EquipmentSkillLevelUpDataSO
   m_EditorClassIdentifier: 
-  equipmentSkillLevelUpCsv: {fileID: 4900000, guid: 1eccf00b5bf25c44bb105e3e2c8772d4,
+  equipmentSkillLevelUpDataCsv: {fileID: 4900000, guid: 1eccf00b5bf25c44bb105e3e2c8772d4,
     type: 3}
