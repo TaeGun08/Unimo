@@ -12,7 +12,7 @@ public enum EquipmentRank
 }
 
 [System.Serializable]
-public class EquipmentData
+public class EquipmentStatData
 {
     public int Id { get; set; }    // 엔진 아이디
     public int Level { get; set; }    // 엔진 레벨
@@ -33,36 +33,36 @@ public class EquipmentData
 [CreateAssetMenu(fileName = "EquipmentStatDataSO", menuName = "Scriptable Object/EquipmentStatDataSO")]
 public class EquipmentStatDataSO : ScriptableObject
 {
-    [Header("EquipmentDataCsv")]
-    [SerializeField] private TextAsset equipmentDataCsv;
+    [Header("EquipmentStatDataCsv")]
+    [SerializeField] private TextAsset equipmentStatDataCsv;
 
     /// <summary>
     /// 입력 받은 아이디에 따라 데이터 반환
     /// </summary>
-    public EquipmentData GetEquipmentData(int equipmentID)
+    public EquipmentStatData GetEquipmentStatData(int equipmentID)
     {
-        if (equipmentDataCsv == null)
+        if (equipmentStatDataCsv == null)
         {
-            Debug.LogError("EquipmentDataCsv is null");
+            Debug.LogError("EquipmentStatDataCsv is null");
             return null;
         }
 
-        using (StringReader reader = new StringReader(equipmentDataCsv.text))
+        using (StringReader reader = new StringReader(equipmentStatDataCsv.text))
         using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
             csv.Read(); // unimo_id, name, hp, ...
             csv.ReadHeader();   // 헤더 등록
             
-            IEnumerable<EquipmentData> records = csv.GetRecords<EquipmentData>();
+            IEnumerable<EquipmentStatData> records = csv.GetRecords<EquipmentStatData>();
 
-            foreach (EquipmentData record in records)
+            foreach (EquipmentStatData record in records)
             {
                 if (record.Id == equipmentID)
                     return record;
             }
         }
 
-        Debug.LogWarning($"EquipmentData with ID {equipmentID} not found.");
+        Debug.LogWarning($"EquipmentStatData with ID {equipmentID} not found.");
         return null;
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 // N등급 엔진 강화 데이터
 [System.Serializable]
-public class NRankEquipmentStatLevelUpData
+public class EquipmentStatLevelUpData
 {
     // 이 중 각 엔진에 해당하는 스탯만 강화함
     public int Level { get; set; }
@@ -24,39 +24,49 @@ public class NRankEquipmentStatLevelUpData
     public float FlowerDropAmount { get; set; }
 }
 
-[CreateAssetMenu(fileName = "EquipmentStatLevelUpDataSO", menuName = "Scriptable Object/NRankEquipmentStatLevelUpDataSO")]
+[CreateAssetMenu(fileName = "EquipmentStatLevelUpDataSO", menuName = "Scriptable Object/EquipmentStatLevelUpDataSO")]
 public class EquipmentStatLevelUpDataSO : ScriptableObject
 {
-    [Header("NRankEquipmentStatLevelUpDataCsv")]
+    [Header("EquipmentStatLevelUpDataCsv")]
     [SerializeField] private TextAsset nRankEquipmentStatLevelUpDataCsv;
+    [SerializeField] private TextAsset rRankEquipmentStatLevelUpDataCsv;
+    [SerializeField] private TextAsset srRankEquipmentStatLevelUpDataCsv;
 
     /// <summary>
     /// 입력 받은 아이디에 따라 데이터 반환
     /// </summary>
-    public NRankEquipmentStatLevelUpData GetEquipmentStatLevelUpData(int equipmentSkillLevel)
+    public EquipmentStatLevelUpData GetEquipmentStatLevelUpData(EquipmentRank rank, int level)
     {
-        if (nRankEquipmentStatLevelUpDataCsv == null)
+        TextAsset targetCsv = rank switch
         {
-            Debug.LogError("NRankEquipmentStatLevelUpDataCsv is null");
+            EquipmentRank.N => nRankEquipmentStatLevelUpDataCsv,
+            EquipmentRank.R => rRankEquipmentStatLevelUpDataCsv,
+            EquipmentRank.SR => srRankEquipmentStatLevelUpDataCsv,
+            _ => null
+        };
+
+        if (targetCsv == null)
+        {
+            Debug.LogError($"CSV for rank {rank} is null");
             return null;
         }
 
-        using (StringReader reader = new StringReader(nRankEquipmentStatLevelUpDataCsv.text))
+        using (StringReader reader = new StringReader(targetCsv.text))
         using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
-            csv.Read(); // unimo_id, name, hp, ...
-            csv.ReadHeader();   // 헤더 등록
-            
-            IEnumerable<NRankEquipmentStatLevelUpData> records = csv.GetRecords<NRankEquipmentStatLevelUpData>();
+            csv.Read();
+            csv.ReadHeader();
 
-            foreach (NRankEquipmentStatLevelUpData record in records)
+            IEnumerable<EquipmentStatLevelUpData> records = csv.GetRecords<EquipmentStatLevelUpData>();
+
+            foreach (var record in records)
             {
-                if (record.Level == equipmentSkillLevel)
+                if (record.Level == level)
                     return record;
             }
         }
 
-        Debug.LogWarning($"NRankEquipmentStatLevelUpData with ID {equipmentSkillLevel} not found.");
+        Debug.LogWarning($"Level {level} not found in equipment stat table for rank {rank}");
         return null;
     }
 }

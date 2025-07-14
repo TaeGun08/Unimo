@@ -25,21 +25,21 @@ public class EquipmentSkillData
 [CreateAssetMenu(fileName = "EquimentSkillDataSO", menuName = "Scriptable Object/EquimentSkillDataSO")]
 public class EquipmentSkillDataSO : ScriptableObject
 {
-    [Header("EquimentSkillCsv")]
-    [SerializeField] private TextAsset equipmentSkillCsv;
+    [Header("EquimentSkillDataCsv")]
+    [SerializeField] private TextAsset equipmentSkillDataCsv;
 
     /// <summary>
     /// 입력 받은 아이디에 따라 데이터 반환
     /// </summary>
     public EquipmentSkillData GetEquipmentSkillData(int equipmentSkillID)
     {
-        if (equipmentSkillCsv == null)
+        if (equipmentSkillDataCsv == null)
         {
-            Debug.LogError("EquimentSkillCsv is null");
+            Debug.LogError("EquimentSkillDataCsv is null");
             return null;
         }
 
-        using (StringReader reader = new StringReader(equipmentSkillCsv.text))
+        using (StringReader reader = new StringReader(equipmentSkillDataCsv.text))
         using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
             csv.Read(); // unimo_id, name, hp, ...
