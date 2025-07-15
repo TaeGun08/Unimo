@@ -63,7 +63,7 @@ public partial class Firebase_Mng: MonoBehaviour
         if (!string.IsNullOrEmpty(PlayerPrefs.GetString(key)))
         {
             //역직렬화: JSON → Server_Data 객체
-            Server_Data data = JsonDataManager.Instance.LoadServerData();
+            Server_Data data = JsonDataLoader.LoadServerData();
 
             //다시 직렬화: Server_Data 객체 → JSON (정상)
             string json = JsonConvert.SerializeObject(data, Formatting.Indented);
