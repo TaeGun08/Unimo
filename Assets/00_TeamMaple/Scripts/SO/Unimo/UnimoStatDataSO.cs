@@ -50,29 +50,6 @@ public class UnimoStatData
     public float HpRecovery { get; set; }    // 체력 회복력
     public float FlowerDropSpeed { get; set; }    // 꽃 낙하 속도
     public float FlowerDropAmount { get; set; }    // 꽃 낙하량
-    
-    // 회피율 계산 
-    public bool DodgeCalculation(float dodge)
-    {
-        float evadeRate =  dodge * 100f;
-        int rand = Random.Range(0, 100);
-
-        if (rand < evadeRate)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
-    
-    // 스턴 지속시간 계산
-    public float stunDuration(float recovery)
-    {
-        float stunRecovery =   recovery * 100f;
-        return 1- stunRecovery;
-    }
 }
 
 [CreateAssetMenu(fileName = "UnimoStatDataSO", menuName = "Scriptable Object/UnimoStatDataSO")]
@@ -81,9 +58,65 @@ public class UnimoStatDataSO : ScriptableObject
     [Header("UnimoStatDataCsv")]
     [SerializeField] private TextAsset unimoStatDataCsv;
 
-    /// <summary>
-    /// 입력 받은 아이디에 따라 데이터 반환
-    /// </summary>
+    [Header("UnimoStatLevelUpDataSO")]
+    [SerializeField] private UnimoStatLevelUpDataSO unimoStatLevelUpDataSO;
+
+    // UnimoStatData + 레벨업 데이터 적용 최종값 반환
+    public UnimoStatData GetFinalUnimoStatData(int unimoID)
+    {
+        UnimoStatData baseData = GetUnimoStatData(unimoID);
+        if (baseData == null)
+            return null;
+
+        UnimoStatLevelUpData levelUpData = null;
+        if (unimoStatLevelUpDataSO != null)
+            levelUpData = unimoStatLevelUpDataSO.GetUnimoStatLevelUpData(baseData.Level);
+
+        // 복사본 생성 (기존 데이터 수정 방지)
+        UnimoStatData merged = new UnimoStatData
+        {
+            Id = baseData.Id,
+            Level = baseData.Level,
+            Name = baseData.Name,
+            Rank = baseData.Rank,
+            SpecialStat1 = baseData.SpecialStat1,
+            SpecialStat2 = baseData.SpecialStat2,
+            SpecialStat3 = baseData.SpecialStat3,
+            Hp = baseData.Hp,
+            Def = baseData.Def,
+            Speed = baseData.Speed,
+            BloomRange = baseData.BloomRange,
+            BloomSpeed = baseData.BloomSpeed,
+            FlowerRate = baseData.FlowerRate,
+            RareFlowerRate = baseData.RareFlowerRate,
+            Dodge = baseData.Dodge,
+            StunRecovery = baseData.StunRecovery,
+            HpRecovery = baseData.HpRecovery,
+            FlowerDropSpeed = baseData.FlowerDropSpeed,
+            FlowerDropAmount = baseData.FlowerDropAmount
+        };
+
+        if (levelUpData != null)
+        {
+            // 레벨업 데이터 반영 (null일 경우 무시)
+            merged.Hp += levelUpData.PlusHp;
+            merged.Def += levelUpData.PlusDef;
+            merged.Speed += levelUpData.PlusSpeed;
+            merged.BloomRange += levelUpData.PlusBloomRange;
+            merged.BloomSpeed += levelUpData.PlusBloomSpeed;
+            merged.FlowerRate += levelUpData.PlusFlowerRate;
+            merged.RareFlowerRate += levelUpData.PlusRareFlowerRate;
+            merged.Dodge += levelUpData.PlusDodge;
+            merged.StunRecovery += levelUpData.PlusStunRecovery;
+            merged.HpRecovery += levelUpData.PlusHpRecovery;
+            merged.FlowerDropSpeed += levelUpData.PlusFlowerDropSpeed;
+            merged.FlowerDropAmount += levelUpData.PlusFlowerDropAmount;
+        }
+
+        return merged;
+    }
+
+    // 기존 데이터 로드 함수
     public UnimoStatData GetUnimoStatData(int unimoID)
     {
         if (unimoStatDataCsv == null)
@@ -95,9 +128,9 @@ public class UnimoStatDataSO : ScriptableObject
         using (StringReader reader = new StringReader(unimoStatDataCsv.text))
         using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
-            csv.Read(); // unimo_id, name, hp, ...
-            csv.ReadHeader();   // 헤더 등록
-            
+            csv.Read();
+            csv.ReadHeader();
+
             IEnumerable<UnimoStatData> records = csv.GetRecords<UnimoStatData>();
 
             foreach (UnimoStatData record in records)
@@ -109,49 +142,5 @@ public class UnimoStatDataSO : ScriptableObject
 
         Debug.LogWarning($"UnimoStatData with ID {unimoID} not found.");
         return null;
-    }
-    
-    /// <summary>
-    /// 임시 초기 유니모 데이터 생성
-    /// </summary>
-    public UnimoStatData CreateDefaultUnimo()
-    {
-        return new UnimoStatData
-        {
-            Id = 0,
-            Level = 1,
-            Name = "Unimo",
-
-            Rank = UnimoRank.N,
-
-            SpecialStat1 = UnimoStat.None,
-            SpecialStat2 = UnimoStat.None,
-            SpecialStat3 = UnimoStat.None,
-
-            Hp = 100,
-            Def = 10,
-            Speed = 1,
-
-            BloomRange = 1,
-            BloomSpeed = 1.0f,
-            FlowerRate = 5.0f,
-            RareFlowerRate = 20.0f,
-
-            Dodge = 0.3f,
-            StunRecovery = 1.0f,
-            HpRecovery = 0.5f,
-            FlowerDropSpeed = 1.0f,
-            FlowerDropAmount = 1.0f
-        };
-    }
-
-    /// <summary>
-    /// 임시 유니모 데이터 셋팅
-    /// </summary>
-    public UnimoStatData SettingsUnimoData(int Id)
-    {
-        Debug.Log(GetUnimoStatData(Id));
-        
-        return GetUnimoStatData(Id);
     }
 }

@@ -36,9 +36,53 @@ public class EquipmentStatDataSO : ScriptableObject
     [Header("EquipmentStatDataCsv")]
     [SerializeField] private TextAsset equipmentStatDataCsv;
 
-    /// <summary>
-    /// 입력 받은 아이디에 따라 데이터 반환
-    /// </summary>
+    [Header("EquipmentStatLevelUpDataSO")]
+    [SerializeField] private EquipmentStatLevelUpDataSO equipmentStatLevelUpDataSO;
+    
+    // EquipmentStatDataSO + 레벨업 데이터 적용 최종값 반환
+    public EquipmentStatData GetFinalEquipmnetStatData(int equipmentID)
+    {
+        EquipmentStatData baseData = GetEquipmentStatData(equipmentID);
+        if (baseData == null)
+            return null;
+
+        EquipmentStatLevelUpData levelUpData = null;
+        if (equipmentStatLevelUpDataSO != null)
+            levelUpData = equipmentStatLevelUpDataSO.GetEquipmentStatLevelUpData(baseData.Rank, baseData.Level);
+
+        // 복사본 생성 (기존 데이터 수정 방지)
+        EquipmentStatData merged = new EquipmentStatData
+        {
+            Id = baseData.Id,
+            Level = baseData.Level,
+            Name = baseData.Name,
+            Rank = baseData.Rank,
+            StatType1 = baseData.StatType1,
+            StatValue1 = baseData.StatValue1,
+            StatType2 = baseData.StatType2,
+            StatValue2 = baseData.StatValue2,
+            StatType3 = baseData.StatType3,
+            StatValue3 = baseData.StatValue3,
+            StatType4 = baseData.StatType4,
+            StatValue4 = baseData.StatValue4,
+            Skill1 = baseData.Skill1,
+            Skill2 = baseData.Skill2
+        };
+
+        if (levelUpData != null)
+        {
+            // 레벨업 데이터 반영 (null일 경우 무시)
+            merged.Level = levelUpData.Level;
+            merged.StatValue1 += GetLevelUpValue(levelUpData, baseData.StatType1);
+            merged.StatValue2 += GetLevelUpValue(levelUpData, baseData.StatType1);
+            merged.StatValue3 += GetLevelUpValue(levelUpData, baseData.StatType1);
+            merged.StatValue4 += GetLevelUpValue(levelUpData, baseData.StatType1);
+        }
+
+        return merged;
+    }
+    
+    // 기존 데이터 로드 함수
     public EquipmentStatData GetEquipmentStatData(int equipmentID)
     {
         if (equipmentStatDataCsv == null)
@@ -64,5 +108,26 @@ public class EquipmentStatDataSO : ScriptableObject
 
         Debug.LogWarning($"EquipmentStatData with ID {equipmentID} not found.");
         return null;
+    }
+    
+    // 각 StatType별로 LevelUp에서 값을 찾아 반환
+    private float GetLevelUpValue(EquipmentStatLevelUpData levelUp, UnimoStat statType)
+    {
+        return statType switch
+        {
+            UnimoStat.Hp => levelUp.Hp,
+            UnimoStat.Def => levelUp.Def,
+            UnimoStat.Speed => levelUp.Speed,
+            UnimoStat.BloomRange => levelUp.BloomRange,
+            UnimoStat.BloomSpeed => levelUp.BloomSpeed,
+            UnimoStat.FlowerRate => levelUp.FlowerRate,
+            UnimoStat.RareFlowerRate => levelUp.RareFlowerRate,
+            UnimoStat.Dodge => levelUp.Dodge,
+            UnimoStat.StunRecovery => levelUp.StunRecovery,
+            UnimoStat.HpRecovery => levelUp.HpRecovery,
+            UnimoStat.FlowerDropSpeed => levelUp.FlowerDropSpeed,
+            UnimoStat.FlowerDropAmount => levelUp.FlowerDropAmount,
+            _ => 0f
+        };
     }
 }

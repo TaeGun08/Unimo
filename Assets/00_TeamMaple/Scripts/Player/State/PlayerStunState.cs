@@ -6,7 +6,11 @@ public class PlayerStunState : PlayerState
     public override void StateEnter()
     {
         ApplyKnockback();
-        StartCoroutine(StunCoroutine(LocalPlayer.Instance.UnimoStatData.stunDuration(LocalPlayer.Instance.UnimoStatData.StunRecovery)));
+        
+        // StatCalculator의 최신 스턴 회복률 값 사용
+        float stunRecovery = LocalPlayer.StatCalculator.StunRecovery;
+
+        StartCoroutine(StunCoroutine(stunRecovery));
     }
     
     private IEnumerator StunCoroutine(float duration)
@@ -17,11 +21,11 @@ public class PlayerStunState : PlayerState
         PlayerController.EgineAnim.SetBool("isstun", true);
         PlayerController.UnimoAnim.SetBool("isstun", true);
 
-        LocalPlayer.Instance.UnimoStatData.Hp -= 10;
+        LocalPlayer.CurMaxHp -= 10;    // 수정 필요함
         
         yield return new WaitForSeconds(duration);
 
-        if (LocalPlayer.Instance.UnimoStatData.Hp <= 0)
+        if (LocalPlayer.StatCalculator.Hp <= 0)
         {
             PlayerController.ChangeState(IPlayerState.EState.Dead);
         }
@@ -44,7 +48,7 @@ public class PlayerStunState : PlayerState
     // 넉백 임시 코드
     private void ApplyKnockback()
     {
-        Vector3 knockbackDir = (PlayerController.transform.position - LocalPlayer.Instance.LastAttackerPos).normalized;
+        Vector3 knockbackDir = (PlayerController.transform.position - LocalPlayer.LastAttackerPos).normalized;
         float knockbackDistance = 0.5f;
         
         Rigidbody rb = PlayerController.GetComponent<Rigidbody>();

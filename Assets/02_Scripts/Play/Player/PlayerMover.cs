@@ -22,7 +22,7 @@ public class PlayerMover : MonoBehaviour
     // Start is called before the first frame update
     protected void Start()
     {
-        SetSpeed(LocalPlayer.Instance.UnimoStatData.Speed);
+        SetSpeed(LocalPlayer.Instance.StatCalculator.Speed);
         playerTransform = transform;
         mapSetter = PlaySystemRefStorage.mapSetter;
         visualCtrl = GetComponent<PlayerVisualController>();

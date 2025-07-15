@@ -12,30 +12,30 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
     [Header("UnimoStatDataSO")]
     [SerializeField] private PrefabsTable unimoTable;
     [SerializeField] private UnimoStatDataSO unimoStatDataSO;
-    [SerializeField] private UnimoStatLevelUpDataSO unimoStatLevelUpDataSO;
     
     [Header("EquipmentStatDataSO")]
     [SerializeField] private PrefabsTable equipmentTable;
     [SerializeField] private EquipmentStatDataSO equipmentStatDataSO;
-    [SerializeField] private EquipmentStatLevelUpDataSO equipmentStatLevelUpDataSO;
 
     [Header("EquipmentSkillDataSO")]
     [SerializeField] private PrefabsTable equipmentSkillTable;
     [SerializeField] private EquipmentSkillDataSO equipmentSkillDataSO;
-    [SerializeField] private EquipmentSkillLevelUpDataSO equipmentSkillLevelUpDataSO;
     
-    public UnimoStatData UnimoStatData;
-    private UnimoStatLevelUpData UnimoStatLevelUpData;
-    private EquipmentStatData EquipmentStatData;
-    private EquipmentStatLevelUpData EquipmentStatLevelUpData;
-    private EquipmentSkillLevelUpData EquipmentSkillLevelUpData;
-    
-    public StatCalculator StatCalculator;
-    
+    private UnimoStatData unimoStatData;
+    private UnimoStatLevelUpData unimoStatLevelUpData;
+    private EquipmentStatData equipmentStatData;
+    private EquipmentStatLevelUpData equipmentStatLevelUpData;
+    private EquipmentSkillLevelUpData equipmentSkillLevelUpData;
+
+    public StatCalculator StatCalculator { get; private set;}
+
     private PlayerController playerController;
     public Vector3 LastAttackerPos { get; private set; }
 
-    public TMP_Text RemainHp; 
+    // [SerializeField] private TMP_Text remainHp;
+    // public TMP_Text RemainHp => remainHp;
+    public TMP_Text RemainHp;
+    
     public int CurMaxHp {get; set;}
 
     private void Awake()
@@ -52,56 +52,48 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
         // 장착된 유니모 체크 및 생성
         Debug.Log($"LocalPlayer CharCount:: {Base_Mng.Data.data.CharCount}");
         Debug.Log($"LocalPlayer EQCount:: {Base_Mng.Data.data.EQCount}");
-        
-        UnimoStatData = unimoStatDataSO.SettingsUnimoData(Base_Mng.Data.data.CharCount);
 
         var unimo = unimoTable.GetPrefabByKey(Base_Mng.Data.data.CharCount);
         var engine = equipmentTable.GetPrefabByKey(Base_Mng.Data.data.EQCount);
         
-        Debug.Log($"UnimoData:: {UnimoStatData.Level},  {UnimoStatData.Name}, {UnimoStatData.FlowerRate}");
+        // 플레이어 스탯 계산기 설정
+        SetPlayerStats();
         
+        // 플레이어 애니메이터 설정
         SetPlayerAnimator(unimo,  engine);
-        CurMaxHp = UnimoStatData.Hp;
+        
+        CurMaxHp = StatCalculator.Hp;
     }
 
     private void Start()
     {
-        SetPlayerStats();
-
         Debug.Log($"[UnimoStats]\n" +
-                  $"Hp: {StatCalculator.UnimoStatData.Hp}\n" +
-                  $"Def: {StatCalculator.UnimoStatData.Def}\n" +
-                  $"Speed: {StatCalculator.UnimoStatData.Speed}\n" +
-                  $"BloomRange: {StatCalculator.UnimoStatData.BloomRange}\n" +
-                  $"BloomSpeed: {StatCalculator.UnimoStatData.BloomSpeed}\n" +
-                  $"FlowerRate: {StatCalculator.UnimoStatData.FlowerRate}\n" +
-                  $"RareFlowerRate: {StatCalculator.UnimoStatData.RareFlowerRate}\n" +
-                  $"Dodge: {StatCalculator.UnimoStatData.Dodge}\n" +
-                  $"StunRecovery: {StatCalculator.UnimoStatData.StunRecovery}\n" +
-                  $"HpRecovery: {StatCalculator.UnimoStatData.HpRecovery}\n" +
-                  $"FlowerDropSpeed: {StatCalculator.UnimoStatData.FlowerDropSpeed}\n" +
-                  $"FlowerDropAmount: {StatCalculator.UnimoStatData.FlowerDropAmount}");
+                  $"Hp: {StatCalculator.Hp}\n" +
+                  $"Def: {StatCalculator.Def}\n" +
+                  $"Speed: {StatCalculator.Speed}\n" +
+                  $"BloomRange: {StatCalculator.BloomRange}\n" +
+                  $"BloomSpeed: {StatCalculator.BloomSpeed}\n" +
+                  $"FlowerRate: {StatCalculator.FlowerRate}\n" +
+                  $"RareFlowerRate: {StatCalculator.RareFlowerRate}\n" +
+                  $"Dodge: {StatCalculator.Dodge}\n" +
+                  $"StunRecovery: {StatCalculator.StunRecovery}\n" +
+                  $"HpRecovery: {StatCalculator.HpRecovery}\n" +
+                  $"FlowerDropSpeed: {StatCalculator.FlowerDropSpeed}\n" +
+                  $"FlowerDropAmount: {StatCalculator.FlowerDropAmount}");
     }
 
     private void Update()
     {
-        RemainHp.text = UnimoStatData.Hp.ToString();
+        RemainHp.text = CurMaxHp.ToString();
     }
 
     // StatCalculator의 UnimoStatData에 값 넣어주기
     private void SetPlayerStats()
     {
-        UnimoStatLevelUpData = unimoStatLevelUpDataSO.GetUnimoStatLevelUpData(UnimoStatData.Level);
-        EquipmentStatData = equipmentStatDataSO.GetEquipmentStatData(1);    // 착용 중인 엔진 아이디 넣어야 함
-        EquipmentStatLevelUpData = equipmentStatLevelUpDataSO.GetEquipmentStatLevelUpData(EquipmentStatData.Rank, 1);    // 테이블에 레벨 0도 추가해야 할듯
-        EquipmentSkillLevelUpData = equipmentSkillLevelUpDataSO.GetEquipmentSkillLevelUpData(2001, 0);    // 착용 중인 엔진의 스킬 아이디 사용해야함
+        unimoStatData = unimoStatDataSO.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount);
+        equipmentStatData = equipmentStatDataSO.GetFinalEquipmnetStatData(Base_Mng.Data.data.EQCount);    // 착용 중인 엔진 아이디 넣어야 함
 
-        StatCalculator = new StatCalculator(
-            UnimoStatData,
-            UnimoStatLevelUpData,
-            EquipmentStatData,
-            EquipmentStatLevelUpData,
-            EquipmentSkillLevelUpData);
+        StatCalculator = new StatCalculator(unimoStatData, equipmentStatData);
     }
     
     private void SetPlayerAnimator(GameObject unimo, GameObject engine)

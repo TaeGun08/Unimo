@@ -2,189 +2,168 @@ using UnityEngine;
 
 public class StatCalculator
 {
-    public UnimoStatData UnimoStatData { get; private set; }
-    private UnimoStatLevelUpData UnimoStatLevelUpData;
-    private EquipmentStatData EquipmentStatData;
-    private EquipmentStatLevelUpData EquipmentStatLevelUpData;
-    private EquipmentSkillLevelUpData EquipmentSkillLevelUpData;
+    private UnimoStatData unimoStatData;
+    private EquipmentStatData equipmentStatData;
     
-    public StatCalculator(
-        UnimoStatData unimoData, 
-        UnimoStatLevelUpData unimoLevelUpData, 
-        EquipmentStatData equipmentData, 
-        EquipmentStatLevelUpData equipmentStatLevelUpData,
-        EquipmentSkillLevelUpData equipmentSkillLevelUpData)
+    public StatCalculator(UnimoStatData unimoData, EquipmentStatData equipmentData)
     {
-        UnimoStatData = unimoData;
-        UnimoStatLevelUpData = unimoLevelUpData;
-        EquipmentStatData = equipmentData;
-        EquipmentStatLevelUpData = equipmentStatLevelUpData;
-        EquipmentSkillLevelUpData = equipmentSkillLevelUpData;
+        unimoStatData = unimoData;
+        equipmentStatData = equipmentData;
+    }
 
-        ApplyUnimoLevelUpStat();
+    // 스탯을 직접 반환하는 프로퍼티들
+    public int Hp => CalculateHp();
+    public int Def => CalculateDef();
+    public float Speed => CalculateSpeed();
+    public int BloomRange => CalculateBloomRange();
+    public float BloomSpeed => CalculateBloomSpeed();
+    public float FlowerRate => CalculateFlowerRate();
+    public float RareFlowerRate => CalculateRareFlowerRate();
+    public float Dodge => CalculateDodge();
+    public float StunRecovery => CalculateStunRecovery();
+    public float HpRecovery => CalculateHpRecovery();
+    public float FlowerDropSpeed => CalculateFlowerDropSpeed();
+    public float FlowerDropAmount => CalculateFlowerDropAmount();
+    
+    // 장비 스탯 합산
+    private float GetEquipmentValue(UnimoStat statType)
+    {
+        float value = 1f;
         
-        ApplyEquipmentStat(EquipmentStatData.StatType1, EquipmentStatData.StatValue1);
-        ApplyEquipmentStat(EquipmentStatData.StatType2, EquipmentStatData.StatValue2);
-        ApplyEquipmentStat(EquipmentStatData.StatType3, EquipmentStatData.StatValue3);
-        ApplyEquipmentStat(EquipmentStatData.StatType4, EquipmentStatData.StatValue4);
-    }
-
-    // 유니모 레벨 데이터 반영
-    private void ApplyUnimoLevelUpStat()
-    {
-        UnimoStatData.Hp += UnimoStatLevelUpData.PlusHp;
-        UnimoStatData.Def += UnimoStatLevelUpData.PlusDef;
-        UnimoStatData.Speed *= UnimoStatLevelUpData.PlusSpeed;
-        UnimoStatData.BloomRange += UnimoStatLevelUpData.PlusBloomRange;
-        UnimoStatData.BloomSpeed += UnimoStatLevelUpData.PlusBloomSpeed;
-        UnimoStatData.FlowerRate += UnimoStatLevelUpData.PlusFlowerRate;
-        UnimoStatData.RareFlowerRate += UnimoStatLevelUpData.PlusRareFlowerRate;
-        UnimoStatData.Dodge += UnimoStatLevelUpData.PlusDodge;
-        UnimoStatData.StunRecovery += UnimoStatLevelUpData.PlusStunRecovery;
-        UnimoStatData.HpRecovery += UnimoStatLevelUpData.PlusHpRecovery;
-        UnimoStatData.FlowerDropSpeed += UnimoStatLevelUpData.PlusFlowerDropSpeed;
-        UnimoStatData.FlowerDropAmount += UnimoStatLevelUpData.PlusFlowerDropAmount;
-    }
-
-    #region 엔진 스탯 강화 반영
-
-    private void ApplyEquipmentStat(UnimoStat statType, float value)
-    {
-        if (statType == UnimoStat.None)
-            return;
-
-        AddEquipmentStat(statType, value);
-    }
-    
-    private void AddEquipmentStat(UnimoStat statType, float value)
-    {
-        switch (statType)
+        if (equipmentStatData != null)
         {
-            case UnimoStat.Hp:
-                value += EquipmentStatLevelUpData.Hp;    // 엔진 레벨 데이터 반영
-                CalculateHp(value);
-                break;
-            case UnimoStat.Def:
-                value += EquipmentStatLevelUpData.Def;    // 엔진 레벨 데이터 반영
-                CalculateDef(value);
-                break;
-            case UnimoStat.Speed:
-                value += EquipmentStatLevelUpData.Speed;    // 엔진 레벨 데이터 반영
-                CalculateSpeed(value);
-                break;
-            case UnimoStat.BloomRange:
-                value += EquipmentStatLevelUpData.BloomRange;    // 엔진 레벨 데이터 반영
-                CalculateBloomRange(value);
-                break;
-            case UnimoStat.BloomSpeed:
-                value += EquipmentStatLevelUpData.BloomSpeed;    // 엔진 레벨 데이터 반영
-                CalculateBloomSpeed(value);
-                break;
-            case UnimoStat.FlowerRate:
-                value += EquipmentStatLevelUpData.FlowerRate;    // 엔진 레벨 데이터 반영
-                CalculateFlowerRate(value);
-                break;
-            case UnimoStat.RareFlowerRate:
-                value += EquipmentStatLevelUpData.RareFlowerRate;    // 엔진 레벨 데이터 반영
-                CalculateRareFlowerRate(value);
-                break;
-            case UnimoStat.Dodge:
-                value += EquipmentStatLevelUpData.Dodge;    // 엔진 레벨 데이터 반영
-                CalculateDodge(value);
-                break;
-            case UnimoStat.StunRecovery:
-                value += EquipmentStatLevelUpData.StunRecovery;    // 엔진 레벨 데이터 반영
-                CalculateStunRecovery(value);
-                break;
-            case UnimoStat.HpRecovery:
-                value += EquipmentStatLevelUpData.HpRecovery;    // 엔진 레벨 데이터 반영
-                CalculateHpRecovery(value);
-                break;
-            case UnimoStat.FlowerDropSpeed:
-                value += EquipmentStatLevelUpData.FlowerDropSpeed;    // 엔진 레벨 데이터 반영
-                CalculateFlowerDropSpeed(value);
-                break;
-            case UnimoStat.FlowerDropAmount:
-                value += EquipmentStatLevelUpData.FlowerDropAmount;    // 엔진 레벨 데이터 반영
-                CalculateFlowerDropAmount(value);
-                break;
+            if (equipmentStatData.StatType1 == statType) value = equipmentStatData.StatValue1;
+            if (equipmentStatData.StatType2 == statType) value = equipmentStatData.StatValue2;
+            if (equipmentStatData.StatType3 == statType) value = equipmentStatData.StatValue3;
+            if (equipmentStatData.StatType4 == statType) value = equipmentStatData.StatValue4;
         }
+        
+        return value;
+    }
+    
+    #region 계산 메서드
+
+    // (기본 수치 + 강화 수치) × (붕붕엔진 기본 수치 + 붕붕엔진 강화 배율) × 시설물 배율 × 패시브 스킬 배율 × 액티브 스킬 배율
+    private int CalculateHp()
+    {
+        float equipValue = GetEquipmentValue(UnimoStat.Hp);
+        float total = unimoStatData.Hp * equipValue;
+
+        return Mathf.RoundToInt(total);
     }
 
-    #endregion
+    // (기본 수치 + 강화 수치) × (붕붕엔진 기본 수치 + 붕붕엔진 강화 배율) × 시설물 배율 × 패시브 스킬 배율 × 액티브 스킬 배율
+    private int CalculateDef()
+    {
+        float equipValue = GetEquipmentValue(UnimoStat.Def);
+        float total = unimoStatData.Def * equipValue;
+        
+        return Mathf.RoundToInt(total);
+    }
 
-    #region 스탯 계산
+    // (기본 수치 + 강화 수치) × (붕붕엔진 기본 수치 + 붕붕엔진 강화 배율) × 시설물 배율 × 패시브 스킬 배율 × 액티브 스킬 배율
+    private float CalculateSpeed()
+    {
+        float equipValue = GetEquipmentValue(UnimoStat.Speed);
+        float total = unimoStatData.Speed * equipValue;
+        
+        return total;
+    }
 
-    // (기본 수치 + 강화 수치) × 붕붕엔진 배율
-    private void CalculateHp(float value)
+    // (기본 수치 + 강화 수치) × (붕붕엔진 기본 수치 + 붕붕엔진 강화 배율) × 패시브 스킬 배율 × 액티브 스킬 배율
+    private int CalculateBloomRange()
     {
-        UnimoStatData.Hp = (int)(UnimoStatData.Hp * value);
-    }
-    
-    // (기본 수치 + 강화 수치) × 붕붕엔진 배율
-    private void CalculateDef(float value)
-    {
-        UnimoStatData.Def = (int)(UnimoStatData.Def * value);
-    }
-    
-    // (기본 수치 × 강화 수치) × 붕붕엔진 배율
-    private void CalculateSpeed(float value)
-    {
-        UnimoStatData.Speed = (int)(UnimoStatData.Speed * value);
-    }
-    
-    // (기본 수치 + 강화 수치) × 붕붕엔진 배율
-    private void CalculateBloomRange(float value)
-    {
-        UnimoStatData.BloomRange = (int)(UnimoStatData.BloomRange * value);
-    }
-    
-    // 기준 개화 시간 ÷ (1 + (기본 수치 + 강화 수치) × 붕붕엔진 배율)
-    private void CalculateBloomSpeed(float value)
-    {
+        float equipValue = GetEquipmentValue(UnimoStat.BloomRange);
+        float total = unimoStatData.BloomRange * equipValue;
         
+        return Mathf.RoundToInt(total);
     }
-    
-    // 스테이지 별꽃 리스폰 주기 ÷ ((기본 수치 + 강화 수치) × 붕붕엔진 배율)
-    private void CalculateFlowerRate(float value)
+
+    // 기준 개화 시간 ÷ ((1 + (기본 수치 + 강화 수치) × (붕붕엔진 기본 수치 + 붕붕엔진 강화 배율)) × 시설물 배율 × 패시브 스킬 배율 × 액티브 스킬 배율)
+    private float CalculateBloomSpeed()
     {
+        float equipValue = GetEquipmentValue(UnimoStat.BloomSpeed);
+        float total = unimoStatData.BloomSpeed * equipValue;
         
-    }
-    
-    // (기본 수치 + 강화 수치) × 붕붕엔진 배율
-    private void CalculateRareFlowerRate(float value)
-    {
-        UnimoStatData.RareFlowerRate *= value;
-    }
-    
-    // (기본 수치 + 강화 수치) × 붕붕엔진 배율
-    private void CalculateDodge(float value)
-    {
-        UnimoStatData.Dodge *= value;
-    }
-    
-    // 1 - ((기본 수치 + 강화 수치) × 붕붕엔진 배율)
-    private void CalculateStunRecovery(float value)
-    {
-        UnimoStatData.StunRecovery = 1 - UnimoStatData.StunRecovery * value;
-    }
-    
-    // (기본 수치 + 강화 수치) × 붕붕엔진 배율
-    private void CalculateHpRecovery(float value)
-    {
-        UnimoStatData.HpRecovery *= value;
-    }
-    
-    // 기준 낙하 시간 ÷ (1 + (기본 수치 + 강화 수치) × 붕붕엔진 배율)
-    private void CalculateFlowerDropSpeed(float value)
-    {
+        // 기준 개화 시간(예: 1초) ÷ (1 + total)
+        float baseTime = 1f;
+        float denominator = 1f + total;
         
+        return baseTime / denominator;
     }
-    
-    // 최대 낙하 주기 × (1 - (기본 수치 + 강화 수치) × 붕붕엔진 배율)
-    private void CalculateFlowerDropAmount(float value)
+
+    // 스테이지 별꽃 리스폰 주기 ÷ ((기본 수치 + 강화 수치) × (붕붕엔진 기본 수치 + 붕붕엔진 강화 배율) × 패시브 스킬 배율 × 액티브 스킬 배율)
+    private float CalculateFlowerRate()
     {
+        float equipValue = GetEquipmentValue(UnimoStat.FlowerRate);
+        float total = unimoStatData.FlowerRate * equipValue;
         
+        // 스테이지 별꽃 리스폰 주기(예: 1초) ÷ total
+        float baseRate = 1f;
+        
+        return baseRate / total;
+    }
+
+    // (기본 수치 + 강화 수치) × (붕붕엔진 기본 수치 + 붕붕엔진 강화 배율)× 패시브 스킬 배율 × 액티브 스킬 배율
+    private float CalculateRareFlowerRate()
+    {
+        float equipValue = GetEquipmentValue(UnimoStat.RareFlowerRate);
+        float total = unimoStatData.RareFlowerRate * equipValue;
+        
+        return total;
+    }
+
+    // (기본 수치 + 강화 수치) × (붕붕엔진 기본 수치 + 붕붕엔진 강화 배율) × 시설물 배율 × 패시브 스킬 배율 × 액티브 스킬 배율
+    private float CalculateDodge()
+    {
+        float equipValue = GetEquipmentValue(UnimoStat.Dodge);
+        float total = unimoStatData.Dodge * equipValue;
+        
+        return total;
+    }
+
+    // 1 - ((기본 수치 + 강화 수치) × (붕붕엔진 기본 수치 + 붕붕엔진 강화 배율) × 패시브 스킬 배율 × 액티브 스킬 배율)
+    private float CalculateStunRecovery()
+    {
+        float equipValue = GetEquipmentValue(UnimoStat.StunRecovery);
+        float total = unimoStatData.StunRecovery * equipValue;
+        
+        return 1f - total;
+    }
+
+    // (기본 수치 + 강화 수치) × (붕붕엔진 기본 수치 + 붕붕엔진 강화 배율) × 패시브 스킬 배율 × 액티브 스킬 배율
+    private float CalculateHpRecovery()
+    {
+        float equipValue = GetEquipmentValue(UnimoStat.HpRecovery);
+        float total = unimoStatData.HpRecovery * equipValue;
+        
+        return total;
+    }
+
+    // 기준 낙하 시간 ÷ (1 + (기본 수치 + 강화 수치) × (붕붕엔진 기본 수치 + 붕붕엔진 강화 배율) × 패시브 스킬 배율 × 액티브 스킬 배율)
+    private float CalculateFlowerDropSpeed()
+    {
+        float equipValue = GetEquipmentValue(UnimoStat.FlowerDropSpeed);
+        float total = unimoStatData.FlowerDropSpeed + equipValue;
+        
+        // 기준 낙하 시간(예: 1초) ÷ (1 + total)
+        float baseTime = 1f;
+        float denominator = 1f + total;
+        
+        return baseTime / denominator;
+    }
+
+    // 최대 낙하 주기 × (1 - (기본 수치 + 강화 수치) × (붕붕엔진 기본 수치 + 붕붕엔진 강화 배율) × 패시브 스킬 배율 × 액티브 스킬 배율)
+    private float CalculateFlowerDropAmount()
+    {
+        float equipValue = GetEquipmentValue(UnimoStat.FlowerDropAmount);
+        float total = unimoStatData.FlowerDropAmount + equipValue;
+        
+        // 최대 낙하 주기(예: 1f) × (1 - total)
+        float maxDrop = 1f;
+        float multiplier = 1f - total;
+        
+        return maxDrop * multiplier;
     }
 
     #endregion

@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipmentStatDataCsv: {fileID: 4900000, guid: b6f88e47c238e2d4482650d3c455c819,
     type: 3}
+  equipmentStatLevelUpDataSO: {fileID: 11400000, guid: 2516116a51031154ab2cedf1e92ef628,
+    type: 2}
