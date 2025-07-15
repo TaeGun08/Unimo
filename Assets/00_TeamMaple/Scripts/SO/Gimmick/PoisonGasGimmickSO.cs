@@ -1,3 +1,4 @@
+// PoisonGasGimmickSO.cs
 using System.Collections;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ public class PoisonGasGimmickSO : StageGimmickSO
     public float gasDuration = 20f;
     public float interval = 30f;
     public float spawnRadius = 8f;
+    public float scaleDuration = 2f;
+    public float targetScale = 6f;
 
     public override GameObject Execute(Vector3 origin)
     {
@@ -34,7 +37,6 @@ public class PoisonGasRunner : MonoBehaviour
 
     private IEnumerator GasRoutine()
     {
-        float elapsed = 0f;
         while (true)
         {
             Vector3 randomPos = center + new Vector3(
@@ -44,8 +46,16 @@ public class PoisonGasRunner : MonoBehaviour
             );
 
             GameObject gas = Instantiate(data.gasPrefab, randomPos, Quaternion.identity);
-            Destroy(gas, data.gasDuration);
+            gas.transform.localScale = Vector3.zero;
 
+            PoisonArea area = gas.GetComponent<PoisonArea>();
+            if (area != null)
+            {
+                area.scaleDuration = data.scaleDuration;
+                area.targetScale = data.targetScale;
+            }
+
+            Destroy(gas, data.gasDuration);
             yield return new WaitForSeconds(data.interval);
         }
     }

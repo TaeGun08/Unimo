@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class PoisonArea : MonoBehaviour
 {
-    public float tickInterval = 3f;
-    public float percentDamage = 0.05f; // 5%
+    public float initialDelay = 3f;
+    public float tickInterval = 0.1f;
+    public float percentDamage = 0.05f; // 5% of MaxHealth
     public string targetTag = "Player";
+    public float scaleDuration = 2f;
+    public float targetScale = 6f;
 
     private Dictionary<GameObject, Coroutine> activeTargets = new();
+
+    private void Start()
+    {
+        StartCoroutine(ScaleOverTime(transform, Vector3.one * targetScale, scaleDuration));
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -31,15 +39,28 @@ public class PoisonArea : MonoBehaviour
 
     private IEnumerator ApplyPoison(GameObject target)
     {
-        IDamageable damageTarget = target.GetComponent<IDamageable>();
+        IDamageAble damageTarget = target.GetComponent<IDamageAble>();
         if (damageTarget == null) yield break;
+
+        yield return new WaitForSeconds(initialDelay);
 
         while (true)
         {
-            float damage = damageTarget.CurrentHealth * percentDamage;
-            damageTarget.TakeDamage(damage);
-            yield return new WaitForSeconds(tickInterval);
+            
         }
+    }
+
+    private IEnumerator ScaleOverTime(Transform t, Vector3 target, float duration)
+    {
+        Vector3 start = Vector3.zero;
+        float time = 0f;
+        while (time < duration)
+        {
+            t.localScale = Vector3.Lerp(start, target, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        t.localScale = target;
     }
 
     private void OnDestroy()
@@ -51,10 +72,4 @@ public class PoisonArea : MonoBehaviour
         }
         activeTargets.Clear();
     }
-}
-
-public interface IDamageable
-{
-    float CurrentHealth { get; }
-    void TakeDamage(float amount);
 }
