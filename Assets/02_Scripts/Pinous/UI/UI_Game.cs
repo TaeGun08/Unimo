@@ -16,7 +16,7 @@ public class UI_Game : UI_Base
         GameTwoBest.text = "Best Score\n" + StringMethod.ToCurrencyString(Base_Mng.Data.data.BestScoreGameTwo);
         base.Start();
 
-        stageCount = JsonDataManager.Instance.LoadServerData().CurrentStage;
+        stageCount = JsonDataLoader.LoadServerData().CurrentStage;
     }
 
     public override void DisableOBJ()

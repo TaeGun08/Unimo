@@ -216,7 +216,7 @@ public class Data_Mng
         }
 
         data.E_DateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-        JsonDataManager.Instance.SaveServerData(data);
+        JsonDataLoader.SaveServerData(data);
     }
 
     public void Load()

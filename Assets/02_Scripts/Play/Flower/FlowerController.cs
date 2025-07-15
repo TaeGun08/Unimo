@@ -31,7 +31,7 @@ public class FlowerController : MonoBehaviour
         DeactivateFlower();
         visual.TriggerHarvestFX(HarvestLvCtrlSTATIC.GetLvSatuRatio()); //Change so that use lv satu ratio
         PlaySystemRefStorage.scoreManager.AddBloomScore(resourceIdx, HarvestLvCtrlSTATIC.GetScoreBonus() * scoreGain);
-        PlaySystemRefStorage.playTimeManager.ChangeTimer(HarvestLvCtrlSTATIC.GetTimeBonus() * timerGain);
+        //PlaySystemRefStorage.playTimeManager.ChangeTimer(HarvestLvCtrlSTATIC.GetTimeBonus() * timerGain);
         HarvestLvCtrlSTATIC.AddExp(0.15f * timerGain);
         if (flowerGenerator != null) 
         { 

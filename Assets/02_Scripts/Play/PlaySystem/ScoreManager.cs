@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class ScoreManager : MonoBehaviour
     private double score;
     private PlayHoneyGainCalculator honeyCalculator;
     private GameRecordManager recordManager;
+
+    [SerializeField] private Slider starBar;
+    
     private void Awake()
     {
         PlaySystemRefStorage.scoreManager = this;
@@ -50,7 +54,9 @@ public class ScoreManager : MonoBehaviour
         {
             gatheredResources[idx] += (Base_Mng.Data.data.Second_Base * (Base_Mng.Data.data.BuffFloating[1] > 0.0f ? 2.0f : 1.0f));
         }
+        
         this.score += (Base_Mng.Data.data.Second_Base * (Base_Mng.Data.data.BuffFloating[1] > 0.0f ? 2.0f : 1.0f));
+        starBar.value = float.Parse(StringMethod.ToCurrencyString(gatheredResources[0])) / 200f;
         if (idx != 0) { specialResourceTxts[idx-1].text = gatheredResources[idx].ToString(); }
         scoreTxt.text = StringMethod.ToCurrencyString(gatheredResources[0]);
     }
