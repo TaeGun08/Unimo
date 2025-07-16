@@ -26,6 +26,7 @@ public class UI_Game : UI_Base
         base.Start();
 
         stageCount = JsonDataLoader.LoadServerData().CurrentStage;
+        UpdateStar();
     }
 
     public override void DisableOBJ()
@@ -36,7 +37,7 @@ public class UI_Game : UI_Base
     public void GoGameScene(int value)
     {
         int stageText = 0;
-        if (inputField.text != null)
+        if (!string.IsNullOrEmpty(inputField.text))
         {
             stageText = int.Parse(inputField.text);
         }
