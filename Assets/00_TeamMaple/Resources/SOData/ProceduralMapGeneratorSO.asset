@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72155e4ae4134e5408776156063dc36e, type: 3}
   m_Name: ProceduralMapGeneratorSO
   m_EditorClassIdentifier: 
-  proceduralMapCsv: {fileID: 4900000, guid: 6ca410d8c1cc2f445b6ad6cda208d363, type: 3}
+  proceduralMapCsv: {fileID: 4900000, guid: 69daedfc0a016064f8625b4ff288291d, type: 3}
+  stageRewardCsv: {fileID: 4900000, guid: 5679d2dca0b30ea41b31842daa4681e6, type: 3}

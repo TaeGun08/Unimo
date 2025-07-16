@@ -9,6 +9,6 @@ public static class StageLoader
 
     public static StageData SetStageData(ProceduralMapGeneratorSO so)
     {
-        return so.GetStageData(JsonDataLoader.LoadServerData().CurrentStage);
+        return so.GetStageData(JsonDataLoader.LoadServerData().CurrentStage + 1000);
     }
 }

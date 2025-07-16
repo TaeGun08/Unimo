@@ -4,40 +4,50 @@ using System.Globalization;
 using System.IO;
 using CsvHelper;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class StageData
 {
     public int Id { get; set; } //스테이지 아이디
     public string StageName { get; set; } //스테이지 이름
     public string PlanetName { get; set; } //행성 이름
-    public int StageReward { get; set; } //스테이지 보상
     public int StageItem { get; set; } //스테이지 아이템
     public float YGeneration { get; set; } //노란꽃 생성 확률
     public float RGeneration { get; set; } //빨간꽃 생성 확률
     public float BGeneration { get; set; } //파란꽃 생성 확률
 }
 
+public class StageRewardData
+{
+    public int Id { get; set; }
+    public string Star1Y { get; set; }
+    public string Star2R { get; set; }
+    public string Star3Y { get; set; }
+    public string Star3R { get; set; }
+}
+
 [CreateAssetMenu(fileName = "ProceduralMapGeneratorSO", menuName = "Scriptable Object/ProceduralMapGeneratorSO")]
 public class ProceduralMapGeneratorSO : ScriptableObject
 {
-    [Header("ProceduralMapCsv")]
-    [SerializeField] private TextAsset proceduralMapCsv;
-    private Dictionary<int, StageData> stageDataDic = new Dictionary<int, StageData>();
-    public Dictionary<int, StageData> StageDataDic => stageDataDic;
+    [Header("ProceduralMapCsv")] [SerializeField]
+    private TextAsset proceduralMapCsv;
 
-    private void Awake()
+    [FormerlySerializedAs("stageRewardCSV")] [SerializeField]
+    private TextAsset stageRewardCsv;
+
+    private Dictionary<int, StageData> stageDataDic = new Dictionary<int, StageData>();
+
+    private Dictionary<int, StageRewardData> stageRewardDataDic = new Dictionary<int, StageRewardData>();
+
+    public void InitData()
     {
-        if (stageDataDic.Count == 0)
-            LoadCsv();
+        LoadCsv();
+        LoadRewardCsv();
     }
-    
+
     private void LoadCsv()
     {
-        if (proceduralMapCsv == null)
-        {
-            Debug.LogError("proceduralMapCsv is null");
-            return;
-        }
+        if (proceduralMapCsv == null) return;
 
         stageDataDic.Clear(); // 기존 데이터 제거
 
@@ -55,16 +65,34 @@ public class ProceduralMapGeneratorSO : ScriptableObject
                 {
                     stageDataDic.Add(record.Id, record);
                 }
-                else
+            }
+        }
+    }
+
+    private void LoadRewardCsv()
+    {
+        if (stageRewardCsv == null) return;
+
+        stageRewardDataDic.Clear(); // 기존 데이터 제거
+
+        using (StringReader reader = new StringReader(stageRewardCsv.text))
+        using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+        {
+            csv.Read(); // 주석 또는 설명 줄 스킵
+            csv.ReadHeader(); // 헤더 읽기
+
+            IEnumerable<StageRewardData> records = csv.GetRecords<StageRewardData>();
+
+            foreach (StageRewardData record in records)
+            {
+                if (!stageRewardDataDic.ContainsKey(record.Id))
                 {
-                    Debug.LogWarning($"Duplicate StageData ID found: {record.Id}");
+                    stageRewardDataDic.Add(record.Id, record);
                 }
             }
         }
-
-        Debug.Log($"Loaded {stageDataDic.Count} stage data entries.");
     }
-    
+
     /// <summary>
     /// 입력 받은 아이디에 따라 데이터 반환
     /// </summary>
@@ -74,8 +102,17 @@ public class ProceduralMapGeneratorSO : ScriptableObject
         {
             return data;
         }
+        
+        return null;
+    }
 
-        Debug.LogWarning($"StageData with ID {id} not found.");
+    public StageRewardData GetStageRewardData(int id)
+    {
+        if (stageRewardDataDic.TryGetValue(id, out StageRewardData data))
+        {
+            return data;
+        }
+
         return null;
     }
 }
