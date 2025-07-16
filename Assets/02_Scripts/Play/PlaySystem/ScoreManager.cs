@@ -14,8 +14,6 @@ public class ScoreManager : MonoBehaviour
     private double score;
     private PlayHoneyGainCalculator honeyCalculator;
     private GameRecordManager recordManager;
-
-    private StageManager stageManager;
     
     [SerializeField] private Slider starBar;
     
@@ -28,8 +26,6 @@ public class ScoreManager : MonoBehaviour
     private void Start()
     {
         recordManager = FindAnyObjectByType<GameRecordManager>();
-        honeyCalculator = GetComponent<PlayHoneyGainCalculator>();
-        stageManager = StageManager.Instance;
         for (int i = 1; i < gatheredResources.Count; i++)
         {
             specialResourceTxts[i-1].text = gatheredResources[i].ToString();
@@ -51,15 +47,16 @@ public class ScoreManager : MonoBehaviour
     {
         if (idx == 1)
         {
-            gatheredResources[idx] += StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star2R) / 66d;
+            //gatheredResources[idx] += StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star2R) / 66d;
+            gatheredResources[idx] += 1;
         }
         else
         {
             //gatheredResources[idx] += StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star1Y) / 133d;
-            gatheredResources[idx] += 1000000;
+            gatheredResources[idx] += 1;
         }
         
-        this.score += 1000000;
+        this.score += 1;
         
         if (starBar.value < 1)
         {
