@@ -16,6 +16,7 @@ public class UI_Game : UI_Base
     private void OnEnable()
     {
         UpdateStar();
+        stageCount = JsonDataLoader.LoadServerData().CurrentStage;
     }
 
     public override void Start()
