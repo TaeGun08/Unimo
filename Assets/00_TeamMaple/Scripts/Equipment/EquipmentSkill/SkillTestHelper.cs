@@ -18,7 +18,7 @@ public class SkillTestHelper : MonoBehaviour
     {
         // ������ ���� ��ų ���̵� �־��ֱ� (���� �����Ϳ��� ��������)
         var skillId1 = 2001;
-        var skillId2 = 2002;
+        var skillId2 = 2019;
         
         // ������ ����
         var skillPrefab1 = Instantiate(skillTable.GetPrefabByKey(skillId1), player.transform);
