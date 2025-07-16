@@ -45,7 +45,7 @@ public class PlaySceneController : MonoBehaviour
     {
         PlayerPrefs.SetInt("GetRewardCount", PlayerPrefs.GetInt("GetRewardCount") - 1);
         Data_Mng.SetPlayScene = true;
-        JsonDataLoader.SaveServerData(Base_Mng.Data.data);
+        //JsonDataLoader.SaveServerData(Base_Mng.Data.data);
         if (PlayerPrefs.GetInt("GetRewardCount") <= 0)
         {
             PlayerPrefs.SetInt("GetRewardCount", 2);
