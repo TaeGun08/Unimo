@@ -1,42 +1,39 @@
 using System;
 
-public class ClampedValue<T> where T : IComparable<T>
+public abstract class ClampedValue<T> where T : IComparable<T>
 {
-    private T value;
-    public T GetValue() => value;
-    
-    private T min;
-    private T max;
-    
-    public event Action<T> OnValueChanged;
-    public event Action<T> OnClampedToMin;
-    public event Action<T> OnClampedToMax;
+    public T Value { get; protected set; }
+    protected T min;
+    protected T max;
 
-    public ClampedValue(T value, T min, T max)
+    public event Action<T> OnValueChanged;
+
+    protected ClampedValue(T value, T min, T max)
     {
         this.min = min;
         this.max = max;
-        SetValue(value);
+        Value = Clamp(value);
     }
 
-    public void SetValue(T newValue)
+    public void Add(T amount)
     {
-        if (newValue.CompareTo(min) < 0)
-        {
-            value = min;
-            OnClampedToMin?.Invoke(value);
-        }
-        else if (newValue.CompareTo(max) > 0)
-        {
-            value = max;
-            OnClampedToMax?.Invoke(value);
-        }
-        else
-        {
-            value = newValue;
-        }
-
-        OnValueChanged?.Invoke(value);
+        Value = Clamp(AddValues(Value, amount));
+        OnValueChanged?.Invoke(Value);
     }
 
+    public void Subtract(T amount)
+    {
+        Value = Clamp(SubtractValues(Value, amount));
+        OnValueChanged?.Invoke(Value);
+    }
+
+    private T Clamp(T val)
+    {
+        if (val.CompareTo(max) > 0) return max;
+        if (val.CompareTo(min) < 0) return min;
+        return val;
+    }
+
+    protected abstract T AddValues(T a, T b);
+    protected abstract T SubtractValues(T a, T b);
 }
