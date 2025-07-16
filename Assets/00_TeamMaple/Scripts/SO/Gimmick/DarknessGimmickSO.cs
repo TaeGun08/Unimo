@@ -12,6 +12,11 @@ public class DarknessGimmickSO : StageGimmickSO
         runner.Init(duration);
         return obj;
     }
+    
+    private void OnEnable()
+    {
+        GimmickRegistry.Register(StageGimmickType.Darkness, this);
+    }
 }
 
 public class DarknessRunner : MonoBehaviour

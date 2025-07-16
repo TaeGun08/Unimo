@@ -17,6 +17,11 @@ public class SlipperyFloorGimmickSO : StageGimmickSO
         runner.Init(effectDuration);
         return runnerObj;
     }
+    
+    private void OnEnable()
+    {
+        GimmickRegistry.Register(StageGimmickType.SlipperyFloor, this);
+    }
 }
 
 public class SlipperyFloorRunner : MonoBehaviour

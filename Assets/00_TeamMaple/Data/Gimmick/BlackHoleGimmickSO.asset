@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c95887d50be412943a1417bf50ed906a, type: 3}
+  m_Name: BlackHoleGimmickSO
+  m_EditorClassIdentifier: 
+  gimmickType: 10
+  blackHolePrefab: {fileID: 7211636859201599547, guid: 2f05ccb6fbf6c97459dd52cb0060cf10,
+    type: 3}
+  outerForce: 0.3
+  innerForce: 0.4
+  innerRadius: 1.5
+  outerRadius: 6

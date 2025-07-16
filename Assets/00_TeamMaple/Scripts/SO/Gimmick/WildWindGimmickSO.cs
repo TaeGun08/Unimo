@@ -17,6 +17,11 @@ public class WildWindGimmickSO : StageGimmickSO
         runner.Init(this);
         return runnerObj;
     }
+    
+    private void OnEnable()
+    {
+        GimmickRegistry.Register(StageGimmickType.WindPush, this);
+    }
 }
 
 public class WildWindRunner : MonoBehaviour

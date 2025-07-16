@@ -6,8 +6,8 @@ using System;
 
 public class StageGimmickManager : MonoBehaviour
 {
-    [SerializeField] private TextAsset csvFile; // CSV 파일 드래그
-    private Dictionary<int, StageGimmickData> stageToGimmickMap = new();
+    [SerializeField] private TextAsset csvFile;
+    private Dictionary<int, List<StageGimmickType>> stageToGimmickMap = new();
     private GameObject currentGimmickInstance;
 
     private void Awake()
@@ -19,23 +19,21 @@ public class StageGimmickManager : MonoBehaviour
     {
         ClearCurrentGimmick();
 
-        if (!stageToGimmickMap.TryGetValue(stageNum, out var data) || data.gimmickType == StageGimmickType.None)
+        if (!stageToGimmickMap.TryGetValue(stageNum, out var gimmickTypes) || gimmickTypes.Count == 0)
         {
             Debug.Log($"[기믹] 스테이지 {stageNum}: 기믹 없음");
             return;
         }
 
-        var gimmickLogic = GimmickRegistry.GetLogic(data.gimmickType);
-        if (gimmickLogic != null)
+        foreach (var gimmickType in gimmickTypes)
         {
-            GameObject gimmickObj = gimmickLogic.Execute(transform.position);
-            if (gimmickObj != null) currentGimmickInstance = gimmickObj;
-            Debug.Log($"[기믹] 스테이지 {stageNum}: {data.gimmickType} 실행");
-        }
-
-        if (data.isBonus)
-        {
-            Debug.Log($"[보너스] 스테이지 {stageNum}은 보너스 스테이지입니다.");
+            var gimmickLogic = GimmickRegistry.GetLogic(gimmickType);
+            if (gimmickLogic != null)
+            {
+                GameObject gimmickObj = gimmickLogic.Execute(transform.position);
+                if (gimmickObj != null) currentGimmickInstance = gimmickObj;
+                Debug.Log($"[기믹] 스테이지 {stageNum}: {gimmickType} 실행");
+            }
         }
     }
 
@@ -50,19 +48,26 @@ public class StageGimmickManager : MonoBehaviour
 
             while ((line = reader.ReadLine()) != null)
             {
-                if (firstLine) { firstLine = false; continue; } // Skip header
+                if (firstLine) { firstLine = false; continue; }
 
                 string[] tokens = line.Split(',');
-                if (tokens.Length < 4) continue;
+                if (tokens.Length < 3) continue;
 
                 int start = int.Parse(tokens[0]);
                 int end = int.Parse(tokens[1]);
-                bool isBonus = bool.Parse(tokens[3]);
                 StageGimmickType type = Enum.TryParse(tokens[2], out StageGimmickType parsed) ? parsed : StageGimmickType.None;
 
                 for (int i = start; i <= end; i++)
                 {
-                    stageToGimmickMap[i] = new StageGimmickData(i, type, isBonus);
+                    if (!stageToGimmickMap.ContainsKey(i))
+                        stageToGimmickMap[i] = new List<StageGimmickType>();
+
+                    if (type != StageGimmickType.None)
+                        stageToGimmickMap[i].Add(type);
+
+                    // 블랙홀 자동 적용
+                    if (i >= 501 && type != StageGimmickType.BlackHole)
+                        stageToGimmickMap[i].Add(StageGimmickType.BlackHole);
                 }
             }
         }
@@ -77,20 +82,6 @@ public class StageGimmickManager : MonoBehaviour
             Destroy(currentGimmickInstance);
             currentGimmickInstance = null;
         }
-    }
-}
-
-public class StageGimmickData
-{
-    public int stageNum;
-    public StageGimmickType gimmickType;
-    public bool isBonus;
-
-    public StageGimmickData(int num, StageGimmickType type, bool bonus)
-    {
-        stageNum = num;
-        gimmickType = type;
-        isBonus = bonus;
     }
 }
 
@@ -111,15 +102,15 @@ public static class GimmickRegistry
 
 public enum StageGimmickType
 {
-    None,            // 넓은 별
-    LightningStrike, // 낙뢰의 별
-    PoisonGas,       // 초록가스 별
-    SlipperyFloor,   // 얼어붙은 별
-    MeteorFall,      // 분출하는 별
-    Darkness,        // 검은 별
-    WildWind,        // 질풍의 별
-    FogDamage,       // 안개 구름 별
-    TimeSlow,        // 시간의 별
-    Earthquake       // 불안정한 별
+    None,
+    LightningStrike,
+    PoisonGas,
+    SlipperyFloor,
+    MeteorFall,
+    Darkness,
+    WindPush,
+    FogDamage,
+    Earthquake,
+    TimeSlow,
+    BlackHole
 }
-

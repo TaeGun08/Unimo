@@ -12,6 +12,7 @@ TagManager:
   - Cube
   - Missile
   - Door
+  - Ground
   layers:
   - Default
   - TransparentFX
