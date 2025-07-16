@@ -9,24 +9,35 @@ public static class GimmickCSVGenerator
     [MenuItem("Tools/StageGimmick/Generate Sample CSV")]
     public static void GenerateSampleCSV()
     {
-        string path = "Assets/DataTables/gimmicks.csv";
+        string path = "Assets/00_TeamMaple/Resources/CSV/gimmicks.csv";
 
         List<string> lines = new List<string>
         {
-            "stageStart,stageEnd,gimmickType,isBonus"
+            "stageStart,stageEnd,gimmickType"
         };
 
         // 샘플 기믹 범위 설정
-        lines.Add("1,50,None,false");
-        lines.Add("51,100,LightningStrike,false");
-        lines.Add("101,150,PoisonGas,false");
-        lines.Add("151,200,SlipperyFloor,false");
-        lines.Add("201,250,MeteorFall,false");
-        lines.Add("251,300,Darkness,false");
-        lines.Add("301,350,WildWind,false");
-        lines.Add("351,400,FogDamage,false");
-        lines.Add("401,450,TimeSlow,false");
-        lines.Add("451,500,Earthquake,false");
+        lines.Add("1,50,None");
+        lines.Add("501,550,None");
+        lines.Add("51,100,LightningStrike");
+        lines.Add("551,600,LightningStrike");
+        lines.Add("101,150,PoisonGas");
+        lines.Add("601,650,PoisonGas");
+        lines.Add("151,200,SlipperyFloor");
+        lines.Add("651,700,SlipperyFloor");
+        lines.Add("201,250,MeteorFall");
+        lines.Add("701,750,MeteorFall");
+        lines.Add("251,300,Darkness");
+        lines.Add("751,800,Darkness");
+        lines.Add("301,350,WildWind");
+        lines.Add("801,850,WildWind");
+        lines.Add("351,400,FogDamage");
+        lines.Add("851,900,FogDamage");
+        lines.Add("401,450,Earthquake");
+        lines.Add("901,950,Earthquake");
+        lines.Add("451,500,TimeSlow");
+        lines.Add("951,1000,TimeSlow");
+        lines.Add("501,1000,BlackHole");
 
         File.WriteAllLines(path, lines);
         AssetDatabase.Refresh();
