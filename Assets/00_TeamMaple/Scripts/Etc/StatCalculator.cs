@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// 유니모 + 엔진 스탯 계산 결과 반환 (스킬 포함 X)
 public class StatCalculator
 {
     private UnimoStatData unimoStatData;

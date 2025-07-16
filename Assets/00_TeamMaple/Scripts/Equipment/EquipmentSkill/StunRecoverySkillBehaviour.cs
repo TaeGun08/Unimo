@@ -3,7 +3,7 @@ using UnityEngine;
 // 스턴 회복률 증가 스킬
 public class StunRecoverySkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviour
 {
-    public void Excute(GameObject caster, EquipmentSkillType type, float cooldown, float duration, float param)
+    public void Excute(GameObject caster, EquipmentSkillType type, int duration, float param)
     {
         switch (type)
         {

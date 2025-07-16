@@ -27,7 +27,8 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
     private EquipmentStatLevelUpData equipmentStatLevelUpData;
     private EquipmentSkillLevelUpData equipmentSkillLevelUpData;
 
-    public StatCalculator StatCalculator { get; private set;}
+    public StatCalculator StatCalculator { get; private set; }
+    public PlayerStatHolder PlayerStatHolder { get; private set; }
 
     private PlayerController playerController;
     public Vector3 LastAttackerPos { get; private set; }
@@ -36,8 +37,6 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
     // public TMP_Text RemainHp => remainHp;
     public TMP_Text RemainHp;
     
-    public int CurMaxHp {get; set;}
-
     private void Awake()
     {
         if (Instance != null) Destroy(gameObject);
@@ -61,8 +60,6 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
         
         // 플레이어 애니메이터 설정
         SetPlayerAnimator(unimo,  engine);
-        
-        CurMaxHp = StatCalculator.Hp;
     }
 
     private void Start()
@@ -84,7 +81,7 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
 
     private void Update()
     {
-        RemainHp.text = CurMaxHp.ToString();
+        RemainHp.text = PlayerStatHolder.Hp.Value.ToString();
     }
 
     // StatCalculator의 UnimoStatData에 값 넣어주기
@@ -94,6 +91,7 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
         equipmentStatData = equipmentStatDataSO.GetFinalEquipmnetStatData(Base_Mng.Data.data.EQCount);    // 착용 중인 엔진 아이디 넣어야 함
 
         StatCalculator = new StatCalculator(unimoStatData, equipmentStatData);
+        PlayerStatHolder = new PlayerStatHolder(StatCalculator);
     }
     
     private void SetPlayerAnimator(GameObject unimo, GameObject engine)

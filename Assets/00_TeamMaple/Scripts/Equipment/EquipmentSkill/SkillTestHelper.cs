@@ -18,7 +18,7 @@ public class SkillTestHelper : MonoBehaviour
     {
         // ������ ���� ��ų ���̵� �־��ֱ� (���� �����Ϳ��� ��������)
         var skillId1 = 2001;
-        var skillId2 = 2019;
+        var skillId2 = 2020;
         
         // ������ ����
         var skillPrefab1 = Instantiate(skillTable.GetPrefabByKey(skillId1), player.transform);
@@ -33,7 +33,7 @@ public class SkillTestHelper : MonoBehaviour
         var skillData2 = skillDataSO.GetEquipmentSkillData(skillId2);
 
         // �нú� ����
-        skillExcutor1.Excute(player, skillData1.Type, skillData1.Cooldown, skillData1.Duration, skillData1.Param);
+        skillExcutor1.Excute(player, skillData1.Type, skillData1.Duration, skillData1.Param);
         Debug.Log($"[Skill1] " +
                   $"Id: {skillId1} / " +
                   $"Type: {skillData1.Type} / " +
@@ -44,7 +44,7 @@ public class SkillTestHelper : MonoBehaviour
         // ��Ƽ�� ���
         skillButton.onClick.AddListener(() =>
         {
-            skillExcutor2.Excute(player, skillData2.Type, skillData2.Cooldown, skillData2.Duration, skillData2.Param);
+            skillExcutor2.Excute(player, skillData2.Type, skillData2.Duration, skillData2.Param);
             Debug.Log($"[Skill2] " +
                       $"Id: {skillId2} / " +
                       $"Type: {skillData2.Type} / " +

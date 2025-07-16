@@ -3578,7 +3578,7 @@ MonoBehaviour:
   RedText: {fileID: 7867332054012058081}
   ScoreText: {fileID: 0}
   ADSButton: {fileID: 8454269295379800024}
-  starBar: {fileID: 0}
+  starBar: {fileID: 944078672}
 --- !u!1001 &1586520197
 PrefabInstance:
   m_ObjectHideFlags: 0

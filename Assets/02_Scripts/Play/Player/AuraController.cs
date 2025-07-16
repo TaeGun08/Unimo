@@ -19,7 +19,7 @@ public class AuraController : MonoBehaviour
 
     private void Start()
     {
-        InitAura(LocalPlayer.Instance.StatCalculator.BloomRange);
+        InitAura(LocalPlayer.Instance.PlayerStatHolder.BloomRange.Value);
     }
 
     private void Update()
@@ -38,14 +38,14 @@ public class AuraController : MonoBehaviour
         }
     }
 
-    public void InitAura(float range)
+    public void InitAura(int range)
     {
         transform.localScale = range * 0.1f * Vector3.one;    // 0.1은 수치 조정용
         originalScale = transform.localScale;
         originalGrowth = growthperSec;
     }
 
-    public void ChangeScale(float prev, float next, float duration)
+    public void ChangeScale(int prev, int next, int duration)
     {
         // 만약 이미 변경 중이라면 기존 코루틴 중단
         if (changeScaleCoroutine != null)
@@ -55,7 +55,7 @@ public class AuraController : MonoBehaviour
         changeScaleCoroutine = StartCoroutine(ChangeScaleCoroutine(prev, next, duration));
     }
     
-    private IEnumerator ChangeScaleCoroutine(float prev, float next, float duration)
+    private IEnumerator ChangeScaleCoroutine(int prev, int next, int duration)
     {
         isChangingScale = true;
         float elapsed = 0f;

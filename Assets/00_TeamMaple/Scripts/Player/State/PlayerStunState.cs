@@ -8,7 +8,7 @@ public class PlayerStunState : PlayerState
         ApplyKnockback();
         
         // StatCalculator의 최신 스턴 회복률 값 사용
-        float stunRecovery = LocalPlayer.StatCalculator.StunRecovery;
+        float stunRecovery = LocalPlayer.PlayerStatHolder.StunRecovery.Value;
 
         StartCoroutine(StunCoroutine(stunRecovery));
     }
@@ -21,11 +21,11 @@ public class PlayerStunState : PlayerState
         PlayerController.EgineAnim.SetBool("isstun", true);
         PlayerController.UnimoAnim.SetBool("isstun", true);
 
-        LocalPlayer.CurMaxHp -= 10;    // 수정 필요함
+        LocalPlayer.PlayerStatHolder.Hp.Subtract(10);
         
         yield return new WaitForSeconds(duration);
 
-        if (LocalPlayer.StatCalculator.Hp <= 0)
+        if (LocalPlayer.PlayerStatHolder.Hp.Value <= 0)
         {
             PlayerController.ChangeState(IPlayerState.EState.Dead);
         }
