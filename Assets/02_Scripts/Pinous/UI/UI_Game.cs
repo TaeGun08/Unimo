@@ -1,6 +1,8 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 
 public class UI_Game : UI_Base
 {
@@ -8,7 +10,14 @@ public class UI_Game : UI_Base
     private int stageCount;
     
     [SerializeField] private TMP_Text stageText;
-    
+    [SerializeField] private TMP_InputField inputField;
+    [SerializeField] private GameObject[] starImg;
+
+    private void OnEnable()
+    {
+        UpdateStar();
+    }
+
     public override void Start()
     {
         Camera_Event.instance.GetCameraEvent(CameraMoveState.InGame);
@@ -26,10 +35,17 @@ public class UI_Game : UI_Base
 
     public void GoGameScene(int value)
     {
+        int stageText = 0;
+        if (inputField.text != null)
+        {
+            stageText = int.Parse(inputField.text);
+        }
+        
         WholeSceneController.Instance.ReadyNextScene(value);
         Base_Mng.Data.data.GamePlay++;
         Pinous_Flower_Holder.FlowerHolder.Clear();
-        Base_Mng.Data.data.CurrentStage = stageCount;
+        Base_Mng.Data.data.CurrentStage = stageCount + stageText;
+        
         //Base_Mng.ADS._interstitialCallback = () =>
         //{
            
@@ -52,6 +68,7 @@ public class UI_Game : UI_Base
         }
         
         SetStageText();
+        UpdateStar();
     }
 
     public void StageCountDown()
@@ -64,5 +81,35 @@ public class UI_Game : UI_Base
         }
         
         SetStageText();
+        UpdateStar();
+    }
+
+    private void UpdateStar()
+    {
+        if (StageManager.Instance.GetStars(stageCount + 1000) == 3)
+        {
+            for (int i = 0; i < starImg.Length; i++)
+            {
+                starImg[i].SetActive(true);
+            }
+        }
+        else if (StageManager.Instance.GetStars(stageCount + 1000) == 2)
+        {
+            for (int i = 0; i < starImg.Length - 1; i++)
+            {
+                starImg[i].SetActive(true);
+            }
+        }
+        else if (StageManager.Instance.GetStars(stageCount + 1000) == 1)
+        {
+            starImg[0].SetActive(true);
+        }
+        else
+        {
+            for (int i = 0; i < starImg.Length; i++)
+            {
+                starImg[i].SetActive(false);
+            }
+        }
     }
 }
