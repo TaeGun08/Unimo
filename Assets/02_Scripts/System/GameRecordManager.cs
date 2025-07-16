@@ -39,8 +39,7 @@ public class GameRecordManager : MonoBehaviour
             case 0: Base_Mng.Data.data.BestScoreGameOne = score; break;
             case 1: Base_Mng.Data.data.BestScoreGameTwo = score; break;
         }
-
-        Debug.Log("게임 끝 저장 시작");
+        
         Base_Mng.Data.Save();
         SaveData();
     }

@@ -15,6 +15,8 @@ public class ScoreManager : MonoBehaviour
     private PlayHoneyGainCalculator honeyCalculator;
     private GameRecordManager recordManager;
 
+    private StageManager stageManager;
+    
     [SerializeField] private Slider starBar;
     
     private void Awake()
@@ -27,6 +29,7 @@ public class ScoreManager : MonoBehaviour
     {
         recordManager = FindAnyObjectByType<GameRecordManager>();
         honeyCalculator = GetComponent<PlayHoneyGainCalculator>();
+        stageManager = StageManager.Instance;
         for (int i = 1; i < gatheredResources.Count; i++)
         {
             specialResourceTxts[i-1].text = gatheredResources[i].ToString();
@@ -48,15 +51,21 @@ public class ScoreManager : MonoBehaviour
     {
         if (idx == 1)
         {
-            gatheredResources[idx] += CalculateReward(Base_Mng.Data.data.Level);
+            gatheredResources[idx] += StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star2R) / 66d;
         }
         else
         {
-            gatheredResources[idx] += (Base_Mng.Data.data.Second_Base * (Base_Mng.Data.data.BuffFloating[1] > 0.0f ? 2.0f : 1.0f));
+            //gatheredResources[idx] += StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star1Y) / 133d;
+            gatheredResources[idx] += 1000000;
         }
         
-        this.score += (Base_Mng.Data.data.Second_Base * (Base_Mng.Data.data.BuffFloating[1] > 0.0f ? 2.0f : 1.0f));
-        starBar.value = float.Parse(StringMethod.ToCurrencyString(gatheredResources[0])) / 200f;
+        this.score += 1000000;
+        
+        if (starBar.value < 1)
+        {
+            starBar.value = (float)(gatheredResources[0] / 200);
+        }
+        
         if (idx != 0) { specialResourceTxts[idx-1].text = gatheredResources[idx].ToString(); }
         scoreTxt.text = StringMethod.ToCurrencyString(gatheredResources[0]);
     }
@@ -70,7 +79,7 @@ public class ScoreManager : MonoBehaviour
 
         // 리워드 비율 계산 후 int로 변환
         int reward = Mathf.FloorToInt(Mathf.Lerp(1, 50, normalizedLevel / maxLogLevel));
-
+        Debug.Log($"Reward : {reward}");
         return reward;
     }
     private void checkBest()
