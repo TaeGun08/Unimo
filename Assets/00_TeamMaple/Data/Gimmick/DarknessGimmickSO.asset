@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c3f872b1b5bfe4d93732dcc9c93692, type: 3}
   m_Name: DarknessGimmickSO
   m_EditorClassIdentifier: 
+  gimmickType: 5
   duration: 15

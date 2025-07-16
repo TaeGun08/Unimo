@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8efa30098fb994a8a5b2681ec6069f, type: 3}
   m_Name: FogDamageGimmickSO
   m_EditorClassIdentifier: 
+  gimmickType: 7
   duration: 15
   damageInterval: 2
   damageAmount: 5

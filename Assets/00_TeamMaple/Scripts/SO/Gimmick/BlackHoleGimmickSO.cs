@@ -17,6 +17,11 @@ public class BlackHoleGimmickSO : StageGimmickSO
         runner.Init(this, origin);
         return runnerObj;
     }
+
+    private void OnEnable()
+    {
+        GimmickRegistry.Register(StageGimmickType.BlackHole, this);
+    }
 }
 
 public class BlackHoleRunner : MonoBehaviour
@@ -25,7 +30,8 @@ public class BlackHoleRunner : MonoBehaviour
     private Transform blackHole;
     private Vector3 center;
     private HashSet<GameObject> innerHit = new();
-
+    
+    
     public void Init(BlackHoleGimmickSO so, Vector3 origin)
     {
         data = so;

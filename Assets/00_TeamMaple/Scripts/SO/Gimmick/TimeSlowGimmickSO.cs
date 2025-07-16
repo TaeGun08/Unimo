@@ -13,6 +13,11 @@ public class TimeSlowGimmickSO : StageGimmickSO
         runner.Init(this);
         return obj;
     }
+    
+    private void OnEnable()
+    {
+        GimmickRegistry.Register(StageGimmickType.TimeSlow, this);
+    }
 }
 
 public class TimeSlowRunner : MonoBehaviour

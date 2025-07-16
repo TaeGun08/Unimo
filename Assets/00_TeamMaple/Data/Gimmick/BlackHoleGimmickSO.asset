@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c95887d50be412943a1417bf50ed906a, type: 3}
   m_Name: BlackHoleGimmickSO
   m_EditorClassIdentifier: 
+  gimmickType: 10
   blackHolePrefab: {fileID: 7211636859201599547, guid: 2f05ccb6fbf6c97459dd52cb0060cf10,
     type: 3}
   outerForce: 0.3

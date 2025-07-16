@@ -14,6 +14,11 @@ public class FogDamageGimmickSO : StageGimmickSO
         runner.Init(this);
         return obj;
     }
+    
+    private void OnEnable()
+    {
+        GimmickRegistry.Register(StageGimmickType.FogDamage, this);
+    }
 }
 
 public class FogDamageRunner : MonoBehaviour

@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5da2b2bb2272c34bb527e3e12d4557e, type: 3}
   m_Name: EarthquakeGimmickSO
   m_EditorClassIdentifier: 
+  gimmickType: 8
   shakeDuration: 5
   intensity: 0.3

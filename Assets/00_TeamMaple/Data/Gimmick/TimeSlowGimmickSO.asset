@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5290272d251a3ee4a8bdace47d39db0d, type: 3}
   m_Name: TimeSlowGimmickSO
   m_EditorClassIdentifier: 
+  gimmickType: 9
   slowTimeScale: 0.5
   duration: 5

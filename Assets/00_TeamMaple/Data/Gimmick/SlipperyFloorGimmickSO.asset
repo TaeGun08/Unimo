@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1c3121c19d9cf94baae1fc921599a13, type: 3}
   m_Name: SlipperyFloorGimmickSO
   m_EditorClassIdentifier: 
+  gimmickType: 3
   effectDuration: 15

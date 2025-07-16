@@ -20,6 +20,11 @@ public class PoisonGasGimmickSO : StageGimmickSO
         runner.Init(this, origin);
         return runner.gameObject;
     }
+    
+    private void OnEnable()
+    {
+        GimmickRegistry.Register(StageGimmickType.PoisonGas, this);
+    }
 }
 
 public class PoisonGasRunner : MonoBehaviour

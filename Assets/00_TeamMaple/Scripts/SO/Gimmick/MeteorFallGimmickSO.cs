@@ -24,6 +24,11 @@ public class MeteorFallGimmickSO : StageGimmickSO
         runner.Init(this, origin);
         return runnerObj;
     }
+    
+    private void OnEnable()
+    {
+        GimmickRegistry.Register(StageGimmickType.MeteorFall, this);
+    }
 }
 
 public class MeteorFallRunner : MonoBehaviour

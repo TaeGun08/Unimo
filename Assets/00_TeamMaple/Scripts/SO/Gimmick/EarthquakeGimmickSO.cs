@@ -13,6 +13,11 @@ public class EarthquakeGimmickSO : StageGimmickSO
         runner.Init(this);
         return obj;
     }
+    
+    private void OnEnable()
+    {
+        GimmickRegistry.Register(StageGimmickType.Earthquake, this);
+    }
 }
 
 public class EarthquakeRunner : MonoBehaviour

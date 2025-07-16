@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4431100d7b1bb9e4eb692429b2806b59, type: 3}
   m_Name: WildWindGimmickSO
   m_EditorClassIdentifier: 
+  gimmickType: 6
   delayBeforeStart: 30
   windDuration: 20
   windDirection: {x: -1, y: 0, z: 0}

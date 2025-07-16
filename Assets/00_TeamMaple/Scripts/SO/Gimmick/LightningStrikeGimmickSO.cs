@@ -5,19 +5,23 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "LightningStrikeGimmickSO", menuName = "StageGimmick/LightningStrike")]
 public class LightningStrikeGimmickSO : StageGimmickSO
 {
-public GameObject markerPrefab;
-public GameObject lightningPrefab;
-public float markerGrowTime = 1.5f;
-public float interval = 5f;
-public float radius = 6f;
+    public GameObject markerPrefab;
+    public GameObject lightningPrefab;
+    public float markerGrowTime = 1.5f;
+    public float interval = 5f;
+    public float radius = 6f;
 
-public override GameObject Execute(Vector3 origin)
-{
-    var runnerObj = new GameObject("LightningStrikeRunner");
-    var runner = runnerObj.AddComponent<LightningStrikeRunner>();
-    runner.Init(this, origin);
-    return runnerObj;
-}
+    public override GameObject Execute(Vector3 origin)
+    {
+        var runnerObj = new GameObject("LightningStrikeRunner");
+        var runner = runnerObj.AddComponent<LightningStrikeRunner>();
+        runner.Init(this, origin);
+        return runnerObj;
+    }
+    private void OnEnable()
+    {
+        GimmickRegistry.Register(StageGimmickType.LightningStrike, this);
+    }
 
 }
 
