@@ -5,10 +5,13 @@ public class StunRecoverySkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviou
 {
     public void Excute(GameObject caster, EquipmentSkillType type, int duration, float param)
     {
+        var stunRecovery = LocalPlayer.Instance.PlayerStatHolder.StunRecovery;
+        
         switch (type)
-        {
+        { 
             case EquipmentSkillType.Passive:
                 Debug.Log("[Passive] 스턴 회복률 증가 패시브 발동");
+                stunRecovery.Add(param);
                 break;
             case EquipmentSkillType.Active:
                 Debug.Log("[Active] 스턴 회복률 증가 액티브 발동");

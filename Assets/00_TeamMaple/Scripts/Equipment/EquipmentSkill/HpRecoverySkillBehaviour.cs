@@ -4,7 +4,7 @@ using UnityEngine;
 // 체력 회복 스킬
 public class HpRecoverySkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviour
 {
-    private Coroutine passiveRegenRoutine;
+    private Coroutine passiveRoutine;
     
     public void Excute(GameObject caster, EquipmentSkillType type, int duration, float param)
     {
@@ -12,9 +12,9 @@ public class HpRecoverySkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviour
         {
             case EquipmentSkillType.Passive:
                 Debug.Log("[Passive] 체력 회복 패시브 발동");
-                if (passiveRegenRoutine == null)
+                if (passiveRoutine == null)
                 {
-                    passiveRegenRoutine = StartCoroutine(PassiveHpRegen(param));
+                    passiveRoutine = StartCoroutine(PassiveHpRegen(param));
                 }
                 break;
             case EquipmentSkillType.Active:
