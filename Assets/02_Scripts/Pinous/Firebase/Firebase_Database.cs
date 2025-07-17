@@ -77,6 +77,7 @@ public partial class Firebase_Mng: MonoBehaviour
         else
         {
             string newDataJson = NewData(); // JSON string 반환
+            StageLoader.StageDataReset();
             PlayerPrefs.SetString(key, newDataJson);
             
             //그대로 저장해도 됨
