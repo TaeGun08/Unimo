@@ -3,6 +3,7 @@ using UnityEngine;
 using System.IO;
 using System.Linq;
 using System;
+using UnityEngine.Purchasing.MiniJSON;
 
 public class StageGimmickManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class StageGimmickManager : MonoBehaviour
     private void Awake()
     {
         LoadGimmickDataFromCSV();
+        JsonDataLoader.LoadServerData();
     }
 
     public void TryApplyGimmick(int stageNum)
@@ -93,7 +95,7 @@ public static class GimmickRegistry
     {
         registry[type] = logic;
     }
-
+    
     public static StageGimmickSO GetLogic(StageGimmickType type)
     {
         return registry.TryGetValue(type, out var logic) ? logic : null;
@@ -108,7 +110,7 @@ public enum StageGimmickType
     SlipperyFloor,
     MeteorFall,
     Darkness,
-    WindPush,
+    WildWind,
     FogDamage,
     Earthquake,
     TimeSlow,
