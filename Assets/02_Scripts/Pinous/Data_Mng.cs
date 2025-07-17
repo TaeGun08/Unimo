@@ -18,6 +18,7 @@ public class Server_Data
 
     public int HighStage;
     public int CurrentStage;
+    public bool BonusStageOn;
 
     public float[] BuffFloating = new float[3];
 
