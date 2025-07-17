@@ -22,6 +22,18 @@ public class GetRewardScript : MonoBehaviour
     {
         stageManager = StageManager.Instance;
 
+        if (StageLoader.IsBonusStageByIndex(JsonDataLoader.LoadServerData().HighStage))
+        {
+            GetBonusReward();
+        }
+        else
+        {
+            GetReward();
+        }
+    }
+
+    private void GetReward()
+    {
         redTrade = double.Parse(texts[0].text) *
                    (StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star2R) / 66d);
 
@@ -30,55 +42,113 @@ public class GetRewardScript : MonoBehaviour
 
         ADSButton.SetActive(true);
 
-        Base_Mng.Data.data.Red += redTrade;
-        Base_Mng.Data.data.Yellow += yellowTrade;
-
         YellowText.text = StringMethod.ToCurrencyString(yellowTrade);
         RedText.text = StringMethod.ToCurrencyString(redTrade);
 
-        if (starBar.value < 0.01f ||
-            JsonDataLoader.LoadServerData().HighStage > JsonDataLoader.LoadServerData().CurrentStage) return;
-
-        int getStar = stageManager.GetStars(JsonDataLoader.LoadServerData().CurrentStage + 1000);
-
-        starText.text = "x0";
-        
-        if (starBar.value >= 1f
-            && getStar != 3)
+        if (!(starBar.value < 0.01f) &&
+            JsonDataLoader.LoadServerData().HighStage <= JsonDataLoader.LoadServerData().CurrentStage)
         {
+            int getStar = stageManager.GetStars(JsonDataLoader.LoadServerData().CurrentStage + 1000);
+
+            starText.text = "x0";
+
+            switch (starBar.value)
+            {
+                case >= 1f when getStar != 3:
+                    stageManager.UpdateStageStars(JsonDataLoader.LoadServerData().CurrentStage + 1000, 3);
+                    starText.text = "x3";
+                    
+                    if (getStar != 1 && getStar < 2)
+                    {
+                        redTrade += StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star1Y);
+                    }
+                    
+                    if (getStar != 2 && getStar < 3)
+                    {
+                        redTrade += StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star2R);
+                    }
+                    
+                    redTrade += StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star3Y);
+                    redTrade += StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star3R);
+                    
+                    break;
+                case < 1f and >= 0.75f when getStar != 2:
+                    stageManager.UpdateStageStars(JsonDataLoader.LoadServerData().CurrentStage + 1000, 2);
+                    starText.text = "x2";
+                    
+                    if (getStar != 1 && getStar < 2)
+                    {
+                        redTrade += StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star1Y);
+                    }
+                    
+                    redTrade += StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star2R);
+                    break;
+                case < 0.75f and >= 0.5f when getStar != 1:
+                    stageManager.UpdateStageStars(JsonDataLoader.LoadServerData().CurrentStage + 1000, 1);
+                    starText.text = "x1";
+                    redTrade += StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star1Y);
+                    break;
+            }
+
             stageManager.UpdateStageStars(JsonDataLoader.LoadServerData().CurrentStage + 1000, 3);
             starText.text = "x3";
+            
+            Base_Mng.Data.data.HighStage++;
+
+            if (StageLoader.IsBonusStageByIndex(JsonDataLoader.LoadServerData().HighStage))
+            {
+                stageManager.BonusStageOn = true;
+            }
         }
-        else if (starBar.value < 1f && starBar.value >= 0.75f
-                                    && getStar != 2)
-        {
-            stageManager.UpdateStageStars(JsonDataLoader.LoadServerData().CurrentStage + 1000, 2);
-            starText.text = "x2";
-        }
-        else if (starBar.value < 0.75f && starBar.value >= 0.5f
-                                       && getStar != 1)
-        {
-            stageManager.UpdateStageStars(JsonDataLoader.LoadServerData().CurrentStage + 1000, 1);
-            starText.text = "x1";
-        }
-        stageManager.UpdateStageStars(JsonDataLoader.LoadServerData().CurrentStage + 1000, 3);
-        starText.text = "x3";
-        Base_Mng.Data.data.HighStage++;
+        
+        Base_Mng.Data.data.Red += redTrade;
+        Base_Mng.Data.data.Yellow += yellowTrade;
     }
 
+    private void GetBonusReward()
+    {
+        redTrade = (double.Parse(texts[0].text) *
+                    (StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star2R) / 66d)) * 3f;
+
+        yellowTrade = (StringMethod.ToCurrencyDouble(texts[1].text) *
+                       (StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star1Y) / 133d)) * 3f;
+
+        ADSButton.SetActive(true);
+
+        YellowText.text = StringMethod.ToCurrencyString(yellowTrade);
+        RedText.text = StringMethod.ToCurrencyString(redTrade);
+        
+        Base_Mng.Data.data.Red += redTrade;
+        Base_Mng.Data.data.Yellow += yellowTrade;
+
+        stageManager.BonusStageOn = false;
+    }
+
+    private void ADSReward(float multiplication)
+    {
+        Base_Mng.Data.data.Red += redTrade * multiplication;
+        Base_Mng.Data.data.RePlay++;
+        var yellow = yellowTrade * multiplication;
+        Base_Mng.Data.data.Yellow += yellow;
+
+        RedText.text = redTrade.ToString();
+        YellowText.text = StringMethod.ToCurrencyString(yellow * 2);
+
+        ADSButton.SetActive(false);
+    }
+    
     public void GetRewardDoubleScore()
     {
         Base_Mng.ADS.ShowRewardedAds(() =>
         {
-            Base_Mng.Data.data.Red += redTrade;
-            Base_Mng.Data.data.RePlay++;
-            var yellow = yellowTrade;
-            Base_Mng.Data.data.Yellow += yellow;
-
-            RedText.text = redTrade.ToString();
-            YellowText.text = StringMethod.ToCurrencyString(yellow * 2);
-
-            ADSButton.SetActive(false);
+            if (StageLoader.IsBonusStageByIndex(JsonDataLoader.LoadServerData().HighStage))
+            {
+                ADSReward(3f);
+            }
+            else
+            {
+                ADSReward(1f);
+            }
         });
     }
 }

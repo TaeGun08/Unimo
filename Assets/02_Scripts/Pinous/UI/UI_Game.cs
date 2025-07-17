@@ -12,11 +12,15 @@ public class UI_Game : UI_Base
     [SerializeField] private TMP_Text stageText;
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private GameObject[] starImg;
+    [SerializeField] private GameObject bonusStageButton;
 
     private void OnEnable()
     {
-        UpdateStar();
         stageCount = JsonDataLoader.LoadServerData().CurrentStage;
+        UpdateStar();
+        SetStageText();
+
+        bonusStageButton.SetActive(StageManager.Instance.BonusStageOn);
     }
 
     public override void Start()
@@ -28,6 +32,9 @@ public class UI_Game : UI_Base
 
         stageCount = JsonDataLoader.LoadServerData().CurrentStage;
         UpdateStar();
+        SetStageText();
+        
+        bonusStageButton.SetActive(StageManager.Instance.BonusStageOn);
     }
 
     public override void DisableOBJ()
@@ -38,15 +45,21 @@ public class UI_Game : UI_Base
     public void GoGameScene(int value)
     {
         int stageText = 0;
-        if (!string.IsNullOrEmpty(inputField.text))
-        {
-            stageText = int.Parse(inputField.text);
-        }
-        
+         
         WholeSceneController.Instance.ReadyNextScene(value);
         Base_Mng.Data.data.GamePlay++;
         Pinous_Flower_Holder.FlowerHolder.Clear();
-        Base_Mng.Data.data.CurrentStage = stageCount + stageText;
+        if (!string.IsNullOrEmpty(inputField.text))
+        {
+            stageText = int.Parse(inputField.text);
+            Base_Mng.Data.data.CurrentStage = stageText;
+        }
+        else
+        {
+            Base_Mng.Data.data.CurrentStage = stageCount;
+        }
+        //Base_Mng.Data.data.CurrentStage = stageCount;
+        JsonDataLoader.SaveServerData(Base_Mng.Data.data);
         
         //Base_Mng.ADS._interstitialCallback = () =>
         //{
@@ -71,6 +84,15 @@ public class UI_Game : UI_Base
         
         SetStageText();
         UpdateStar();
+
+        if (StageLoader.IsBonusStageByIndex(stageCount))
+        {
+            bonusStageButton.SetActive(StageManager.Instance.BonusStageOn);
+        }
+        else
+        {
+            bonusStageButton.SetActive(false);
+        }
     }
 
     public void StageCountDown()
@@ -84,6 +106,15 @@ public class UI_Game : UI_Base
         
         SetStageText();
         UpdateStar();
+        
+        if (StageLoader.IsBonusStageByIndex(stageCount))
+        {
+            bonusStageButton.SetActive(StageManager.Instance.BonusStageOn);
+        }
+        else
+        {
+            bonusStageButton.SetActive(false);
+        }
     }
 
     private void UpdateStar()

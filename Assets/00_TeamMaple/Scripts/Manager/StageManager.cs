@@ -24,7 +24,9 @@ public class StageManager : SingletonBehaviour<StageManager>
     
     private string SavePath => Path.Combine(Application.persistentDataPath, "stage_save.json");
     public StageSaveData CurrentSaveData { get; private set; }
-    
+
+    public bool BonusStageOn { get; set; }
+
     [Header("StageSO")] 
     [SerializeField] private ProceduralMapGeneratorSO so;
     public StageData StageData { get; private set; }
