@@ -20,7 +20,7 @@ public class WildWindGimmickSO : StageGimmickSO
     
     private void OnEnable()
     {
-        GimmickRegistry.Register(StageGimmickType.WindPush, this);
+        GimmickRegistry.Register(StageGimmickType.WildWind, this);
     }
 }
 
