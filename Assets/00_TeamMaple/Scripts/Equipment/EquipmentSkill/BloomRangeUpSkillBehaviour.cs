@@ -21,7 +21,7 @@ public class BloomRangeUpSkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviou
             case EquipmentSkillType.Passive:
                 Debug.Log("[Passive] 개화 범위 증가 패시브 발동");
                 range.Add(addRange);
-                auraController.InitAura(range.Value);   
+                auraController.InitAura();
                 break;
             case EquipmentSkillType.Active:
                 Debug.Log("[Active] 개화 범위 증가 액티브 발동");

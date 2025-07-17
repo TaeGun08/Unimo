@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// 개화 속도 증가 스킬
 public class BloomSpeedUpSkillBehaviour : MonoBehaviour,IEquipmentSkillBehaviour
 {
     private AuraController auraController;
@@ -11,9 +12,19 @@ public class BloomSpeedUpSkillBehaviour : MonoBehaviour,IEquipmentSkillBehaviour
 
     public void Excute(GameObject caster, EquipmentSkillType type, int duration, float param)
     {
-        var range = LocalPlayer.Instance.PlayerStatHolder.BloomSpeed;
-        var addRange = (int)(range.Value * param);
+        var bloomSpeed = LocalPlayer.Instance.PlayerStatHolder.BloomSpeed;
+        var addBloomSpeed = bloomSpeed.Value * param;
         
-        throw new System.NotImplementedException();
+        switch (type)
+        { 
+            case EquipmentSkillType.Passive:
+                Debug.Log("[Passive] 개화 속도 증가 패시브 발동");
+                bloomSpeed.Add(addBloomSpeed);
+                auraController.InitAura();
+                break;
+            case EquipmentSkillType.Active:
+                Debug.Log("[Active] 개화 속도 증가 액티브 발동");
+                break;
+        }
     }
 }

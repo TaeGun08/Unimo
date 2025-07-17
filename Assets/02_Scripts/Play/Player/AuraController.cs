@@ -14,12 +14,13 @@ public class AuraController : MonoBehaviour
     
     private float lerpDuration = 0.5f;    // 오라 범위 변경되는 시간
     
+    private PlayerStatHolder playerStatHolder;
     private Coroutine changeScaleCoroutine;
-    private bool isChangingScale = false;
 
     private void Start()
     {
-        InitAura(LocalPlayer.Instance.PlayerStatHolder.BloomRange.Value);
+        playerStatHolder = LocalPlayer.Instance.PlayerStatHolder;
+        InitAura();
     }
 
     private void Update()
@@ -38,11 +39,11 @@ public class AuraController : MonoBehaviour
         }
     }
 
-    public void InitAura(int range)
+    public void InitAura()
     {
-        transform.localScale = range * 0.1f * Vector3.one;    // 0.1은 수치 조정용
+        transform.localScale = playerStatHolder.BloomRange.Value * 0.1f * Vector3.one;    // 0.1은 수치 조정용
         originalScale = transform.localScale;
-        originalGrowth = growthperSec;
+        originalGrowth = playerStatHolder.BloomSpeed.Value;
     }
 
     public void ChangeScale(int prev, int next, int duration)
@@ -57,7 +58,6 @@ public class AuraController : MonoBehaviour
     
     private IEnumerator ChangeScaleCoroutine(int prev, int next, int duration)
     {
-        isChangingScale = true;
         float elapsed = 0f;
         Vector3 startScale = prev * 0.1f * Vector3.one;
         Vector3 targetScale = next * 0.1f * Vector3.one;
@@ -89,8 +89,6 @@ public class AuraController : MonoBehaviour
             }
             transform.localScale = startScale;
         }
-
-        isChangingScale = false;
     }
 
     // public void InitAura(float range)

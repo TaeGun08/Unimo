@@ -9,12 +9,13 @@ public class RareFlowerRateUpSkillBehaviour : MonoBehaviour, IEquipmentSkillBeha
     public void Excute(GameObject caster, EquipmentSkillType type, int duration, float param)
     {
         var rareFlowerRate = LocalPlayer.Instance.PlayerStatHolder.RareFlowerRate;
+        var addRareFlowerRate = rareFlowerRate.Value * param;
         
         switch (type)
         { 
             case EquipmentSkillType.Passive:
                 Debug.Log("[Passive] Èñ±Í ²É »ý¼º È®·ü Áõ°¡ ÆÐ½Ãºê ¹ßµ¿");
-                rareFlowerRate.Add(param);
+                rareFlowerRate.Add(addRareFlowerRate);
                 break;
             case EquipmentSkillType.Active:
                 Debug.Log("[Active] Èñ±Í ²É »ý¼º È®·ü Áõ°¡ ¾×Æ¼ºê ¹ßµ¿");
@@ -22,16 +23,16 @@ public class RareFlowerRateUpSkillBehaviour : MonoBehaviour, IEquipmentSkillBeha
                 {
                     StopCoroutine(activeCoroutine);
                 }
-                activeCoroutine = StartCoroutine(ActiveRareFlowerRateUp(rareFlowerRate, duration, param));
+                activeCoroutine = StartCoroutine(ActiveRareFlowerRateUp(rareFlowerRate, duration, addRareFlowerRate));
                 break;
         }
     }
     
-    private IEnumerator ActiveRareFlowerRateUp(ClampedFloat rareFlowerRate, int duration, float param)
+    private IEnumerator ActiveRareFlowerRateUp(ClampedFloat rareFlowerRate, int duration, float addRareFlowerRate)
     {
-        rareFlowerRate.Add(param);
+        rareFlowerRate.Add(addRareFlowerRate);
         yield return new WaitForSeconds(duration);
-        rareFlowerRate.Subtract(param);
+        rareFlowerRate.Subtract(addRareFlowerRate);
         activeCoroutine = null;
     }
 }
