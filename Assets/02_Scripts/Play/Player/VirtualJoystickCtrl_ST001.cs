@@ -4,15 +4,8 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class VirtualJoystickCtrl_ST001 : MonoBehaviour
+public class VirtualJoystickCtrl_ST001 : VirtualJoystickCtrl
 {
-    //private PlayerMover_ST001 mover;
-    private VitualStickImager virtualStick;
-    private Vector2 stickCenterPos;
-    private float controlRadius = 140;
-    private bool isStopControl = false;
-    public Vector2 Dir { get; set; }
-
     private void Start()
     {
         //mover = GetComponent<PlayerMover_ST001>();
@@ -24,7 +17,7 @@ public class VirtualJoystickCtrl_ST001 : MonoBehaviour
         PlaySystemRefStorage.playProcessController.SubscribePauseAction(stopControl);
         PlaySystemRefStorage.playProcessController.SubscribeResumeAction(resumeControl);
     }
-    // Update is called once per frame
+
     void Update()
     {
         if (isStopControl) { return; }
@@ -41,7 +34,6 @@ public class VirtualJoystickCtrl_ST001 : MonoBehaviour
         Touch touch = Input.GetTouch(0);
         if (touch.phase == TouchPhase.Ended && touch.phase == TouchPhase.Canceled)
         {
-            //mover.SetDirection(Vector2.zero);
             virtualStick.gameObject.SetActive(false);
         }
         else if (touch.phase == TouchPhase.Began)
@@ -53,15 +45,8 @@ public class VirtualJoystickCtrl_ST001 : MonoBehaviour
         else if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) 
         {
             Dir = convertToDirection(touch.position);
-            //mover.SetDirection(dir);
             virtualStick.setStickPos(Dir);
-            
         }
-    }
-    private void OnDisable()
-    {
-        if (virtualStick == null) { return; }
-        if (virtualStick.gameObject.activeSelf == true) { virtualStick.gameObject.SetActive(false); }
     }
     private Vector2 convertToDirection(Vector2 inputPos)
     {
@@ -72,15 +57,5 @@ public class VirtualJoystickCtrl_ST001 : MonoBehaviour
         Vector2 dir = radius * new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
         return dir;
-    }
-    private void stopControl()
-    {  
-        isStopControl = true;
-        //mover.SetDirection(Vector2.zero); 
-        virtualStick.gameObject.SetActive(false);
-    }
-    private void resumeControl()
-    {
-        isStopControl = false;
     }
 }

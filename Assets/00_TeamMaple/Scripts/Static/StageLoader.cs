@@ -25,6 +25,6 @@ public static class StageLoader
     
     public static bool IsBonusStageByIndex(int index)
     {
-        return (index + 1) % 10 == 0;
+        return index % 10 == 0;
     }
 }

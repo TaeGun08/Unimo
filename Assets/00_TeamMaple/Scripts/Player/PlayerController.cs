@@ -11,8 +11,8 @@ public class PlayerController : MonoBehaviour
     public Dictionary<IPlayerState.EState, PlayerState> StatesDic { get; private set; }
     public PlayerState CurrentState { get; set; }
     
-    private VirtualJoystickCtrl_ST001  virtualJoystickCtrl;
-    public VirtualJoystickCtrl_ST001 VirtualJoystickCtrl => virtualJoystickCtrl;
+    private VirtualJoystickCtrl  virtualJoystickCtrl;
+    public VirtualJoystickCtrl VirtualJoystickCtrl => virtualJoystickCtrl;
     
     public Animator UnimoAnim { get; set; }
     public Animator EgineAnim { get; set; }
@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     {
         yield return null;
         
-        virtualJoystickCtrl = GetComponent<VirtualJoystickCtrl_ST001>();
+        virtualJoystickCtrl = GetComponent<VirtualJoystickCtrl>();
         
         StatesDic = new Dictionary<IPlayerState.EState, PlayerState>();
         

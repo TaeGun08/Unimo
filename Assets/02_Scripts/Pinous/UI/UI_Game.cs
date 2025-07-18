@@ -19,12 +19,7 @@ public class UI_Game : UI_Base
         stageCount = JsonDataLoader.LoadServerData().CurrentStage;
         UpdateStar();
         SetStageText();
-
-        if (StageLoader.IsBonusStageByIndex(stageCount) && Base_Mng.Data.data.BonusStageOn)
-        {
-            stageText.text = $"Bonus Stage";
-            bonusStageButton.SetActive(true);
-        }
+        BonusStageOn();
     }
 
     public override void Start()
@@ -37,12 +32,7 @@ public class UI_Game : UI_Base
         stageCount = JsonDataLoader.LoadServerData().CurrentStage;
         UpdateStar();
         SetStageText();
-
-        if (StageLoader.IsBonusStageByIndex(stageCount) && Base_Mng.Data.data.BonusStageOn)
-        {
-            stageText.text = $"Bonus Stage";
-            bonusStageButton.SetActive(true);
-        }
+        BonusStageOn();
     }
 
     public override void DisableOBJ()
@@ -79,23 +69,20 @@ public class UI_Game : UI_Base
 
     private void SetStageText()
     {
+        if (StageLoader.IsBonusStageByIndex(stageCount) && Base_Mng.Data.data.BonusStageOn) return;
         stageText.text = $"Stage-{stageCount}";
     }
 
     public void StageCountUp()
     {
         stageCount++;
-        Debug.Log("보너스 스테이지 온" + Base_Mng.Data.data.BonusStageOn);
         if (StageLoader.HighStageChecker(stageCount))
         {
-            BonusStageOn();
             stageCount = JsonDataLoader.LoadServerData().HighStage;
             return;
         }
-        
-        BonusStageOn();
 
-        if (Base_Mng.Data.data.BonusStageOn) return;
+        BonusStageOn();
         SetStageText();
         UpdateStar();
     }
@@ -110,8 +97,6 @@ public class UI_Game : UI_Base
         }
 
         BonusStageOn();
-
-        if (Base_Mng.Data.data.BonusStageOn) return;
         SetStageText();
         UpdateStar();
     }
@@ -131,6 +116,15 @@ public class UI_Game : UI_Base
 
     private void UpdateStar()
     {
+        if (StageLoader.IsBonusStageByIndex(stageCount) && Base_Mng.Data.data.BonusStageOn)
+        {
+            for (int i = 0; i < starImg.Length; i++)
+            {
+                starImg[i].SetActive(false);
+            }
+            return;
+        }
+
         if (StageManager.Instance.GetStars(stageCount + 1000) == 3)
         {
             for (int i = 0; i < starImg.Length; i++)

@@ -22,8 +22,7 @@ public class GetRewardScript : MonoBehaviour
     {
         stageManager = StageManager.Instance;
 
-        if (Base_Mng.Data.data.BonusStageOn && 
-            StageLoader.IsBonusStageByIndex(JsonDataLoader.LoadServerData().HighStage))
+        if (Base_Mng.Data.data.BonusStageOn)
         {
             GetBonusReward();
             Debug.Log("보너스 리워드");
