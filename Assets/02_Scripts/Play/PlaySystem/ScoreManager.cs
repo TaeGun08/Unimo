@@ -57,8 +57,8 @@ public class ScoreManager : MonoBehaviour
         }
         
         this.score += 1;
-        
-        if (starBar.value < 1)
+
+        if (starBar != null && starBar.value < 1)
         {
             starBar.value = (float)(gatheredResources[0] / 200);
         }

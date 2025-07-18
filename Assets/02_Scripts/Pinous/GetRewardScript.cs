@@ -22,8 +22,7 @@ public class GetRewardScript : MonoBehaviour
     {
         stageManager = StageManager.Instance;
 
-        if (Base_Mng.Data.data.BonusStageOn && 
-            StageLoader.IsBonusStageByIndex(JsonDataLoader.LoadServerData().HighStage))
+        if (Base_Mng.Data.data.BonusStageOn)
         {
             GetBonusReward();
             Debug.Log("보너스 리워드");
@@ -48,7 +47,7 @@ public class GetRewardScript : MonoBehaviour
         YellowText.text = StringMethod.ToCurrencyString(yellowTrade);
         RedText.text = StringMethod.ToCurrencyString(redTrade);
 
-        if (!(starBar.value < 0.01f) &&
+        if (!(starBar.value < 0.5f) &&
             JsonDataLoader.LoadServerData().HighStage <= JsonDataLoader.LoadServerData().CurrentStage)
         {
             int getStar = stageManager.GetStars(JsonDataLoader.LoadServerData().CurrentStage + 1000);

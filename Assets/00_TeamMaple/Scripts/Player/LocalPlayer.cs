@@ -81,6 +81,7 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
 
     private void Update()
     {
+        if (RemainHp == null) return;
         RemainHp.text = PlayerStatHolder.Hp.Value.ToString();
     }
 

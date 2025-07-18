@@ -17,6 +17,7 @@ public class PlayerMoveState : PlayerState
         if (mapSetter.IsInMap(PlayerController.transform.position) == false)
         {
             PlayerController.transform.position = mapSetter.FindNearestPoint(PlayerController.transform.position);
+            return;
         }
         
         PlayerController.transform.ApplyMovementAndRotation(PlayerController.VirtualJoystickCtrl.Dir, 

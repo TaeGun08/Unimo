@@ -11,7 +11,7 @@ public class CamMover_ST002 : MonoBehaviour
     private bool isFollow = false;
     private void Start()
     {
-        playerTransform = FindAnyObjectByType<PlayerMover>().transform;
+        playerTransform = FindAnyObjectByType<PlayerController>().transform;
         StartCoroutine(CoroutineExtensions.DelayedActionCall(() => { isFollow = true; }, PlayProcessController.InitTimeSTATIC + 0.05f));
     }
     // Update is called once per frame
