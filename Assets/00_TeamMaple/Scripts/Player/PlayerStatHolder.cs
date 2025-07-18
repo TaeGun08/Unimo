@@ -1,11 +1,12 @@
 using System;
 using UnityEngine;
 
+// 피격 무효 타입
 public enum InvalidType
 {
     None,
-    Once,
-    Invincible
+    Once,    // 1회 피격 무효
+    Invincible     // 무적
 }
 
 public class PlayerStatHolder
@@ -22,7 +23,8 @@ public class PlayerStatHolder
     public ClampedFloat HpRecovery { get; private set; }
     public ClampedFloat FlowerDropSpeed { get; private set; }
     public ClampedFloat FlowerDropAmount { get; private set; }
-    public InvalidType  CanInvalid { get; set; }
+    
+    public InvalidType InvalidType { get; private set; }
 
     private StatCalculator statCalculator;
 
@@ -45,31 +47,51 @@ public class PlayerStatHolder
         FlowerDropSpeed   = new ClampedFloat(statCalculator.FlowerDropSpeed, 0f, 100f);
         FlowerDropAmount  = new ClampedFloat(statCalculator.FlowerDropAmount, 0f, 100f);
         
-        CanInvalid = InvalidType.None;
+        InvalidType = InvalidType.None;
     }
     
     public event Action OnOnceInvalidUsed;
     
+    // 1회 피격 무효 부여
     public void GiveOnceInvalid()
     {
-        if (CanInvalid == InvalidType.None)
+        if (InvalidType == InvalidType.None)
         {
-            CanInvalid = InvalidType.Once;
+            InvalidType = InvalidType.Once;
         }
     }
 
+    // 무적 부여
+    public void GiveInvincible()
+    {
+        if (InvalidType == InvalidType.None)
+        {
+            InvalidType = InvalidType.Invincible;
+        }
+    }
+    
+    // 무적 삭제
+    public void RemoveInvincible()
+    {
+        if (InvalidType == InvalidType.Invincible)
+        {
+            InvalidType = InvalidType.None;
+        }
+    }
+
+    // InvalidType이 None이 아닐 때, 피격 시에 호출
     public void OnInvalidation()
     {
-        if (CanInvalid == InvalidType.Invincible)
+        if (InvalidType == InvalidType.Invincible)
         {
             Debug.Log("무적! 데미지 무효");
             return;
         }
         
-        if (CanInvalid == InvalidType.Once)
+        if (InvalidType == InvalidType.Once)
         {
             Debug.Log("1회 피격 무효화! 데미지 무효");
-            CanInvalid = InvalidType.None;
+            InvalidType = InvalidType.None;
             OnOnceInvalidUsed?.Invoke();    // 쿨타임 스타트
         }
     }

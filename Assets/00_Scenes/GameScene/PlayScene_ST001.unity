@@ -1100,7 +1100,7 @@ GameObject:
   - component: {fileID: 459890024}
   - component: {fileID: 459890025}
   m_Layer: 0
-  m_Name: SkillTestHelper
+  m_Name: SkillRunner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

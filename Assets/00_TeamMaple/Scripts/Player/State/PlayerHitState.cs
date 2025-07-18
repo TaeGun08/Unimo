@@ -13,7 +13,7 @@ public class PlayerHitState : PlayerState
         // 0~1 랜덤값 생성해서, dodgeChance 이하이면 회피
         bool isDodged = Random.value < dodgeChance;
 
-        if (statHolder.CanInvalid != InvalidType.None)
+        if (statHolder.InvalidType != InvalidType.None)
         {
             statHolder.OnInvalidation();
         }

@@ -6,16 +6,16 @@ public class RareFlowerRateUpSkillBehaviour : MonoBehaviour, IEquipmentSkillBeha
 {
     private Coroutine activeCoroutine;
     
-    public void Excute(GameObject caster, EquipmentSkillType type, int duration, float param)
+    public void Excute(GameObject caster, EquipmentSkillData skillData)
     {
-        var rareFlowerRate = LocalPlayer.Instance.PlayerStatHolder.RareFlowerRate;
-        var addRareFlowerRate = rareFlowerRate.Value * param;
+        var rareFlowerRate = LocalPlayer.Instance.PlayerStatHolder.RareFlowerRate;    // ±âÁ¸ °ª
+        var addRareFlowerRate = rareFlowerRate.Value * skillData.Param;    // ±âÁ¸ °ª * Áõ°¡ ÆÛ¼¾Æ®
         
-        switch (type)
+        switch (skillData.Type)
         { 
             case EquipmentSkillType.Passive:
                 Debug.Log("[Passive] Èñ±Í ²É »ý¼º È®·ü Áõ°¡ ÆÐ½Ãºê ¹ßµ¿");
-                rareFlowerRate.Add(addRareFlowerRate);
+                rareFlowerRate.Add(addRareFlowerRate);    // Èñ±Í ²É »ý¼º È®·ü Áõ°¡
                 break;
             case EquipmentSkillType.Active:
                 Debug.Log("[Active] Èñ±Í ²É »ý¼º È®·ü Áõ°¡ ¾×Æ¼ºê ¹ßµ¿");
@@ -23,16 +23,16 @@ public class RareFlowerRateUpSkillBehaviour : MonoBehaviour, IEquipmentSkillBeha
                 {
                     StopCoroutine(activeCoroutine);
                 }
-                activeCoroutine = StartCoroutine(ActiveRareFlowerRateUp(rareFlowerRate, duration, addRareFlowerRate));
+                activeCoroutine = StartCoroutine(ActiveRareFlowerRateUp(rareFlowerRate, skillData.Duration, addRareFlowerRate));
                 break;
         }
     }
     
     private IEnumerator ActiveRareFlowerRateUp(ClampedFloat rareFlowerRate, int duration, float addRareFlowerRate)
     {
-        rareFlowerRate.Add(addRareFlowerRate);
-        yield return new WaitForSeconds(duration);
-        rareFlowerRate.Subtract(addRareFlowerRate);
+        rareFlowerRate.Add(addRareFlowerRate);    // Èñ±Í ²É »ý¼º È®·ü ÀÏ½Ã Áõ°¡
+        yield return new WaitForSeconds(duration);    // durationÃÊ ´ë±â
+        rareFlowerRate.Subtract(addRareFlowerRate);    // Áõ°¡ºÐ ´Ù½Ã °¨¼Ò
         activeCoroutine = null;
     }
 }
