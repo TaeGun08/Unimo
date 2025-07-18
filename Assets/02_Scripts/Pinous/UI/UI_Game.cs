@@ -8,7 +8,7 @@ public class UI_Game : UI_Base
 {
     public TextMeshProUGUI GameOneBest, GameTwoBest;
     private int stageCount;
-    
+
     [SerializeField] private TMP_Text stageText;
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private GameObject[] starImg;
@@ -20,7 +20,11 @@ public class UI_Game : UI_Base
         UpdateStar();
         SetStageText();
 
-        bonusStageButton.SetActive(StageManager.Instance.BonusStageOn);
+        if (StageLoader.IsBonusStageByIndex(stageCount) && Base_Mng.Data.data.BonusStageOn)
+        {
+            stageText.text = $"Bonus Stage";
+            bonusStageButton.SetActive(true);
+        }
     }
 
     public override void Start()
@@ -33,8 +37,12 @@ public class UI_Game : UI_Base
         stageCount = JsonDataLoader.LoadServerData().CurrentStage;
         UpdateStar();
         SetStageText();
-        
-        bonusStageButton.SetActive(StageManager.Instance.BonusStageOn);
+
+        if (StageLoader.IsBonusStageByIndex(stageCount) && Base_Mng.Data.data.BonusStageOn)
+        {
+            stageText.text = $"Bonus Stage";
+            bonusStageButton.SetActive(true);
+        }
     }
 
     public override void DisableOBJ()
@@ -45,7 +53,7 @@ public class UI_Game : UI_Base
     public void GoGameScene(int value)
     {
         int stageText = 0;
-         
+
         WholeSceneController.Instance.ReadyNextScene(value);
         Base_Mng.Data.data.GamePlay++;
         Pinous_Flower_Holder.FlowerHolder.Clear();
@@ -58,12 +66,13 @@ public class UI_Game : UI_Base
         {
             Base_Mng.Data.data.CurrentStage = stageCount;
         }
+
         //Base_Mng.Data.data.CurrentStage = stageCount;
         JsonDataLoader.SaveServerData(Base_Mng.Data.data);
-        
+
         //Base_Mng.ADS._interstitialCallback = () =>
         //{
-           
+
         //};
         //Base_Mng.ADS.ShowInterstitialAds();
     }
@@ -76,23 +85,19 @@ public class UI_Game : UI_Base
     public void StageCountUp()
     {
         stageCount++;
+        Debug.Log("보너스 스테이지 온" + Base_Mng.Data.data.BonusStageOn);
         if (StageLoader.HighStageChecker(stageCount))
         {
-            stageCount--;
+            BonusStageOn();
+            stageCount = JsonDataLoader.LoadServerData().HighStage;
             return;
         }
         
+        BonusStageOn();
+
+        if (Base_Mng.Data.data.BonusStageOn) return;
         SetStageText();
         UpdateStar();
-
-        if (StageLoader.IsBonusStageByIndex(stageCount))
-        {
-            bonusStageButton.SetActive(StageManager.Instance.BonusStageOn);
-        }
-        else
-        {
-            bonusStageButton.SetActive(false);
-        }
     }
 
     public void StageCountDown()
@@ -103,13 +108,20 @@ public class UI_Game : UI_Base
             stageCount = 1;
             return;
         }
-        
+
+        BonusStageOn();
+
+        if (Base_Mng.Data.data.BonusStageOn) return;
         SetStageText();
         UpdateStar();
-        
-        if (StageLoader.IsBonusStageByIndex(stageCount))
+    }
+
+    private void BonusStageOn()
+    {
+        if (StageLoader.IsBonusStageByIndex(stageCount) && Base_Mng.Data.data.BonusStageOn)
         {
-            bonusStageButton.SetActive(StageManager.Instance.BonusStageOn);
+            stageText.text = $"Bonus Stage";
+            bonusStageButton.SetActive(true);
         }
         else
         {

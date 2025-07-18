@@ -141,6 +141,7 @@ public partial class Firebase_Mng: MonoBehaviour
         data.Green = 0;
         data.HighStage = 1;
         data.CurrentStage = 1;
+        data.BonusStageOn = false;
         data.NextLevel_Base = 10;
         data.GetReview = false;
         data.GetOarkTong = false;
