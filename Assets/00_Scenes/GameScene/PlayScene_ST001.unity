@@ -1136,7 +1136,9 @@ MonoBehaviour:
   skillTable: {fileID: 11400000, guid: dc08681057585764bb821697c69f9c21, type: 2}
   skillButton: {fileID: 1610524294}
   player: {fileID: 1217114930}
-  skillDataSO: {fileID: 11400000, guid: 28cf012214853794489021f808449e17, type: 2}
+  equipmentStatDataSo: {fileID: 11400000, guid: 5c1e008d9caf25c4c96cfeddb9d9d1be,
+    type: 2}
+  skillDataSo: {fileID: 11400000, guid: 28cf012214853794489021f808449e17, type: 2}
 --- !u!1 &481137415 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8501496307030212588, guid: 313edbeaf5d71bd4588aeac72ee90219,
@@ -8788,6 +8790,12 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 5953960002914474849, guid: 35ca479c1a46ff444b6adde214f7cc9f,
         type: 3}
+      propertyPath: unimoStatDataSo
+      value: 
+      objectReference: {fileID: 11400000, guid: 9d1dd542feb81e6459675e32630fd39f,
+        type: 2}
+    - target: {fileID: 5953960002914474849, guid: 35ca479c1a46ff444b6adde214f7cc9f,
+        type: 3}
       propertyPath: equipmentSkillTable
       value: 
       objectReference: {fileID: 11400000, guid: dc08681057585764bb821697c69f9c21,
@@ -8800,7 +8808,19 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 5953960002914474849, guid: 35ca479c1a46ff444b6adde214f7cc9f,
         type: 3}
+      propertyPath: equipmentStatDataSo
+      value: 
+      objectReference: {fileID: 11400000, guid: 5c1e008d9caf25c4c96cfeddb9d9d1be,
+        type: 2}
+    - target: {fileID: 5953960002914474849, guid: 35ca479c1a46ff444b6adde214f7cc9f,
+        type: 3}
       propertyPath: equipmentSkillDataSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 28cf012214853794489021f808449e17,
+        type: 2}
+    - target: {fileID: 5953960002914474849, guid: 35ca479c1a46ff444b6adde214f7cc9f,
+        type: 3}
+      propertyPath: equipmentSkillDataSo
       value: 
       objectReference: {fileID: 11400000, guid: 28cf012214853794489021f808449e17,
         type: 2}

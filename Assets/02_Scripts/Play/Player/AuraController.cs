@@ -43,7 +43,9 @@ public class AuraController : MonoBehaviour
     {
         transform.localScale = playerStatHolder.BloomRange.Value * 0.1f * Vector3.one;    // 0.1은 수치 조정용
         originalScale = transform.localScale;
-        originalGrowth = playerStatHolder.BloomSpeed.Value;
+        
+        growthperSec = playerStatHolder.BloomSpeed.Value;
+        originalGrowth = growthperSec;
     }
 
     public void ChangeScale(int prev, int next, int duration)

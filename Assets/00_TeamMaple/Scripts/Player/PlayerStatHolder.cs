@@ -1,4 +1,12 @@
+using System;
 using UnityEngine;
+
+public enum InvalidType
+{
+    None,
+    Once,
+    Invincible
+}
 
 public class PlayerStatHolder
 {
@@ -14,6 +22,7 @@ public class PlayerStatHolder
     public ClampedFloat HpRecovery { get; private set; }
     public ClampedFloat FlowerDropSpeed { get; private set; }
     public ClampedFloat FlowerDropAmount { get; private set; }
+    public InvalidType  CanInvalid { get; set; }
 
     private StatCalculator statCalculator;
 
@@ -25,7 +34,7 @@ public class PlayerStatHolder
         // 최소, 최대값 수정 필요
         Hp                = new ClampedInt(statCalculator.Hp, 0, statCalculator.Hp);
         Def               = new ClampedInt(statCalculator.Def, 0, 9999);
-        Speed             = new ClampedFloat(statCalculator.Speed * 10f, 0f, 100f);
+        Speed             = new ClampedFloat(statCalculator.Speed, 0f, 100f);
         BloomRange        = new ClampedInt(statCalculator.BloomRange, 0, 300);
         BloomSpeed        = new ClampedFloat(statCalculator.BloomSpeed, 0f, 100f);
         FlowerRate        = new ClampedFloat(statCalculator.FlowerRate, 0f, 100f);
@@ -35,5 +44,33 @@ public class PlayerStatHolder
         HpRecovery        = new ClampedFloat(statCalculator.HpRecovery, 0f, 100f);
         FlowerDropSpeed   = new ClampedFloat(statCalculator.FlowerDropSpeed, 0f, 100f);
         FlowerDropAmount  = new ClampedFloat(statCalculator.FlowerDropAmount, 0f, 100f);
+        
+        CanInvalid = InvalidType.None;
+    }
+    
+    public event Action OnOnceInvalidUsed;
+    
+    public void GiveOnceInvalid()
+    {
+        if (CanInvalid == InvalidType.None)
+        {
+            CanInvalid = InvalidType.Once;
+        }
+    }
+
+    public void OnInvalidation()
+    {
+        if (CanInvalid == InvalidType.Invincible)
+        {
+            Debug.Log("무적! 데미지 무효");
+            return;
+        }
+        
+        if (CanInvalid == InvalidType.Once)
+        {
+            Debug.Log("1회 피격 무효화! 데미지 무효");
+            CanInvalid = InvalidType.None;
+            OnOnceInvalidUsed?.Invoke();    // 쿨타임 스타트
+        }
     }
 }

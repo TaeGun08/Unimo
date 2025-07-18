@@ -11,15 +11,15 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
     
     [Header("UnimoStatDataSO")]
     [SerializeField] private PrefabsTable unimoTable;
-    [SerializeField] private UnimoStatDataSO unimoStatDataSO;
+    [SerializeField] private UnimoStatDataSO unimoStatDataSo;
     
     [Header("EquipmentStatDataSO")]
     [SerializeField] private PrefabsTable equipmentTable;
-    [SerializeField] private EquipmentStatDataSO equipmentStatDataSO;
+    [SerializeField] private EquipmentStatDataSO equipmentStatDataSo;
 
     [Header("EquipmentSkillDataSO")]
     [SerializeField] private PrefabsTable equipmentSkillTable;
-    [SerializeField] private EquipmentSkillDataSO equipmentSkillDataSO;
+    [SerializeField] private EquipmentSkillDataSO equipmentSkillDataSo;
     
     private UnimoStatData unimoStatData;
     private UnimoStatLevelUpData unimoStatLevelUpData;
@@ -87,8 +87,8 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
     // StatCalculator의 UnimoStatData에 값 넣어주기
     private void SetPlayerStats()
     {
-        unimoStatData = unimoStatDataSO.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount);
-        equipmentStatData = equipmentStatDataSO.GetFinalEquipmnetStatData(Base_Mng.Data.data.EQCount);    // 착용 중인 엔진 아이디 넣어야 함
+        unimoStatData = unimoStatDataSo.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount);
+        equipmentStatData = equipmentStatDataSo.GetFinalEquipmnetStatData(Base_Mng.Data.data.EQCount);    // 착용 중인 엔진 아이디 넣어야 함
 
         StatCalculator = new StatCalculator(unimoStatData, equipmentStatData);
         PlayerStatHolder = new PlayerStatHolder(StatCalculator);
