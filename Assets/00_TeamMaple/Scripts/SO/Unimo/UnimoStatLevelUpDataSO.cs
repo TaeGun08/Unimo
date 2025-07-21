@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using CsvHelper;
 using UnityEngine;
 
@@ -56,5 +57,51 @@ public class UnimoStatLevelUpDataSO : ScriptableObject
 
         Debug.LogWarning($"UnimoStatLevelUpData with Level {level} not found.");
         return null;
+    }
+    
+    public UnimoStatLevelUpData GetCurrentAndNextStat(int currentLevel)
+    {
+        if (unimoStatLevelUpDataCsv == null)
+        {
+            Debug.LogError("unimoLevelDataCsv is null");
+            return null;
+        }
+
+        using (StringReader reader = new StringReader(unimoStatLevelUpDataCsv.text))
+        using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+        {
+            csv.Read();
+            csv.ReadHeader();
+
+            List<UnimoStatLevelUpData> allData = csv.GetRecords<UnimoStatLevelUpData>().ToList();
+
+            var next = allData.FirstOrDefault(x => x.Level == currentLevel + 1);
+            var current = allData.FirstOrDefault(x => x.Level == currentLevel);
+            
+            if (next == null)
+            {
+                Debug.LogWarning($"No next level data found for level {currentLevel + 1}");
+                return null;
+            }
+
+            UnimoStatLevelUpData nextStat = new UnimoStatLevelUpData
+            {
+                Level = next.Level - current.Level,
+                PlusHp = next.PlusHp - current.PlusHp,
+                PlusDef = next.PlusDef - current.PlusDef,
+                PlusSpeed = next.PlusSpeed - current.PlusSpeed,
+                PlusBloomRange = next.PlusBloomRange - current.PlusBloomRange,
+                PlusBloomSpeed = next.PlusBloomSpeed - current.PlusBloomSpeed,
+                PlusFlowerRate = next.PlusFlowerRate - current.PlusFlowerRate,
+                PlusRareFlowerRate = next.PlusRareFlowerRate - current.PlusRareFlowerRate,
+                PlusDodge = next.PlusDodge - current.PlusDodge,
+                PlusStunRecovery = next.PlusStunRecovery - current.PlusStunRecovery,
+                PlusHpRecovery = next.PlusHpRecovery - current.PlusHpRecovery,
+                PlusFlowerDropSpeed = next.PlusFlowerDropSpeed - current.PlusFlowerDropSpeed,
+                PlusFlowerDropAmount = next.PlusFlowerDropAmount - current.PlusFlowerDropAmount
+            };
+
+            return nextStat;
+        }
     }
 }

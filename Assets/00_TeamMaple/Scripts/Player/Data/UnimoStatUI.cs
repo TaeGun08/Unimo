@@ -6,6 +6,8 @@ using UnityEngine;
 public class UnimoStatUI : MonoBehaviour
 {
     [SerializeField] private UnimoStatDataSO statDataSO;
+    [SerializeField] private UnimoStatLevelUpDataSO unimoDataSO;
+
     public GameObject statTextPrefab;
     public RectTransform contentParent;
     public RectTransform upgradeContentParent;
@@ -64,7 +66,7 @@ public class UnimoStatUI : MonoBehaviour
     
     public void ShowUpgradeStat( int currentLevel)
     {
-        var next = statDataSO.GetCurrentAndNextStat(currentLevel);
+        var next = unimoDataSO.GetCurrentAndNextStat(currentLevel);
         
         UpGradeNextStatLine($"+ {next.PlusHp}");
         UpGradeNextStatLine($"+ {next.PlusDef}");

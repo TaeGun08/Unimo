@@ -53,30 +53,11 @@ public class UnimoStatData
     public float FlowerDropAmount { get; set; }    // 꽃 낙하량
 }
 
-[System.Serializable]
-public class UnimoNextStatData
-{
-    public int Level { get; set; }    // 유니모 레벨
-    public int PlusHp { get; set; }    // 유니모 체력
-    public int PlusDef { get; set; }    // 유니모 방어력
-    public float PlusSpeed { get; set; }    // 유니모 속도
-    public int PlusBloomRange { get; set; }    // 개화 범위
-    public float PlusBloomSpeed { get; set; }    // 개화 속도
-    public float PlusFlowerRate { get; set; }    // 꽃 생성 주기
-    public float PlusRareFlowerRate { get; set; }    // 희귀 꽃 생성 주기 
-    public float PlusDodge { get; set; }    // 회피율
-    public float PlusStunRecovery { get; set; }    // 스턴 회복력
-    public float PlusHpRecovery { get; set; }    // 체력 회복력
-    public float PlusFlowerDropSpeed { get; set; }    // 꽃 낙하 속도
-    public float PlusFlowerDropAmount { get; set; }    // 꽃 낙하량
-}
-
 [CreateAssetMenu(fileName = "UnimoStatDataSO", menuName = "Scriptable Object/UnimoStatDataSO")]
 public class UnimoStatDataSO : ScriptableObject
 {
     [Header("UnimoStatDataCsv")]
     [SerializeField] private TextAsset unimoStatDataCsv;
-    [SerializeField] private TextAsset unimoLevelDataCsv;
     
     [Header("UnimoStatLevelUpDataSO")]
     [SerializeField] private UnimoStatLevelUpDataSO unimoStatLevelUpDataSO;
@@ -163,50 +144,4 @@ public class UnimoStatDataSO : ScriptableObject
         Debug.LogWarning($"UnimoStatData with ID {unimoID} not found.");
         return null;
     }
-    
-    public UnimoNextStatData GetCurrentAndNextStat(int currentLevel)
-    {
-        if (unimoLevelDataCsv == null)
-        {
-            Debug.LogError("unimoLevelDataCsv is null");
-            return null;
-        }
-
-        using (StringReader reader = new StringReader(unimoLevelDataCsv.text))
-        using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-        {
-            csv.Read();
-            csv.ReadHeader();
-
-            List<UnimoNextStatData> allData = csv.GetRecords<UnimoNextStatData>().ToList();
-
-            var next = allData.FirstOrDefault(x => x.Level == currentLevel + 1);
-
-            if (next == null)
-            {
-                Debug.LogWarning($"No next level data found for level {currentLevel + 1}");
-                return null;
-            }
-
-            UnimoNextStatData nextStat = new UnimoNextStatData
-            {
-                Level = next.Level,
-                PlusHp = next.PlusHp,
-                PlusDef = next.PlusDef,
-                PlusSpeed = next.PlusSpeed,
-                PlusBloomRange = next.PlusBloomRange,
-                PlusBloomSpeed = next.PlusBloomSpeed,
-                PlusFlowerRate = next.PlusFlowerRate,
-                PlusRareFlowerRate = next.PlusRareFlowerRate,
-                PlusDodge = next.PlusDodge,
-                PlusStunRecovery = next.PlusStunRecovery,
-                PlusHpRecovery = next.PlusHpRecovery,
-                PlusFlowerDropSpeed = next.PlusFlowerDropSpeed,
-                PlusFlowerDropAmount = next.PlusFlowerDropAmount
-            };
-
-            return nextStat;
-        }
-    }
-
 }
