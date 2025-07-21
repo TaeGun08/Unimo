@@ -93,8 +93,8 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
     private void SetPlayerStats()
     {
         // 유니모, 엔진 아이디 & 레벨 넣어주기
-        unimoStatData = unimoStatDataSo.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount, 50);
-        equipmentStatData = equipmentStatDataSo.GetFinalEquipmnetStatData(Base_Mng.Data.data.EQCount, 5);
+        unimoStatData = unimoStatDataSo.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount, Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]);
+        equipmentStatData = equipmentStatDataSo.GetFinalEquipmnetStatData(Base_Mng.Data.data.EQCount, Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1]);
 
         StatCalculator = new StatCalculator(unimoStatData, equipmentStatData);
         PlayerStatHolder = new PlayerStatHolder(StatCalculator);
