@@ -15,11 +15,11 @@ EditorBuildSettings:
     path: Assets/00_Scenes/GameScene/LoadingScene.unity
     guid: 47a5307bb166dd24481bb1acce14d0d4
   - enabled: 1
-    path: Assets/00_Scenes/GameScene/LobbyScene.unity
-    guid: f5d787bff90451e4a8a67f0ca7acb950
+    path: Assets/00_Scenes/TestScene/LobbyScene_jmg.unity
+    guid: 3a966f3ce462bdc45a38c0c0c4aa5199
   - enabled: 1
-    path: Assets/00_Scenes/GameScene/PlayScene_ST001.unity
-    guid: 2a8677cebf2d4d14fa9f151deb441e1e
+    path: Assets/00_Scenes/TestScene/PlayScene_ST001_jmg.unity
+    guid: 6de761d8bfd0529449ac1b9243ee8256
   - enabled: 1
     path: Assets/00_Scenes/GameScene/PlayScene_ST002.unity
     guid: 71a3ef563c5935b44bca62d211b33b04

@@ -72,6 +72,8 @@ public class WholeSceneController : SingletonBehaviour<WholeSceneController>
     }
     private void ResetSceneChangeCtrlList(Scene scene, LoadSceneMode mode)
     {
+        Debug.Log(SceneManager.GetActiveScene().buildIndex);
+        Debug.Log(initSceneIdx);
         //Initialize mViewCtrl and mInputBlocker
         mViewCtrl = FindObjectsByType<SceneChangeEffecter>(FindObjectsSortMode.None);
         if (SceneManager.GetActiveScene().buildIndex == initSceneIdx || SceneManager.GetActiveScene().buildIndex == loadSceneIdx)
