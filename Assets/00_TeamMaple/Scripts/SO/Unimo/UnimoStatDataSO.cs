@@ -190,6 +190,6 @@ public class UnimoStatDataSO : ScriptableObject
     private float GetLevelUpWeighted(float baseValue, UnimoStat stat, HashSet<UnimoStat> specialStats, bool isAll, float weight)
     {
         if (stat == UnimoStat.None) return baseValue; // None은 항상 가중치 미적용
-        return (isAll || specialStats.Contains(stat)) ? baseValue * weight : baseValue;
+        return isAll || specialStats.Contains(stat) ? baseValue * weight : baseValue;
     }
 }
