@@ -6100,7 +6100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInfinite: 0
-  reduceIncTime: 63
+  reduceIncTime: 90
   timerGauge: {fileID: 1925847044}
 --- !u!114 &1971803518
 MonoBehaviour:
@@ -7821,14 +7821,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unimoTable: {fileID: 11400000, guid: 447d2b6ead6de374d99502fbda4cbe47, type: 2}
-  unimoStatDataSO: {fileID: 11400000, guid: 9d1dd542feb81e6459675e32630fd39f, type: 2}
+  unimoStatDataSo: {fileID: 0}
   equipmentTable: {fileID: 11400000, guid: 9222c37c2cb3c17438c828e98b97e820, type: 2}
-  equipmentStatDataSO: {fileID: 11400000, guid: 5c1e008d9caf25c4c96cfeddb9d9d1be,
-    type: 2}
+  equipmentStatDataSo: {fileID: 0}
   equipmentSkillTable: {fileID: 11400000, guid: dc08681057585764bb821697c69f9c21,
     type: 2}
-  equipmentSkillDataSO: {fileID: 11400000, guid: 28cf012214853794489021f808449e17,
-    type: 2}
+  equipmentSkillDataSo: {fileID: 0}
   RemainHp: {fileID: 0}
 --- !u!1 &6333967090604262125
 GameObject:

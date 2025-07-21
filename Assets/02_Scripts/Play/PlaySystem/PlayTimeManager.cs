@@ -8,7 +8,7 @@ public class PlayTimeManager : MonoBehaviour
     public float LapseTime { get; private set; } = 0f;
     [SerializeField] private bool isInfinite = false;
     [SerializeField] private float reduceIncTime = 120f;
-    private float maxTime = 60f;
+    private float maxTime = 180f;
     private float remainTime = 0f;
     private float minReduce = 1f;
     private bool isPaused;

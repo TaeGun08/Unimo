@@ -4,7 +4,7 @@ using UnityEngine;
 // 피격 무효화 스킬
 public class HitInvalidationSkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviour
 {
-    private float passiveCooldown;
+    private int passiveCooldown;
     
     private Coroutine passiveCoroutine;
     private Coroutine activeCoroutine;
@@ -12,9 +12,6 @@ public class HitInvalidationSkillBehaviour : MonoBehaviour, IEquipmentSkillBehav
     
     private void Awake()
     {
-        // OnOnceInvalidUsed 이벤트에 패시브 쿨타임 코루틴 구독
-        LocalPlayer.Instance.PlayerStatHolder.OnOnceInvalidUsed += StartPassiveCooldown;
-        
         statHolder = LocalPlayer.Instance.PlayerStatHolder;
     }
 
@@ -29,6 +26,8 @@ public class HitInvalidationSkillBehaviour : MonoBehaviour, IEquipmentSkillBehav
         { 
             case EquipmentSkillType.Passive:
                 Debug.Log("[Passive] 피격 무효화 패시브 발동");
+                // OnOnceInvalidUsed 이벤트에 패시브 쿨타임 코루틴 구독
+                LocalPlayer.Instance.PlayerStatHolder.OnOnceInvalidUsed += StartPassiveCooldown;
                 passiveCooldown = skillData.Cooldown;
                 statHolder.GiveOnceInvalid();    // 1회 피격 무효 부여
                 break;

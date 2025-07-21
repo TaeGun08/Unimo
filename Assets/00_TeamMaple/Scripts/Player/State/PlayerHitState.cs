@@ -14,7 +14,7 @@ public class PlayerHitState : PlayerState
         bool isDodged = Random.value < dodgeChance;
 
         // 1회 피격 무효 or 무적일 경우 회피
-        if (statHolder.InvalidType != InvalidType.None)
+        if (statHolder.HasOnceInvalid || statHolder.HasInvincible)
         {
             statHolder.OnInvalidation();
             
