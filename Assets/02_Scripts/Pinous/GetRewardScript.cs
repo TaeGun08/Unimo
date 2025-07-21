@@ -92,9 +92,6 @@ public class GetRewardScript : MonoBehaviour
                     break;
             }
 
-            stageManager.UpdateStageStars(JsonDataLoader.LoadServerData().CurrentStage + 1000, 3);
-            starText.text = "x3";
-
             Base_Mng.Data.data.HighStage++;
             Debug.Log("스테이지 업");
             if (StageLoader.IsBonusStageByIndex(JsonDataLoader.LoadServerData().HighStage))
@@ -123,6 +120,8 @@ public class GetRewardScript : MonoBehaviour
         Base_Mng.Data.data.Red += redTrade;
         Base_Mng.Data.data.Yellow += yellowTrade;
 
+        Base_Mng.Data.data.HighStage++;
+        
         Base_Mng.Data.data.BonusStageOn = false;
     }
 
