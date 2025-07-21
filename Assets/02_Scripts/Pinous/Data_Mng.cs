@@ -53,7 +53,9 @@ public class Server_Data
 
     public int CharCount = 1;
     public int EQCount = 1;
-
+    public int[] CharLevel = { 1, 1, 1, 1, 1, 1, 1 };
+    public int[] EQLevel = { 1, 1, 1, 1, 1, 1 };
+    
     public float BonusRewardCount = 1000.0f;
 
     public bool GetOarkTong = false;
