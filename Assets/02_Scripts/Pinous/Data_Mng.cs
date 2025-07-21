@@ -27,6 +27,7 @@ public class Server_Data
 
     public double BestScoreGameOne, BestScoreGameTwo;
 
+    public bool[] GetFacilityData = { false, false, false, false, false, false, false };
     public int IAP = 0;
 
     public bool ADSBuy = false;
