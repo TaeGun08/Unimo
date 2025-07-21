@@ -15,7 +15,7 @@ public class UnimoStatUI : MonoBehaviour
     
     public void Start()
     {
-        UnimoStatData finalData = statDataSO.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount, Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]);
+        UnimoStatData finalData = statDataSO.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount);
         if (finalData != null)
         {
             UpdateStatUI(finalData);
@@ -174,7 +174,7 @@ public class UnimoStatUI : MonoBehaviour
         upgradeNextBaseX = -340f;
         upgradeNextBaseY = 370f; 
 
-        var finalData = statDataSO.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount, Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]);
+        var finalData = statDataSO.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount);
         if (finalData != null)
         {
             UpdateStatUI(finalData);
