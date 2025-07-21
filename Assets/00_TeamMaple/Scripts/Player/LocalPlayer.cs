@@ -92,8 +92,9 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
     // StatCalculator의 UnimoStatData에 값 넣어주기
     private void SetPlayerStats()
     {
-        unimoStatData = unimoStatDataSo.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount);
-        equipmentStatData = equipmentStatDataSo.GetFinalEquipmnetStatData(Base_Mng.Data.data.EQCount);    // 착용 중인 엔진 아이디 넣어야 함
+        // 유니모, 엔진 아이디 & 레벨 넣어주기
+        unimoStatData = unimoStatDataSo.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount, 50);
+        equipmentStatData = equipmentStatDataSo.GetFinalEquipmnetStatData(Base_Mng.Data.data.EQCount, 5);
 
         StatCalculator = new StatCalculator(unimoStatData, equipmentStatData);
         PlayerStatHolder = new PlayerStatHolder(StatCalculator);

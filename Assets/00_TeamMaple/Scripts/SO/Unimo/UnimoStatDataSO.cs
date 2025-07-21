@@ -62,7 +62,7 @@ public class UnimoStatDataSO : ScriptableObject
     [SerializeField] private UnimoStatLevelUpDataSO unimoStatLevelUpDataSO;
 
     // UnimoStatData + 레벨업 데이터 적용 최종값 반환
-    public UnimoStatData GetFinalUnimoStatData(int unimoID)
+    public UnimoStatData GetFinalUnimoStatData(int unimoID, int level)
     {
         UnimoStatData baseData = GetUnimoStatData(unimoID);
         if (baseData == null)
@@ -70,8 +70,27 @@ public class UnimoStatDataSO : ScriptableObject
 
         UnimoStatLevelUpData levelUpData = null;
         if (unimoStatLevelUpDataSO != null)
-            levelUpData = unimoStatLevelUpDataSO.GetUnimoStatLevelUpData(baseData.Level);
+            levelUpData = unimoStatLevelUpDataSO.GetUnimoStatLevelUpData(level);
 
+        // 특화 스탯 모음
+        HashSet<UnimoStat> specialStats = new HashSet<UnimoStat>
+        {
+            baseData.SpecialStat1,
+            baseData.SpecialStat2,
+            baseData.SpecialStat3
+        };
+
+        // "All"이 특화스탯에 있으면 플래그
+        bool isAll = specialStats.Contains(UnimoStat.All);
+        
+        // 가중치
+        float weight = 1f;
+        switch (baseData.Rank)
+        {
+            case UnimoRank.N: weight = 1.1f; break;
+            case UnimoRank.P: weight = 1.2f; break;
+        }
+        
         // 복사본 생성 (기존 데이터 수정 방지)
         UnimoStatData merged = new UnimoStatData
         {
@@ -98,19 +117,18 @@ public class UnimoStatDataSO : ScriptableObject
 
         if (levelUpData != null)
         {
-            // 레벨업 데이터 반영 (null일 경우 무시)
-            merged.Hp += levelUpData.PlusHp;
-            merged.Def += levelUpData.PlusDef;
-            merged.Speed += levelUpData.PlusSpeed;
-            merged.BloomRange += levelUpData.PlusBloomRange;
-            merged.BloomSpeed += levelUpData.PlusBloomSpeed;
-            merged.FlowerRate += levelUpData.PlusFlowerRate;
-            merged.RareFlowerRate += levelUpData.PlusRareFlowerRate;
-            merged.Dodge += levelUpData.PlusDodge;
-            merged.StunRecovery += levelUpData.PlusStunRecovery;
-            merged.HpRecovery += levelUpData.PlusHpRecovery;
-            merged.FlowerDropSpeed += levelUpData.PlusFlowerDropSpeed;
-            merged.FlowerDropAmount += levelUpData.PlusFlowerDropAmount;
+            merged.Hp += Mathf.RoundToInt(GetLevelUpWeighted(levelUpData.PlusHp, UnimoStat.Hp, specialStats, isAll, weight));
+            merged.Def += Mathf.RoundToInt(GetLevelUpWeighted(levelUpData.PlusDef, UnimoStat.Def, specialStats, isAll, weight));
+            merged.Speed += GetLevelUpWeighted(levelUpData.PlusSpeed, UnimoStat.Speed, specialStats, isAll, weight);
+            merged.BloomRange += Mathf.RoundToInt(GetLevelUpWeighted(levelUpData.PlusBloomRange, UnimoStat.BloomRange, specialStats, isAll, weight));
+            merged.BloomSpeed += GetLevelUpWeighted(levelUpData.PlusBloomSpeed, UnimoStat.BloomSpeed, specialStats, isAll, weight);
+            merged.FlowerRate += GetLevelUpWeighted(levelUpData.PlusFlowerRate, UnimoStat.FlowerRate, specialStats, isAll, weight);
+            merged.RareFlowerRate += GetLevelUpWeighted(levelUpData.PlusRareFlowerRate, UnimoStat.RareFlowerRate, specialStats, isAll, weight);
+            merged.Dodge += GetLevelUpWeighted(levelUpData.PlusDodge, UnimoStat.Dodge, specialStats, isAll, weight);
+            merged.StunRecovery += GetLevelUpWeighted(levelUpData.PlusStunRecovery, UnimoStat.StunRecovery, specialStats, isAll, weight);
+            merged.HpRecovery += GetLevelUpWeighted(levelUpData.PlusHpRecovery, UnimoStat.HpRecovery, specialStats, isAll, weight);
+            merged.FlowerDropSpeed += GetLevelUpWeighted(levelUpData.PlusFlowerDropSpeed, UnimoStat.FlowerDropSpeed, specialStats, isAll, weight);
+            merged.FlowerDropAmount += GetLevelUpWeighted(levelUpData.PlusFlowerDropAmount, UnimoStat.FlowerDropAmount, specialStats, isAll, weight);
         }
 
         return merged;
@@ -142,5 +160,12 @@ public class UnimoStatDataSO : ScriptableObject
 
         Debug.LogWarning($"UnimoStatData with ID {unimoID} not found.");
         return null;
+    }
+    
+    // 특화스탯/All일 때 가중치 적용
+    private float GetLevelUpWeighted(float baseValue, UnimoStat stat, HashSet<UnimoStat> specialStats, bool isAll, float weight)
+    {
+        if (stat == UnimoStat.None) return baseValue; // None은 항상 가중치 미적용
+        return (isAll || specialStats.Contains(stat)) ? baseValue * weight : baseValue;
     }
 }

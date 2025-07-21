@@ -10,7 +10,7 @@ public class UnimoStatLevelUpData
     public int Level { get; set; }
     public int PlusHp { get; set; }
     public int PlusDef { get; set; }
-    public int PlusSpeed { get; set; }
+    public float PlusSpeed { get; set; }
     public int PlusBloomRange { get; set; }
     public float PlusBloomSpeed { get; set; }
     public float PlusFlowerRate { get; set; }

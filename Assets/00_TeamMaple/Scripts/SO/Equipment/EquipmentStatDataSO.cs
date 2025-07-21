@@ -40,7 +40,7 @@ public class EquipmentStatDataSO : ScriptableObject
     [SerializeField] private EquipmentStatLevelUpDataSO equipmentStatLevelUpDataSO;
     
     // EquipmentStatDataSO + 레벨업 데이터 적용 최종값 반환
-    public EquipmentStatData GetFinalEquipmnetStatData(int equipmentID)
+    public EquipmentStatData GetFinalEquipmnetStatData(int equipmentID, int level)
     {
         EquipmentStatData baseData = GetEquipmentStatData(equipmentID);
         if (baseData == null)
@@ -48,7 +48,7 @@ public class EquipmentStatDataSO : ScriptableObject
 
         EquipmentStatLevelUpData levelUpData = null;
         if (equipmentStatLevelUpDataSO != null)
-            levelUpData = equipmentStatLevelUpDataSO.GetEquipmentStatLevelUpData(baseData.Rank, baseData.Level);
+            levelUpData = equipmentStatLevelUpDataSO.GetEquipmentStatLevelUpData(baseData.Rank, level);
 
         // 복사본 생성 (기존 데이터 수정 방지)
         EquipmentStatData merged = new EquipmentStatData
