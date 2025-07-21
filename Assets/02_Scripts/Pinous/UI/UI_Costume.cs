@@ -11,7 +11,9 @@ public class UI_Costume : UI_Base
     public GameObject[] Objs;
 
     public TextMeshProUGUI TitleText;
-
+    
+    public GameObject UpGradePanel;
+    
     public override void Start()
     {
         Costumer = Costume_Finder.instance.transform.GetComponent<TempChaCustomer>();
@@ -35,6 +37,8 @@ public class UI_Costume : UI_Base
     public void CharacterChange(int value)
     {
         Costumer.ChangeCharacter(value + 1);
+        
+        UpGradePanel.SetActive(true);
     }
 
     public void EQChange(int value)
@@ -61,5 +65,10 @@ public class UI_Costume : UI_Base
 
         Objs[0].SetActive(false);
         Objs[1].SetActive(true);
+    }
+    
+    public void CloseUpgradePanel()
+    {
+        UpGradePanel.SetActive(false);
     }
 }

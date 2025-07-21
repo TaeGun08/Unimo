@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 using System.IO;
+using System.Linq;
 using CsvHelper;
 
 public enum UnimoRank
@@ -160,6 +161,29 @@ public class UnimoStatDataSO : ScriptableObject
 
         Debug.LogWarning($"UnimoStatData with ID {unimoID} not found.");
         return null;
+    }
+    
+    public (UnimoStatData current, UnimoStatData next) GetCurrentAndNextStat(int id, int currentLevel)
+    {
+        if (unimoStatDataCsv == null)
+        {
+            Debug.LogError("UnimoStatDataCsv is null");
+            return (null, null);
+        }
+
+        using (StringReader reader = new StringReader(unimoStatDataCsv.text))
+        using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+        {
+            csv.Read();
+            csv.ReadHeader();
+
+            List<UnimoStatData> allData = csv.GetRecords<UnimoStatData>().ToList();
+
+            var current = allData.FirstOrDefault(x => x.Id == id && x.Level == currentLevel);
+            var next = allData.FirstOrDefault(x => x.Id == id && x.Level == currentLevel + 1);
+
+            return (current, next);
+        }
     }
     
     // 특화스탯/All일 때 가중치 적용
