@@ -20,19 +20,10 @@ public class PlayerStunState : PlayerState
         PlayerController.EgineAnim.SetTrigger("stun");
         PlayerController.EgineAnim.SetBool("isstun", true);
         PlayerController.UnimoAnim.SetBool("isstun", true);
-
-        LocalPlayer.PlayerStatHolder.Hp.Subtract(10);
         
         yield return new WaitForSeconds(duration);
-
-        if (LocalPlayer.PlayerStatHolder.Hp.Value <= 0)
-        {
-            PlayerController.ChangeState(IPlayerState.EState.Dead);
-        }
-        else
-        {
-            PlayerController.ChangeState(IPlayerState.EState.Idle);
-        }
+        
+        PlayerController.ChangeState(IPlayerState.EState.Idle);
     }
 
     protected override void StateUpdate()

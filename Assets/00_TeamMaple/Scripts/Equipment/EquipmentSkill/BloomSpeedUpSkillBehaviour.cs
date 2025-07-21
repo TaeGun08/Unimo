@@ -23,7 +23,6 @@ public class BloomSpeedUpSkillBehaviour : MonoBehaviour,IEquipmentSkillBehaviour
                 auraController.InitAura();    // 오라 세팅 재설정 (PlayerStatHolder 스탯 기반)
                 break;
             case EquipmentSkillType.Active:
-                Debug.Log("[Active] 개화 속도 증가 액티브 발동");
                 break;
         }
     }

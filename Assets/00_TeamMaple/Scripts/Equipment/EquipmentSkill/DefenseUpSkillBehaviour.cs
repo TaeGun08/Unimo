@@ -15,7 +15,6 @@ public class DefenseUpSkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviour
                 def.Add(addDef);    // 방어력 증가
                 break;
             case EquipmentSkillType.Active:
-                Debug.Log("[Active] 방어력 증가 액티브 발동");
                 break;
         }
     }

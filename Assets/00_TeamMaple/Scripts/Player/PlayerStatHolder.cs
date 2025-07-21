@@ -23,8 +23,8 @@ public class PlayerStatHolder
     public ClampedFloat HpRecovery { get; private set; }
     public ClampedFloat FlowerDropSpeed { get; private set; }
     public ClampedFloat FlowerDropAmount { get; private set; }
-    
     public InvalidType InvalidType { get; private set; }
+    public bool IsDamageToHeal { get; private set; }
 
     private StatCalculator statCalculator;
 
@@ -36,9 +36,9 @@ public class PlayerStatHolder
         // 최소, 최대값 수정 필요
         Hp                = new ClampedInt(statCalculator.Hp, 0, statCalculator.Hp);
         Def               = new ClampedInt(statCalculator.Def, 0, 9999);
-        Speed             = new ClampedFloat(statCalculator.Speed, 0f, 100f);
+        Speed             = new ClampedFloat(statCalculator.Speed * 5f, 0f, 100f);
         BloomRange        = new ClampedInt(statCalculator.BloomRange, 0, 300);
-        BloomSpeed        = new ClampedFloat(statCalculator.BloomSpeed, 0f, 100f);
+        BloomSpeed        = new ClampedFloat(statCalculator.BloomSpeed, 0f, 999f);
         FlowerRate        = new ClampedFloat(statCalculator.FlowerRate, 0f, 100f);
         RareFlowerRate    = new ClampedFloat(statCalculator.RareFlowerRate, 0f, 1f);
         Dodge             = new ClampedFloat(statCalculator.Dodge, 0f, 1f);
@@ -48,6 +48,7 @@ public class PlayerStatHolder
         FlowerDropAmount  = new ClampedFloat(statCalculator.FlowerDropAmount, 0f, 100f);
         
         InvalidType = InvalidType.None;
+        IsDamageToHeal = false;
     }
     
     public event Action OnOnceInvalidUsed;
@@ -94,5 +95,11 @@ public class PlayerStatHolder
             InvalidType = InvalidType.None;
             OnOnceInvalidUsed?.Invoke();    // 쿨타임 스타트
         }
+    }
+
+    // 피격 데미지를 체력 회복으로 전환 여부 설정
+    public void SetDamageToHeal(bool yesOrNo)
+    {
+        IsDamageToHeal = yesOrNo;
     }
 }

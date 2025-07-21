@@ -10,7 +10,7 @@ public class HitInvalidationSkillBehaviour : MonoBehaviour, IEquipmentSkillBehav
     private Coroutine activeCoroutine;
     private PlayerStatHolder statHolder;
     
-    private void Start()
+    private void Awake()
     {
         // OnOnceInvalidUsed 이벤트에 패시브 쿨타임 코루틴 구독
         LocalPlayer.Instance.PlayerStatHolder.OnOnceInvalidUsed += StartPassiveCooldown;
@@ -34,7 +34,6 @@ public class HitInvalidationSkillBehaviour : MonoBehaviour, IEquipmentSkillBehav
                 break;
             case EquipmentSkillType.Active:
                 Debug.Log("[Active] 무적 액티브 발동");
-                statHolder.GiveInvincible();    // 무적 부여
                 if (activeCoroutine != null)
                 {
                     StopCoroutine(activeCoroutine);
@@ -63,6 +62,7 @@ public class HitInvalidationSkillBehaviour : MonoBehaviour, IEquipmentSkillBehav
     
     private IEnumerator ActiveInvincible(int duration)
     {
+        statHolder.GiveInvincible();    // 무적 부여
         yield return new WaitForSeconds(duration);    // 액티브 지속시간 대기
         statHolder.RemoveInvincible();    // 무적 삭제
     }
