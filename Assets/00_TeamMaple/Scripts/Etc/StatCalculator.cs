@@ -67,7 +67,6 @@ public class StatCalculator
     {
         float equipValue = GetEquipmentValue(UnimoStat.Speed);
         float total = unimoStatData.Speed * equipValue;
-        
         return total;
     }
 

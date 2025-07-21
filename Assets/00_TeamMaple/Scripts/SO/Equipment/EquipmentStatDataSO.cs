@@ -74,9 +74,9 @@ public class EquipmentStatDataSO : ScriptableObject
             // 레벨업 데이터 반영 (null일 경우 무시)
             merged.Level = levelUpData.Level;
             merged.StatValue1 += GetLevelUpValue(levelUpData, baseData.StatType1);
-            merged.StatValue2 += GetLevelUpValue(levelUpData, baseData.StatType1);
-            merged.StatValue3 += GetLevelUpValue(levelUpData, baseData.StatType1);
-            merged.StatValue4 += GetLevelUpValue(levelUpData, baseData.StatType1);
+            merged.StatValue2 += GetLevelUpValue(levelUpData, baseData.StatType2);
+            merged.StatValue3 += GetLevelUpValue(levelUpData, baseData.StatType3);
+            merged.StatValue4 += GetLevelUpValue(levelUpData, baseData.StatType4);
         }
 
         return merged;
