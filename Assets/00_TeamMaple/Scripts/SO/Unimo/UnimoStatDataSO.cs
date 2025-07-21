@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 using System.IO;
+using System.Linq;
 using CsvHelper;
 
 public enum UnimoRank
@@ -70,7 +71,7 @@ public class UnimoStatDataSO : ScriptableObject
 
         UnimoStatLevelUpData levelUpData = null;
         if (unimoStatLevelUpDataSO != null)
-            levelUpData = unimoStatLevelUpDataSO.GetUnimoStatLevelUpData(baseData.Level);
+            levelUpData = unimoStatLevelUpDataSO.GetUnimoStatLevelUpData(Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]);
 
         // 복사본 생성 (기존 데이터 수정 방지)
         UnimoStatData merged = new UnimoStatData
@@ -142,5 +143,28 @@ public class UnimoStatDataSO : ScriptableObject
 
         Debug.LogWarning($"UnimoStatData with ID {unimoID} not found.");
         return null;
+    }
+    
+    public (UnimoStatData current, UnimoStatData next) GetCurrentAndNextStat(int id, int currentLevel)
+    {
+        if (unimoStatDataCsv == null)
+        {
+            Debug.LogError("UnimoStatDataCsv is null");
+            return (null, null);
+        }
+
+        using (StringReader reader = new StringReader(unimoStatDataCsv.text))
+        using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+        {
+            csv.Read();
+            csv.ReadHeader();
+
+            List<UnimoStatData> allData = csv.GetRecords<UnimoStatData>().ToList();
+
+            var current = allData.FirstOrDefault(x => x.Id == id && x.Level == currentLevel);
+            var next = allData.FirstOrDefault(x => x.Id == id && x.Level == currentLevel + 1);
+
+            return (current, next);
+        }
     }
 }
