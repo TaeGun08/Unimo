@@ -1,10 +1,13 @@
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
 
 public class UnimoStatUI : MonoBehaviour
 {
     [SerializeField] private UnimoStatDataSO statDataSO;
+    [SerializeField] private UnimoStatLevelUpDataSO unimoDataSO;
+
     public GameObject statTextPrefab;
     public RectTransform contentParent;
     public RectTransform upgradeContentParent;
@@ -58,32 +61,25 @@ public class UnimoStatUI : MonoBehaviour
         UpGradeStatLine($"낙하량 증가 {data.FlowerDropAmount}%");
 
         // 다음 레벨 업그레이드 수치 가져오기
-        //ShowUpgradeStat(Base_Mng.Data.data.CharCount, Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]);
+        ShowUpgradeStat(Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]);
     }
     
-    public void ShowUpgradeStat(int id, int currentLevel)
+    public void ShowUpgradeStat( int currentLevel)
     {
-        var (current, next) = statDataSO.GetCurrentAndNextStat(id, currentLevel);
-        Debug.Log($"{current.Hp} / {next.Hp}");
+        var next = unimoDataSO.GetCurrentAndNextStat(currentLevel);
         
-        if (current == null || next == null)
-        {
-            Debug.LogWarning("데이터가 부족합니다.");
-            return;
-        }
-        
-        UpGradeNextStatLine($"체력 {next.Hp}");
-        UpGradeNextStatLine($"방어력 {next.Def}");
-        UpGradeNextStatLine($"이동속도 {next.Speed}%");
-        UpGradeNextStatLine($"개화 범위 {next.BloomRange}");
-        UpGradeNextStatLine($"개화 속도 {next.BloomSpeed}%");
-        UpGradeNextStatLine($"꽃 생성 주기 {next.FlowerRate}%");
-        UpGradeNextStatLine($"희귀 꽃 확률 {next.RareFlowerRate}%");
-        UpGradeNextStatLine($"회피율 {next.Dodge}%");
-        UpGradeNextStatLine($"스턴 회복력 {next.StunRecovery}%");
-        UpGradeNextStatLine($"체력 재생 {next.HpRecovery}%");
-        UpGradeNextStatLine($"꽃 낙하 속도 {next.FlowerDropSpeed}%");
-        UpGradeNextStatLine($"낙하량 증가 {next.FlowerDropAmount}%");
+        UpGradeNextStatLine($"+ {next.PlusHp}");
+        UpGradeNextStatLine($"+ {next.PlusDef}");
+        UpGradeNextStatLine($"+ {next.PlusSpeed}%");
+        UpGradeNextStatLine($"+ {next.PlusBloomRange}");
+        UpGradeNextStatLine($"+ {next.PlusBloomSpeed}%");
+        UpGradeNextStatLine($"+ {next.PlusFlowerRate}%");
+        UpGradeNextStatLine($"+ {next.PlusRareFlowerRate}%");
+        UpGradeNextStatLine($"+ {next.PlusDodge}%");
+        UpGradeNextStatLine($"+ {next.PlusStunRecovery}%");
+        UpGradeNextStatLine($"+ {next.PlusHpRecovery}%");
+        UpGradeNextStatLine($"+ {next.PlusFlowerDropSpeed}%");
+        UpGradeNextStatLine($"+ {next.PlusFlowerDropAmount}%");
     }
 
     private float currentY = 0;
@@ -171,7 +167,7 @@ public class UnimoStatUI : MonoBehaviour
         upgradeBaseX = -440f;
         
         upgradeNextCurrentY = 0f;
-        upgradeNextBaseX = -340f;
+        upgradeNextBaseX = 40f;
         upgradeNextBaseY = 370f; 
 
         var finalData = statDataSO.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount, Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]);

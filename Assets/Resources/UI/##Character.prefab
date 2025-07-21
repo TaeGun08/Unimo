@@ -24095,6 +24095,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statDataSO: {fileID: 11400000, guid: 9d1dd542feb81e6459675e32630fd39f, type: 2}
+  unimoDataSO: {fileID: 11400000, guid: d22d6938206f9e34e96943adf08a18b7, type: 2}
   statTextPrefab: {fileID: 7782036088957864542, guid: c3eff522f18aeda40951a3522a928448,
     type: 3}
   contentParent: {fileID: 6607690379665112713}
