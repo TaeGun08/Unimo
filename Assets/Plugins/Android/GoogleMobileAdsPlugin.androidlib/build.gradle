@@ -13,7 +13,8 @@ android {
 
     compileSdkVersion 31
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 31
+        minSdkVersion project.hasProperty('minSdkVersion') ? project.minSdkVersion.toInteger() : 21
+    	targetSdkVersion project.hasProperty('targetSdkVersion') ? project.targetSdkVersion.toInteger() : 31
     }
 }
+
