@@ -56,8 +56,7 @@ public partial class Firebase_Mng: MonoBehaviour
             }
         });
     }
-
-    // �����ͺ��̽����� ������ �б�
+    
     public void ReadData(string key, System.Action<string> onDataReceived)
     {
         if (!string.IsNullOrEmpty(PlayerPrefs.GetString(key)))
