@@ -13,19 +13,42 @@ public class PlayerHitState : PlayerState
         // 0~1 랜덤값 생성해서, dodgeChance 이하이면 회피
         bool isDodged = Random.value < dodgeChance;
 
-        if (statHolder.InvalidType != InvalidType.None)
+        // 1회 피격 무효 or 무적일 경우 회피
+        if (statHolder.HasOnceInvalid || statHolder.HasInvincible)
         {
             statHolder.OnInvalidation();
+            
+            PlayerController.ChangeState(IPlayerState.EState.Idle);
         }
         else
         {
+            // 회피하는 경우
             if (isDodged)
             {
                 PlayerController.ChangeState(IPlayerState.EState.Idle);
             }
             else
             {
-                PlayerController.ChangeState(IPlayerState.EState.Stun);
+                // 피격 데미지를 체력 회복으로 전환 스킬 On인 경우
+                if (statHolder.IsDamageToHeal)
+                {
+                    LocalPlayer.PlayerStatHolder.Hp.Add(10);
+                    
+                    PlayerController.ChangeState(IPlayerState.EState.Idle);
+                }
+                else
+                {
+                    LocalPlayer.PlayerStatHolder.Hp.Subtract(10);
+
+                    if (LocalPlayer.PlayerStatHolder.Hp.Value <= 0)
+                    {
+                        PlayerController.ChangeState(IPlayerState.EState.Dead);
+                    }
+                    else
+                    {
+                        PlayerController.ChangeState(IPlayerState.EState.Stun);
+                    }
+                }
             }
         }
     }

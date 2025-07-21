@@ -15,7 +15,6 @@ public class SpeedUpSkillBehaviour : MonoBehaviour,IEquipmentSkillBehaviour
                 speed.Add(addSpeed);    // 이동 속도 증가
                 break;
             case EquipmentSkillType.Active:
-                Debug.Log("[Active] 이동 속도 증가 액티브 발동");
                 break;
         }
     }

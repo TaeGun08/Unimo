@@ -15,7 +15,6 @@ public class StunRecoverySkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviou
                 stunRecovery.Add(addStunRecovery);    // 스턴 회복률 증가
                 break;
             case EquipmentSkillType.Active:
-                Debug.Log("[Active] 스턴 회복률 증가 액티브 발동");
                 break;
         }
     }

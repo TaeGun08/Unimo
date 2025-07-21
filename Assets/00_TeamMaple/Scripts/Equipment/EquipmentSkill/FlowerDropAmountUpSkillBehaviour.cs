@@ -15,7 +15,6 @@ public class FlowerDropAmountUpSkillBehaviour : MonoBehaviour, IEquipmentSkillBe
                 flowerDropAmount.Add(addFlowerDropAmount);    // ²É ³«ÇÏ·® Áõ°¡
                 break;
             case EquipmentSkillType.Active:
-                Debug.Log("[Active] ²É ³«ÇÏ·® Áõ°¡ ¾×Æ¼ºê ¹ßµ¿");
                 break;
         }
     }

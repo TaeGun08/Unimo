@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -77,6 +78,9 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
                   $"HpRecovery: {StatCalculator.HpRecovery}\n" +
                   $"FlowerDropSpeed: {StatCalculator.FlowerDropSpeed}\n" +
                   $"FlowerDropAmount: {StatCalculator.FlowerDropAmount}");
+
+        // 10초마다 체력 회복
+        StartCoroutine(HpRecoveryCoroutine(PlayerStatHolder.HpRecovery.Value));
     }
 
     private void Update()
@@ -111,5 +115,20 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
     {
         LastAttackerPos = attackerPos;
         playerController.ChangeState(IPlayerState.EState.Hit);
+    }
+    
+    private IEnumerator HpRecoveryCoroutine(float percentPerSec)
+    {
+        var maxHp = StatCalculator.Hp;    // 정해진 Hp 최대값
+        var hp = PlayerStatHolder.Hp;    // 변경 가능한 Hp 값
+
+        while (true)
+        {
+            int baseHp = maxHp;
+            int healAmount = Mathf.Max(1, Mathf.RoundToInt(baseHp * percentPerSec));    // 초당 회복할 체력
+            hp.Add(healAmount);    // 체력 증가
+            
+            yield return new WaitForSeconds(10f);
+        }
     }
 }
