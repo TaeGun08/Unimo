@@ -103,7 +103,8 @@ public class UI_Game : UI_Base
 
     private void BonusStageOn()
     {
-        if (StageLoader.IsBonusStageByIndex(stageCount) && Base_Mng.Data.data.BonusStageOn)
+        if (StageLoader.IsBonusStageByIndex(stageCount) && Base_Mng.Data.data.BonusStageOn
+            && Base_Mng.Data.data.HighStage <= stageCount)
         {
             stageText.text = $"Bonus Stage";
             bonusStageButton.SetActive(true);
@@ -116,7 +117,8 @@ public class UI_Game : UI_Base
 
     private void UpdateStar()
     {
-        if (StageLoader.IsBonusStageByIndex(stageCount) && Base_Mng.Data.data.BonusStageOn)
+        if (StageLoader.IsBonusStageByIndex(stageCount) && Base_Mng.Data.data.BonusStageOn
+            && Base_Mng.Data.data.HighStage <= stageCount)
         {
             for (int i = 0; i < starImg.Length; i++)
             {
