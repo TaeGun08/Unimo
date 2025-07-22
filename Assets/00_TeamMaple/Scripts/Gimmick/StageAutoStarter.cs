@@ -3,13 +3,19 @@ using UnityEngine;
 public class StageAutoGimmickStarter : MonoBehaviour
 {
     public StageGimmickManager gimmickManager;
-    public int stageNum = 1; // 여기만 변경해서 테스트 가능
 
     private void Start()
     {
-        if (gimmickManager != null)
+        if (gimmickManager == null)
         {
-            gimmickManager.TryApplyGimmick(stageNum);
+            Debug.LogError("[오류] StageGimmickManager가 연결되지 않았습니다.");
+            return;
         }
+
+        var serverData = JsonDataLoader.LoadServerData();
+        int currentStage = serverData.CurrentStage;
+
+        Debug.Log($"[기믹 자동 적용] 현재 스테이지: {currentStage}");
+        gimmickManager.TryApplyGimmick(currentStage);
     }
 }

@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
 public class WholeSceneController : SingletonBehaviour<WholeSceneController>
 {
     static public readonly float SCENETRANSITTIME = 0.7f;
@@ -26,17 +27,23 @@ public class WholeSceneController : SingletonBehaviour<WholeSceneController>
     new void Awake()
     {
         base.Awake();
-        if(VersionText != null)
-        VersionText.text = "Version " + Application.version;
-        if (IsNotWantedObj) { return; }
+        if (VersionText != null)
+            VersionText.text = "Version " + Application.version;
+        if (IsNotWantedObj)
+        {
+            return;
+        }
+
         if (PlayerPrefs.GetInt("Tutorial") == 1)
             nextSceneIdx = 3;
         else nextSceneIdx = 6;
     }
+
     private void Update()
     {
         if (isLoadingScene)
         {
+            Debug.Log("로딩씬");
             if (SceneManager.GetActiveScene().buildIndex == initSceneIdx)
             {
                 if (nextSceneIdx == 3 || nextSceneIdx == 6)
@@ -60,30 +67,49 @@ public class WholeSceneController : SingletonBehaviour<WholeSceneController>
             }
         }
     }
+
     private void OnEnable()
     {
-        if (IsNotWantedObj) { return; }
+        if (IsNotWantedObj)
+        {
+            return;
+        }
+
         SceneManager.sceneLoaded += ResetSceneChangeCtrlList;
     }
+
     private void OnDisable()
     {
-        if (IsNotWantedObj) { return; }
+        if (IsNotWantedObj)
+        {
+            return;
+        }
+
         SceneManager.sceneLoaded -= ResetSceneChangeCtrlList;
     }
+
     private void ResetSceneChangeCtrlList(Scene scene, LoadSceneMode mode)
     {
+        Debug.Log(SceneManager.GetActiveScene().buildIndex);
+        Debug.Log(initSceneIdx);
         //Initialize mViewCtrl and mInputBlocker
+        Debug.Log("들어오긴 함?");
         mViewCtrl = FindObjectsByType<SceneChangeEffecter>(FindObjectsSortMode.None);
-        if (SceneManager.GetActiveScene().buildIndex == initSceneIdx || SceneManager.GetActiveScene().buildIndex == loadSceneIdx)
+        Debug.Log(SceneManager.GetActiveScene().buildIndex);
+        Debug.Log(initSceneIdx);
+        if (SceneManager.GetActiveScene().buildIndex == initSceneIdx ||
+            SceneManager.GetActiveScene().buildIndex == loadSceneIdx)
         {
             isLoadingScene = true;
         }
     }
+
     public void ReadyNextScene(int next)
     {
         nextSceneIdx = next + ActualSceneIdxOffset;
         callLoadingScene();
     }
+
     public void CallNextScene()
     {
         callGameScene();
@@ -93,10 +119,12 @@ public class WholeSceneController : SingletonBehaviour<WholeSceneController>
     {
         StartCoroutine(callNextSceneCoroutine());
     }
+
     private void callLoadingScene()
     {
         StartCoroutine(callLoadingSceneCoroutine());
     }
+
     private IEnumerator callLoadingSceneCoroutine()
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(loadSceneIdx);
@@ -105,6 +133,7 @@ public class WholeSceneController : SingletonBehaviour<WholeSceneController>
         {
             mViewCtrl[i].SceneChangeAction(SCENETRANSITTIME);
         }
+
         asyncLoad.allowSceneActivation = true;
 
         yield break;
@@ -112,13 +141,16 @@ public class WholeSceneController : SingletonBehaviour<WholeSceneController>
 
     private IEnumerator callNextSceneLoading()
     {
+        Debug.Log("씬 넘어가요");
         LoadingSceneAsync = SceneManager.LoadSceneAsync(nextSceneIdx);
         LoadingSceneAsync.allowSceneActivation = false;
-        while (LoadingSceneAsync.progress < 0.9f) {
+        while (LoadingSceneAsync.progress < 0.9f)
+        {
             LoadingSlider.value = LoadingSceneAsync.progress;
             LoadingText.text = string.Format("{0:0.00}%", (LoadingSlider.value * 100.0f));
-             yield return null; 
+            yield return null;
         }
+
         LoadingSlider.value = 1.0f;
         TapToStartText.gameObject.SetActive(true);
         LoadingText.text = "100%";
@@ -134,11 +166,16 @@ public class WholeSceneController : SingletonBehaviour<WholeSceneController>
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(nextSceneIdx);
         asyncLoad.allowSceneActivation = false;
-        while (asyncLoad.progress < 0.89f) { yield return null; }
+        while (asyncLoad.progress < 0.89f)
+        {
+            yield return null;
+        }
+
         for (int i = 0; i < mViewCtrl.Length; i++)
         {
             mViewCtrl[i].SceneChangeAction(SCENETRANSITTIME);
         }
+
         asyncLoad.allowSceneActivation = true;
 
         yield break;
@@ -149,8 +186,9 @@ public class WholeSceneController : SingletonBehaviour<WholeSceneController>
         bool isReady = true;
         for (int i = 0; i < mViewCtrl.Length; i++)
         {
-            isReady = isReady&&mViewCtrl[i].IsReady;
+            isReady = isReady && mViewCtrl[i].IsReady;
         }
+
         return isReady;
     }
 }

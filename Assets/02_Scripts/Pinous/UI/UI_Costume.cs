@@ -11,6 +11,9 @@ public class UI_Costume : UI_Base
     public GameObject[] Objs;
 
     public TextMeshProUGUI TitleText;
+    
+    public GameObject UnimoUpGradePanel;
+    public GameObject EngineUpGradePanel;
 
     public override void Start()
     {
@@ -35,11 +38,15 @@ public class UI_Costume : UI_Base
     public void CharacterChange(int value)
     {
         Costumer.ChangeCharacter(value + 1);
+        
+        UnimoUpGradePanel.SetActive(true);
     }
 
     public void EQChange(int value)
     {
         Costumer.ChangeEquip(value + 1);
+        
+        EngineUpGradePanel.SetActive(true);
     }
 
     public void GetUnimo()
@@ -61,5 +68,11 @@ public class UI_Costume : UI_Base
 
         Objs[0].SetActive(false);
         Objs[1].SetActive(true);
+    }
+    
+    public void CloseUpgradePanel()
+    {
+        UnimoUpGradePanel.SetActive(false);
+        EngineUpGradePanel.SetActive(false);
     }
 }

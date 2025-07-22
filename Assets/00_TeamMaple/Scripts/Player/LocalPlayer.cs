@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -8,6 +9,8 @@ using UnityEngine.UIElements;
 public class LocalPlayer : MonoBehaviour, IDamageAble
 {
     public static LocalPlayer Instance { get; private set; }
+
+    public GameObject GameObject => gameObject;
     
     [Header("UnimoStatDataSO")]
     [SerializeField] private PrefabsTable unimoTable;
@@ -26,7 +29,9 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
     private EquipmentStatData equipmentStatData;
     private EquipmentStatLevelUpData equipmentStatLevelUpData;
     private EquipmentSkillLevelUpData equipmentSkillLevelUpData;
-
+    
+    private bool isSlippery = false;
+    
     public StatCalculator StatCalculator { get; private set; }
     public PlayerStatHolder PlayerStatHolder { get; private set; }
 
@@ -77,6 +82,9 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
                   $"HpRecovery: {StatCalculator.HpRecovery}\n" +
                   $"FlowerDropSpeed: {StatCalculator.FlowerDropSpeed}\n" +
                   $"FlowerDropAmount: {StatCalculator.FlowerDropAmount}");
+
+        // 10초마다 체력 회복
+        StartCoroutine(HpRecoveryCoroutine(PlayerStatHolder.HpRecovery.Value));
     }
 
     private void Update()
@@ -88,8 +96,9 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
     // StatCalculator의 UnimoStatData에 값 넣어주기
     private void SetPlayerStats()
     {
-        unimoStatData = unimoStatDataSo.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount);
-        equipmentStatData = equipmentStatDataSo.GetFinalEquipmnetStatData(Base_Mng.Data.data.EQCount);    // 착용 중인 엔진 아이디 넣어야 함
+        // 유니모, 엔진 아이디 & 레벨 넣어주기
+        unimoStatData = unimoStatDataSo.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount, Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]);
+        equipmentStatData = equipmentStatDataSo.GetFinalEquipmnetStatData(Base_Mng.Data.data.EQCount, Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1]);
 
         StatCalculator = new StatCalculator(unimoStatData, equipmentStatData);
         PlayerStatHolder = new PlayerStatHolder(StatCalculator);
@@ -107,9 +116,24 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
             .GetComponent<Animator>();
     }
 
-    public void TakeDamage(Vector3 attackerPos)
+    public void TakeDamage(CombatEvent e)
     {
-        LastAttackerPos = attackerPos;
+        LastAttackerPos = e.Position;
         playerController.ChangeState(IPlayerState.EState.Hit);
+    }
+    
+    private IEnumerator HpRecoveryCoroutine(float percentPerSec)
+    {
+        var maxHp = StatCalculator.Hp;    // 정해진 Hp 최대값
+        var hp = PlayerStatHolder.Hp;    // 변경 가능한 Hp 값
+
+        while (true)
+        {
+            int baseHp = maxHp;
+            int healAmount = Mathf.Max(1, Mathf.RoundToInt(baseHp * percentPerSec));    // 초당 회복할 체력
+            hp.Add(healAmount);    // 체력 증가
+            
+            yield return new WaitForSeconds(10f);
+        }
     }
 }

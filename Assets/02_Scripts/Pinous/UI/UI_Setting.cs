@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UI_Setting : UI_Base
@@ -103,6 +104,12 @@ public class UI_Setting : UI_Base
         PlayerPrefs.SetString("LOCAL", valueTemp);
 
         Application.Quit();
+    }
+
+    public void ResetDtata()
+    {
+        PlayerPrefs.DeleteAll();
+        SceneManager.LoadScene(0);
     }
 
     public void GetURL(string temp) => Application.OpenURL(temp);

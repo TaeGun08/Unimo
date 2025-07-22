@@ -3,19 +3,18 @@ using UnityEngine;
 // 꽃 낙하량 증가 스킬
 public class FlowerDropAmountUpSkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviour
 {
-    public void Excute(GameObject caster, EquipmentSkillType type, int duration, float param)
+    public void Excute(GameObject caster, EquipmentSkillData skillData)
     {
-        var flowerDropAmount = LocalPlayer.Instance.PlayerStatHolder.FlowerDropAmount;
-        var addFlowerDropAmount = flowerDropAmount.Value * param;
+        var flowerDropAmount = LocalPlayer.Instance.PlayerStatHolder.FlowerDropAmount;    // 기존 값
+        var addFlowerDropAmount = flowerDropAmount.Value * skillData.Param;    // 기존 값 * 증가 퍼센트
         
-        switch (type)
+        switch (skillData.Type)
         { 
             case EquipmentSkillType.Passive:
                 Debug.Log("[Passive] 꽃 낙하량 증가 패시브 발동");
-                flowerDropAmount.Add(addFlowerDropAmount);
+                flowerDropAmount.Add(addFlowerDropAmount);    // 꽃 낙하량 증가
                 break;
             case EquipmentSkillType.Active:
-                Debug.Log("[Active] 꽃 낙하량 증가 액티브 발동");
                 break;
         }
     }

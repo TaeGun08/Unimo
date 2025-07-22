@@ -10626,6 +10626,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneController
       objectReference: {fileID: 0}
+    - target: {fileID: 922889321331238052, guid: 945eb9339e75743449b466bcbd7a52dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1168600336569859368, guid: 945eb9339e75743449b466bcbd7a52dc,
         type: 3}
       propertyPath: m_Enabled
