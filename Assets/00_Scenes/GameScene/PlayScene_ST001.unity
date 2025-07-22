@@ -7331,7 +7331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInfinite: 0
-  reduceIncTime: 5
+  reduceIncTime: 180
   timerGauge: {fileID: 4088}
 --- !u!114 &1971803518
 MonoBehaviour:

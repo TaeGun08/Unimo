@@ -38,12 +38,12 @@ public class PlayerController : MonoBehaviour
 
     public void ChangeState(IPlayerState.EState newState)
     {
-        CurrentState.StateExit();
-        CurrentState.gameObject.SetActive(false);
+        CurrentState?.StateExit();
+        CurrentState?.gameObject.SetActive(false);
         
         CurrentState = StatesDic[newState];
         
-        CurrentState.gameObject.SetActive(true);
-        CurrentState.StateEnter();
+        CurrentState?.gameObject.SetActive(true);
+        CurrentState?.StateEnter();
     }
 }
