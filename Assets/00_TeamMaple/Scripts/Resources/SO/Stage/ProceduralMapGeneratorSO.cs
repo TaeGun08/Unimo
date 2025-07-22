@@ -5,6 +5,7 @@ using System.IO;
 using CsvHelper;
 using UnityEngine;
 
+[System.Serializable]
 public class StageDataRecord : IStageData
 {
     public int Id { get; set; }
@@ -12,6 +13,7 @@ public class StageDataRecord : IStageData
     public string PlanetName { get; set; } //행성 이름
 }
 
+[System.Serializable]
 public class StageRewardDataRecord : IStageData
 {
     public int Id { get; set; } //스테이지 보상 아이디
@@ -21,6 +23,7 @@ public class StageRewardDataRecord : IStageData
     public string Star3R { get; set; } //스테이지 3별 달성 보상
 }
 
+[System.Serializable]
 public class StageGenerateFlowerDataRecord : IStageData
 {
     public int Id { get; set; }

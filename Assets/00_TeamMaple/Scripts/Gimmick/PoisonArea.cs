@@ -44,11 +44,11 @@ public class PoisonArea : MonoBehaviour
 
         yield return new WaitForSeconds(initialDelay);
 
-        while (true)
-        {
-            damageTarget.TakeDamage(transform.position); // 위치 기반 데미지
-            yield return new WaitForSeconds(tickInterval);
-        }
+        // while (true)
+        // {
+        //     damageTarget.TakeDamage(transform.position); // 위치 기반 데미지
+        //     yield return new WaitForSeconds(tickInterval);
+        // }
     }
 
 
