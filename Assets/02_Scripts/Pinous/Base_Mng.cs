@@ -119,20 +119,11 @@ public class Base_Mng : MonoBehaviour
         StartCoroutine(enumerator);
     }
     
-    public void UpgradeUnimoLevel(int type)
+    public void UpgradeUnimoLevel()
     {
-        if (type == 0)
-        {
-            Data.data.CharLevel[Base_Mng.Data.data.CharCount -1 ] += 1;
-            Debug.Log($"레벨이 증가했습니다. 현재 레벨: { Data.data.CharLevel[Base_Mng.Data.data.CharCount -1 ]}");
-            Data.Save();
-        }
-        else
-        {
-            Data.data.CharLevel[Base_Mng.Data.data.CharCount -1 ] = 50;
-            Debug.Log($"레벨이 증가했습니다. 현재 레벨: { Data.data.CharLevel[Base_Mng.Data.data.CharCount -1 ]}");
-            Data.Save();
-        }
+        Data.data.CharLevel[Base_Mng.Data.data.CharCount -1 ] += 1;
+        Debug.Log($"레벨이 증가했습니다. 현재 레벨: { Data.data.CharLevel[Base_Mng.Data.data.CharCount -1 ]}");
+        Data.Save();
     }
     
     public void UpgradeEngineLevel()
