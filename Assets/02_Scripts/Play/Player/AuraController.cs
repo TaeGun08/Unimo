@@ -43,7 +43,7 @@ public class AuraController : MonoBehaviour
     {
         playerStatHolder = LocalPlayer.Instance.PlayerStatHolder;
         
-        transform.localScale = playerStatHolder.BloomRange.Value * 0.1f * Vector3.one;
+        transform.localScale = playerStatHolder.BloomRange.Value *  Vector3.one;
         originalScale = transform.localScale;
         
         growthperSec = playerStatHolder.BloomSpeed.Value;
@@ -64,8 +64,8 @@ public class AuraController : MonoBehaviour
     private IEnumerator ChangeScaleCoroutine(int prev, int next, int duration)
     {
         float elapsed = 0f;
-        Vector3 startScale = prev * 0.1f * Vector3.one;
-        Vector3 targetScale = next * 0.1f * Vector3.one;
+        Vector3 startScale = prev * Vector3.one;
+        Vector3 targetScale = next * Vector3.one;
 
         // 1. prev → next로 부드럽게 증가
         while (elapsed < lerpDuration)

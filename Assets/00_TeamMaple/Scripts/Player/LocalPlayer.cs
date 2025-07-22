@@ -220,7 +220,7 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
         
         equipmentLevelUpButton.onClick.AddListener(() =>
         {
-            if (Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1] == 5)
+            if (Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1] == 5)
             {
                 Debug.Log($"엔진 레벨이 최대치입니다.");
                 return;
