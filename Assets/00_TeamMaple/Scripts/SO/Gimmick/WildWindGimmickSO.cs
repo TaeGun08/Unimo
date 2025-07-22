@@ -38,7 +38,7 @@ public class WildWindRunner : MonoBehaviour
     private IEnumerator WindRoutine()
     {
         yield return new WaitForSeconds(data.delayBeforeStart);
-        
+
         CurrentWindDirection = data.windDirection.normalized;
         Debug.Log($"[WildWind] 바람 시작: {CurrentWindDirection}");
 
@@ -49,10 +49,11 @@ public class WildWindRunner : MonoBehaviour
             timer += Time.deltaTime;
             yield return null;
         }
-        
+
         CurrentWindDirection = Vector3.zero;
         Debug.Log("[WildWind] 바람 종료");
 
         Destroy(gameObject);
     }
+
 }

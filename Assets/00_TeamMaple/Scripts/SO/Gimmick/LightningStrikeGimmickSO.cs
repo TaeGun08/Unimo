@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [CreateAssetMenu(fileName = "LightningStrikeGimmickSO", menuName = "StageGimmick/LightningStrike")]
 public class LightningStrikeGimmickSO : StageGimmickSO
@@ -59,13 +60,21 @@ public class LightningStrikeRunner : MonoBehaviour
     {
         strikeInProgress = true;
 
+        // 마커 생성 (지면)
         GameObject marker = Instantiate(data.markerPrefab, pos, Quaternion.identity);
         LightningStrikeMarker markerScript = marker.GetComponent<LightningStrikeMarker>();
+    
         if (markerScript != null)
         {
             markerScript.Init(() =>
             {
-                Instantiate(data.lightningPrefab, pos, Quaternion.identity);
+                // ✅ 낙뢰 이펙트는 위에서 생성되도록 Y 보정
+                Vector3 lightningPos = pos + Vector3.up * 3f;
+                GameObject lightning = Instantiate(data.lightningPrefab, lightningPos, Quaternion.identity);
+
+                // ✅ 일정 시간 후 제거
+                Destroy(lightning, 2f);
+
                 ApplyStun(pos);
             }, data.markerGrowTime);
         }
@@ -89,18 +98,21 @@ public class LightningStrikeRunner : MonoBehaviour
 
     private Vector3 GetRandomGroundPosition()
     {
-        Vector3 random = center + new Vector3(
-            UnityEngine.Random.Range(-data.radius, data.radius),
-            0,
-            UnityEngine.Random.Range(-data.radius, data.radius)
-        );
+        Vector3 randomPos = transform.position + new Vector3(
+            Random.Range(-data.radius, data.radius), 20f, Random.Range(-data.radius, data.radius));
 
-        if (Physics.Raycast(random + Vector3.up * 20f, Vector3.down, out RaycastHit hit, 40f))
+        Ray ray = new Ray(randomPos, Vector3.down);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 50f, LayerMask.GetMask("Default")))
         {
-            if (hit.collider.CompareTag("Ground"))
-                return hit.point;
+            Debug.Log($"[낙뢰 Raycast 성공] hit: {hit.point} / normal: {hit.normal} / target: {hit.collider.gameObject.name}");
+            return hit.point;
         }
-        return Vector3.zero;
+        else
+        {
+            Debug.LogWarning("[낙뢰 Raycast 실패] 레이: " + ray.origin);
+            return Vector3.zero;
+        }
     }
 
     private void OnDestroy()

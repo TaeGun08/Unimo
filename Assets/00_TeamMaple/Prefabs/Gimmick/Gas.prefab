@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6443645858079972805}
   - component: {fileID: 2286028440949596369}
   - component: {fileID: 7747851068767233535}
+  - component: {fileID: 2114403363124922030}
   m_Layer: 0
   m_Name: Gas
   m_TagString: Untagged
@@ -102,9 +103,27 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2114403363124922030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5533022081094470953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 362a54d8beffc5140976ef775cc96019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialDelay: 3
+  tickInterval: 0.1
+  percentDamage: 0.05
+  targetTag: Player
+  scaleDuration: 2
+  targetScale: 6

@@ -48,24 +48,39 @@ public class BlackHoleRunner : MonoBehaviour
             Vector3 dir = (center - target.position);
             float dist = dir.magnitude;
 
+            // ✅ 범위 밖이면 무시
+            if (dist > data.outerRadius) continue;
+
             if (dist < data.innerRadius)
             {
                 if (!innerHit.Contains(target.gameObject))
                 {
                     innerHit.Add(target.gameObject);
-                    // HP 10% 감소 + 튕겨내기
+
+                    // 데미지
                     var damageable = target.GetComponent<IDamageAble>();
                     damageable?.TakeDamage(center);
 
+                    // 튕겨냄
                     Vector3 bounceDir = (target.position - center).normalized;
                     target.AddForce(bounceDir * 5f, ForceMode.Impulse);
+
+                    Debug.Log("[블랙홀] 내부 도달 → 튕김 + 데미지");
                 }
             }
-            else if (dist < data.outerRadius)
+            else
             {
+                // ✅ 흡입 force 적용
                 float force = Mathf.Lerp(data.innerForce, data.outerForce, dist / data.outerRadius);
-                target.AddForce(dir.normalized * force, ForceMode.Acceleration);
+                Vector3 pullDir = dir.normalized;
+
+                target.AddForce(pullDir * force, ForceMode.Acceleration);
+
+                // ✅ 속도 제한
+                if (target.linearVelocity.magnitude > 10f)
+                    target.linearVelocity = target.linearVelocity.normalized * 10f;
             }
         }
     }
+
 }

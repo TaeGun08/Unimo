@@ -58,10 +58,12 @@ public class SlipperyFloorRunner : MonoBehaviour
 
             foreach (var r in groundRenderers)
             {
-                if (r != null && originalColors.ContainsKey(r))
-                {
-                    r.material.color = originalColors[r];
-                }
+                if (!originalColors.ContainsKey(r))
+                    originalColors[r] = r.material.color;
+
+                // ✅ 머티리얼 복제
+                r.material = new Material(r.material);
+                r.material.color = Color.cyan;
             }
 
             Destroy(gameObject);
@@ -74,8 +76,10 @@ public class SlipperyFloorRunner : MonoBehaviour
         {
             if (controller is ISlipperyEffectReceiver receiver)
             {
+                Debug.Log($"[슬리퍼리] {controller.name} → Slippery: {enable}");
                 receiver.SetSlippery(enable);
             }
         }
     }
+
 }

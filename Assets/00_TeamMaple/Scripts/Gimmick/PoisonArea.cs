@@ -46,9 +46,11 @@ public class PoisonArea : MonoBehaviour
 
         while (true)
         {
-            
+            damageTarget.TakeDamage(transform.position); // 위치 기반 데미지
+            yield return new WaitForSeconds(tickInterval);
         }
     }
+
 
     private IEnumerator ScaleOverTime(Transform t, Vector3 target, float duration)
     {

@@ -23,11 +23,28 @@ public class DarknessRunner : MonoBehaviour
 {
     private float timer;
     private float duration;
+    private Color originalAmbient;
+    private Color originalFog;
+    private bool fogInitiallyEnabled;
 
     public void Init(float d)
     {
         duration = d;
+
+        // ✅ 기존 설정 백업
+        originalAmbient = RenderSettings.ambientLight;
+        originalFog = RenderSettings.fogColor;
+        fogInitiallyEnabled = RenderSettings.fog;
+
+        // ✅ 어둠 적용
         RenderSettings.ambientLight = Color.black;
+        RenderSettings.fog = true;
+        RenderSettings.fogColor = Color.black;
+
+        // 옵션: Directional Light 끄기
+        var light = GameObject.FindObjectOfType<Light>();
+        if (light != null && light.type == LightType.Directional)
+            light.enabled = false;
     }
 
     private void Update()
@@ -35,9 +52,18 @@ public class DarknessRunner : MonoBehaviour
         timer += Time.deltaTime;
         if (timer > duration)
         {
-            RenderSettings.ambientLight = Color.white;
+            // ✅ 원복
+            RenderSettings.ambientLight = originalAmbient;
+            RenderSettings.fogColor = originalFog;
+            RenderSettings.fog = fogInitiallyEnabled;
+
+            var light = GameObject.FindObjectOfType<Light>();
+            if (light != null && light.type == LightType.Directional)
+                light.enabled = true;
+
             Destroy(gameObject);
         }
     }
 }
+
 
