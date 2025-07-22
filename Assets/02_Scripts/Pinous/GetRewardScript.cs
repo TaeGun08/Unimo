@@ -18,10 +18,23 @@ public class GetRewardScript : MonoBehaviour
     private double redTrade;
     private double yellowTrade;
 
+    private int currentStageId;
+
+    private string starY1;
+    private string starR2;
+    private string starY3;
+    private string starR3;
+
     private void Start()
     {
         stageManager = StageManager.Instance;
 
+        currentStageId = JsonDataLoader.LoadServerData().CurrentStage + 1000;
+        starY1 = stageManager.StageRewardData.GetData(currentStageId).Star1Y;
+        starR2 =  stageManager.StageRewardData.GetData(currentStageId).Star2R;
+        starY3 = stageManager.StageRewardData.GetData(currentStageId).Star3Y;
+        starR3 = stageManager.StageRewardData.GetData(currentStageId).Star3R;
+        
         if (Base_Mng.Data.data.BonusStageOn)
         {
             GetBonusReward();
@@ -37,10 +50,10 @@ public class GetRewardScript : MonoBehaviour
     private void GetReward()
     {
         redTrade = double.Parse(texts[0].text) *
-                   (StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star2R) / 66d);
+                   (StringMethod.ToCurrencyDouble(starR2) / 66d);
 
         yellowTrade = StringMethod.ToCurrencyDouble(texts[1].text) *
-                      (StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star1Y) / 133d);
+                      (StringMethod.ToCurrencyDouble(starY1) / 133d);
 
         ADSButton.SetActive(true);
 
@@ -62,16 +75,16 @@ public class GetRewardScript : MonoBehaviour
 
                     if (getStar != 1 && getStar < 2)
                     {
-                        redTrade += StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star1Y);
+                        redTrade += StringMethod.ToCurrencyDouble(starY1);
                     }
 
                     if (getStar != 2 && getStar < 3)
                     {
-                        redTrade += StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star2R);
+                        redTrade += StringMethod.ToCurrencyDouble(starR2);
                     }
 
-                    redTrade += StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star3Y);
-                    redTrade += StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star3R);
+                    redTrade += StringMethod.ToCurrencyDouble(starY3);
+                    redTrade += StringMethod.ToCurrencyDouble(starR3);
 
                     break;
                 case < 1f and >= 0.75f when getStar != 2:
@@ -80,15 +93,15 @@ public class GetRewardScript : MonoBehaviour
 
                     if (getStar != 1 && getStar < 2)
                     {
-                        redTrade += StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star1Y);
+                        redTrade += StringMethod.ToCurrencyDouble(starY1);
                     }
 
-                    redTrade += StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star2R);
+                    redTrade += StringMethod.ToCurrencyDouble(starR2);
                     break;
                 case < 0.75f and >= 0.5f when getStar != 1:
                     stageManager.UpdateStageStars(JsonDataLoader.LoadServerData().CurrentStage + 1000, 1);
                     starText.text = "x1";
-                    redTrade += StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star1Y);
+                    redTrade += StringMethod.ToCurrencyDouble(starY1);
                     break;
             }
 
@@ -107,10 +120,10 @@ public class GetRewardScript : MonoBehaviour
     private void GetBonusReward()
     {
         redTrade = (double.Parse(texts[0].text) *
-                    (StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star2R) / 66d)) * 3f;
+                    (StringMethod.ToCurrencyDouble(starR2) / 66d)) * 3f;
 
         yellowTrade = (StringMethod.ToCurrencyDouble(texts[1].text) *
-                       (StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star1Y) / 133d)) * 3f;
+                       (StringMethod.ToCurrencyDouble(starY1) / 133d)) * 3f;
 
         ADSButton.SetActive(true);
 
