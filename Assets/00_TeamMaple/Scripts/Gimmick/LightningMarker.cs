@@ -6,25 +6,34 @@ public class LightningStrikeMarker : MonoBehaviour
 {
     private Action onComplete;
     private float duration;
-    private Vector3 startScale = Vector3.one * 0.5f;
-    private Vector3 endScale = Vector3.one * 3f;
+    private Vector3 startXZ = new Vector2(0.5f, 0.5f);
+    private Vector3 endXZ = new Vector2(3f, 3f);
+
+    private const float fixedY = 0.1f;
 
     public void Init(Action onStrikeCallback, float growTime)
     {
         onComplete = onStrikeCallback;
         duration = growTime;
-        transform.localScale = startScale;
+
+        transform.localScale = new Vector3(startXZ.x, fixedY, startXZ.y);
+
         StartCoroutine(GrowAndStrike());
     }
 
     private IEnumerator GrowAndStrike()
     {
         float timer = 0f;
+
         while (timer < duration)
         {
             timer += Time.deltaTime;
             float t = timer / duration;
-            transform.localScale = Vector3.Lerp(startScale, endScale, t);
+
+            float x = Mathf.Lerp(startXZ.x, endXZ.x, t);
+            float z = Mathf.Lerp(startXZ.y, endXZ.y, t);
+            transform.localScale = new Vector3(x, fixedY, z);
+
             yield return null;
         }
 
