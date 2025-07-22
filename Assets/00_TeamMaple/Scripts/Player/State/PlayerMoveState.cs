@@ -14,6 +14,8 @@ public class PlayerMoveState : PlayerState
 
     protected override void StateUpdate()
     {
+        Debug.Log(mapSetter.IsInMap(PlayerController.transform.position));
+        
         if (mapSetter.IsInMap(PlayerController.transform.position) == false)
         {
             PlayerController.transform.position = mapSetter.FindNearestPoint(PlayerController.transform.position);
