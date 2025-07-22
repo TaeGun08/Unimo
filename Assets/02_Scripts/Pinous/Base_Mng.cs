@@ -133,9 +133,15 @@ public class Base_Mng : MonoBehaviour
             Debug.Log($"레벨이 증가했습니다. 현재 레벨: { Data.data.CharLevel[Base_Mng.Data.data.CharCount -1 ]}");
             Data.Save();
         }
-        
     }
-
+    
+    public void UpgradeEngineLevel()
+    {
+        Data.data.EQLevel[Base_Mng.Data.data.EQCount -1 ] += 1;
+        Debug.Log($"엔진 레벨이 증가했습니다. 현재 레벨: {  Data.data.EQLevel[Base_Mng.Data.data.EQCount -1]}");
+        Data.Save();
+    }
+    
     private void OnDestroy()
     {
         Data.data.E_DateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
