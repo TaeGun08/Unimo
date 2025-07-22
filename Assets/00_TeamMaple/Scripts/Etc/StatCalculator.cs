@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// À¯´Ï¸ğ + ¿£Áø ½ºÅÈ °è»ê °á°ú ¹İÈ¯ (½ºÅ³ Æ÷ÇÔ X)
+// ìœ ë‹ˆëª¨ + ì—”ì§„ ìŠ¤íƒ¯ ê³„ì‚° ê²°ê³¼ ë°˜í™˜ (ìŠ¤í‚¬ í¬í•¨ X)
 public class StatCalculator
 {
     private UnimoStatData unimoStatData;
@@ -12,7 +12,7 @@ public class StatCalculator
         equipmentStatData = equipmentData;
     }
 
-    // ½ºÅÈÀ» Á÷Á¢ ¹İÈ¯ÇÏ´Â ÇÁ·ÎÆÛÆ¼µé
+    // ìŠ¤íƒ¯ì„ ì§ì ‘ ë°˜í™˜í•˜ëŠ” í”„ë¡œí¼í‹°ë“¤
     public int Hp => CalculateHp();
     public int Def => CalculateDef();
     public float Speed => CalculateSpeed();
@@ -26,7 +26,7 @@ public class StatCalculator
     public float FlowerDropSpeed => CalculateFlowerDropSpeed();
     public float FlowerDropAmount => CalculateFlowerDropAmount();
     
-    // Àåºñ ½ºÅÈ ÇÕ»ê
+    // ì¥ë¹„ ìŠ¤íƒ¯ í•©ì‚°
     private float GetEquipmentValue(UnimoStat statType)
     {
         float value = 1f;
@@ -42,9 +42,9 @@ public class StatCalculator
         return value;
     }
     
-    #region °è»ê ¸Ş¼­µå
+    #region ê³„ì‚° ë©”ì„œë“œ
 
-    // (±âº» ¼öÄ¡ + °­È­ ¼öÄ¡) ¡¿ (ºØºØ¿£Áø ±âº» ¼öÄ¡ + ºØºØ¿£Áø °­È­ ¹èÀ²) ¡¿ ½Ã¼³¹° ¹èÀ² ¡¿ ÆĞ½Ãºê ½ºÅ³ ¹èÀ² ¡¿ ¾×Æ¼ºê ½ºÅ³ ¹èÀ²
+    // (ê¸°ë³¸ ìˆ˜ì¹˜ + ê°•í™” ìˆ˜ì¹˜) Ã— (ë¶•ë¶•ì—”ì§„ ê¸°ë³¸ ìˆ˜ì¹˜ + ë¶•ë¶•ì—”ì§„ ê°•í™” ë°°ìœ¨) Ã— ì‹œì„¤ë¬¼ ë°°ìœ¨ Ã— íŒ¨ì‹œë¸Œ ìŠ¤í‚¬ ë°°ìœ¨ Ã— ì•¡í‹°ë¸Œ ìŠ¤í‚¬ ë°°ìœ¨
     private int CalculateHp()
     {
         float equipValue = GetEquipmentValue(UnimoStat.Hp);
@@ -53,7 +53,7 @@ public class StatCalculator
         return Mathf.RoundToInt(total);
     }
 
-    // (±âº» ¼öÄ¡ + °­È­ ¼öÄ¡) ¡¿ (ºØºØ¿£Áø ±âº» ¼öÄ¡ + ºØºØ¿£Áø °­È­ ¹èÀ²) ¡¿ ½Ã¼³¹° ¹èÀ² ¡¿ ÆĞ½Ãºê ½ºÅ³ ¹èÀ² ¡¿ ¾×Æ¼ºê ½ºÅ³ ¹èÀ²
+    // (ê¸°ë³¸ ìˆ˜ì¹˜ + ê°•í™” ìˆ˜ì¹˜) Ã— (ë¶•ë¶•ì—”ì§„ ê¸°ë³¸ ìˆ˜ì¹˜ + ë¶•ë¶•ì—”ì§„ ê°•í™” ë°°ìœ¨) Ã— ì‹œì„¤ë¬¼ ë°°ìœ¨ Ã— íŒ¨ì‹œë¸Œ ìŠ¤í‚¬ ë°°ìœ¨ Ã— ì•¡í‹°ë¸Œ ìŠ¤í‚¬ ë°°ìœ¨
     private int CalculateDef()
     {
         float equipValue = GetEquipmentValue(UnimoStat.Def);
@@ -62,7 +62,7 @@ public class StatCalculator
         return Mathf.RoundToInt(total);
     }
 
-    // (±âº» ¼öÄ¡ + °­È­ ¼öÄ¡) ¡¿ (ºØºØ¿£Áø ±âº» ¼öÄ¡ + ºØºØ¿£Áø °­È­ ¹èÀ²) ¡¿ ½Ã¼³¹° ¹èÀ² ¡¿ ÆĞ½Ãºê ½ºÅ³ ¹èÀ² ¡¿ ¾×Æ¼ºê ½ºÅ³ ¹èÀ²
+    // (ê¸°ë³¸ ìˆ˜ì¹˜ + ê°•í™” ìˆ˜ì¹˜) Ã— (ë¶•ë¶•ì—”ì§„ ê¸°ë³¸ ìˆ˜ì¹˜ + ë¶•ë¶•ì—”ì§„ ê°•í™” ë°°ìœ¨) Ã— ì‹œì„¤ë¬¼ ë°°ìœ¨ Ã— íŒ¨ì‹œë¸Œ ìŠ¤í‚¬ ë°°ìœ¨ Ã— ì•¡í‹°ë¸Œ ìŠ¤í‚¬ ë°°ìœ¨
     private float CalculateSpeed()
     {
         float equipValue = GetEquipmentValue(UnimoStat.Speed);
@@ -70,7 +70,7 @@ public class StatCalculator
         return total;
     }
 
-    // (±âº» ¼öÄ¡ + °­È­ ¼öÄ¡) ¡¿ (ºØºØ¿£Áø ±âº» ¼öÄ¡ + ºØºØ¿£Áø °­È­ ¹èÀ²) ¡¿ ÆĞ½Ãºê ½ºÅ³ ¹èÀ² ¡¿ ¾×Æ¼ºê ½ºÅ³ ¹èÀ²
+    // (ê¸°ë³¸ ìˆ˜ì¹˜ + ê°•í™” ìˆ˜ì¹˜) Ã— (ë¶•ë¶•ì—”ì§„ ê¸°ë³¸ ìˆ˜ì¹˜ + ë¶•ë¶•ì—”ì§„ ê°•í™” ë°°ìœ¨) Ã— íŒ¨ì‹œë¸Œ ìŠ¤í‚¬ ë°°ìœ¨ Ã— ì•¡í‹°ë¸Œ ìŠ¤í‚¬ ë°°ìœ¨
     private int CalculateBloomRange()
     {
         float equipValue = GetEquipmentValue(UnimoStat.BloomRange);
@@ -79,32 +79,32 @@ public class StatCalculator
         return Mathf.RoundToInt(total);
     }
 
-    // ±âÁØ °³È­ ½Ã°£ ¡À ((1 + (±âº» ¼öÄ¡ + °­È­ ¼öÄ¡) ¡¿ (ºØºØ¿£Áø ±âº» ¼öÄ¡ + ºØºØ¿£Áø °­È­ ¹èÀ²)) ¡¿ ½Ã¼³¹° ¹èÀ² ¡¿ ÆĞ½Ãºê ½ºÅ³ ¹èÀ² ¡¿ ¾×Æ¼ºê ½ºÅ³ ¹èÀ²)
+    // ê¸°ì¤€ ê°œí™” ì‹œê°„ Ã· ((1 + (ê¸°ë³¸ ìˆ˜ì¹˜ + ê°•í™” ìˆ˜ì¹˜) Ã— (ë¶•ë¶•ì—”ì§„ ê¸°ë³¸ ìˆ˜ì¹˜ + ë¶•ë¶•ì—”ì§„ ê°•í™” ë°°ìœ¨)) Ã— ì‹œì„¤ë¬¼ ë°°ìœ¨ Ã— íŒ¨ì‹œë¸Œ ìŠ¤í‚¬ ë°°ìœ¨ Ã— ì•¡í‹°ë¸Œ ìŠ¤í‚¬ ë°°ìœ¨)
     private float CalculateBloomSpeed()
     {
         float equipValue = GetEquipmentValue(UnimoStat.BloomSpeed);
         float total = unimoStatData.BloomSpeed * equipValue;
         
-        // ±âÁØ °³È­ ½Ã°£(¿¹: 1ÃÊ) ¡À (1 + total)
+        // ê¸°ì¤€ ê°œí™” ì‹œê°„(ì˜ˆ: 1ì´ˆ) Ã· (1 + total)
         float baseTime = 1f;
         float denominator = 1f + total;
         
         return baseTime / denominator;
     }
 
-    // ½ºÅ×ÀÌÁö º°²É ¸®½ºÆù ÁÖ±â ¡À ((±âº» ¼öÄ¡ + °­È­ ¼öÄ¡) ¡¿ (ºØºØ¿£Áø ±âº» ¼öÄ¡ + ºØºØ¿£Áø °­È­ ¹èÀ²) ¡¿ ÆĞ½Ãºê ½ºÅ³ ¹èÀ² ¡¿ ¾×Æ¼ºê ½ºÅ³ ¹èÀ²)
+    // ìŠ¤í…Œì´ì§€ ë³„ê½ƒ ë¦¬ìŠ¤í° ì£¼ê¸° Ã· ((ê¸°ë³¸ ìˆ˜ì¹˜ + ê°•í™” ìˆ˜ì¹˜) Ã— (ë¶•ë¶•ì—”ì§„ ê¸°ë³¸ ìˆ˜ì¹˜ + ë¶•ë¶•ì—”ì§„ ê°•í™” ë°°ìœ¨) Ã— íŒ¨ì‹œë¸Œ ìŠ¤í‚¬ ë°°ìœ¨ Ã— ì•¡í‹°ë¸Œ ìŠ¤í‚¬ ë°°ìœ¨)
     private float CalculateFlowerRate()
     {
         float equipValue = GetEquipmentValue(UnimoStat.FlowerRate);
         float total = unimoStatData.FlowerRate * equipValue;
         
-        // ½ºÅ×ÀÌÁö º°²É ¸®½ºÆù ÁÖ±â(¿¹: 1ÃÊ) ¡À total
+        // ìŠ¤í…Œì´ì§€ ë³„ê½ƒ ë¦¬ìŠ¤í° ì£¼ê¸°(ì˜ˆ: 1ì´ˆ) Ã· total
         float baseRate = 1f;
         
         return baseRate / total;
     }
 
-    // (±âº» ¼öÄ¡ + °­È­ ¼öÄ¡) ¡¿ (ºØºØ¿£Áø ±âº» ¼öÄ¡ + ºØºØ¿£Áø °­È­ ¹èÀ²)¡¿ ÆĞ½Ãºê ½ºÅ³ ¹èÀ² ¡¿ ¾×Æ¼ºê ½ºÅ³ ¹èÀ²
+    // (ê¸°ë³¸ ìˆ˜ì¹˜ + ê°•í™” ìˆ˜ì¹˜) Ã— (ë¶•ë¶•ì—”ì§„ ê¸°ë³¸ ìˆ˜ì¹˜ + ë¶•ë¶•ì—”ì§„ ê°•í™” ë°°ìœ¨)Ã— íŒ¨ì‹œë¸Œ ìŠ¤í‚¬ ë°°ìœ¨ Ã— ì•¡í‹°ë¸Œ ìŠ¤í‚¬ ë°°ìœ¨
     private float CalculateRareFlowerRate()
     {
         float equipValue = GetEquipmentValue(UnimoStat.RareFlowerRate);
@@ -113,7 +113,7 @@ public class StatCalculator
         return total;
     }
 
-    // (±âº» ¼öÄ¡ + °­È­ ¼öÄ¡) ¡¿ (ºØºØ¿£Áø ±âº» ¼öÄ¡ + ºØºØ¿£Áø °­È­ ¹èÀ²) ¡¿ ½Ã¼³¹° ¹èÀ² ¡¿ ÆĞ½Ãºê ½ºÅ³ ¹èÀ² ¡¿ ¾×Æ¼ºê ½ºÅ³ ¹èÀ²
+    // (ê¸°ë³¸ ìˆ˜ì¹˜ + ê°•í™” ìˆ˜ì¹˜) Ã— (ë¶•ë¶•ì—”ì§„ ê¸°ë³¸ ìˆ˜ì¹˜ + ë¶•ë¶•ì—”ì§„ ê°•í™” ë°°ìœ¨) Ã— ì‹œì„¤ë¬¼ ë°°ìœ¨ Ã— íŒ¨ì‹œë¸Œ ìŠ¤í‚¬ ë°°ìœ¨ Ã— ì•¡í‹°ë¸Œ ìŠ¤í‚¬ ë°°ìœ¨
     private float CalculateDodge()
     {
         float equipValue = GetEquipmentValue(UnimoStat.Dodge);
@@ -122,7 +122,7 @@ public class StatCalculator
         return total;
     }
 
-    // 1 - ((±âº» ¼öÄ¡ + °­È­ ¼öÄ¡) ¡¿ (ºØºØ¿£Áø ±âº» ¼öÄ¡ + ºØºØ¿£Áø °­È­ ¹èÀ²) ¡¿ ÆĞ½Ãºê ½ºÅ³ ¹èÀ² ¡¿ ¾×Æ¼ºê ½ºÅ³ ¹èÀ²)
+    // 1 - ((ê¸°ë³¸ ìˆ˜ì¹˜ + ê°•í™” ìˆ˜ì¹˜) Ã— (ë¶•ë¶•ì—”ì§„ ê¸°ë³¸ ìˆ˜ì¹˜ + ë¶•ë¶•ì—”ì§„ ê°•í™” ë°°ìœ¨) Ã— íŒ¨ì‹œë¸Œ ìŠ¤í‚¬ ë°°ìœ¨ Ã— ì•¡í‹°ë¸Œ ìŠ¤í‚¬ ë°°ìœ¨)
     private float CalculateStunRecovery()
     {
         float equipValue = GetEquipmentValue(UnimoStat.StunRecovery);
@@ -131,7 +131,7 @@ public class StatCalculator
         return 1f - total;
     }
 
-    // (±âº» ¼öÄ¡ + °­È­ ¼öÄ¡) ¡¿ (ºØºØ¿£Áø ±âº» ¼öÄ¡ + ºØºØ¿£Áø °­È­ ¹èÀ²) ¡¿ ÆĞ½Ãºê ½ºÅ³ ¹èÀ² ¡¿ ¾×Æ¼ºê ½ºÅ³ ¹èÀ²
+    // (ê¸°ë³¸ ìˆ˜ì¹˜ + ê°•í™” ìˆ˜ì¹˜) Ã— (ë¶•ë¶•ì—”ì§„ ê¸°ë³¸ ìˆ˜ì¹˜ + ë¶•ë¶•ì—”ì§„ ê°•í™” ë°°ìœ¨) Ã— íŒ¨ì‹œë¸Œ ìŠ¤í‚¬ ë°°ìœ¨ Ã— ì•¡í‹°ë¸Œ ìŠ¤í‚¬ ë°°ìœ¨
     private float CalculateHpRecovery()
     {
         float equipValue = GetEquipmentValue(UnimoStat.HpRecovery);
@@ -140,26 +140,26 @@ public class StatCalculator
         return total;
     }
 
-    // ±âÁØ ³«ÇÏ ½Ã°£ ¡À (1 + (±âº» ¼öÄ¡ + °­È­ ¼öÄ¡) ¡¿ (ºØºØ¿£Áø ±âº» ¼öÄ¡ + ºØºØ¿£Áø °­È­ ¹èÀ²) ¡¿ ÆĞ½Ãºê ½ºÅ³ ¹èÀ² ¡¿ ¾×Æ¼ºê ½ºÅ³ ¹èÀ²)
+    // ê¸°ì¤€ ë‚™í•˜ ì‹œê°„ Ã· (1 + (ê¸°ë³¸ ìˆ˜ì¹˜ + ê°•í™” ìˆ˜ì¹˜) Ã— (ë¶•ë¶•ì—”ì§„ ê¸°ë³¸ ìˆ˜ì¹˜ + ë¶•ë¶•ì—”ì§„ ê°•í™” ë°°ìœ¨) Ã— íŒ¨ì‹œë¸Œ ìŠ¤í‚¬ ë°°ìœ¨ Ã— ì•¡í‹°ë¸Œ ìŠ¤í‚¬ ë°°ìœ¨)
     private float CalculateFlowerDropSpeed()
     {
         float equipValue = GetEquipmentValue(UnimoStat.FlowerDropSpeed);
         float total = unimoStatData.FlowerDropSpeed + equipValue;
         
-        // ±âÁØ ³«ÇÏ ½Ã°£(¿¹: 1ÃÊ) ¡À (1 + total)
+        // ê¸°ì¤€ ë‚™í•˜ ì‹œê°„(ì˜ˆ: 1ì´ˆ) Ã· (1 + total)
         float baseTime = 1f;
         float denominator = 1f + total;
         
         return baseTime / denominator;
     }
 
-    // ÃÖ´ë ³«ÇÏ ÁÖ±â ¡¿ (1 - (±âº» ¼öÄ¡ + °­È­ ¼öÄ¡) ¡¿ (ºØºØ¿£Áø ±âº» ¼öÄ¡ + ºØºØ¿£Áø °­È­ ¹èÀ²) ¡¿ ÆĞ½Ãºê ½ºÅ³ ¹èÀ² ¡¿ ¾×Æ¼ºê ½ºÅ³ ¹èÀ²)
+    // ìµœëŒ€ ë‚™í•˜ ì£¼ê¸° Ã— (1 - (ê¸°ë³¸ ìˆ˜ì¹˜ + ê°•í™” ìˆ˜ì¹˜) Ã— (ë¶•ë¶•ì—”ì§„ ê¸°ë³¸ ìˆ˜ì¹˜ + ë¶•ë¶•ì—”ì§„ ê°•í™” ë°°ìœ¨) Ã— íŒ¨ì‹œë¸Œ ìŠ¤í‚¬ ë°°ìœ¨ Ã— ì•¡í‹°ë¸Œ ìŠ¤í‚¬ ë°°ìœ¨)
     private float CalculateFlowerDropAmount()
     {
         float equipValue = GetEquipmentValue(UnimoStat.FlowerDropAmount);
         float total = unimoStatData.FlowerDropAmount + equipValue;
         
-        // ÃÖ´ë ³«ÇÏ ÁÖ±â(¿¹: 1f) ¡¿ (1 - total)
+        // ìµœëŒ€ ë‚™í•˜ ì£¼ê¸°(ì˜ˆ: 1f) Ã— (1 - total)
         float maxDrop = 1f;
         float multiplier = 1f - total;
         

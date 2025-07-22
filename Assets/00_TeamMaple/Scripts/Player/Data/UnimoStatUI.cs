@@ -5,41 +5,49 @@ using UnityEngine;
 
 public class UnimoStatUI : MonoBehaviour
 {
-    [SerializeField] private UnimoStatDataSO statDataSO;
+    [SerializeField] private UnimoStatDataSO unimoStatDataSo;
+    [SerializeField] private EquipmentStatDataSO equipmentStatDataSo;
     [SerializeField] private UnimoStatLevelUpDataSO unimoDataSO;
-
+    public StatCalculator StatCalculator { get; private set; }
+    
     public GameObject statTextPrefab;
     public RectTransform contentParent;
     public RectTransform upgradeContentParent;
-    public float lineSpacing = 50f;
 
     [SerializeField] private TMP_Text Name;
     [SerializeField] private TMP_Text Level;
     
+    private float lineSpacing = 30f;
+    
     public void Start()
     {
-        UnimoStatData finalData = statDataSO.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount, Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]);
-        if (finalData != null)
+        UnimoStatData unimoStatData = unimoStatDataSo.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount, Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]);
+        EquipmentStatData equipmentStatData = equipmentStatDataSo.GetFinalEquipmnetStatData(Base_Mng.Data.data.EQCount, Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1]);
+
+        // Unimo Engine 최종 stat
+        StatCalculator = new StatCalculator(unimoStatData, equipmentStatData);
+        
+        if (unimoStatData != null)
         {
-            UpdateStatUI(finalData);
-            UpgradeStatUI(finalData);
+            UpdateStatUI();
+            UpgradeStatUI(unimoStatData);
         }
     }
 
-    public void UpdateStatUI(UnimoStatData data)
+    public void UpdateStatUI()
     {
-        CreateStatLine($"체력 {data.Hp}");
-        CreateStatLine($"방어력 {data.Def}");
-        CreateStatLine($"이동속도 {data.Speed}%");
-        CreateStatLine($"개화 범위 {data.BloomRange}");
-        CreateStatLine($"개화 속도 {data.BloomSpeed}%");
-        CreateStatLine($"꽃 생성 주기 {data.FlowerRate}%");
-        CreateStatLine($"희귀 꽃 확률 {data.RareFlowerRate}%");
-        CreateStatLine($"회피율 {data.Dodge}%");
-        CreateStatLine($"스턴 회복력 {data.StunRecovery}%");
-        CreateStatLine($"체력 재생 {data.HpRecovery}%");
-        CreateStatLine($"꽃 낙하 속도 {data.FlowerDropSpeed}%");
-        CreateStatLine($"낙하량 증가 {data.FlowerDropAmount}%");
+        CreateStatLine($"체력 {StatCalculator.Hp}");
+        CreateStatLine($"방어력 {StatCalculator.Def}");
+        CreateStatLine($"이동속도 {StatCalculator.Speed}%");
+        CreateStatLine($"개화 범위 {StatCalculator.BloomRange}");
+        CreateStatLine($"개화 속도 {StatCalculator.BloomSpeed}%");
+        CreateStatLine($"꽃 생성 주기 {StatCalculator.FlowerRate}%");
+        CreateStatLine($"희귀 꽃 확률 {StatCalculator.RareFlowerRate}%");
+        CreateStatLine($"회피율 {StatCalculator.Dodge}%");
+        CreateStatLine($"스턴 회복력 {StatCalculator.StunRecovery}%");
+        CreateStatLine($"체력 재생 {StatCalculator.HpRecovery}%");
+        CreateStatLine($"꽃 낙하 속도 {StatCalculator.FlowerDropSpeed}%");
+        CreateStatLine($"낙하량 증가 {StatCalculator.FlowerDropAmount}%");
     }
     
     private void UpgradeStatUI(UnimoStatData data)
@@ -91,6 +99,8 @@ public class UnimoStatUI : MonoBehaviour
         GameObject statLine = Instantiate(statTextPrefab, contentParent, false);
         TMP_Text tmp = statLine.GetComponent<TMP_Text>();
         tmp.text = text;
+        tmp.fontSize = 20;
+        lineSpacing = 40;
         
         RectTransform rt = statLine.GetComponent<RectTransform>();
         
@@ -113,6 +123,7 @@ public class UnimoStatUI : MonoBehaviour
         GameObject line = Instantiate(statTextPrefab, upgradeContentParent, false);
         TMP_Text tmp = line.GetComponent<TMP_Text>();
         tmp.text = text; 
+        lineSpacing = 55;
         
         RectTransform rt = line.GetComponent<RectTransform>();
 
@@ -135,6 +146,7 @@ public class UnimoStatUI : MonoBehaviour
         GameObject line = Instantiate(statTextPrefab, upgradeContentParent, false);
         TMP_Text tmp = line.GetComponent<TMP_Text>();
         tmp.text = text; 
+        lineSpacing = 55;
         
         RectTransform rt = line.GetComponent<RectTransform>();
 
@@ -170,10 +182,10 @@ public class UnimoStatUI : MonoBehaviour
         upgradeNextBaseX = 40f;
         upgradeNextBaseY = 370f; 
 
-        var finalData = statDataSO.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount, Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]);
+        var finalData = unimoStatDataSo.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount, Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]);
         if (finalData != null)
         {
-            UpdateStatUI(finalData);
+            UpdateStatUI();
             UpgradeStatUI(finalData);
         }
     }
