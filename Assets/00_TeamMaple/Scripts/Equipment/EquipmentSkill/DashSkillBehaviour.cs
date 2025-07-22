@@ -4,13 +4,26 @@ using UnityEngine;
 // 대쉬 스킬
 public class DashSkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviour
 {
+    private Coroutine activeCoroutine;
+    
     public void Excute(GameObject caster, EquipmentSkillData skillData)
     {
-        // 대시 효과 코루틴 실행
-        StartCoroutine(DashRoutine(caster, skillData.Param, 0.15f));
+        switch (skillData.Type)
+        { 
+            case EquipmentSkillType.Passive:
+                break;
+            case EquipmentSkillType.Active:
+                Debug.Log("[Active] 대쉬 액티브 발동");
+                if (activeCoroutine != null)
+                {
+                    StopCoroutine(activeCoroutine);
+                }
+                activeCoroutine = StartCoroutine(ActiveDash(caster, skillData.Param, 0.1f));
+                break;
+        }
     }
 
-    private IEnumerator DashRoutine(GameObject caster, float dashPower, float duration)
+    private IEnumerator ActiveDash(GameObject caster, float dashPower, float duration)
     {
         var mapSetter = PlaySystemRefStorage.mapSetter;
         Vector3 start = caster.transform.position;

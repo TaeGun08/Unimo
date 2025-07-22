@@ -69,4 +69,25 @@ public class EquipmentStatLevelUpDataSO : ScriptableObject
         Debug.LogWarning($"Level {level} not found in equipment stat table for rank {rank}");
         return null;
     }
+    
+    // 각 StatType별로 LevelUp에서 값을 찾아 반환
+    public float GetLevelUpValue(EquipmentStatLevelUpData levelUp, UnimoStat statType)
+    {
+        return statType switch
+        {
+            UnimoStat.Hp => levelUp.Hp,
+            UnimoStat.Def => levelUp.Def,
+            UnimoStat.Speed => levelUp.Speed,
+            UnimoStat.BloomRange => levelUp.BloomRange,
+            UnimoStat.BloomSpeed => levelUp.BloomSpeed,
+            UnimoStat.FlowerRate => levelUp.FlowerRate,
+            UnimoStat.RareFlowerRate => levelUp.RareFlowerRate,
+            UnimoStat.Dodge => levelUp.Dodge,
+            UnimoStat.StunRecovery => levelUp.StunRecovery,
+            UnimoStat.HpRecovery => levelUp.HpRecovery,
+            UnimoStat.FlowerDropSpeed => levelUp.FlowerDropSpeed,
+            UnimoStat.FlowerDropAmount => levelUp.FlowerDropAmount,
+            _ => 0f
+        };
+    }
 }

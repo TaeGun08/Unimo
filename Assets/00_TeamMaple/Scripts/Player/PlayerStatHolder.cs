@@ -29,7 +29,7 @@ public class PlayerStatHolder
         // 최소, 최대값 수정 필요
         Hp                = new ClampedInt(statCalculator.Hp, 0, statCalculator.Hp);
         Def               = new ClampedInt(statCalculator.Def, 0, 9999);
-        Speed             = new ClampedFloat(statCalculator.Speed, 0f, 100f);
+        Speed             = new ClampedFloat(statCalculator.Speed, 0f, 99f);
         BloomRange        = new ClampedInt(statCalculator.BloomRange, 0, 300);
         BloomSpeed        = new ClampedFloat(statCalculator.BloomSpeed, 0f, 999f);
         FlowerRate        = new ClampedFloat(statCalculator.FlowerRate, 0f, 100f);
