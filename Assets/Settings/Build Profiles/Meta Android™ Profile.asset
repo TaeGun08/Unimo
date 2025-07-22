@@ -19,7 +19,21 @@ MonoBehaviour:
   m_PlatformBuildProfile:
     rid: 1624554226894242015
   m_OverrideGlobalSceneList: 0
-  m_Scenes: []
+  m_Scenes:
+  - m_enabled: 1
+    m_path: Assets/00_Scenes/GameScene/Splash.unity
+  - m_enabled: 1
+    m_path: Assets/00_Scenes/GameScene/InitScene.unity
+  - m_enabled: 1
+    m_path: Assets/00_Scenes/GameScene/LoadingScene.unity
+  - m_enabled: 1
+    m_path: Assets/00_Scenes/GameScene/LobbyScene.unity
+  - m_enabled: 1
+    m_path: Assets/00_Scenes/GameScene/PlayScene_ST001.unity
+  - m_enabled: 1
+    m_path: Assets/00_Scenes/GameScene/PlayScene_ST002.unity
+  - m_enabled: 1
+    m_path: Assets/00_Scenes/GameScene/TutorialScene.unity
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
     m_Settings:
@@ -284,14 +298,14 @@ MonoBehaviour:
     - line: '|   clonedFromGUID: 3c72c65a16f0acb438eed22b8b16c24a'
     - line: '|   templatePackageId: com.unity.template.urp-blank@2.0.6'
     - line: '|   templateDefaultScene: Assets/Scenes/SampleScene.unity'
-    - line: '|   useCustomMainManifest: 1'
+    - line: '|   useCustomMainManifest: 0'
     - line: '|   useCustomLauncherManifest: 0'
     - line: '|   useCustomMainGradleTemplate: 1'
-    - line: '|   useCustomLauncherGradleManifest: 1'
+    - line: '|   useCustomLauncherGradleManifest: 0'
     - line: '|   useCustomBaseGradleTemplate: 0'
     - line: '|   useCustomGradlePropertiesTemplate: 1'
     - line: '|   useCustomGradleSettingsTemplate: 1'
-    - line: '|   useCustomProguardFile: 1'
+    - line: '|   useCustomProguardFile: 0'
     - line: '|   AndroidTargetArchitectures: 3'
     - line: '|   AndroidSplashScreenScale: 0'
     - line: '|   androidSplashScreen: {instanceID: 0}'
@@ -312,7 +326,7 @@ MonoBehaviour:
     - line: '|     banner: {instanceID: 0}'
     - line: '|   androidGamepadSupportLevel: 0'
     - line: '|   AndroidMinifyRelease: 0'
-    - line: '|   AndroidMinifyDebug: 0'
+    - line: '|   AndroidMinifyDebug: 1'
     - line: '|   AndroidValidateAppBundleSize: 1'
     - line: '|   AndroidAppBundleSizeToValidate: 150'
     - line: '|   AndroidReportGooglePlayAppDependencies: 1'
@@ -902,7 +916,7 @@ MonoBehaviour:
     - line: '|   gcIncremental: 1'
     - line: '|   gcWBarrierValidation: 0'
     - line: '|   apiCompatibilityLevelPerPlatform: {}'
-    - line: '|   editorAssembliesCompatibilityLevel: 1'
+    - line: '|   editorAssembliesCompatibilityLevel: 2'
     - line: '|   m_RenderingPath: 1'
     - line: '|   m_MobileRenderingPath: 1'
     - line: '|   metroPackageName: com.unity.template-starter-kit'
@@ -982,7 +996,7 @@ MonoBehaviour:
     - line: '|   hmiCpuConfiguration: '
     - line: '|   hmiLogStartupTiming: 0'
     - line: '|   qnxGraphicConfPath: '
-    - line: '|   apiCompatibilityLevel: 6'
+    - line: '|   apiCompatibilityLevel: 3'
     - line: '|   captureStartupLogs: {}'
     - line: '|   activeInputHandler: 0'
     - line: '|   windowsGamepadBackendHint: 0'

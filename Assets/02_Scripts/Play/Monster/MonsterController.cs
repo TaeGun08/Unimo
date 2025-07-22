@@ -41,7 +41,13 @@ public class MonsterController : MonoBehaviour
                 hitpos.y = 0f;
                 // 기존 hit처리
                 // player.Hit(collideStunTime, hitpos);
-                player.TakeDamage(transform.position);
+                
+                CombatEvent combatEvent = new();
+                combatEvent.Sender = null;
+                combatEvent.Receiver = player;
+                combatEvent.Damage = 10;
+                combatEvent.Position = player.transform.position;
+                CombatSystem.Instance.AddInGameEvent(combatEvent);
                 
                 Vector3 fxPos = (isexplodeFXAtPlayer) ? (hitpos + other.transform.position) / 2f + 1.5f * Vector3.up : hitpos + 1.5f * Vector3.up;
                 GameObject obj = Instantiate(explodeFX, fxPos, Quaternion.identity);

@@ -123,7 +123,7 @@ public class Main_UI : MonoBehaviour
 
         // 자산 정보
         Assets_Text[0].text = StringMethod.ToCurrencyString(Base_Mng.Data.data.Yellow);
-        Assets_Text[1].text = string.Format("{0:#,###}", Base_Mng.Data.data.Red);
+        Assets_Text[1].text = StringMethod.ToCurrencyString(Base_Mng.Data.data.Red);
         Assets_Text[2].text = Base_Mng.Data.data.Blue.ToString();
         Assets_Text[3].text = Base_Mng.Data.data.Green.ToString();
         

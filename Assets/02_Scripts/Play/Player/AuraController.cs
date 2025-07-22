@@ -39,6 +39,7 @@ public class AuraController : MonoBehaviour
         }
     }
 
+    // 오라 세팅 재설정
     public void InitAura()
     {
         transform.localScale = playerStatHolder.BloomRange.Value * 0.1f * Vector3.one;    // 0.1은 수치 조정용
@@ -48,6 +49,7 @@ public class AuraController : MonoBehaviour
         originalGrowth = growthperSec;
     }
 
+    // 오라 크기 증가 후 복구
     public void ChangeScale(int prev, int next, int duration)
     {
         // 만약 이미 변경 중이라면 기존 코루틴 중단

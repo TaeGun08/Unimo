@@ -2,5 +2,7 @@ using UnityEngine;
 
 public interface IDamageAble
 {
-    public void TakeDamage(Vector3 pos);
+    public GameObject GameObject { get; }
+
+    public void TakeDamage(CombatEvent e);
 }

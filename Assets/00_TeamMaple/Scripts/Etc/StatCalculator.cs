@@ -67,7 +67,6 @@ public class StatCalculator
     {
         float equipValue = GetEquipmentValue(UnimoStat.Speed);
         float total = unimoStatData.Speed * equipValue;
-        
         return total;
     }
 
@@ -86,8 +85,8 @@ public class StatCalculator
         float equipValue = GetEquipmentValue(UnimoStat.BloomSpeed);
         float total = unimoStatData.BloomSpeed * equipValue;
         
-        // 기준 개화 시간(예: 1초) ÷ (1 + total)
-        float baseTime = 1f;
+        // 기준 개화 시간(12초) ÷ (1 + total)
+        float baseTime = 12f;
         float denominator = 1f + total;
         
         return baseTime / denominator;
@@ -105,7 +104,7 @@ public class StatCalculator
         return baseRate / total;
     }
 
-    // (기본 수치 + 강화 수치) × (붕붕엔진 기본 수치 + 붕붕엔진 강화 배율)× 패시브 스킬 배율 × 액티브 스킬 배율
+    // (기본 수치 + 강화 수치) × (붕붕엔진 기본 수치 + 붕붕엔진 강화 배율) × 패시브 스킬 배율 × 액티브 스킬 배율
     private float CalculateRareFlowerRate()
     {
         float equipValue = GetEquipmentValue(UnimoStat.RareFlowerRate);
