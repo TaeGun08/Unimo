@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json; // Ãß°¡
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [System.Serializable]
 public class StageClearData
@@ -26,20 +27,18 @@ public class StageManager : SingletonBehaviour<StageManager>
     public StageSaveData CurrentSaveData { get; private set; }
     
     [Header("StageSO")] 
-    [SerializeField] private ProceduralMapGeneratorSO so;
-    public StageData StageData { get; private set; }
-    public StageRewardData StageRewardData { get; private set; }
+    [SerializeField] private StageData stageData;
+    [SerializeField] private StageRewardData stageRewardData;
+    [SerializeField] private StageGenerateFlowerData stageGenerateFlowerData;
+    
+    public StageData StageData => stageData;
+    public StageRewardData StageRewardData => stageRewardData;
 
     private void Awake()
     {
         Instance = this;
 
-        StageData = new StageData();
-        StageRewardData = new StageRewardData();
-
-        so.InitData();
-        StageData = StageLoader.SetStageData(so);
-        StageRewardData = so.GetStageRewardData(JsonDataLoader.LoadServerData().CurrentStage + 1000);
+        
 
         Load();
     }

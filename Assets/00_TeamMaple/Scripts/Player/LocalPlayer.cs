@@ -9,6 +9,8 @@ using UnityEngine.UIElements;
 public class LocalPlayer : MonoBehaviour, IDamageAble
 {
     public static LocalPlayer Instance { get; private set; }
+
+    public GameObject GameObject => gameObject;
     
     [Header("UnimoStatDataSO")]
     [SerializeField] private PrefabsTable unimoTable;
@@ -114,9 +116,9 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
             .GetComponent<Animator>();
     }
 
-    public void TakeDamage(Vector3 attackerPos)
+    public void TakeDamage(CombatEvent e)
     {
-        LastAttackerPos = attackerPos;
+        LastAttackerPos = e.Position;
         playerController.ChangeState(IPlayerState.EState.Hit);
     }
     
