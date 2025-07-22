@@ -12,8 +12,9 @@ public class UI_Costume : UI_Base
 
     public TextMeshProUGUI TitleText;
     
-    public GameObject UpGradePanel;
-    
+    public GameObject UnimoUpGradePanel;
+    public GameObject EngineUpGradePanel;
+
     public override void Start()
     {
         Costumer = Costume_Finder.instance.transform.GetComponent<TempChaCustomer>();
@@ -38,12 +39,14 @@ public class UI_Costume : UI_Base
     {
         Costumer.ChangeCharacter(value + 1);
         
-        UpGradePanel.SetActive(true);
+        UnimoUpGradePanel.SetActive(true);
     }
 
     public void EQChange(int value)
     {
         Costumer.ChangeEquip(value + 1);
+        
+        EngineUpGradePanel.SetActive(true);
     }
 
     public void GetUnimo()
@@ -69,6 +72,7 @@ public class UI_Costume : UI_Base
     
     public void CloseUpgradePanel()
     {
-        UpGradePanel.SetActive(false);
+        UnimoUpGradePanel.SetActive(false);
+        EngineUpGradePanel.SetActive(false);
     }
 }
