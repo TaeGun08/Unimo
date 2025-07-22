@@ -27,7 +27,9 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
     private EquipmentStatData equipmentStatData;
     private EquipmentStatLevelUpData equipmentStatLevelUpData;
     private EquipmentSkillLevelUpData equipmentSkillLevelUpData;
-
+    
+    private bool isSlippery = false;
+    
     public StatCalculator StatCalculator { get; private set; }
     public PlayerStatHolder PlayerStatHolder { get; private set; }
 

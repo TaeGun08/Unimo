@@ -6924,6 +6924,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlaySceneCam
       objectReference: {fileID: 0}
+    - target: {fileID: 1156109355862453165, guid: 635e221d39b327849824c94dfbbd46f5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7515,6 +7520,7 @@ GameObject:
   - component: {fileID: 6072757661415813846}
   - component: {fileID: 3372846883580634936}
   - component: {fileID: 5128004119720737243}
+  - component: {fileID: 6072757661415813847}
   m_Layer: 0
   m_Name: obj_ST001_Infinite_main
   m_TagString: Ground
@@ -8989,6 +8995,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6535742942379741630}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6072757661415813847
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2176661958997823484}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 35.97269, y: 0, z: 36.02102}
+  m_Center: {x: -0.0736065, y: 0, z: -0.29678157}
 --- !u!114 &6151373446196199413
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -36,8 +36,8 @@ public class EarthquakeRunner : MonoBehaviour
     {
         if (timer < duration)
         {
-            Camera.main.transform.localPosition += Random.insideUnitSphere * intensity * Time.deltaTime;
             timer += Time.deltaTime;
+            Camera.main.transform.localPosition += Random.insideUnitSphere * intensity * Time.deltaTime;
         }
         else
         {
