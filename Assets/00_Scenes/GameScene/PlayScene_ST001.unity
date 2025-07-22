@@ -7588,7 +7588,7 @@ GameObject:
   - component: {fileID: 3372846883580634936}
   - component: {fileID: 5128004119720737243}
   - component: {fileID: 6072757661415813847}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: obj_ST001_Infinite_main
   m_TagString: Ground
   m_Icon: {fileID: 0}

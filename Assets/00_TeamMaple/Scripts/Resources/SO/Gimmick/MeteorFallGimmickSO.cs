@@ -47,55 +47,80 @@ public class MeteorFallRunner : MonoBehaviour
 
     private IEnumerator FallRoutine()
     {
+        WaitForSeconds intervalWait = new WaitForSeconds(data.interval);
+
         while (true)
         {
             if (activeMeteors.Count < maxMeteors)
             {
-                Vector3 randomXZ = center + new Vector3(
-                    Random.Range(-data.spawnRadius, data.spawnRadius),
-                    0,
-                    Random.Range(-data.spawnRadius, data.spawnRadius)
-                );
+                Vector3? pos = FindGroundPosition();
 
-                Vector3 rayOrigin = randomXZ + Vector3.up * 50f;
-                if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, 100f))
-                {
-                    if (!hit.collider.CompareTag("Ground")) continue;
+                if (pos.HasValue)
+                    SpawnMeteor(pos.Value);
+                else
+                    Debug.LogWarning("[메테오] 지면을 못 찾아 생성 스킵");
 
-                    Vector3 groundPos = hit.point;
-
-                    // 낙하 방향 기반 메테오 생성 위치 계산
-                    Vector3 fallDir = data.fallDirection.normalized;
-
-                    if (fallDir.y >= 0f)
-                    {
-                        Debug.LogWarning("[Meteor] fallDirection.y는 반드시 음수여야 합니다.");
-                        fallDir.y = -0.01f;
-                    }
-
-                    float distance = data.fallHeight / -fallDir.y;
-                    Vector3 offset = fallDir * distance;
-                    Vector3 spawnPos = groundPos - offset;
-
-                    float fallDistance = offset.magnitude;
-                    float markerDuration = fallDistance / data.fallSpeed;
-
-                    // 마커 생성 (지면)
-                    GameObject marker = Instantiate(data.markerPrefab, groundPos, Quaternion.identity);
-                    MeteorMarker markerComp = marker.GetComponent<MeteorMarker>();
-                    if (markerComp != null)
-                    {
-                        markerComp.duration = markerDuration;
-                    }
-
-                    // 메테오 생성
-                    GameObject meteor = Instantiate(data.meteorPrefab, spawnPos, Quaternion.identity);
-                    activeMeteors.Add(meteor);
-                }
+                yield return null; // Raycast 시도 후 프레임 쉬기
             }
 
-            yield return new WaitForSeconds(data.interval);
+            yield return intervalWait;
         }
+    }
+
+    // ✅ 지면 탐색 시도 제한 및 yield 포함
+    private Vector3? FindGroundPosition()
+    {
+        const int maxAttempts = 10;
+
+        for (int i = 0; i < maxAttempts; i++)
+        {
+            Vector3 randomXZ = center + new Vector3(
+                Random.Range(-data.spawnRadius, data.spawnRadius),
+                0f,
+                Random.Range(-data.spawnRadius, data.spawnRadius)
+            );
+
+            Vector3 rayOrigin = randomXZ + Vector3.up * 50f;
+
+            if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, 100f, LayerMask.NameToLayer("Ground")))
+            {
+                return hit.point;
+            }
+        }
+
+        return null;
+    }
+
+    private void SpawnMeteor(Vector3 groundPos)
+    {
+        Vector3 fallDir = data.fallDirection.normalized;
+
+        if (fallDir.y >= 0f)
+        {
+            Debug.LogWarning("[Meteor] fallDirection.y는 반드시 음수여야 합니다.");
+            fallDir.y = -0.01f;
+        }
+
+        float distance = data.fallHeight / -fallDir.y;
+        Vector3 offset = fallDir * distance;
+        Vector3 spawnPos = groundPos - offset;
+
+        float fallDistance = offset.magnitude;
+        float markerDuration = fallDistance / data.fallSpeed;
+
+        // ✅ 마커 생성
+        GameObject marker = Instantiate(data.markerPrefab, groundPos, Quaternion.identity);
+        MeteorMarker markerComp = marker.GetComponent<MeteorMarker>();
+        if (markerComp != null)
+        {
+            markerComp.duration = markerDuration;
+        }
+
+        // ✅ 메테오 생성
+        GameObject meteor = Instantiate(data.meteorPrefab, spawnPos, Quaternion.identity);
+        activeMeteors.Add(meteor);
+
+        Debug.Log($"[메테오 생성] 위치: {spawnPos} / 지면: {groundPos} / 거리: {fallDistance}");
     }
 
     public void NotifyMeteorDestroyed(GameObject meteor)
@@ -110,5 +135,4 @@ public class MeteorFallRunner : MonoBehaviour
     {
         if (routine != null) StopCoroutine(routine);
     }
-    
 }
