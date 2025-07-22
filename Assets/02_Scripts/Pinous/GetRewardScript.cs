@@ -60,7 +60,7 @@ public class GetRewardScript : MonoBehaviour
         YellowText.text = StringMethod.ToCurrencyString(yellowTrade);
         RedText.text = StringMethod.ToCurrencyString(redTrade);
 
-        if (!(starBar.value < 0.5f) &&
+        if (!(starBar.value < 0.01f) &&
             JsonDataLoader.LoadServerData().HighStage <= JsonDataLoader.LoadServerData().CurrentStage)
         {
             int getStar = stageManager.GetStars(JsonDataLoader.LoadServerData().CurrentStage + 1000);
@@ -75,7 +75,7 @@ public class GetRewardScript : MonoBehaviour
 
                     if (getStar != 1 && getStar < 2)
                     {
-                        redTrade += StringMethod.ToCurrencyDouble(starY1);
+                        yellowTrade += StringMethod.ToCurrencyDouble(starY1);
                     }
 
                     if (getStar != 2 && getStar < 3)
@@ -83,7 +83,7 @@ public class GetRewardScript : MonoBehaviour
                         redTrade += StringMethod.ToCurrencyDouble(starR2);
                     }
 
-                    redTrade += StringMethod.ToCurrencyDouble(starY3);
+                    yellowTrade += StringMethod.ToCurrencyDouble(starY3);
                     redTrade += StringMethod.ToCurrencyDouble(starR3);
 
                     break;
@@ -93,7 +93,7 @@ public class GetRewardScript : MonoBehaviour
 
                     if (getStar != 1 && getStar < 2)
                     {
-                        redTrade += StringMethod.ToCurrencyDouble(starY1);
+                        yellowTrade += StringMethod.ToCurrencyDouble(starY1);
                     }
 
                     redTrade += StringMethod.ToCurrencyDouble(starR2);
@@ -101,13 +101,29 @@ public class GetRewardScript : MonoBehaviour
                 case < 0.75f and >= 0.5f when getStar != 1:
                     stageManager.UpdateStageStars(JsonDataLoader.LoadServerData().CurrentStage + 1000, 1);
                     starText.text = "x1";
-                    redTrade += StringMethod.ToCurrencyDouble(starY1);
+                    yellowTrade += StringMethod.ToCurrencyDouble(starY1);
                     break;
             }
+            
+            stageManager.UpdateStageStars(JsonDataLoader.LoadServerData().CurrentStage + 1000, 3);
+            starText.text = "x3";
 
+            if (getStar != 1 && getStar < 2)
+            {
+                yellowTrade += StringMethod.ToCurrencyDouble(starY1);
+            }
+
+            if (getStar != 2 && getStar < 3)
+            {
+                redTrade += StringMethod.ToCurrencyDouble(starR2);
+            }
+
+            yellowTrade += StringMethod.ToCurrencyDouble(starY3);
+            redTrade += StringMethod.ToCurrencyDouble(starR3);
+            
             Base_Mng.Data.data.HighStage++;
-            Debug.Log("스테이지 업");
-            if (StageLoader.IsBonusStageByIndex(JsonDataLoader.LoadServerData().HighStage))
+            
+            if (StageLoader.IsBonusStageByIndex(Base_Mng.Data.data.HighStage))
             {
                 Base_Mng.Data.data.BonusStageOn = true;
             }
