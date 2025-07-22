@@ -19,7 +19,6 @@ public class AuraController : MonoBehaviour
 
     private void Start()
     {
-        playerStatHolder = LocalPlayer.Instance.PlayerStatHolder;
         InitAura();
     }
 
@@ -42,7 +41,9 @@ public class AuraController : MonoBehaviour
     // 오라 세팅 재설정
     public void InitAura()
     {
-        transform.localScale = playerStatHolder.BloomRange.Value * 0.1f * Vector3.one;    // 0.1은 수치 조정용
+        playerStatHolder = LocalPlayer.Instance.PlayerStatHolder;
+        
+        transform.localScale = playerStatHolder.BloomRange.Value * 0.1f * Vector3.one;
         originalScale = transform.localScale;
         
         growthperSec = playerStatHolder.BloomSpeed.Value;

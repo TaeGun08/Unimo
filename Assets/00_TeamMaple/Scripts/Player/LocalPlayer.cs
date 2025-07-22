@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
 
 public class LocalPlayer : MonoBehaviour, IDamageAble
 {
@@ -42,6 +43,19 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
     // public TMP_Text RemainHp => remainHp;
     public TMP_Text RemainHp;
     
+    // --------------테스트--------------
+    [SerializeField] private Button unimoLevelDownButton;
+    [SerializeField] private Button unimoLevelUpButton;
+    [SerializeField] private Button equipmentLevelDownButton;
+    [SerializeField] private Button equipmentLevelUpButton;
+    
+    [SerializeField] private TMP_Text unimoLevelText;
+    [SerializeField] private TMP_Text equipmentLevelText;
+    
+    [SerializeField] private SkillRunner skillRunner;
+    [SerializeField] private AuraController auraController;
+    // --------------테스트--------------
+    
     private void Awake()
     {
         if (Instance != null) Destroy(gameObject);
@@ -65,6 +79,10 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
         
         // 플레이어 애니메이터 설정
         SetPlayerAnimator(unimo,  engine);
+        
+        // 테스트 세팅
+        SetLevelTestButton();
+        SetLevelTestText();
     }
 
     private void Start()
@@ -135,5 +153,87 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
             
             yield return new WaitForSeconds(10f);
         }
+    }
+    
+    // -------------------테스트----------------------
+    
+    private void TestSetPlayerStats()
+    {
+        StopCoroutine(HpRecoveryCoroutine(PlayerStatHolder.HpRecovery.Value));
+        SetPlayerStats();
+        StartCoroutine(HpRecoveryCoroutine(PlayerStatHolder.HpRecovery.Value));
+        skillRunner.SetEngineSkills(0, 0);     // 보유 스킬 제거
+        auraController.InitAura();
+        
+        Debug.Log($"[UnimoStats]\n" +
+                  $"Hp: {StatCalculator.Hp}\n" +
+                  $"Def: {StatCalculator.Def}\n" +
+                  $"Speed: {StatCalculator.Speed}\n" +
+                  $"BloomRange: {StatCalculator.BloomRange}\n" +
+                  $"BloomSpeed: {StatCalculator.BloomSpeed}\n" +
+                  $"FlowerRate: {StatCalculator.FlowerRate}\n" +
+                  $"RareFlowerRate: {StatCalculator.RareFlowerRate}\n" +
+                  $"Dodge: {StatCalculator.Dodge}\n" +
+                  $"StunRecovery: {StatCalculator.StunRecovery}\n" +
+                  $"HpRecovery: {StatCalculator.HpRecovery}\n" +
+                  $"FlowerDropSpeed: {StatCalculator.FlowerDropSpeed}\n" +
+                  $"FlowerDropAmount: {StatCalculator.FlowerDropAmount}");
+    }
+
+    private void SetLevelTestButton()
+    {
+        unimoLevelDownButton.onClick.AddListener(() =>
+        {
+            if (Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1] == 1)
+            {
+                Debug.Log($"유니모 레벨이 최소치입니다.");
+                return;
+            }
+            Base_Mng.instance.DowngradeUnimoLevel();
+            TestSetPlayerStats();
+            SetLevelTestText();
+        });
+        
+        unimoLevelUpButton.onClick.AddListener(() =>
+        {
+            if (Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1] == 100)
+            {
+                Debug.Log($"유니모 레벨이 최대치입니다.");
+                return;
+            }
+            Base_Mng.instance.UpgradeUnimoLevel();
+            TestSetPlayerStats();
+            SetLevelTestText();
+        });
+        
+        equipmentLevelDownButton.onClick.AddListener(() =>
+        {
+            if (Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1] == 0)
+            {
+                Debug.Log($"엔진 레벨이 최소치입니다.");
+                return;
+            }
+            Base_Mng.instance.DowngradeEngineLevel();
+            TestSetPlayerStats();
+            SetLevelTestText();
+        });
+        
+        equipmentLevelUpButton.onClick.AddListener(() =>
+        {
+            if (Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1] == 5)
+            {
+                Debug.Log($"엔진 레벨이 최대치입니다.");
+                return;
+            }
+            Base_Mng.instance.UpgradeEngineLevel();
+            TestSetPlayerStats();
+            SetLevelTestText();
+        });
+    }
+
+    private void SetLevelTestText()
+    {
+        unimoLevelText.text = "Lv. " + Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1];
+        equipmentLevelText.text = "Lv. " + Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1];
     }
 }

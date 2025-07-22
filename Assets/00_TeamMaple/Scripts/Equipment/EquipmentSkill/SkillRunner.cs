@@ -80,6 +80,7 @@ public class SkillRunner : MonoBehaviour
 #endif
     }
 
+    // 테스트용
     private void OnConfirmSkillChange()
     {
         int id1, id2;
@@ -94,14 +95,9 @@ public class SkillRunner : MonoBehaviour
         isSkill2OnCooldown = false;
     }
     
-    private void SetEngineSkills(int skillId1, int skillId2)
+    public void SetEngineSkills(int skillId1, int skillId2)
     {
-        // 이전 스킬 오브젝트 제거
-        if (skillPrefab1 != null) Destroy(skillPrefab1);
-        if (skillPrefab2 != null) Destroy(skillPrefab2);
-        
-        skillExcutor2 = null;
-        skillData2 = null;
+        ResetSkills();
         
         // 스킬1
         if (skillId1 != 0)
@@ -178,5 +174,16 @@ public class SkillRunner : MonoBehaviour
         
         isSkill2OnCooldown = false;
         Debug.Log("[Skill2] 쿨타임 종료");
+    }
+    
+    // 보유 스킬 리셋
+    public void ResetSkills()
+    {
+        // 이전 스킬 오브젝트 제거
+        if (skillPrefab1 != null) Destroy(skillPrefab1);
+        if (skillPrefab2 != null) Destroy(skillPrefab2);
+        
+        skillExcutor2 = null;
+        skillData2 = null;
     }
 }
