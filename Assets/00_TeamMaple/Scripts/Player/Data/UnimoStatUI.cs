@@ -261,7 +261,7 @@ public class UnimoStatUI : MonoBehaviour
         // 기존 스탯 UI 삭제
         foreach (Transform child in contentParent)
             Destroy(child.gameObject);
-
+        
         // 기존 업그레이드 UI 삭제
         foreach (Transform child in upgradeContentParent)
             Destroy(child.gameObject);
@@ -285,8 +285,14 @@ public class UnimoStatUI : MonoBehaviour
         upgradeNextBaseX = 40f;
         upgradeNextBaseY = 370f; 
         
+        upgradeEngineNextCurrentY = 0f;
+        upgradeEngineNextBaseX = 40f;
+        upgradeEngineNextBaseY = 370f; 
+        
         unimoStatData = unimoStatDataSo.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount, Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]);
         equipmentStatData = equipmentStatDataSo.GetFinalEquipmnetStatData(Base_Mng.Data.data.EQCount, Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1]);
+        
+        StatCalculator = new StatCalculator(unimoStatData, equipmentStatData);
         
         if (unimoStatData != null)
         {
