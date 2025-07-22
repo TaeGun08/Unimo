@@ -51,6 +51,7 @@ public class UI_Game : UI_Base
         {
             stageText = int.Parse(inputField.text);
             Base_Mng.Data.data.CurrentStage = stageText;
+            Base_Mng.Data.data.HighStage = stageText;
         }
         else
         {
