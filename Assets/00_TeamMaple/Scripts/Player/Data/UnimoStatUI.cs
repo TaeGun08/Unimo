@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
 
 public class UnimoStatUI : MonoBehaviour
