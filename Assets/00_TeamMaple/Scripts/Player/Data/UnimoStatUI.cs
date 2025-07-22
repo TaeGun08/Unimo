@@ -297,9 +297,9 @@ public class UnimoStatUI : MonoBehaviour
     }
     
     // 유니모 레벨업
-    public void UpgradeUnimoAndStatUI(int type)
+    public void UpgradeUnimoAndStatUI()
     {
-        Base_Mng.instance.UpgradeUnimoLevel(type);
+        Base_Mng.instance.UpgradeUnimoLevel();
         RefreshUI();
     }
     
