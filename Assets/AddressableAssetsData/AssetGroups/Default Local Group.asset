@@ -177,6 +177,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - cha_lbb
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7cd080b74cb2bb34ab9725bb80349e00
+    m_Address: Assets/00_Planning/FacilitiesUI/UIAsset/image-removebg-preview.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7d1a539c080b42e45ae5ed920ee34209
     m_Address: EQC002L
     m_ReadOnly: 0
