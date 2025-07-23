@@ -54,7 +54,6 @@ public class PlayerHitState : PlayerState
                     }
                     else
                     {
-                        Debug.Log($"stun Å¸¾ßÇÔ");
                         PlayerController.ChangeState(IPlayerState.EState.Stun);
                     }
                 }
