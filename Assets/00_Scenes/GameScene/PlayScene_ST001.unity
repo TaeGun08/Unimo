@@ -13251,7 +13251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53a96485a8a6bc44c899fedf6f438b74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapRadius: 17.5
+  mapRadius: 16
 --- !u!222 &9069257689681190135
 CanvasRenderer:
   m_ObjectHideFlags: 0

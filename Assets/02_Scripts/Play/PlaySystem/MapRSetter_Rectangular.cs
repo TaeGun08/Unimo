@@ -29,14 +29,21 @@ public class MapRSetter_Rectangular : MapRangeSetter
         return (minX <= pos.x && pos.x <= maxX) &&
                (minY <= pos.y && pos.y <= maxY);
     }
+    
     public override Vector3 FindNearestPoint(Vector3 point)
     {
-        Vector2 pos = new Vector2(point.x, point.z);
-        if (pos.x >= maxX) { pos.x = maxX; }
-        else if (pos.x <= minX) { pos.x = minX; }
-        if (pos.y >= maxY) { pos.y = maxY; }
-        else if (pos.y <= minY) { pos.y = minY; }
-        Vector3 newpoint = new Vector3(pos.x, point.y, pos.y);
-        return newpoint;
+        float x = Mathf.Clamp(point.x, minX, maxX);
+        float z = Mathf.Clamp(point.z, minY, maxY);
+        return new Vector3(x, point.y, z);
     }
+    // public override Vector3 FindNearestPoint(Vector3 point)
+    // {
+    //     Vector2 pos = new Vector2(point.x, point.z);
+    //     if (pos.x >= maxX) { pos.x = maxX; }
+    //     else if (pos.x <= minX) { pos.x = minX; }
+    //     if (pos.y >= maxY) { pos.y = maxY; }
+    //     else if (pos.y <= minY) { pos.y = minY; }
+    //     Vector3 newpoint = new Vector3(pos.x, point.y, pos.y);
+    //     return newpoint;
+    // }
 }
