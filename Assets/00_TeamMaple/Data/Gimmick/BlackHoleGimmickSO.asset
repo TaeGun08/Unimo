@@ -19,3 +19,8 @@ MonoBehaviour:
   innerForce: 0.4
   innerRadius: 1.5
   outerRadius: 6
+  bounceForce: 8
+  teleportRadius: 10
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 16384

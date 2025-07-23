@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,15 +10,15 @@ public class BlackHoleGimmickSO : StageGimmickSO
     public float innerForce = 0.4f;
     public float innerRadius = 1.5f;
     public float outerRadius = 6f;
-
-    public float teleportRadius = 10f;           // 텔레포트 범위
-    public LayerMask groundLayer;                // 지면 판별용 레이어
+    public float teleportRadius = 10f;
+    public LayerMask groundLayer;
+    public float spawnDelay = 10f;
 
     public override GameObject Execute(Vector3 origin)
     {
         var runnerObj = new GameObject("BlackHoleRunner");
         var runner = runnerObj.AddComponent<BlackHoleRunner>();
-        runner.Init(this, origin);
+        runner.InitDelayed(this, origin, spawnDelay);
         return runnerObj;
     }
 
@@ -33,16 +34,27 @@ public class BlackHoleRunner : MonoBehaviour
     private Transform blackHole;
     private Vector3 center;
     private HashSet<GameObject> innerHit = new();
+    private bool activated = false;
 
-    public void Init(BlackHoleGimmickSO so, Vector3 origin)
+    public void InitDelayed(BlackHoleGimmickSO so, Vector3 origin, float delay)
     {
         data = so;
         center = origin;
+        StartCoroutine(DelayedSpawn(delay));
+    }
+
+    private IEnumerator DelayedSpawn(float delay)
+    {
+        yield return new WaitForSeconds(delay);
         blackHole = Instantiate(data.blackHolePrefab, center, Quaternion.identity).transform;
+        activated = true;
+        Debug.Log("[기믹] 블랙홀 생성됨");
     }
 
     private void FixedUpdate()
     {
+        if (!activated) return;
+
         foreach (var target in FindObjectsOfType<Rigidbody>())
         {
             if (!target.CompareTag("Player")) continue;
@@ -57,82 +69,146 @@ public class BlackHoleRunner : MonoBehaviour
                 if (!innerHit.Contains(target.gameObject))
                 {
                     innerHit.Add(target.gameObject);
-
-                    var damageable = target.GetComponent<IDamageAble>();
-
-                    int hpPercentDamage = 0;
-                    if (damageable != null)
-                    {
-                        var health = target.GetComponent<IDamageAble>();
-                        if (health != null)
-                        {
-                            //float currentHP = health.CurrentHP;
-                            //hpPercentDamage = Mathf.CeilToInt(currentHP * 0.1f);
-                        }
-                    }
-
-                    var combatEvent = new CombatEvent
-                    {
-                        Sender = null,
-                        Receiver = damageable,
-                        Damage = hpPercentDamage,
-                        Position = center
-                    };
-                    CombatSystem.Instance.AddInGameEvent(combatEvent);
-
-                    // ✅ 블랙홀 중심 진입 → 공중 안전 지역으로 텔레포트 (중력 적용)
-                    Vector3 teleportPos = GetRandomTeleportPosition();
-
-                    Rigidbody rb = target.GetComponent<Rigidbody>();
-                    if (rb != null)
-                    {
-                        rb.linearVelocity = Vector3.zero;
-                        rb.MovePosition(teleportPos);
-                        rb.linearVelocity = new Vector3(0, -5f, 0); // 아래로 낙하 유도
-                    }
-                    else
-                    {
-                        target.position = teleportPos;
-                    }
-
-                    Debug.Log("[블랙홀] 중심 진입 → 텔레포트 위치로 이동 (체력 10% 감소)");
+                    StartCoroutine(SafeTeleportPlayer(target));
                 }
             }
             else
             {
-                // 흡입력 계산
                 float force = Mathf.Lerp(data.innerForce, data.outerForce, dist / data.outerRadius);
                 Vector3 pullDir = toCenter.normalized;
                 target.AddForce(pullDir * force, ForceMode.Acceleration);
 
-                // 속도 제한
                 if (target.linearVelocity.magnitude > 10f)
                     target.linearVelocity = target.linearVelocity.normalized * 10f;
             }
         }
     }
 
-    private Vector3 GetRandomTeleportPosition()
+    private IEnumerator SafeTeleportPlayer(Rigidbody target)
     {
-        const int maxTries = 10;
-        float safeDistance = data.innerRadius + 2f;
+        Rigidbody rb = target.GetComponent<Rigidbody>();
+        if (rb == null) yield break;
+
+        Debug.Log("[블랙홀] 텔레포트 시작");
+
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.useGravity = false;
+        rb.isKinematic = true;
+
+        Vector3 teleportPos = GetSafeTeleportPosition();
+        Vector3 finalPos = teleportPos + Vector3.up * 2.0f;
+        target.transform.position = finalPos;
+
+        Physics.SyncTransforms();
+        yield return new WaitForFixedUpdate();
+        yield return new WaitForFixedUpdate();
+
+        rb.isKinematic = false;
+        rb.useGravity = true;
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
+        var recover = target.GetComponent<BlackHoleRecover>();
+        if (recover != null)
+            recover.TriggerFall();
+
+        Debug.Log("[블랙홀] 안전 텔레포트 완료: " + finalPos);
+    }
+
+    public static void ResetHit(GameObject obj)
+    {
+        foreach (var runner in FindObjectsOfType<BlackHoleRunner>())
+        {
+            runner.innerHit.Remove(obj);
+        }
+    }
+
+    private Vector3 GetSafeTeleportPosition()
+    {
+        const int maxTries = 20;
+        float safeDistance = data.innerRadius + 5f;
 
         for (int i = 0; i < maxTries; i++)
         {
             Vector2 rand = Random.insideUnitCircle.normalized * data.teleportRadius;
             Vector3 offset = new Vector3(rand.x, 0f, rand.y);
+            Vector3 rayStart = center + offset + Vector3.up * 20f;
 
-            if (offset.magnitude < safeDistance)
-                continue;
-
-            Vector3 tryPos = center + offset + Vector3.up * 10f;
-
-            if (Physics.Raycast(tryPos, Vector3.down, out RaycastHit hit, 20f, data.groundLayer))
+            if (Physics.Raycast(rayStart, Vector3.down, out RaycastHit hit, 30f, data.groundLayer))
             {
-                return hit.point + Vector3.up * 15f; // 공중 리스폰 연출
+                if (Vector3.Angle(hit.normal, Vector3.up) > 20f) continue;
+                if ((hit.point - center).magnitude < safeDistance) continue;
+
+                Vector3 spawnPos = hit.point;
+                if (!Physics.CheckSphere(spawnPos + Vector3.up * 0.5f, 0.4f, ~data.groundLayer))
+                {
+                    Debug.Log("[블랙홀] 안전한 텔레포트 위치 발견: " + spawnPos);
+                    return spawnPos;
+                }
             }
         }
 
-        return center + (Vector3.forward * safeDistance) + Vector3.up * 15f;
+        Vector3 fallbackPos = center + Vector3.forward * safeDistance;
+        if (Physics.Raycast(fallbackPos + Vector3.up * 10f, Vector3.down, out RaycastHit fallbackHit, 20f, data.groundLayer))
+        {
+            fallbackPos = fallbackHit.point;
+        }
+        else
+        {
+            fallbackPos = center + Vector3.up * 3f;
+        }
+
+        Debug.LogWarning("[블랙홀] 기본 위치 사용: " + fallbackPos);
+        return fallbackPos;
     }
 }
+
+public class BlackHoleRecover : MonoBehaviour
+{
+    private bool isFallingFromBlackhole = false;
+    private Rigidbody rb;
+
+    [SerializeField] private LayerMask groundMask;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    public void TriggerFall()
+    {
+        isFallingFromBlackhole = true;
+        if (rb != null)
+        {
+            rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (!isFallingFromBlackhole) return;
+
+        Vector3 rayStart = transform.position + Vector3.up * 0.5f;
+        if (Physics.SphereCast(rayStart, 0.3f, Vector3.down, out RaycastHit hit, 1.0f, groundMask))
+        {
+            Debug.Log("[블랙홀] 착지 감지됨 (SphereCast)");
+
+            isFallingFromBlackhole = false;
+            rb.useGravity = false;
+            rb.linearVelocity = Vector3.zero;
+
+            Vector3 corrected = transform.position;
+            corrected.y = hit.point.y + 0.05f;
+            transform.position = corrected;
+
+            rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
+            BlackHoleRunner.ResetHit(gameObject);
+
+            Debug.Log("[블랙홀] 착지 완료 및 재진입 가능 상태");
+        }
+    }
+}
+
