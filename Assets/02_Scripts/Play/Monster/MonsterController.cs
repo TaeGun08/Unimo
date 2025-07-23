@@ -34,19 +34,18 @@ public class MonsterController : MonoBehaviour
         if (!isExplode) { return; }
         if (other.CompareTag("Player"))
         {
-            //if (other.TryGetComponent<PlayerStatManager>(out var player))
             if (other.TryGetComponent<LocalPlayer>(out var player))
             {
                 Vector3 hitpos =  transform.position; //other.ClosestPoint(transform.position + new Vector3(0f, 1.5f, 0f))
                 hitpos.y = 0f;
-                // 기존 hit처리
-                // player.Hit(collideStunTime, hitpos);
                 
                 CombatEvent combatEvent = new();
                 combatEvent.Sender = null;
                 combatEvent.Receiver = player;
                 combatEvent.Damage = 100;
                 combatEvent.Position = player.transform.position;
+                combatEvent.KnockbackDir = hitpos; 
+                
                 CombatSystem.Instance.AddInGameEvent(combatEvent);
                 
                 Vector3 fxPos = (isexplodeFXAtPlayer) ? (hitpos + other.transform.position) / 2f + 1.5f * Vector3.up : hitpos + 1.5f * Vector3.up;

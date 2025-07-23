@@ -139,6 +139,7 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
     {
         CombatEvent = e;
         LastAttackerPos = e.Position;
+        
         playerController.ChangeState(IPlayerState.EState.Hit);
     }
     

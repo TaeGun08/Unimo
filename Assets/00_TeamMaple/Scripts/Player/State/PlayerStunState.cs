@@ -5,7 +5,7 @@ public class PlayerStunState : PlayerState
 {
     public override void StateEnter()
     {
-        ApplyKnockback();
+        ApplyKnockback(LocalPlayer.CombatEvent);
         
         // StatCalculator�� �ֽ� ���� ȸ���� �� ���
         float stunRecovery = LocalPlayer.PlayerStatHolder.StunRecovery.Value;
@@ -37,24 +37,22 @@ public class PlayerStunState : PlayerState
     }
     
     // �˹� �ӽ� �ڵ�
-    private void ApplyKnockback()
+    private void ApplyKnockback(CombatEvent e)
     {
         if (StageLoader.IsBonusStageByIndex(Base_Mng.Data.data.CurrentStage)) return;
-        
-        Vector3 knockbackDir = (PlayerController.transform.position - LocalPlayer.LastAttackerPos).normalized;
-        float knockbackDistance = 0.5f;
-        
+
+        Vector3 knockbackDir = (LocalPlayer.transform.position - e.KnockbackDir).normalized;
+
         if (knockbackDir == Vector3.zero)
             knockbackDir = Vector3.back;
-        
-        Rigidbody rb = PlayerController.GetComponent<Rigidbody>();
-        Vector3 newPosition = rb.position + knockbackDir * knockbackDistance;
-        // rb.interpolation = RigidbodyInterpolation.Interpolate;
-        // rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
-        
-        Debug.Log($"PlayerPos: {PlayerController.transform.position}, AttackerPos: {LocalPlayer.LastAttackerPos}");
-        Debug.Log($"KnockbackDir: {knockbackDir}, FinalPos: {newPosition}");
-        
-        rb.MovePosition(newPosition);
+
+        float knockbackDistance = 0.5f;
+
+        Rigidbody rb = LocalPlayer.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            Vector3 newPosition = rb.position + knockbackDir * knockbackDistance;
+            rb.MovePosition(newPosition);
+        }
     }
 }
