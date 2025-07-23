@@ -19,9 +19,9 @@ public class FlowerGenerator : MonoBehaviour
         stageManager = StageManager.Instance;
         currentStageId = Base_Mng.Data.data.CurrentStage + 1000;
 
-        // appearRatios[0] = stageManager.StageGenerateFlowerData.GetData(currentStageId).YGeneration;
-        // appearRatios[1] = stageManager.StageGenerateFlowerData.GetData(currentStageId).OGeneration;
-        // appearRatios[2] = stageManager.StageGenerateFlowerData.GetData(currentStageId).BGeneration;
+        appearRatios[0] = stageManager.StageGenerateFlowerData.GetData(currentStageId).YGeneration;
+        appearRatios[1] = stageManager.StageGenerateFlowerData.GetData(currentStageId).OGeneration;
+        appearRatios[2] = stageManager.StageGenerateFlowerData.GetData(currentStageId).BGeneration;
         
         if (flowerObjs.Count != appearRatios.Count)
         {

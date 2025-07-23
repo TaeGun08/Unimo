@@ -41,8 +41,6 @@ public class PlayerStunState : PlayerState
     {
         if (StageLoader.IsBonusStageByIndex(Base_Mng.Data.data.CurrentStage)) return;
         
-        Debug.unityLogger.Log("ApplyKnockback!");
-        
         Vector3 knockbackDir = (PlayerController.transform.position - LocalPlayer.LastAttackerPos).normalized;
         float knockbackDistance = 0.5f;
         

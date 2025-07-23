@@ -29,15 +29,16 @@ public class GetRewardScript : MonoBehaviour
     private void Start()
     {
         stageManager = StageManager.Instance;
-        
-        if (Base_Mng.Data.data.BonusStageOn)
+
+        texts[2].text = ScoreManager.Instance.BlueTxt.text;
+        if (Base_Mng.Data.data.BonusStageOn && StageLoader.IsBonusStageByIndex(Base_Mng.Data.data.CurrentStage))
         {
             currentStageId = Base_Mng.Data.data.CurrentStage + 999;
             starY1 = stageManager.StageRewardData.GetData(currentStageId).Star1Y;
-            starR2 =  stageManager.StageRewardData.GetData(currentStageId).Star2R;
+            starR2 = stageManager.StageRewardData.GetData(currentStageId).Star2R;
             starY3 = stageManager.StageRewardData.GetData(currentStageId).Star3Y;
             starR3 = stageManager.StageRewardData.GetData(currentStageId).Star3R;
-            
+
             GetBonusReward();
             Debug.Log("보너스 리워드");
         }
@@ -45,10 +46,10 @@ public class GetRewardScript : MonoBehaviour
         {
             currentStageId = Base_Mng.Data.data.CurrentStage + 1000;
             starY1 = stageManager.StageRewardData.GetData(currentStageId).Star1Y;
-            starR2 =  stageManager.StageRewardData.GetData(currentStageId).Star2R;
+            starR2 = stageManager.StageRewardData.GetData(currentStageId).Star2R;
             starY3 = stageManager.StageRewardData.GetData(currentStageId).Star3Y;
             starR3 = stageManager.StageRewardData.GetData(currentStageId).Star3R;
-            
+
             GetReward();
             Debug.Log("리워드");
         }
@@ -63,14 +64,14 @@ public class GetRewardScript : MonoBehaviour
                       (StringMethod.ToCurrencyDouble(starY1) / 133d);
 
         blueTrade = StringMethod.ToCurrencyDouble(texts[2].text);
-        
+
         ADSButton.SetActive(true);
 
         YellowText.text = StringMethod.ToCurrencyString(yellowTrade);
         RedText.text = StringMethod.ToCurrencyString(redTrade);
+        BlueText.text = StringMethod.ToCurrencyString(blueTrade);
 
-        if (!(starBar.value < 0.01f) &&
-            Base_Mng.Data.data.HighStage <= Base_Mng.Data.data.CurrentStage)
+        if (!(starBar.value < 0.01f))
         {
             int getStar = stageManager.GetStars(Base_Mng.Data.data.CurrentStage + 1000);
 
@@ -113,7 +114,7 @@ public class GetRewardScript : MonoBehaviour
                     yellowTrade += StringMethod.ToCurrencyDouble(starY1);
                     break;
             }
-            
+
             stageManager.UpdateStageStars(Base_Mng.Data.data.CurrentStage + 1000, 3);
             starText.text = "x3";
 
@@ -129,9 +130,11 @@ public class GetRewardScript : MonoBehaviour
 
             yellowTrade += StringMethod.ToCurrencyDouble(starY3);
             redTrade += StringMethod.ToCurrencyDouble(starR3);
+
+            if (Base_Mng.Data.data.HighStage == Base_Mng.Data.data.CurrentStage) return;
             
             Base_Mng.Data.data.HighStage++;
-            
+
             if (StageLoader.IsBonusStageByIndex(Base_Mng.Data.data.HighStage))
             {
                 Base_Mng.Data.data.BonusStageOn = true;
@@ -152,11 +155,12 @@ public class GetRewardScript : MonoBehaviour
                        (StringMethod.ToCurrencyDouble(starY1) / 133d)) * 3f;
 
         blueTrade = StringMethod.ToCurrencyDouble(texts[2].text) * 3f;
-        
+
         ADSButton.SetActive(true);
 
         YellowText.text = StringMethod.ToCurrencyString(yellowTrade);
         RedText.text = StringMethod.ToCurrencyString(redTrade);
+        BlueText.text = StringMethod.ToCurrencyString(blueTrade);
 
         Base_Mng.Data.data.Red += redTrade;
         Base_Mng.Data.data.Yellow += yellowTrade;
@@ -164,7 +168,7 @@ public class GetRewardScript : MonoBehaviour
 
         Base_Mng.Data.data.HighStage++;
         Base_Mng.Data.data.CurrentStage = Base_Mng.Data.data.HighStage;
-        
+
         Base_Mng.Data.data.BonusStageOn = false;
     }
 
@@ -176,9 +180,9 @@ public class GetRewardScript : MonoBehaviour
         Base_Mng.Data.data.Yellow += yellow;
         Base_Mng.Data.data.Blue += blueTrade;
 
-        RedText.text = redTrade.ToString();
+        RedText.text = StringMethod.ToCurrencyString(redTrade);
         YellowText.text = StringMethod.ToCurrencyString(yellow * 2);
-        BlueText.text = blueTrade.ToString();
+        BlueText.text = StringMethod.ToCurrencyString(blueTrade);
 
         ADSButton.SetActive(false);
     }
