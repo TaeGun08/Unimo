@@ -29,6 +29,8 @@ public class PlayerHitState : PlayerState
             }
             else
             {
+                Debug.Log($" statHolder.IsDamageToHeal :: {statHolder.IsDamageToHeal}");
+                
                 // 피격 데미지를 체력 회복으로 전환 스킬 On인 경우
                 if (statHolder.IsDamageToHeal)
                 {
@@ -46,6 +48,7 @@ public class PlayerHitState : PlayerState
                     }
                     else
                     {
+                        Debug.Log($"stun 타야함");
                         PlayerController.ChangeState(IPlayerState.EState.Stun);
                     }
                 }
