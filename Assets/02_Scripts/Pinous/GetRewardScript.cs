@@ -28,20 +28,26 @@ public class GetRewardScript : MonoBehaviour
     private void Start()
     {
         stageManager = StageManager.Instance;
-
-        currentStageId = JsonDataLoader.LoadServerData().CurrentStage + 1000;
-        starY1 = stageManager.StageRewardData.GetData(currentStageId).Star1Y;
-        starR2 =  stageManager.StageRewardData.GetData(currentStageId).Star2R;
-        starY3 = stageManager.StageRewardData.GetData(currentStageId).Star3Y;
-        starR3 = stageManager.StageRewardData.GetData(currentStageId).Star3R;
         
         if (Base_Mng.Data.data.BonusStageOn)
         {
+            currentStageId = Base_Mng.Data.data.CurrentStage + 999;
+            starY1 = stageManager.StageRewardData.GetData(currentStageId).Star1Y;
+            starR2 =  stageManager.StageRewardData.GetData(currentStageId).Star2R;
+            starY3 = stageManager.StageRewardData.GetData(currentStageId).Star3Y;
+            starR3 = stageManager.StageRewardData.GetData(currentStageId).Star3R;
+            
             GetBonusReward();
             Debug.Log("보너스 리워드");
         }
         else
         {
+            currentStageId = Base_Mng.Data.data.CurrentStage + 1000;
+            starY1 = stageManager.StageRewardData.GetData(currentStageId).Star1Y;
+            starR2 =  stageManager.StageRewardData.GetData(currentStageId).Star2R;
+            starY3 = stageManager.StageRewardData.GetData(currentStageId).Star3Y;
+            starR3 = stageManager.StageRewardData.GetData(currentStageId).Star3R;
+            
             GetReward();
             Debug.Log("리워드");
         }
@@ -61,16 +67,16 @@ public class GetRewardScript : MonoBehaviour
         RedText.text = StringMethod.ToCurrencyString(redTrade);
 
         if (!(starBar.value < 0.01f) &&
-            JsonDataLoader.LoadServerData().HighStage <= JsonDataLoader.LoadServerData().CurrentStage)
+            Base_Mng.Data.data.HighStage <= Base_Mng.Data.data.CurrentStage)
         {
-            int getStar = stageManager.GetStars(JsonDataLoader.LoadServerData().CurrentStage + 1000);
+            int getStar = stageManager.GetStars(Base_Mng.Data.data.CurrentStage + 1000);
 
             starText.text = "x0";
 
             switch (starBar.value)
             {
                 case >= 1f when getStar != 3:
-                    stageManager.UpdateStageStars(JsonDataLoader.LoadServerData().CurrentStage + 1000, 3);
+                    stageManager.UpdateStageStars(Base_Mng.Data.data.CurrentStage + 1000, 3);
                     starText.text = "x3";
 
                     if (getStar != 1 && getStar < 2)
@@ -88,7 +94,7 @@ public class GetRewardScript : MonoBehaviour
 
                     break;
                 case < 1f and >= 0.75f when getStar != 2:
-                    stageManager.UpdateStageStars(JsonDataLoader.LoadServerData().CurrentStage + 1000, 2);
+                    stageManager.UpdateStageStars(Base_Mng.Data.data.CurrentStage + 1000, 2);
                     starText.text = "x2";
 
                     if (getStar != 1 && getStar < 2)
@@ -99,13 +105,13 @@ public class GetRewardScript : MonoBehaviour
                     redTrade += StringMethod.ToCurrencyDouble(starR2);
                     break;
                 case < 0.75f and >= 0.5f when getStar != 1:
-                    stageManager.UpdateStageStars(JsonDataLoader.LoadServerData().CurrentStage + 1000, 1);
+                    stageManager.UpdateStageStars(Base_Mng.Data.data.CurrentStage + 1000, 1);
                     starText.text = "x1";
                     yellowTrade += StringMethod.ToCurrencyDouble(starY1);
                     break;
             }
             
-            stageManager.UpdateStageStars(JsonDataLoader.LoadServerData().CurrentStage + 1000, 3);
+            stageManager.UpdateStageStars(Base_Mng.Data.data.CurrentStage + 1000, 3);
             starText.text = "x3";
 
             if (getStar != 1 && getStar < 2)
@@ -150,6 +156,7 @@ public class GetRewardScript : MonoBehaviour
         Base_Mng.Data.data.Yellow += yellowTrade;
 
         Base_Mng.Data.data.HighStage++;
+        Base_Mng.Data.data.CurrentStage = Base_Mng.Data.data.HighStage;
         
         Base_Mng.Data.data.BonusStageOn = false;
     }
@@ -171,7 +178,7 @@ public class GetRewardScript : MonoBehaviour
     {
         Base_Mng.ADS.ShowRewardedAds(() =>
         {
-            if (StageLoader.IsBonusStageByIndex(JsonDataLoader.LoadServerData().HighStage))
+            if (StageLoader.IsBonusStageByIndex(Base_Mng.Data.data.HighStage))
             {
                 ADSReward(3f);
             }
