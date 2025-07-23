@@ -57,8 +57,7 @@ public class ScoreManager : SingletonBehaviour<ScoreManager>
     {
         gatheredResources[idx] += 1;
         this.score += 1;
-
-        Debug.Log("점수 증가");
+        
         if (starBar != null && starBar.value < 1)
         {
             starBar.value = (float)(this.score / 200);
@@ -124,5 +123,14 @@ public class ScoreManager : SingletonBehaviour<ScoreManager>
         int.TryParse(num, out int idx);
         idx--;
         return idx;
+    }
+
+    public void ScoreUpButton()
+    {
+        score += 50;
+        if (starBar != null && starBar.value < 1)
+        {
+            starBar.value = (float)(this.score / 200);
+        }
     }
 }

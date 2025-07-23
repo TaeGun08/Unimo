@@ -72,7 +72,7 @@ public class GetRewardScript : MonoBehaviour
         RedText.text = StringMethod.ToCurrencyString(redTrade);
         BlueText.text = StringMethod.ToCurrencyString(blueTrade);
 
-        if (!(starBar.value < 0.01f))
+        if (!(starBar.value < 0.5f))
         {
             int getStar = stageManager.GetStars(Base_Mng.Data.data.CurrentStage + 1000);
 
