@@ -17,11 +17,11 @@ public class FlowerGenerator : MonoBehaviour
     protected void Start()
     {
         stageManager = StageManager.Instance;
-        currentStageId = Base_Mng.Data.data.CurrentStage + 1000;
-
-        appearRatios[0] = stageManager.StageGenerateFlowerData.GetData(currentStageId).YGeneration;
-        appearRatios[1] = stageManager.StageGenerateFlowerData.GetData(currentStageId).OGeneration;
-        appearRatios[2] = stageManager.StageGenerateFlowerData.GetData(currentStageId).BGeneration;
+        // currentStageId = StageLoader.IsBonusStageByIndex(currentStageId) ? Base_Mng.Data.data.CurrentStage + 999
+        //         : Base_Mng.Data.data.CurrentStage + 1000;
+        // appearRatios[0] = stageManager.StageGenerateFlowerData.GetData(currentStageId).YGeneration;
+        // appearRatios[1] = stageManager.StageGenerateFlowerData.GetData(currentStageId).OGeneration;
+        // appearRatios[2] = stageManager.StageGenerateFlowerData.GetData(currentStageId).BGeneration;
         
         if (flowerObjs.Count != appearRatios.Count)
         {

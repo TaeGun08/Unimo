@@ -2808,9 +2808,9 @@ MonoBehaviour:
   - {fileID: 3617846973588477155, guid: 9d5b5e258f474fd4790c5b4032cd7e0c, type: 3}
   - {fileID: 3617846973588477155, guid: 21e5637fa4183d644be33a8e5fd02303, type: 3}
   appearRatios:
-  - 66
   - 33
-  - 1
+  - 33
+  - 33
 --- !u!1 &451922361
 GameObject:
   m_ObjectHideFlags: 0
@@ -9766,7 +9766,7 @@ MonoBehaviour:
   - {fileID: 1148019907}
   scoreTxt: {fileID: 1148019908}
   resultTxt: {fileID: 323274427}
-  blueTxt: {fileID: 0}
+  blueTxt: {fileID: 2076507216}
   starBar: {fileID: 0}
 --- !u!114 &1971803517
 MonoBehaviour:
@@ -9781,7 +9781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInfinite: 0
-  reduceIncTime: 90
+  reduceIncTime: 5
   timerGauge: {fileID: 1925847044}
 --- !u!114 &1971803518
 MonoBehaviour:
