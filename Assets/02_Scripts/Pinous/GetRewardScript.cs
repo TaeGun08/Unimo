@@ -31,6 +31,7 @@ public class GetRewardScript : MonoBehaviour
         stageManager = StageManager.Instance;
 
         texts[2].text = ScoreManager.Instance.BlueTxt.text;
+
         if (Base_Mng.Data.data.BonusStageOn && StageLoader.IsBonusStageByIndex(Base_Mng.Data.data.CurrentStage))
         {
             currentStageId = Base_Mng.Data.data.CurrentStage + 999;
@@ -131,9 +132,13 @@ public class GetRewardScript : MonoBehaviour
             yellowTrade += StringMethod.ToCurrencyDouble(starY3);
             redTrade += StringMethod.ToCurrencyDouble(starR3);
 
-            if (Base_Mng.Data.data.HighStage == Base_Mng.Data.data.CurrentStage) return;
-            
-            Base_Mng.Data.data.HighStage++;
+            Debug.Log("최고 스테이지"+Base_Mng.Data.data.HighStage);
+            Debug.Log("현재 스테이지"+Base_Mng.Data.data.CurrentStage);
+            Debug.Log(Base_Mng.Data.data.HighStage == Base_Mng.Data.data.CurrentStage);
+            if (Base_Mng.Data.data.HighStage == Base_Mng.Data.data.CurrentStage)
+            {
+                Base_Mng.Data.data.HighStage++;
+            }
 
             if (StageLoader.IsBonusStageByIndex(Base_Mng.Data.data.HighStage))
             {
