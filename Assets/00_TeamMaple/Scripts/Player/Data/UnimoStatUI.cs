@@ -118,10 +118,11 @@ public class UnimoStatUI : MonoBehaviour
         ShowUpgradeEngineStat(Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1]);
     }
     
-    public void ShowUpgradeEngineStat( int currentLevel)
+    public void ShowUpgradeEngineStat(int currentLevel)
     {
+        if (currentLevel == 5) return;
         var next = engineLevelDataSO.GetCurrentAndNextStat(equipmentStatData.Rank, currentLevel);
-   
+        
         UpGradeNextEngineStatLine(engineLevelDataSO.GetLevelUpValue(next, equipmentStatData.StatType1));
         UpGradeNextEngineStatLine(engineLevelDataSO.GetLevelUpValue(next, equipmentStatData.StatType2));
         UpGradeNextEngineStatLine(engineLevelDataSO.GetLevelUpValue(next, equipmentStatData.StatType3));
