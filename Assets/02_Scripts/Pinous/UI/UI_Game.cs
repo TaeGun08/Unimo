@@ -35,11 +35,6 @@ public class UI_Game : UI_Base
         BonusStageOn();
     }
 
-    public override void DisableOBJ()
-    {
-        base.DisableOBJ();
-    }
-
     public void GoGameScene(int value)
     {
         int stageText = 0;

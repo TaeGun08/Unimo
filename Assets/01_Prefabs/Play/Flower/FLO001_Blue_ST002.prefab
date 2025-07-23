@@ -52,7 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreGain: 10
   timerGain: 1.2
-  resourceIdx: 0
+  resourceIdx: 2
   destroyWaitTime: 1
   fallingSpeed: 3.5
   maxPullingSpeed: 5
