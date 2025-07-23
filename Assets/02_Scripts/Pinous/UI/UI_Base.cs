@@ -41,6 +41,7 @@ public class UI_Base : MonoBehaviour
     }
     public virtual void DisableOBJ()
     {
+        Camera_Event.instance.ReturnCamera();
         DisableCheck();
         if (Main_UI.instance != null)
         {
@@ -54,10 +55,10 @@ public class UI_Base : MonoBehaviour
 
     protected void DisableCheck(bool MoveChange = true)
     {
+        Debug.Log("카메라 움직여 줘");
         Canvas_Holder.UI_Holder.Pop();
         Camera_Event.instance.MoverChange(MoveChange);
         Sound_Manager.instance.Play(Sound.Effect, "Click_02");
         Destroy(this.gameObject);
     }
-   
 }

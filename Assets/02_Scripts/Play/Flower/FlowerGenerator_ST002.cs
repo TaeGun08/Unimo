@@ -7,10 +7,7 @@ public class FlowerGenerator_ST002 : FlowerGenerator
     private MapRangeSetter mapSetter;
     private float oriGenRate = 2f;
     private float rateDecayingStandard = 20;
-    new protected void Awake()
-    {
-        base.Awake();
-    }
+    
     // Start is called before the first frame update
     new protected void Start()
     {

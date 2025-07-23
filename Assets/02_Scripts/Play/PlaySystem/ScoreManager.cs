@@ -20,7 +20,7 @@ public class ScoreManager : MonoBehaviour
     private void Awake()
     {
         PlaySystemRefStorage.scoreManager = this;
-        gatheredResources = new List<double> { 0, 0 };
+        gatheredResources = new List<double> { 0, 0, 0 };
         score = 0;
     }
     private void Start()
@@ -45,22 +45,22 @@ public class ScoreManager : MonoBehaviour
     }
     public void AddBloomScore(int idx, float score)
     {
-        if (idx == 1)
-        {
-            //gatheredResources[idx] += StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star2R) / 66d;
-            gatheredResources[idx] += 1;
-        }
-        else
-        {
-            //gatheredResources[idx] += StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star1Y) / 133d;
-            gatheredResources[idx] += 1;
-        }
+        Debug.Log("개화 리스트 카운트"+gatheredResources.Count);
+        // if (idx == 1)
+        // {
+        //     //gatheredResources[idx] += StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star2R) / 66d;
+        // }
+        // else
+        // {
+        //     //gatheredResources[idx] += StringMethod.ToCurrencyDouble(stageManager.StageRewardData.Star1Y) / 133d;
+        // }
         
+        gatheredResources[idx] += 1;
         this.score += 1;
 
         if (starBar != null && starBar.value < 1)
         {
-            starBar.value = (float)(gatheredResources[0] / 200);
+            starBar.value = (float)(gatheredResources[idx] / 200);
         }
         
         if (idx != 0) { specialResourceTxts[idx-1].text = gatheredResources[idx].ToString(); }
