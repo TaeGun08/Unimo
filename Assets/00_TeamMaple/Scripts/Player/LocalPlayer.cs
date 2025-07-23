@@ -38,6 +38,7 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
 
     private PlayerController playerController;
     public Vector3 LastAttackerPos { get; private set; }
+    public CombatEvent CombatEvent { get; set; }
 
     // [SerializeField] private TMP_Text remainHp;
     // public TMP_Text RemainHp => remainHp;
@@ -136,6 +137,7 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
 
     public void TakeDamage(CombatEvent e)
     {
+        CombatEvent = e;
         LastAttackerPos = e.Position;
         playerController.ChangeState(IPlayerState.EState.Hit);
     }

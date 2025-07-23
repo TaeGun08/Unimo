@@ -39,6 +39,8 @@ public class PlayerStunState : PlayerState
     // �˹� �ӽ� �ڵ�
     private void ApplyKnockback()
     {
+        if (StageLoader.IsBonusStageByIndex(Base_Mng.Data.data.CurrentStage)) return;
+        
         Debug.unityLogger.Log("ApplyKnockback!");
         
         Vector3 knockbackDir = (PlayerController.transform.position - LocalPlayer.LastAttackerPos).normalized;

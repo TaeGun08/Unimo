@@ -44,9 +44,14 @@ public class Mon006State_Action : MonsterState_Action
         Vector3 projectedVec = innerP * laserPivot.forward;
         if ((toPlayerVec-projectedVec).magnitude < (laserWidth/2 + 0.55f))
         {
-            if (controller.playerTransform.TryGetComponent<PlayerStatManager>(out var player))
+            if (controller.playerTransform.TryGetComponent<LocalPlayer>(out var player))
             {
-                player.Hit(Mathf.Max(remainDuration, 0.3f) + 0.5f, laserPivot.position + projectedVec);
+                CombatEvent combatEvent = new();
+                combatEvent.Sender = null;
+                combatEvent.Receiver = player;
+                combatEvent.Damage = 100;
+                combatEvent.Position = player.transform.position;
+                CombatSystem.Instance.AddInGameEvent(combatEvent);
             }
         }
     }
