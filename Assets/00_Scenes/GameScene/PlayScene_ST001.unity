@@ -404,7 +404,7 @@ GameObject:
   - component: {fileID: 78230610}
   - component: {fileID: 78230609}
   m_Layer: 0
-  m_Name: Image
+  m_Name: Icon_Flower_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8000,6 +8000,7 @@ MonoBehaviour:
   - {fileID: 1148019907}
   scoreTxt: {fileID: 1148019908}
   resultTxt: {fileID: 6151373446196199413}
+  blueTxt: {fileID: 1182633113}
   starBar: {fileID: 944078672}
 --- !u!114 &1971803517
 MonoBehaviour:
@@ -8014,7 +8015,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInfinite: 0
-  reduceIncTime: 180
+  reduceIncTime: 20
   timerGauge: {fileID: 4088}
 --- !u!114 &1971803518
 MonoBehaviour:

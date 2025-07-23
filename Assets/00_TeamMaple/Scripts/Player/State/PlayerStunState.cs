@@ -39,8 +39,6 @@ public class PlayerStunState : PlayerState
     // �˹� �ӽ� �ڵ�
     private void ApplyKnockback()
     {
-        Debug.unityLogger.Log("ApplyKnockback!");
-        
         Vector3 knockbackDir = (PlayerController.transform.position - LocalPlayer.LastAttackerPos).normalized;
         float knockbackDistance = 0.5f;
         
