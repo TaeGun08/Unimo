@@ -5,6 +5,7 @@ using UnityEngine;
 public class FlowerGenerator_ST001 : FlowerGenerator
 {
     private MapRangeSetter mapSetter;
+    
     private readonly int startMaxFlowers = 8;
     private readonly List<float> refreshTimeperPhase = new List<float> { 1.05f, 0.84f, 0.67f, 0.54f, 0.45f };
     private readonly List<int> goalIncrements = new List<int> { 3, 5, 8, 15, 25 };
@@ -13,10 +14,10 @@ public class FlowerGenerator_ST001 : FlowerGenerator
     private int maxFlowerBoost = 0;
     private int nextGoal = 3;
     private float refreshTime = 1f;
+    
 
     new protected void Awake()
     {
-        base.Awake();
         maxFlowers = startMaxFlowers;
         refreshTime = refreshTimeperPhase[0];
     }
@@ -25,6 +26,7 @@ public class FlowerGenerator_ST001 : FlowerGenerator
     {
         base.Start();
         mapSetter = PlaySystemRefStorage.mapSetter;
+        
         generateFlower();
         generateFlower();
     }

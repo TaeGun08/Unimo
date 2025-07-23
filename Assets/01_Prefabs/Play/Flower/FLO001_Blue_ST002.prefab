@@ -52,7 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreGain: 10
   timerGain: 1.2
-  resourceIdx: 0
+  resourceIdx: 2
   destroyWaitTime: 1
   fallingSpeed: 3.5
   maxPullingSpeed: 5
@@ -75,9 +75,9 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.25
   m_Center: {x: 0, y: 0, z: 0}

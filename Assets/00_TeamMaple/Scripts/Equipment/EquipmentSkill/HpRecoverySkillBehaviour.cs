@@ -32,10 +32,10 @@ public class HpRecoverySkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviour
         while (true)
         {
             int baseHp = maxHp;
-            int healAmount = Mathf.Max(1, Mathf.RoundToInt(baseHp * percentPerSec));    // 초당 회복할 체력
+            int healAmount = Mathf.Max(1, Mathf.RoundToInt(baseHp * percentPerSec));    // 10초당 회복할 체력
             hp.Add(healAmount);    // 체력 증가
             
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(10f);
         }
     }
 

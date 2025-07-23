@@ -16,7 +16,7 @@ public class UI_Game : UI_Base
 
     private void OnEnable()
     {
-        stageCount = JsonDataLoader.LoadServerData().CurrentStage;
+        stageCount = Base_Mng.Data.data.CurrentStage;
         UpdateStar();
         SetStageText();
         BonusStageOn();
@@ -29,15 +29,10 @@ public class UI_Game : UI_Base
         GameTwoBest.text = "Best Score\n" + StringMethod.ToCurrencyString(Base_Mng.Data.data.BestScoreGameTwo);
         base.Start();
 
-        stageCount = JsonDataLoader.LoadServerData().CurrentStage;
+        stageCount = Base_Mng.Data.data.CurrentStage;
         UpdateStar();
         SetStageText();
         BonusStageOn();
-    }
-
-    public override void DisableOBJ()
-    {
-        base.DisableOBJ();
     }
 
     public void GoGameScene(int value)
@@ -51,6 +46,7 @@ public class UI_Game : UI_Base
         {
             stageText = int.Parse(inputField.text);
             Base_Mng.Data.data.CurrentStage = stageText;
+            Base_Mng.Data.data.HighStage = stageText;
         }
         else
         {
@@ -78,8 +74,13 @@ public class UI_Game : UI_Base
         stageCount++;
         if (StageLoader.HighStageChecker(stageCount))
         {
-            stageCount = JsonDataLoader.LoadServerData().HighStage;
+            stageCount = Base_Mng.Data.data.HighStage;
             return;
+        }
+        
+        if (StageLoader.IsBonusStageByIndex(stageCount) && !Base_Mng.Data.data.BonusStageOn)
+        {
+            stageCount++;
         }
 
         BonusStageOn();
@@ -96,6 +97,11 @@ public class UI_Game : UI_Base
             return;
         }
 
+        if (StageLoader.IsBonusStageByIndex(stageCount) && !Base_Mng.Data.data.BonusStageOn)
+        {
+            stageCount--;
+        }
+        
         BonusStageOn();
         SetStageText();
         UpdateStar();

@@ -45,7 +45,7 @@ public class MonsterController : MonoBehaviour
                 CombatEvent combatEvent = new();
                 combatEvent.Sender = null;
                 combatEvent.Receiver = player;
-                combatEvent.Damage = 10;
+                combatEvent.Damage = 100;
                 combatEvent.Position = player.transform.position;
                 CombatSystem.Instance.AddInGameEvent(combatEvent);
                 

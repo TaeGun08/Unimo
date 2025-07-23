@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3152524517520022818}
   - component: {fileID: 7441026654171920229}
   - component: {fileID: -8559474919759137228}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: MeteorMarker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,5 +124,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 2
-  startScale: {x: 3, y: 3, z: 3}
-  endScale: {x: 0, y: 0, z: 0}
+  startXZ: 3
+  endXZ: 0
+  fixedY: 0.1

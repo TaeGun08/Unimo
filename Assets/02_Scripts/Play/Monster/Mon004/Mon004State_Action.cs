@@ -63,9 +63,14 @@ public class Mon004State_Action : MonsterState_Action
         Vector3 playerdiff = controller.transform.position - controller.playerTransform.position;
         if (playerdiff.magnitude < attRange)
         {
-            if (controller.playerTransform.TryGetComponent<PlayerStatManager>(out var player))
+            if (controller.playerTransform.TryGetComponent<LocalPlayer>(out var player))
             {
-                player.Hit(attDamage, controller.transform.position);
+                CombatEvent combatEvent = new();
+                combatEvent.Sender = null;
+                combatEvent.Receiver = player;
+                combatEvent.Damage = 100;
+                combatEvent.Position = player.transform.position;
+                CombatSystem.Instance.AddInGameEvent(combatEvent);
             }
         }
         slamVFX.transform.localScale = attRange / 1.8f * Vector3.one;

@@ -7,7 +7,7 @@ public class PlayerStunState : PlayerState
     {
         ApplyKnockback();
         
-        // StatCalculatorÀÇ ÃÖ½Å ½ºÅÏ È¸º¹·ü °ª »ç¿ë
+        // StatCalculatorï¿½ï¿½ ï¿½Ö½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
         float stunRecovery = LocalPlayer.PlayerStatHolder.StunRecovery.Value;
 
         StartCoroutine(StunCoroutine(stunRecovery));
@@ -36,14 +36,25 @@ public class PlayerStunState : PlayerState
         PlayerController.UnimoAnim.SetBool("isstun", false);
     }
     
-    // ³Ë¹é ÀÓ½Ã ÄÚµå
+    // ï¿½Ë¹ï¿½ ï¿½Ó½ï¿½ ï¿½Úµï¿½
     private void ApplyKnockback()
     {
+        if (StageLoader.IsBonusStageByIndex(Base_Mng.Data.data.CurrentStage)) return;
+        
         Vector3 knockbackDir = (PlayerController.transform.position - LocalPlayer.LastAttackerPos).normalized;
         float knockbackDistance = 0.5f;
         
+        if (knockbackDir == Vector3.zero)
+            knockbackDir = Vector3.back;
+        
         Rigidbody rb = PlayerController.GetComponent<Rigidbody>();
         Vector3 newPosition = rb.position + knockbackDir * knockbackDistance;
+        // rb.interpolation = RigidbodyInterpolation.Interpolate;
+        // rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        
+        Debug.Log($"PlayerPos: {PlayerController.transform.position}, AttackerPos: {LocalPlayer.LastAttackerPos}");
+        Debug.Log($"KnockbackDir: {knockbackDir}, FinalPos: {newPosition}");
+        
         rb.MovePosition(newPosition);
     }
 }

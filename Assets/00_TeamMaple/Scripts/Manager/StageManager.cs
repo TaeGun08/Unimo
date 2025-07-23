@@ -33,6 +33,7 @@ public class StageManager : SingletonBehaviour<StageManager>
     
     public StageData StageData => stageData;
     public StageRewardData StageRewardData => stageRewardData;
+    public StageGenerateFlowerData StageGenerateFlowerData => stageGenerateFlowerData;
 
     private void Awake()
     {

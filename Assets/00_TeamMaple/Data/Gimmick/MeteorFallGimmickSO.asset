@@ -17,8 +17,8 @@ MonoBehaviour:
     type: 3}
   markerPrefab: {fileID: 701437982668235559, guid: 43621e523a79cf141a9cea53badd5299,
     type: 3}
-  interval: 5
-  spawnRadius: 10
+  interval: 0.1
+  spawnRadius: 3
   fallDirection: {x: 0.5, y: -1, z: 0}
   fallHeight: 50
   fallSpeed: 20

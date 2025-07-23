@@ -109,7 +109,7 @@ public class UI_Setting : UI_Base
     public void ResetDtata()
     {
         PlayerPrefs.DeleteAll();
-        SceneManager.LoadScene(0);
+        Application.Quit();
     }
 
     public void GetURL(string temp) => Application.OpenURL(temp);

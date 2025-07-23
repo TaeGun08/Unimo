@@ -119,26 +119,17 @@ public class Base_Mng : MonoBehaviour
         StartCoroutine(enumerator);
     }
     
-    public void UpgradeUnimoLevel(int type)
+    public void UpgradeUnimoLevel()
     {
-        if (type == 0)
-        {
-            Data.data.CharLevel[Base_Mng.Data.data.CharCount -1 ] += 1;
-            Debug.Log($"레벨이 증가했습니다. 현재 레벨: { Data.data.CharLevel[Base_Mng.Data.data.CharCount -1 ]}");
-            Data.Save();
-        }
-        else
-        {
-            Data.data.CharLevel[Base_Mng.Data.data.CharCount -1 ] = 50;
-            Debug.Log($"레벨이 증가했습니다. 현재 레벨: { Data.data.CharLevel[Base_Mng.Data.data.CharCount -1 ]}");
-            Data.Save();
-        }
+        Data.data.CharLevel[Data.data.CharCount - 1] += 1;
+        Debug.Log($"유니모 레벨이 증가했습니다. 현재 레벨: { Data.data.CharLevel[Data.data.CharCount - 1]}");
+        Data.Save();
     }
     
     public void UpgradeEngineLevel()
     {
-        Data.data.EQLevel[Base_Mng.Data.data.EQCount -1 ] += 1;
-        Debug.Log($"엔진 레벨이 증가했습니다. 현재 레벨: {  Data.data.EQLevel[Base_Mng.Data.data.EQCount -1]}");
+        Data.data.EQLevel[Data.data.EQCount - 1] += 1;
+        Debug.Log($"엔진 레벨이 증가했습니다. 현재 레벨: {  Data.data.EQLevel[Data.data.EQCount - 1]}");
         Data.Save();
     }
     
@@ -147,6 +138,21 @@ public class Base_Mng : MonoBehaviour
         Data.data.E_DateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         var Timer = DateTime.Parse(Data.data.E_DateTime) - DateTime.Parse(Data.data.S_DateTime);
         m_Analytics.RecordCustomEventWithParameters("Time", (int)Timer.TotalMinutes);
+        Data.Save();
+    }
+    
+    // -------------------------테스트--------------------------
+    public void DowngradeUnimoLevel()
+    {
+        Data.data.CharLevel[Data.data.CharCount - 1] -= 1;
+        Debug.Log($"유니모 레벨이 감소했습니다. 현재 레벨: { Data.data.CharLevel[Data.data.CharCount - 1]}");
+        Data.Save();
+    }
+    
+    public void DowngradeEngineLevel()
+    {
+        Data.data.EQLevel[Data.data.EQCount - 1] -= 1;
+        Debug.Log($"엔진 레벨이 감소했습니다. 현재 레벨: {  Data.data.EQLevel[Data.data.EQCount - 1]}");
         Data.Save();
     }
 }

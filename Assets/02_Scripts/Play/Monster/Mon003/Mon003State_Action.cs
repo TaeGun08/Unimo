@@ -43,9 +43,14 @@ public class Mon003State_Action : MonsterState_Action
         Vector3 playerdiff = controller.transform.position - controller.playerTransform.position;
         if (playerdiff.magnitude < bombRadius)
         {
-            if (controller.playerTransform.TryGetComponent<PlayerStatManager>(out var player))
+            if (controller.playerTransform.TryGetComponent<LocalPlayer>(out var player))
             {
-                player.Hit(bombDamage, controller.transform.position);
+                CombatEvent combatEvent = new();
+                combatEvent.Sender = null;
+                combatEvent.Receiver = player;
+                combatEvent.Damage = 100;
+                combatEvent.Position = player.transform.position;
+                CombatSystem.Instance.AddInGameEvent(combatEvent);
             }
         }
         controller.DeactiveEnemy();

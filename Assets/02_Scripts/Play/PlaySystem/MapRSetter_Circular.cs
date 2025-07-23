@@ -22,11 +22,25 @@ public class MapRSetter_Circular : MapRangeSetter
         Vector2 pos = new Vector2(point.x, point.z);
         return pos.magnitude <= MaxRange;
     }
+    
     public override Vector3 FindNearestPoint(Vector3 point)
     {
         Vector2 pos = new Vector2(point.x, point.z);
-        float angle = pos.AngleInXZ();
-        Vector3 newpoint = new Vector3(mapRadius * Mathf.Cos(angle), 0f, mapRadius * Mathf.Sin(angle));
-        return newpoint;
+        if (pos.magnitude <= mapRadius)
+        {
+            return point;
+        }
+        else
+        {
+            Vector2 clamped = pos.normalized * mapRadius;
+            return new Vector3(clamped.x, point.y, clamped.y);
+        }
     }
+    // public override Vector3 FindNearestPoint(Vector3 point)
+    // {
+    //     Vector2 pos = new Vector2(point.x, point.z);
+    //     float angle = pos.AngleInXZ();
+    //     Vector3 newpoint = new Vector3(mapRadius * Mathf.Cos(angle), 0f, mapRadius * Mathf.Sin(angle));
+    //     return newpoint;
+    // }
 }

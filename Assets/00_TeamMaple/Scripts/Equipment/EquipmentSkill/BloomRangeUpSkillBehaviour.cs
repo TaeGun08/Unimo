@@ -25,9 +25,8 @@ public class BloomRangeUpSkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviou
                 break;
             case EquipmentSkillType.Active:
                 Debug.Log("[Active] 개화 범위 증가 액티브 발동");
-                var prev = range.Value;
                 range.Add(addRange);    // 개화 범위 일시 증가
-                auraController.ChangeScale(prev, range.Value, skillData.Duration);    // 오라 크기 증가 후 복구
+                auraController.ChangeScale(range.Value, skillData.Duration);    // 오라 크기 증가 후 복구
                 range.Subtract(addRange);    // 증가분 다시 감소
                 break;
         }

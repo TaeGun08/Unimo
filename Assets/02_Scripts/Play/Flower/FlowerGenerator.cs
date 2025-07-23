@@ -6,14 +6,32 @@ public class FlowerGenerator : MonoBehaviour
 {
     [HideInInspector] public List<FlowerController> AllFlowers;
 
+    protected StageManager stageManager;
     [SerializeField] protected List<GameObject> flowerObjs;
     [SerializeField] protected List<float> appearRatios;
     protected List<float> appearAccProb;
 
     protected int gatheredFlowers = 0; 
+    protected int currentStageId;
 
-    protected void Awake()
+    protected void Start()
     {
+        stageManager = StageManager.Instance;
+        currentStageId = Base_Mng.Data.data.CurrentStage + 1000;
+
+        if (StageLoader.IsBonusStageByIndex(currentStageId))
+        {
+            appearRatios[0] = stageManager.StageGenerateFlowerData.GetData(currentStageId - 1).YGeneration;
+            appearRatios[1] = stageManager.StageGenerateFlowerData.GetData(currentStageId - 1).OGeneration;
+            appearRatios[2] = stageManager.StageGenerateFlowerData.GetData(currentStageId - 1).BGeneration;
+        }
+        else
+        {
+            appearRatios[0] = stageManager.StageGenerateFlowerData.GetData(currentStageId).YGeneration;
+            appearRatios[1] = stageManager.StageGenerateFlowerData.GetData(currentStageId).OGeneration;
+            appearRatios[2] = stageManager.StageGenerateFlowerData.GetData(currentStageId).BGeneration;
+        }
+        
         if (flowerObjs.Count != appearRatios.Count)
         {
             Debug.LogError("FlowerGenerator: flowerObjs and appearRatios counts do not match.");
@@ -35,10 +53,7 @@ public class FlowerGenerator : MonoBehaviour
 
         if (appearAccProb.Count <= 0) return;
         appearAccProb[^1] = 1f;
-    }
-
-    protected void Start()
-    {
+        
         AllFlowers = new List<FlowerController>();
         StartCoroutine(generateCoroutine());
     }

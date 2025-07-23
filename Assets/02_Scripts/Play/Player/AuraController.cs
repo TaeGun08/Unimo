@@ -19,7 +19,6 @@ public class AuraController : MonoBehaviour
 
     private void Start()
     {
-        playerStatHolder = LocalPlayer.Instance.PlayerStatHolder;
         InitAura();
     }
 
@@ -42,7 +41,9 @@ public class AuraController : MonoBehaviour
     // 오라 세팅 재설정
     public void InitAura()
     {
-        transform.localScale = playerStatHolder.BloomRange.Value * 0.1f * Vector3.one;    // 0.1은 수치 조정용
+        playerStatHolder = LocalPlayer.Instance.PlayerStatHolder;
+        
+        transform.localScale = playerStatHolder.BloomRange.Value *  Vector3.one;
         originalScale = transform.localScale;
         
         growthperSec = playerStatHolder.BloomSpeed.Value;
@@ -50,21 +51,21 @@ public class AuraController : MonoBehaviour
     }
 
     // 오라 크기 증가 후 복구
-    public void ChangeScale(int prev, int next, int duration)
+    public void ChangeScale(int next, int duration)
     {
         // 만약 이미 변경 중이라면 기존 코루틴 중단
         if (changeScaleCoroutine != null)
             StopCoroutine(changeScaleCoroutine);
 
         // 코루틴 시작
-        changeScaleCoroutine = StartCoroutine(ChangeScaleCoroutine(prev, next, duration));
+        changeScaleCoroutine = StartCoroutine(ChangeScaleCoroutine(next, duration));
     }
     
-    private IEnumerator ChangeScaleCoroutine(int prev, int next, int duration)
+    private IEnumerator ChangeScaleCoroutine(int next, int duration)
     {
         float elapsed = 0f;
-        Vector3 startScale = prev * 0.1f * Vector3.one;
-        Vector3 targetScale = next * 0.1f * Vector3.one;
+        Vector3 startScale = transform.localScale;
+        Vector3 targetScale = next * Vector3.one;
 
         // 1. prev → next로 부드럽게 증가
         while (elapsed < lerpDuration)

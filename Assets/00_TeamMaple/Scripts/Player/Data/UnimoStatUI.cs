@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
 
 public class UnimoStatUI : MonoBehaviour
@@ -51,16 +49,16 @@ public class UnimoStatUI : MonoBehaviour
     {
         CreateStatLine($"체력 {StatCalculator.Hp}");
         CreateStatLine($"방어력 {StatCalculator.Def}");
-        CreateStatLine($"이동속도 {StatCalculator.Speed}%");
+        CreateStatLine($"이동속도 {StatCalculator.Speed:F2}");
         CreateStatLine($"개화 범위 {StatCalculator.BloomRange}");
-        CreateStatLine($"개화 속도 {StatCalculator.BloomSpeed}%");
-        CreateStatLine($"꽃 생성 주기 {StatCalculator.FlowerRate}%");
-        CreateStatLine($"희귀 꽃 확률 {StatCalculator.RareFlowerRate}%");
-        CreateStatLine($"회피율 {StatCalculator.Dodge}%");
-        CreateStatLine($"스턴 회복력 {StatCalculator.StunRecovery}%");
-        CreateStatLine($"체력 재생 {StatCalculator.HpRecovery}%");
-        CreateStatLine($"꽃 낙하 속도 {StatCalculator.FlowerDropSpeed}%");
-        CreateStatLine($"낙하량 증가 {StatCalculator.FlowerDropAmount}%");
+        CreateStatLine($"개화 속도 {StatCalculator.BloomSpeed:F2}%");
+        CreateStatLine($"꽃 생성 주기 {StatCalculator.FlowerRate:F2}%");
+        CreateStatLine($"희귀 꽃 확률 {StatCalculator.RareFlowerRate:F2}%");
+        CreateStatLine($"회피율 {StatCalculator.Dodge:F2}%");
+        CreateStatLine($"스턴 회복력 {StatCalculator.StunRecovery:F2}%");
+        CreateStatLine($"체력 재생 {StatCalculator.HpRecovery:F2}%");
+        CreateStatLine($"꽃 낙하 속도 {StatCalculator.FlowerDropSpeed:F2}%");
+        CreateStatLine($"낙하량 증가 {StatCalculator.FlowerDropAmount:F2}%");
     }
     
     // 유니모 강화 UI
@@ -71,16 +69,16 @@ public class UnimoStatUI : MonoBehaviour
         
         UpGradeStatLine($"체력 {data.Hp}");
         UpGradeStatLine($"방어력 {data.Def}");
-        UpGradeStatLine($"이동속도 {data.Speed}%");
+        UpGradeStatLine($"이동속도 {data.Speed:F2}");
         UpGradeStatLine($"개화 범위 {data.BloomRange}");
-        UpGradeStatLine($"개화 속도 {data.BloomSpeed}%");
-        UpGradeStatLine($"꽃 생성 주기 {data.FlowerRate}%");
-        UpGradeStatLine($"희귀 꽃 확률 {data.RareFlowerRate}%");
-        UpGradeStatLine($"회피율 {data.Dodge}%");
-        UpGradeStatLine($"스턴 회복력 {data.StunRecovery}%");
-        UpGradeStatLine($"체력 재생 {data.HpRecovery}%");
-        UpGradeStatLine($"꽃 낙하 속도 {data.FlowerDropSpeed}%");
-        UpGradeStatLine($"낙하량 증가 {data.FlowerDropAmount}%");
+        UpGradeStatLine($"개화 속도 {data.BloomSpeed:F2}%");
+        UpGradeStatLine($"꽃 생성 주기 {data.FlowerRate:F2}%");
+        UpGradeStatLine($"희귀 꽃 확률 {data.RareFlowerRate:F2}%");
+        UpGradeStatLine($"회피율 {data.Dodge:F2}%");
+        UpGradeStatLine($"스턴 회복력 {data.StunRecovery:F2}%");
+        UpGradeStatLine($"체력 재생 {data.HpRecovery:F2}%");
+        UpGradeStatLine($"꽃 낙하 속도 {data.FlowerDropSpeed:F2}%");
+        UpGradeStatLine($"낙하량 증가 {data.FlowerDropAmount:F2}%");
 
         // 다음 레벨 업그레이드 수치 가져오기
         ShowUpgradeStat(Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]);
@@ -92,16 +90,16 @@ public class UnimoStatUI : MonoBehaviour
         
         UpGradeNextStatLine($"+ {next.PlusHp}");
         UpGradeNextStatLine($"+ {next.PlusDef}");
-        UpGradeNextStatLine($"+ {next.PlusSpeed}%");
+        UpGradeNextStatLine($"+ {next.PlusSpeed:F2}");
         UpGradeNextStatLine($"+ {next.PlusBloomRange}");
-        UpGradeNextStatLine($"+ {next.PlusBloomSpeed}%");
-        UpGradeNextStatLine($"+ {next.PlusFlowerRate}%");
-        UpGradeNextStatLine($"+ {next.PlusRareFlowerRate}%");
-        UpGradeNextStatLine($"+ {next.PlusDodge}%");
-        UpGradeNextStatLine($"+ {next.PlusStunRecovery}%");
-        UpGradeNextStatLine($"+ {next.PlusHpRecovery}%");
-        UpGradeNextStatLine($"+ {next.PlusFlowerDropSpeed}%");
-        UpGradeNextStatLine($"+ {next.PlusFlowerDropAmount}%");
+        UpGradeNextStatLine($"+ {next.PlusBloomSpeed:F2}%");
+        UpGradeNextStatLine($"+ {next.PlusFlowerRate:F2}%");
+        UpGradeNextStatLine($"+ {next.PlusRareFlowerRate:F2}%");
+        UpGradeNextStatLine($"+ {next.PlusDodge:F2}%");
+        UpGradeNextStatLine($"+ {next.PlusStunRecovery:F2}%");
+        UpGradeNextStatLine($"+ {next.PlusHpRecovery:F2}%");
+        UpGradeNextStatLine($"+ {next.PlusFlowerDropSpeed:F2}%");
+        UpGradeNextStatLine($"+ {next.PlusFlowerDropAmount:F2}%");
     }
     
     // 엔진 강화 UI
@@ -120,10 +118,11 @@ public class UnimoStatUI : MonoBehaviour
         ShowUpgradeEngineStat(Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1]);
     }
     
-    public void ShowUpgradeEngineStat( int currentLevel)
+    public void ShowUpgradeEngineStat(int currentLevel)
     {
+        if (currentLevel == 5) return;
         var next = engineLevelDataSO.GetCurrentAndNextStat(equipmentStatData.Rank, currentLevel);
-   
+        
         UpGradeNextEngineStatLine(engineLevelDataSO.GetLevelUpValue(next, equipmentStatData.StatType1));
         UpGradeNextEngineStatLine(engineLevelDataSO.GetLevelUpValue(next, equipmentStatData.StatType2));
         UpGradeNextEngineStatLine(engineLevelDataSO.GetLevelUpValue(next, equipmentStatData.StatType3));
@@ -135,7 +134,7 @@ public class UnimoStatUI : MonoBehaviour
         if (statType == UnimoStat.None) return;
 
         string statName = GetStatDisplayName(statType);
-        string valueText = $"{statValue:0.##}"; // 소수점 2자리까지
+        string valueText = $"{statValue:F2}"; // 소수점 2자리까지
 
         UpGradeEngineStatLine($"{statName} : {valueText}");
     }
@@ -193,7 +192,7 @@ public class UnimoStatUI : MonoBehaviour
     {
         GameObject line = Instantiate(statTextPrefab, upgradeContentParent, false);
         TMP_Text tmp = line.GetComponent<TMP_Text>();
-        tmp.text = text; 
+        tmp.text = $"{text:F2}";
         lineSpacing = 55;
         
         RectTransform rt = line.GetComponent<RectTransform>();
@@ -210,7 +209,7 @@ public class UnimoStatUI : MonoBehaviour
     {
         GameObject line = Instantiate(statTextPrefab, upgradeEngineContentParent, false);
         TMP_Text tmp = line.GetComponent<TMP_Text>();
-        tmp.text = text; 
+        tmp.text = $"{text:F2}"; 
         lineSpacing = 55;
         
         RectTransform rt = line.GetComponent<RectTransform>();
@@ -227,7 +226,7 @@ public class UnimoStatUI : MonoBehaviour
     {
         GameObject line = Instantiate(statTextPrefab, upgradeContentParent, false);
         TMP_Text tmp = line.GetComponent<TMP_Text>();
-        tmp.text = text; 
+        tmp.text = $"{text:F2}"; 
         lineSpacing = 55;
         
         RectTransform rt = line.GetComponent<RectTransform>();
@@ -246,7 +245,8 @@ public class UnimoStatUI : MonoBehaviour
         
         GameObject line = Instantiate(statTextPrefab, upgradeEngineContentParent, false);
         TMP_Text tmp = line.GetComponent<TMP_Text>();
-        tmp.text = $"+ {value.ToString()}"; 
+        tmp.text = $"{value:F2}"; 
+        //tmp.text = $"+ {value.ToString()}"; 
         lineSpacing = 55;
         
         RectTransform rt = line.GetComponent<RectTransform>();
@@ -261,7 +261,7 @@ public class UnimoStatUI : MonoBehaviour
         // 기존 스탯 UI 삭제
         foreach (Transform child in contentParent)
             Destroy(child.gameObject);
-
+        
         // 기존 업그레이드 UI 삭제
         foreach (Transform child in upgradeContentParent)
             Destroy(child.gameObject);
@@ -285,8 +285,14 @@ public class UnimoStatUI : MonoBehaviour
         upgradeNextBaseX = 40f;
         upgradeNextBaseY = 370f; 
         
+        upgradeEngineNextCurrentY = 0f;
+        upgradeEngineNextBaseX = 40f;
+        upgradeEngineNextBaseY = 370f; 
+        
         unimoStatData = unimoStatDataSo.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount, Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]);
         equipmentStatData = equipmentStatDataSo.GetFinalEquipmnetStatData(Base_Mng.Data.data.EQCount, Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1]);
+        
+        StatCalculator = new StatCalculator(unimoStatData, equipmentStatData);
         
         if (unimoStatData != null)
         {
@@ -297,9 +303,9 @@ public class UnimoStatUI : MonoBehaviour
     }
     
     // 유니모 레벨업
-    public void UpgradeUnimoAndStatUI(int type)
+    public void UpgradeUnimoAndStatUI()
     {
-        Base_Mng.instance.UpgradeUnimoLevel(type);
+        Base_Mng.instance.UpgradeUnimoLevel();
         RefreshUI();
     }
     
