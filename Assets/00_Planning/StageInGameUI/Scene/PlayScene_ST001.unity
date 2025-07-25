@@ -1134,11 +1134,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillTable: {fileID: 11400000, guid: dc08681057585764bb821697c69f9c21, type: 2}
-  skillButton: {fileID: 1610524294}
   player: {fileID: 1217114930}
   equipmentStatDataSo: {fileID: 11400000, guid: 5c1e008d9caf25c4c96cfeddb9d9d1be,
     type: 2}
   skillDataSo: {fileID: 11400000, guid: 28cf012214853794489021f808449e17, type: 2}
+  skillInput1: {fileID: 0}
+  skillInput2: {fileID: 0}
+  confirmButton: {fileID: 0}
 --- !u!1 &481137415 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8501496307030212588, guid: 313edbeaf5d71bd4588aeac72ee90219,
@@ -2224,7 +2226,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gimmickManager: {fileID: 812927957}
-  stageNum: 51
 --- !u!1 &876921721
 GameObject:
   m_ObjectHideFlags: 0
@@ -2876,6 +2877,11 @@ PrefabInstance:
     - target: {fileID: 1240776426841718167, guid: b1956e88be2370445b65ee422ee8c7cd,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1240776426841718185, guid: b1956e88be2370445b65ee422ee8c7cd,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1240776427178260251, guid: b1956e88be2370445b65ee422ee8c7cd,
@@ -3791,6 +3797,7 @@ MonoBehaviour:
   - {fileID: 1148019908}
   YellowText: {fileID: 1466429489360041589}
   RedText: {fileID: 7867332054012058081}
+  BlueText: {fileID: 0}
   ScoreText: {fileID: 0}
   ADSButton: {fileID: 8454269295379800024}
   starBar: {fileID: 944078672}
@@ -4194,7 +4201,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ef59f7fc787f53489f8dc16e10cef91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  so: {fileID: 11400000, guid: 44a7c6369fbec0041951d92a9d18b28c, type: 2}
+  stageData: {fileID: 0}
+  stageRewardData: {fileID: 0}
+  stageGenerateFlowerData: {fileID: 0}
 --- !u!1001 &1730400164
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4850,6 +4859,7 @@ MonoBehaviour:
   - {fileID: 1148019907}
   scoreTxt: {fileID: 1148019908}
   resultTxt: {fileID: 6151373446196199413}
+  blueTxt: {fileID: 0}
   starBar: {fileID: 944078672}
 --- !u!114 &1971803517
 MonoBehaviour:
