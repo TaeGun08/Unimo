@@ -83,7 +83,7 @@ public class Data_Mng
     public static SpriteAtlas atlas;
 
     public Server_Data data;
-    public int[] AltaCount = { 99, 249, 599, 999 };
+    public int[] AltaCount = { 149, 349, 699, 1199 };
 
     public EXP_DATA exp_data;
 
@@ -183,14 +183,15 @@ public class Data_Mng
 
     private void LevelCheck()
     {
-        for(int i = 0; i < AltaCount.Length; i++)
+        for (int i = 0; i < AltaCount.Length; i++)
         {
             if (data.Level == AltaCount[i])
             {
-                
                 Land.instance.GetLevelUpAlta(i);
             }
         }
+
+        CheckFacilityUnlock(); // ← 여기서 해금 및 스탯 적용도 같이 처리
     }
     
     public void AssetPlus(Asset_State state, double value)
@@ -264,4 +265,68 @@ public class Data_Mng
             }
         });
     }
+    
+    private void CheckFacilityUnlock()
+    {
+        int level = data.Level;
+
+        if (level >= 150)
+        {
+            UnlockFacility(0); // 분수
+            UnlockFacility(1); // 축음기
+            UnlockFacility(2); // 케이크
+            UnlockFacility(3); // 주전자
+        }
+
+        if (level >= 350)
+        {
+            UnlockFacility(4); // 타자기
+            UnlockFacility(5); // 바람개비
+        }
+    }
+    
+    private void UnlockFacility(int index)
+    {
+        if (!data.GetFacilityData[index])
+        {
+            data.GetFacilityData[index] = true;
+            Debug.Log($"시설물 해금: {index}");
+
+            ApplyFacilityStat(index); // 스탯 반영
+        }
+    }
+    
+    private void ApplyFacilityStat(int index)
+    {
+        var statHolder = LocalPlayer.Instance.PlayerStatHolder;
+
+        switch (index)
+        {
+            case 0: // 분수
+                statHolder.Def.Add(10);     // 방어력 +10
+                statHolder.Dodge.Add(0.05f); // 회피율 +5%
+                break;
+
+            case 1: // 축음기
+                statHolder.Speed.Add(0.5f); // 이동속도 +0.5
+                break;
+
+            case 2: // 케이크
+                CakeFacility.Instance?.StartProduction();
+                break;
+
+            case 3: // 주전자
+                //KettleFacility.Instance?.UnlockExchange();
+                break;
+
+            case 4: // 타자기
+                statHolder.BloomSpeed.Subtract(0.5f); // 개화 속도 빨라짐 (시간 감소)
+                break;
+
+            case 5: // 바람개비
+                //BoosterSystem.Instance?.Unlock();
+                break;
+        }
+    }
+
 }
