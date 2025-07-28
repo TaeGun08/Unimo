@@ -7,6 +7,7 @@ public abstract class PlayerState : MonoBehaviour, IPlayerState
 {
     public PlayerController PlayerController { get; set; }
     public LocalPlayer LocalPlayer {get; private set;}
+    public PlayerVisualController VisualController {get; set;}
     
     protected MapRangeSetter mapSetter;
     

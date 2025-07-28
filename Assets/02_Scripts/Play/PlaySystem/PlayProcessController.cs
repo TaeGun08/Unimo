@@ -36,8 +36,18 @@ public class PlayProcessController : MonoBehaviour
         gameoverText.SetActive(true);
         StartCoroutine(CoroutineExtensions.DelayedActionCall(
             () => { gameResultObjs[0].SetActive(true);
-                gameResultObjs[1].SetActive(true); }, 5f / 3f + 0.5f));
+                gameResultObjs[2].SetActive(true); }, 5f / 3f + 0.5f));
     }
+
+    public void GameOver()
+    {
+        if (gameoverAction != null) { gameoverAction.Invoke(); }
+        gameoverText.SetActive(true);
+        StartCoroutine(CoroutineExtensions.DelayedActionCall(
+            () => { gameResultObjs[1].SetActive(true);
+                gameResultObjs[2].SetActive(true); }, 5f / 3f + 0.5f));
+    }
+    
     public void GamePaused()
     {
         if (pauseAction != null) { pauseAction.Invoke(); }

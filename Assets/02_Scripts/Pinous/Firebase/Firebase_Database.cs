@@ -79,6 +79,9 @@ public partial class Firebase_Mng: MonoBehaviour
             StageLoader.StageDataReset();
             PlayerPrefs.SetString(key, newDataJson);
             
+            PlayerPrefs.SetFloat("BGM", 0.5f);
+            PlayerPrefs.SetFloat("FX", 0.5f);
+            
             //그대로 저장해도 됨
             string filePath = Path.Combine(Application.persistentDataPath, "PlayerData.json");
             File.WriteAllText(filePath, newDataJson);
