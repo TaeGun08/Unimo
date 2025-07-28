@@ -54,7 +54,9 @@ public class HitInvalidationSkillBehaviour : MonoBehaviour, IEquipmentSkillBehav
 
     private IEnumerator PassiveCooldown()
     {
+        Debug.Log($"[Skill1] 쿨타임 시작 ({passiveCooldown}초)");
         yield return new WaitForSeconds(passiveCooldown);    // 패시브 쿨타임 대기
+        Debug.Log("[Skill1] 쿨타임 종료");
         statHolder.GiveOnceInvalid();    // 다시 1회 피격 무효 부여
         passiveCoroutine = null;
     }

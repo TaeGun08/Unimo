@@ -1,39 +1,24 @@
 Id,Level,Name,Rank,StatType1,StatValue1,StatType2,StatValue2,StatType3,StatValue3,StatType4,StatValue4,Skill1,Skill2
-1,0,¸®ºñ,N,Hp,1.08,Speed,1.1,None,0,None,0,0,0
-2,0,¿ÀÅ©Åë,N,Def,1.12,Dodge,1.012,None,0,None,0,0,0
-3,0,¾ÆÀÌ½ºÅ©¸²,N,Dodge,1.03,HpRecovery,1.05,None,0,None,0,0,0
-4,0,¿¤ÇÁÄÅ,R,BloomRange,1.1,Dodge,1.1,None,0,None,0,2001,0
-5,0,°õ°õ,R,Hp,1.05,HpRecovery,1.05,Def,12,None,0,2002,0
-6,0,¾Ë,R,Def,1.13,StunRecovery,1.1,HpRecovery,0.012,None,0,2003,0
-7,0,¸¶¼ú¸ğÀÚ,R,Speed,1.04,StunRecovery,1.03,BloomSpeed,1.05,None,0,2015,0
-8,0,¾²·¹±âÅë,R,Def,1.11,Dodge,1.05,StunRecovery,0.85,None,0,2016,0
-9,0,¼ÒÆ÷,R,BloomSpeed,1.07,Speed,1.1,StunRecovery,0.85,None,0,2004,0
-0,0,Á¡ºĞÀÌ,R,BloomSpeed,1.06,FlowerRate,1.07,Def,12,None,0,2017,0
-11,0,¾Æ¿ì±¸½ºÅõ½º,R,FlowerDropSpeed,1.05,FlowerDropAmount,1.07,Speed,1.03,None,0,2018,0
-12,0,¸¶³à¼Ü,R,RareFlowerRate,1.02,StunRecovery,1.03,BloomSpeed,1.05,None,0,2005,0
-13,0,°³¹ä±×¸©,R,Hp,1.1,FlowerDropAmount,1.02,Def,12,None,0,2006,0
-14,0,°íµî¾î,R,Speed,1.06,BloomSpeed,1.1,StunRecovery,0.85,None,0,2007,0
-15,0,¸¶Æ¿´Ù,R,BloomRange,1.12,RareFlowerRate,1.015,Hp,120,None,0,2019,0
-16,0,µÒµÒ,R,BloomRange,1.13,HpRecovery,1.05,Dodge,0.03,None,0,2020,0
-17,0,ÇÁ¸®¸ğ,SR,BloomRange,1.14,BloomSpeed,1.1,RareFlowerRate,0.02,Speed,1.08,2008,2021
-18,0,Äí,SR,Speed,1.1,Dodge,1.08,StunRecovery,0.9,BloomRange,1.15,2009,2022
-19,0,Åä½ºÅÍ,SR,Dodge,1.07,Def,1.15,HpRecovery,0.015,FlowerRate,1.08,2010,2023
-20,0,¸ÓÇÉ,SR,Speed,1.05,Dodge,1.04,FlowerRate,0.07,BloomSpeed,1.1,2011,2024
-21,0,°ÅÇ°±¸¸§,SR,Dodge,1.06,BloomSpeed,1.1,StunRecovery,0.9,HpRecovery,1.018,2012,2025
-22,0,¿åÁ¶Åë,SR,Dodge,1.08,FlowerDropAmount,0.2,Speed,1.08,RareFlowerRate,1.025,2013,2026
-23,0,¸ğ·¡¼º,SR,Dodge,1.05,HpRecovery,1.015,StunRecovery,0.9,FlowerRate,1.08,2014,2027
-,,,,,,,,,,,,,
-,,,,,,,,,,,,,
-,,,,,,,,,,,,,
-,,,,,,,,,,,,,
-,,,,,,,,,,,,,
-,,,,,,,,,,,,,
-,,,,,,,,,,,,,
-,,,,,,,,,,,,,
-,,,,,,,,,,,,,
-,,,,,,,,,,,,,
-,,,,,,,,,,,,,
-,,,,,,,,,,,,,
-,,,,,,,,,,,,,
-,,,,,,,,,,,,,
-,,,,,,,,,,,,,
+1,0,ë¦¬ë¹„,N,Hp,1.08,Speed,1.1,None,0,None,0,0,0
+2,0,ì†Œí¬,R,BloomSpeed,1.07,Speed,1.1,StunRecovery,0.85,None,0,2004,0
+3,0,ê³°ê³°,R,Hp,1.05,HpRecovery,1.05,Def,12,None,0,2002,0
+4,0,ì ë¶„ì´,R,BloomSpeed,1.06,FlowerRate,1.07,Def,12,None,0,2017,0
+5,0,ê³ ë“±ì–´,R,Speed,1.06,BloomSpeed,1.1,StunRecovery,0.85,None,0,2007,0
+6,0,ì¿ ,SR,Speed,1.1,Dodge,1.08,StunRecovery,0.9,BloomRange,1.15,2009,2022
+7,0,ë‘ ë‘ ,R,BloomRange,1.13,HpRecovery,1.05,Dodge,0.03,None,0,2020,0
+8,0,ì•„ìš°êµ¬ìŠ¤íˆ¬ìŠ¤,R,FlowerDropSpeed,1.05,FlowerDropAmount,1.07,Speed,1.03,None,0,2018,0
+9,0,ì•Œ,R,Def,1.13,StunRecovery,1.1,HpRecovery,0.012,None,0,2003,0
+10,0,í”„ë¦¬ëª¨,SR,BloomRange,1.14,BloomSpeed,1.1,RareFlowerRate,0.02,Speed,1.08,2008,2021
+11,0,ë¨¸í•€,SR,Speed,1.05,Dodge,1.04,FlowerRate,0.07,BloomSpeed,1.1,2011,2024
+12,0,ë§ˆí‹¸ë‹¤,R,BloomRange,1.12,RareFlowerRate,1.015,Hp,120,None,0,2019,0
+13,0,í† ìŠ¤í„°,SR,Dodge,1.07,Def,1.15,HpRecovery,0.015,FlowerRate,1.08,2010,2023
+14,0,ì˜¤í¬í†µ,N,Def,1.12,Dodge,1.012,None,0,None,0,0,0
+15,0,ì•„ì´ìŠ¤í¬ë¦¼,N,Dodge,1.03,HpRecovery,1.05,None,0,None,0,0,0
+16,0,ë§ˆë…€ì†¥,R,RareFlowerRate,1.02,StunRecovery,1.03,BloomSpeed,1.05,None,0,2005,0
+17,0,ê°œë°¥ê·¸ë¦‡,R,Hp,1.1,FlowerDropAmount,1.02,Def,12,None,0,2006,0
+18,0,ì“°ë ˆê¸°í†µ,R,Def,1.11,Dodge,1.05,StunRecovery,0.85,None,0,2016,0
+19,0,ëª¨ë˜ì„±,SR,Dodge,1.05,HpRecovery,1.015,StunRecovery,0.9,FlowerRate,1.08,2014,2027
+20,0,ìš•ì¡°í†µ,SR,Dodge,1.08,FlowerDropAmount,0.2,Speed,1.08,RareFlowerRate,1.025,2013,2026
+21,0,ì—˜í”„ì»µ,R,BloomRange,1.1,Dodge,1.1,None,0,None,0,2001,0
+22,0,ë§ˆìˆ ëª¨ì,R,Speed,1.04,StunRecovery,1.03,BloomSpeed,1.05,None,0,2015,0
+23,0,ê±°í’ˆêµ¬ë¦„,SR,Dodge,1.06,BloomSpeed,1.1,StunRecovery,0.9,HpRecovery,1.018,2012,2025

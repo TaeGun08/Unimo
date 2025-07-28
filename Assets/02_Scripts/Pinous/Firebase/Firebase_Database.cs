@@ -185,7 +185,7 @@ public partial class Firebase_Mng: MonoBehaviour
         data.E_DateTime = "";
 
         data.CharCount = 1;
-        data.EQCount = 1;
+        data.EQCount = 11;
 
         data.BonusRewardCount = 1000.0f;
 

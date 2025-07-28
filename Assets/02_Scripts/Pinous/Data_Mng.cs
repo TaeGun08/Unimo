@@ -52,10 +52,10 @@ public class Server_Data
 
     public string S_DateTime, E_DateTime;
 
-    public int CharCount = 1;
-    public int EQCount = 1;
-    public int[] CharLevel = { 1, 1, 1, 1, 1, 1, 1 };
-    public int[] EQLevel = { 1, 1, 1, 1, 1, 1 };
+    public int CharCount = 2;
+    public int EQCount = 2;
+    public int[] CharLevel = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+    public int[] EQLevel = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     
     public float BonusRewardCount = 1000.0f;
 

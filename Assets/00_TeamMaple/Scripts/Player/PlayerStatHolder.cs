@@ -32,7 +32,7 @@ public class PlayerStatHolder
         Speed             = new ClampedFloat(statCalculator.Speed, 0f, 99f);
         BloomRange        = new ClampedInt(statCalculator.BloomRange, 0, 300);
         BloomSpeed        = new ClampedFloat(statCalculator.BloomSpeed, 0f, 999f);
-        FlowerRate        = new ClampedFloat(statCalculator.FlowerRate, 0f, 100f);
+        FlowerRate        = new ClampedFloat(statCalculator.FlowerRate, 0.5f, 100f);
         RareFlowerRate    = new ClampedFloat(statCalculator.RareFlowerRate, 0f, 1f);
         Dodge             = new ClampedFloat(statCalculator.Dodge, 0f, 1f);
         StunRecovery      = new ClampedFloat(statCalculator.StunRecovery, 0f, 1f);

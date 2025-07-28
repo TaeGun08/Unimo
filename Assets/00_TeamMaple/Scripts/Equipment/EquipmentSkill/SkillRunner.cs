@@ -18,6 +18,8 @@ public class SkillRunner : MonoBehaviour
     [SerializeField] private TMP_InputField skillInput2;
     [SerializeField] private Button confirmButton;
     
+    private EquipmentStatData engineStatData;
+    
     private bool isSkill2OnCooldown = false;    // 쿨타임 체크 변수
     private Coroutine skill2CooldownCoroutine;
     
@@ -34,7 +36,7 @@ public class SkillRunner : MonoBehaviour
     
     private void Start()
     {
-        var engineStatData = equipmentStatDataSo.GetEquipmentStatData(Base_Mng.Data.data.EQCount);
+        engineStatData = equipmentStatDataSo.GetEquipmentStatData(Base_Mng.Data.data.EQCount);
         
         // 스킬 아이디 확인 (0이면 스킬 없음)
         var skillId1 = engineStatData.Skill1;
@@ -110,7 +112,7 @@ public class SkillRunner : MonoBehaviour
             else
             {
                 var skillExcutor1 = skillPrefab1.GetComponent<IEquipmentSkillBehaviour>();
-                var skillData1 = skillDataSo.GetEquipmentSkillData(skillId1);
+                var skillData1 = skillDataSo.GetFinalEquipmentSkillData(skillId1, engineStatData.Level);
 
                 skillExcutor1.Excute(player, skillData1);
                 Debug.Log($"[Skill1] Id: {skillId1} / Type: {skillData1.Type} / Cooldown: {skillData1.Cooldown} / Duration: {skillData1.Duration} / Param: {skillData1.Param}");

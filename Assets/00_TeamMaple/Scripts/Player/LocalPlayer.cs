@@ -101,6 +101,20 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
                   $"HpRecovery: {StatCalculator.HpRecovery}\n" +
                   $"FlowerDropSpeed: {StatCalculator.FlowerDropSpeed}\n" +
                   $"FlowerDropAmount: {StatCalculator.FlowerDropAmount}");
+        
+        Debug.Log($"[UnimoStats (SkillOn)]\n" +
+                  $"Hp: {PlayerStatHolder.Hp.Value}\n" +
+                  $"Def: {PlayerStatHolder.Def.Value}\n" +
+                  $"Speed: {PlayerStatHolder.Speed.Value}\n" +
+                  $"BloomRange: {PlayerStatHolder.BloomRange.Value}\n" +
+                  $"BloomSpeed: {PlayerStatHolder.BloomSpeed.Value}\n" +
+                  $"FlowerRate: {PlayerStatHolder.FlowerRate.Value}\n" +
+                  $"RareFlowerRate: {PlayerStatHolder.RareFlowerRate.Value}\n" +
+                  $"Dodge: {PlayerStatHolder.Dodge.Value}\n" +
+                  $"StunRecovery: {PlayerStatHolder.StunRecovery.Value}\n" +
+                  $"HpRecovery: {PlayerStatHolder.HpRecovery.Value}\n" +
+                  $"FlowerDropSpeed: {PlayerStatHolder.FlowerDropSpeed.Value}\n" +
+                  $"FlowerDropAmount: {PlayerStatHolder.FlowerDropAmount.Value}");
 
         // 10초마다 체력 회복
         StartCoroutine(HpRecoveryCoroutine(PlayerStatHolder.HpRecovery.Value));

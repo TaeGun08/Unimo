@@ -80,29 +80,30 @@ public class StatCalculator
         return Mathf.RoundToInt(total);
     }
 
-    // 기준 개화 시간 ÷ ((1 + (기본 수치 + 강화 수치) × (붕붕엔진 기본 수치 + 붕붕엔진 강화 배율)) × 시설물 배율 × 패시브 스킬 배율 × 액티브 스킬 배율)
+    // 기준 개화 시간 × ((1 + (기본 수치 + 강화 수치) × (붕붕엔진 기본 수치 + 붕붕엔진 강화 배율)) × 시설물 배율 × 패시브 스킬 배율 × 액티브 스킬 배율)
     private float CalculateBloomSpeed()
     {
         float equipValue = GetEquipmentValue(UnimoStat.BloomSpeed);
         float total = unimoStatData.BloomSpeed * equipValue;
         
-        // 기준 개화 시간(12초) ÷ (1 + total)
+        // 기준 개화 시간(12초) x (1 + total)
         float baseTime = 12f;
         float denominator = 1f + total;
         
-        return baseTime / denominator;
+        return baseTime * denominator;
     }
 
-    // 스테이지 별꽃 리스폰 주기 ÷ ((기본 수치 + 강화 수치) × (붕붕엔진 기본 수치 + 붕붕엔진 강화 배율) × 패시브 스킬 배율 × 액티브 스킬 배율)
+    // 스테이지 별꽃 리스폰 주기 × (1 + ((기본수치 + 강화수치) * (붕붕엔진기본 + 붕붕엔진강화) * 0.9))
     private float CalculateFlowerRate()
     {
         float equipValue = GetEquipmentValue(UnimoStat.FlowerRate);
-        float total = unimoStatData.FlowerRate * equipValue;
+        float total = unimoStatData.FlowerRate * equipValue * 0.9f;
         
-        // 스테이지 별꽃 리스폰 주기(예: 1초) ÷ total
-        float baseRate = 1f;
+        // 스테이지 별꽃 리스폰 주기(1.5초) x total
+        float baseRate = 1.5f;
+        float denominator = 1f + total;
         
-        return baseRate / total;
+        return baseRate * denominator;
     }
 
     // (기본 수치 + 강화 수치) × (붕붕엔진 기본 수치 + 붕붕엔진 강화 배율) × 패시브 스킬 배율 × 액티브 스킬 배율
@@ -147,7 +148,7 @@ public class StatCalculator
         float equipValue = GetEquipmentValue(UnimoStat.FlowerDropSpeed);
         float total = unimoStatData.FlowerDropSpeed * equipValue;
         
-        // 기준 낙하 시간(예: 1초) ÷ (1 + total)
+        // 기준 낙하 시간(3초) ÷ (1 + total)
         float baseTime = 3f;
         float denominator = 1f + total;
         
@@ -160,7 +161,7 @@ public class StatCalculator
         float equipValue = GetEquipmentValue(UnimoStat.FlowerDropAmount);
         float total = unimoStatData.FlowerDropAmount * equipValue;
         
-        // 최대 낙하 주기(예: 1f) × (1 - total)
+        // 최대 낙하 주기(2f) × (1 - total)
         float maxDrop = 2f;
         float multiplier = 1f - total;
         
