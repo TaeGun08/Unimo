@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -17,12 +19,17 @@ public class UnimoStatUI : MonoBehaviour
     [SerializeField] private TMP_Text Name;
     [SerializeField] private TMP_Text Level;
 
+    [SerializeField] private TMP_Text CurrentLevel;
+    [SerializeField] private TMP_Text NextLevel;
+    [SerializeField] private TMP_Text Ability;
+    
     [Header("Engine Upgrade Settings")]
     public RectTransform upgradeEngineContentParent;
     [SerializeField] private TMP_Text EQName;
     [SerializeField] private TMP_Text EQRank;
     [SerializeField] private TMP_Text EQLevel;
-
+    [SerializeField] private TMP_Text EQAbility;
+    
     private float lineSpacing = 30f;
 
     private UnimoStatData unimoStatData;
@@ -42,23 +49,17 @@ public class UnimoStatUI : MonoBehaviour
             UpgradeStatUI(unimoStatData);
             UpgradeEngineStatUI(equipmentStatData);
         }
+        
+        Debug.Log(unimoStatData.SpecialStat1);
     }
 
     // 최종 stat UI
     public void UpdateStatUI()
     {
-        CreateStatLine($"체력 {StatCalculator.Hp}");
-        CreateStatLine($"방어력 {StatCalculator.Def}");
-        CreateStatLine($"이동속도 {StatCalculator.Speed:F2}");
-        CreateStatLine($"개화 범위 {StatCalculator.BloomRange}");
-        CreateStatLine($"개화 속도 {StatCalculator.BloomSpeed:F2}%");
-        CreateStatLine($"꽃 생성 주기 {StatCalculator.FlowerRate:F2}%");
-        CreateStatLine($"희귀 꽃 확률 {StatCalculator.RareFlowerRate:F2}%");
-        CreateStatLine($"회피율 {StatCalculator.Dodge:F2}%");
-        CreateStatLine($"스턴 회복력 {StatCalculator.StunRecovery:F2}%");
-        CreateStatLine($"체력 재생 {StatCalculator.HpRecovery:F2}%");
-        CreateStatLine($"꽃 낙하 속도 {StatCalculator.FlowerDropSpeed:F2}%");
-        CreateStatLine($"낙하량 증가 {StatCalculator.FlowerDropAmount:F2}%");
+        foreach (var (stat, getter) in StatCalculator._finalStats)
+        {
+            CreateStatLine($"{stat.Ko()} {stat.Format(getter(StatCalculator))}");
+        }
     }
     
     // 유니모 강화 UI
@@ -66,40 +67,44 @@ public class UnimoStatUI : MonoBehaviour
     {
         Name.text = data.Name;
         Level.text = Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1].ToString();
+        CurrentLevel.text = $"Lv. { Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]}";
+        NextLevel.text = $"Lv. { Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1] + 1} ";
+        Ability.text = BuildSpecialAbilityText(data);
         
-        UpGradeStatLine($"체력 {data.Hp}");
-        UpGradeStatLine($"방어력 {data.Def}");
-        UpGradeStatLine($"이동속도 {data.Speed:F2}");
-        UpGradeStatLine($"개화 범위 {data.BloomRange}");
-        UpGradeStatLine($"개화 속도 {data.BloomSpeed:F2}%");
-        UpGradeStatLine($"꽃 생성 주기 {data.FlowerRate:F2}%");
-        UpGradeStatLine($"희귀 꽃 확률 {data.RareFlowerRate:F2}%");
-        UpGradeStatLine($"회피율 {data.Dodge:F2}%");
-        UpGradeStatLine($"스턴 회복력 {data.StunRecovery:F2}%");
-        UpGradeStatLine($"체력 재생 {data.HpRecovery:F2}%");
-        UpGradeStatLine($"꽃 낙하 속도 {data.FlowerDropSpeed:F2}%");
-        UpGradeStatLine($"낙하량 증가 {data.FlowerDropAmount:F2}%");
+        foreach (var (stat, getter) in StatCalculator._unimoStats)
+        {
+            UpGradeStatLine($"{stat.Ko()} {stat.Format(getter(data))}");
+        }
 
         // 다음 레벨 업그레이드 수치 가져오기
         ShowUpgradeStat(Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]);
     }
     
-    public void ShowUpgradeStat( int currentLevel)
+    private string BuildSpecialAbilityText(UnimoStatData data)
+    {
+        var parts = new List<string>();
+
+        void Add(UnimoStat stat)
+        {
+            if (stat == UnimoStat.None) return;
+            parts.Add($"{stat.Ko()}");
+        }
+
+        Add(data.SpecialStat1);
+        Add(data.SpecialStat2);
+        Add(data.SpecialStat3);
+
+        return "특화 능력치 : " + (parts.Count > 0 ? string.Join(" / ", parts) : "없음");
+    }
+    
+    public void ShowUpgradeStat(int currentLevel)
     {
         var next = unimoLevelDataSO.GetCurrentAndNextStat(currentLevel);
-        
-        UpGradeNextStatLine($"+ {next.PlusHp}");
-        UpGradeNextStatLine($"+ {next.PlusDef}");
-        UpGradeNextStatLine($"+ {next.PlusSpeed:F2}");
-        UpGradeNextStatLine($"+ {next.PlusBloomRange}");
-        UpGradeNextStatLine($"+ {next.PlusBloomSpeed:F2}%");
-        UpGradeNextStatLine($"+ {next.PlusFlowerRate:F2}%");
-        UpGradeNextStatLine($"+ {next.PlusRareFlowerRate:F2}%");
-        UpGradeNextStatLine($"+ {next.PlusDodge:F2}%");
-        UpGradeNextStatLine($"+ {next.PlusStunRecovery:F2}%");
-        UpGradeNextStatLine($"+ {next.PlusHpRecovery:F2}%");
-        UpGradeNextStatLine($"+ {next.PlusFlowerDropSpeed:F2}%");
-        UpGradeNextStatLine($"+ {next.PlusFlowerDropAmount:F2}%");
+        foreach (var (stat, getter) in StatCalculator._unimoNextStats)
+        {
+            var v = getter(next);
+            UpGradeNextStatLine($"+ {stat.Format(v)}");
+        }
     }
     
     // 엔진 강화 UI
@@ -109,6 +114,8 @@ public class UnimoStatUI : MonoBehaviour
         EQRank.text = data.Rank.ToString();
         EQLevel.text = Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1].ToString();
         
+        EQAbility.text = BuildSpecialEQAbilityText(data);
+        
         ShowStatLine(data.StatType1, data.StatValue1);
         ShowStatLine(data.StatType2, data.StatValue2);
         ShowStatLine(data.StatType3, data.StatValue3);
@@ -116,6 +123,23 @@ public class UnimoStatUI : MonoBehaviour
         
         // 다음 레벨 업그레이드 수치 가져오기
         ShowUpgradeEngineStat(Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1]);
+    }
+    
+    private string BuildSpecialEQAbilityText(EquipmentStatData data)
+    {
+        var parts = new List<string>();
+
+        void Add(UnimoStat stat)
+        {
+            if (stat == UnimoStat.None) return;
+            parts.Add($"{stat.Ko()}");
+        }
+
+        Add(data.StatType1);
+        Add(data.StatType2);
+        Add(data.StatType3);
+
+        return "특화 능력치 : " + (parts.Count > 0 ? string.Join(" / ", parts) : "없음");
     }
     
     public void ShowUpgradeEngineStat(int currentLevel)
@@ -132,13 +156,9 @@ public class UnimoStatUI : MonoBehaviour
     private void ShowStatLine(UnimoStat statType, float statValue)
     {
         if (statType == UnimoStat.None) return;
-
-        string statName = GetStatDisplayName(statType);
-        string valueText = $"{statValue:F2}"; // 소수점 2자리까지
-
-        UpGradeEngineStatLine($"{statName} : {valueText}");
+        UpGradeEngineStatLine($"{statType.Ko()} : {statType.Format(statValue)}");
     }
-    
+
     private string GetStatDisplayName(UnimoStat stat)
     {
         return stat switch
@@ -203,7 +223,7 @@ public class UnimoStatUI : MonoBehaviour
     
     private float upgradeEQCurrentY = 0f;
     private float upgradeEQBaseX = -440f;
-    private float upgradeEQBaseY = 370f; 
+    private float upgradeEQBaseY = 90f; 
     
     private void UpGradeEngineStatLine(string text)
     {
@@ -237,7 +257,7 @@ public class UnimoStatUI : MonoBehaviour
 
     private float upgradeEngineNextCurrentY = 0f;
     private float upgradeEngineNextBaseX = 40f;
-    private float upgradeEngineNextBaseY = 370f; 
+    private float upgradeEngineNextBaseY = 90f; 
     
     private void UpGradeNextEngineStatLine(float value)
     {
@@ -274,12 +294,12 @@ public class UnimoStatUI : MonoBehaviour
         baseY = 0;
 
         upgradeCurrentY = 0;
-        upgradeBaseY = 370f;  
         upgradeBaseX = -440f;
+        upgradeBaseY = 370f;  
         
         upgradeEQCurrentY = 0f;
         upgradeEQBaseX = -440f;
-        upgradeEQBaseY = 370f; 
+        upgradeEQBaseY = 90f; 
         
         upgradeNextCurrentY = 0f;
         upgradeNextBaseX = 40f;
@@ -287,7 +307,7 @@ public class UnimoStatUI : MonoBehaviour
         
         upgradeEngineNextCurrentY = 0f;
         upgradeEngineNextBaseX = 40f;
-        upgradeEngineNextBaseY = 370f; 
+        upgradeEngineNextBaseY = 90f; 
         
         unimoStatData = unimoStatDataSo.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount, Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]);
         equipmentStatData = equipmentStatDataSo.GetFinalEquipmnetStatData(Base_Mng.Data.data.EQCount, Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1]);
