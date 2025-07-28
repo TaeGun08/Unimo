@@ -16,7 +16,7 @@ public class FlowerController_ST002 : FlowerController
     new void Start()
     {
         base.Start();
-        fallVector = new Vector3(0f, -fallingSpeed, 0f);
+        fallVector = new Vector3(0f, -LocalPlayer.Instance.PlayerStatHolder.FlowerDropSpeed.Value, 0f);
         if (playerTransform == null) { playerTransform = LocalPlayer.Instance.transform; }
     }
 

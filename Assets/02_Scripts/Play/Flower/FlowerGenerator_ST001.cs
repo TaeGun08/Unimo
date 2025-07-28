@@ -23,13 +23,33 @@ public class FlowerGenerator_ST001 : FlowerGenerator
     }
     // Start is called before the first frame update
     new protected void Start()
+{
+    base.Start(); // 부모에서 appearRatios 설정 완료
+    mapSetter = PlaySystemRefStorage.mapSetter;
+
+    // B 확률만 후처리
+    float boostAmount = statHolder.RareFlowerRate.Value;
+    appearRatios[2] += boostAmount;
+
+    // 누적 확률 다시 계산
+    float totalRatio = 0f;
+    appearAccProb.Clear(); // 이전 값 제거
+    foreach (float ratio in appearRatios)
+        totalRatio += ratio;
+
+    float cumulative = 0f;
+    foreach (float ratio in appearRatios)
     {
-        base.Start();
-        mapSetter = PlaySystemRefStorage.mapSetter;
-        
-        generateFlower();
-        generateFlower();
+        cumulative += ratio / totalRatio;
+        appearAccProb.Add(cumulative);
     }
+    if (appearAccProb.Count > 0)
+        appearAccProb[^1] = 1f;
+
+    // 초기 꽃 생성
+    generateFlower();
+    generateFlower();
+}
     override public void GatherFlower()
     {
         base .GatherFlower();
@@ -64,7 +84,7 @@ public class FlowerGenerator_ST001 : FlowerGenerator
             generateFlower();
             float tweigth = 0.5f + 0.5f * AllFlowers.Count / maxFlowers;
             tweigth *= 0.5f + 0.5f * PlaySystemRefStorage.playTimeManager.GetRemainTimeRatio();
-            yield return new WaitForSeconds(tweigth*refreshTime);
+            yield return new WaitForSeconds(tweigth*statHolder.FlowerRate.Value);
         }
     }
     private void checkMaxFlowerInc()

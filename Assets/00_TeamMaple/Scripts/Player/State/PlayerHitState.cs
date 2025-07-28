@@ -29,6 +29,7 @@ public class PlayerHitState : PlayerState
             }
             else
             {
+                int damage = Mathf.Max(10, LocalPlayer.CombatEvent.Damage - (int)(statHolder.Def.Value * 0.1f));
                 Debug.Log($" statHolder.IsDamageToHeal :: {statHolder.IsDamageToHeal}");
                 
                 // 피격 데미지를 체력 회복으로 전환 스킬 On인 경우
@@ -36,7 +37,7 @@ public class PlayerHitState : PlayerState
                 {
                     if (StageLoader.IsBonusStageByIndex(Base_Mng.Data.data.CurrentStage) == false)
                     {
-                        LocalPlayer.PlayerStatHolder.Hp.Add(LocalPlayer.CombatEvent.Damage);
+                        LocalPlayer.PlayerStatHolder.Hp.Add(damage);
                     }
                     
                     PlayerController.ChangeState(IPlayerState.EState.Idle);
@@ -45,7 +46,7 @@ public class PlayerHitState : PlayerState
                 {
                     if (StageLoader.IsBonusStageByIndex(Base_Mng.Data.data.CurrentStage) == false)
                     {
-                        LocalPlayer.PlayerStatHolder.Hp.Subtract(LocalPlayer.CombatEvent.Damage);
+                        LocalPlayer.PlayerStatHolder.Hp.Subtract(damage);
                     }
 
                     if (LocalPlayer.PlayerStatHolder.Hp.Value <= 0)

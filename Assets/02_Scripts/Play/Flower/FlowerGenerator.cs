@@ -5,7 +5,7 @@ using UnityEngine;
 public class FlowerGenerator : MonoBehaviour
 {
     [HideInInspector] public List<FlowerController> AllFlowers;
-
+    
     protected StageManager stageManager;
     [SerializeField] protected List<GameObject> flowerObjs;
     [SerializeField] protected List<float> appearRatios;
@@ -14,6 +14,8 @@ public class FlowerGenerator : MonoBehaviour
     protected int gatheredFlowers = 0; 
     protected int currentStageId;
 
+    protected PlayerStatHolder statHolder;
+    
     protected void Start()
     {
         stageManager = StageManager.Instance;
@@ -55,6 +57,8 @@ public class FlowerGenerator : MonoBehaviour
         appearAccProb[^1] = 1f;
         
         AllFlowers = new List<FlowerController>();
+        statHolder = LocalPlayer.Instance.PlayerStatHolder;
+        
         StartCoroutine(generateCoroutine());
     }
     

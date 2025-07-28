@@ -5,6 +5,7 @@ using UnityEngine;
 public class FlowerGenerator_ST002 : FlowerGenerator
 {
     private MapRangeSetter mapSetter;
+    
     private float oriGenRate = 2f;
     private float rateDecayingStandard = 20;
     
@@ -48,7 +49,7 @@ public class FlowerGenerator_ST002 : FlowerGenerator
     private float calculateNextGen()
     {
         float ratio = gatheredFlowers / rateDecayingStandard;
-        return oriGenRate * (0.35f + 1.65f/(1+ratio))/2f;
+        return statHolder.FlowerDropAmount.Value * (0.35f + 1.65f/(1+ratio))/2f;
     }
     private bool checkAddGen(int serial)
     {

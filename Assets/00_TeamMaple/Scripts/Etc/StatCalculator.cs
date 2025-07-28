@@ -144,10 +144,10 @@ public class StatCalculator
     private float CalculateFlowerDropSpeed()
     {
         float equipValue = GetEquipmentValue(UnimoStat.FlowerDropSpeed);
-        float total = unimoStatData.FlowerDropSpeed + equipValue;
+        float total = unimoStatData.FlowerDropSpeed * equipValue;
         
         // 기준 낙하 시간(예: 1초) ÷ (1 + total)
-        float baseTime = 1f;
+        float baseTime = 3f;
         float denominator = 1f + total;
         
         return baseTime / denominator;
@@ -157,10 +157,10 @@ public class StatCalculator
     private float CalculateFlowerDropAmount()
     {
         float equipValue = GetEquipmentValue(UnimoStat.FlowerDropAmount);
-        float total = unimoStatData.FlowerDropAmount + equipValue;
+        float total = unimoStatData.FlowerDropAmount * equipValue;
         
         // 최대 낙하 주기(예: 1f) × (1 - total)
-        float maxDrop = 1f;
+        float maxDrop = 2f;
         float multiplier = 1f - total;
         
         return maxDrop * multiplier;
