@@ -28,6 +28,42 @@ public class EquipmentSkillDataSO : ScriptableObject
     [Header("EquimentSkillDataCsv")]
     [SerializeField] private TextAsset equipmentSkillDataCsv;
 
+    [Header("UnimoStatLevelUpDataSO")]
+    [SerializeField] private EquipmentSkillLevelUpDataSO equipmentSkillLevelUpDataSO;
+    
+    public EquipmentSkillData GetFinalEquipmentSkillData(int equipmentSkillID, int level)
+    {
+        EquipmentSkillData baseData = GetEquipmentSkillData(equipmentSkillID);
+        if (baseData == null)
+            return null;
+        
+        EquipmentSkillLevelUpData levelUpData = null;
+        if (equipmentSkillLevelUpDataSO != null)
+            levelUpData = equipmentSkillLevelUpDataSO.GetEquipmentSkillLevelUpData(equipmentSkillID, level);
+
+        // 복사본 생성 (기존 데이터 수정 방지)
+        EquipmentSkillData merged = new EquipmentSkillData
+        {
+            Id = baseData.Id,
+            Name = baseData.Name,
+            Type = baseData.Type,
+            Cooldown = baseData.Cooldown,
+            Duration = baseData.Duration,
+            Param = baseData.Param,
+            Description = baseData.Description
+        };
+
+        if (levelUpData != null)
+        {
+            merged.Cooldown = levelUpData.Cooldown;
+            merged.Duration = levelUpData.Duration;
+            merged.Param = levelUpData.Param;
+            merged.Description = levelUpData.Description;
+        }
+        
+        return merged;
+    }
+    
     /// <summary>
     /// 입력 받은 아이디에 따라 데이터 반환
     /// </summary>
