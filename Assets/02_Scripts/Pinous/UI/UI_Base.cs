@@ -41,7 +41,6 @@ public class UI_Base : MonoBehaviour
     }
     public virtual void DisableOBJ()
     {
-        Camera_Event.instance.ReturnCamera();
         DisableCheck();
         if (Main_UI.instance != null)
         {
@@ -51,6 +50,7 @@ public class UI_Base : MonoBehaviour
                 Main_UI.instance.holderQueue_Action.Dequeue()?.Invoke();
             }
         }
+        Camera_Event.instance.ReturnCamera();
     }
 
     protected void DisableCheck(bool MoveChange = true)
