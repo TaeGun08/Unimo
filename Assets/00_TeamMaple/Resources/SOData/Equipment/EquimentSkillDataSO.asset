@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipmentSkillDataCsv: {fileID: 4900000, guid: 96ef69a5f1972f24bab875bbcfb80f73,
     type: 3}
+  equipmentSkillLevelUpDataSO: {fileID: 11400000, guid: 41583e445e2d4364fb9f6971ebebd6e4,
+    type: 2}
