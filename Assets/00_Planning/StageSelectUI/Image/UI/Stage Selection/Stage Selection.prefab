@@ -3523,7 +3523,7 @@ GameObject:
   - component: {fileID: 5168901224991396151}
   - component: {fileID: 5769517161050056516}
   m_Layer: 5
-  m_Name: StageSelect 1
+  m_Name: Stage Selection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
