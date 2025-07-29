@@ -18,7 +18,20 @@ public class PlayerVisualController : MonoBehaviour
     private bool isStun;
     private float specialAnimMinSpeed = 1f;
     private float specialAnimMaxSpeed = 3f;
-    
+
+    private PlayerController playerController;
+
+    private void Awake()
+    {
+        playerController =  GetComponent<PlayerController>();
+    }
+
+    private void Start()
+    {
+        characterAnimator = playerController.UnimoAnim;
+        equipAnimator = playerController.EgineAnim;
+    }
+
     public void test_InitModeling(GameObject equipPrefab, GameObject playerPrefab)
     {
         GameObject eq = Instantiate(equipPrefab, transform);

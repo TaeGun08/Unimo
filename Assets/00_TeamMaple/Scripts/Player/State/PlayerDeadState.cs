@@ -19,6 +19,6 @@ public class PlayerDeadState : PlayerState
     private void OnPlayerDead()
     {
         Debug.Log("플레이어 사망 - 게임 종료 처리");
-        PlaySystemRefStorage.playProcessController.TimeUp();
+        PlaySystemRefStorage.playProcessController.GameOver();
     }
 }

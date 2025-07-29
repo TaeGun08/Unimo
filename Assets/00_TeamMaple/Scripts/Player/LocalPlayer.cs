@@ -40,6 +40,8 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
     public Vector3 LastAttackerPos { get; private set; }
     public CombatEvent CombatEvent { get; set; }
 
+    public bool IsInvincible { get; set; }
+
     // [SerializeField] private TMP_Text remainHp;
     // public TMP_Text RemainHp => remainHp;
     public TMP_Text RemainHp;
@@ -151,6 +153,7 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
 
     public void TakeDamage(CombatEvent e)
     {
+        if (IsInvincible) return;
         CombatEvent = e;
         LastAttackerPos = e.Position;
         
