@@ -43,6 +43,8 @@ public class SkillRunner : MonoBehaviour
     private float lastTapTime = 0f;
     private const float doubleTapThreshold = 0.25f; // 더블탭 허용 간격 (초)
 
+    private bool canClick = true;
+    
     private void Awake()
     {
         Instance = this;
@@ -63,6 +65,10 @@ public class SkillRunner : MonoBehaviour
             TryUseSkill2();
         });
         
+        PlaySystemRefStorage.playProcessController.SubscribePauseAction(stopClick);
+        PlaySystemRefStorage.playProcessController.SubscribeGameoverAction(stopClick);
+        PlaySystemRefStorage.playProcessController.SubscribeResumeAction(startClick);
+        
         // 확인 버튼에 이벤트 연결
         confirmButton.onClick.AddListener(() =>
         {
@@ -74,7 +80,7 @@ public class SkillRunner : MonoBehaviour
     {
 #if UNITY_EDITOR
         // 에디터에서는 마우스 더블클릭도 지원
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && canClick)
         {
             float currentTime = Time.time;
             if (currentTime - lastTapTime < doubleTapThreshold)
@@ -101,6 +107,15 @@ public class SkillRunner : MonoBehaviour
 #endif
     }
 
+    private void stopClick()
+    {
+        canClick = false;
+    }
+    private void startClick()
+    {
+        canClick = true;
+    }
+    
     // 테스트용
     private void OnConfirmSkillChange()
     {
