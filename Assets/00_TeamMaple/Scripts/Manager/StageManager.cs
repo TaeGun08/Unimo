@@ -39,8 +39,6 @@ public class StageManager : SingletonBehaviour<StageManager>
     {
         Instance = this;
 
-        
-
         Load();
     }
 
