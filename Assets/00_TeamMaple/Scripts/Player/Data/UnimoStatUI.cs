@@ -309,6 +309,8 @@ public class UnimoStatUI : MonoBehaviour
         upgradeEngineNextBaseX = 40f;
         upgradeEngineNextBaseY = 90f; 
         
+        Debug.Log($"Base_Mng.Data.data.CharCount:: {Base_Mng.Data.data.CharCount}");
+        
         unimoStatData = unimoStatDataSo.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount, Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]);
         equipmentStatData = equipmentStatDataSo.GetFinalEquipmnetStatData(Base_Mng.Data.data.EQCount, Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1]);
         
