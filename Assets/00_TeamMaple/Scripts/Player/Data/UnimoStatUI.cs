@@ -33,7 +33,7 @@ public class UnimoStatUI : MonoBehaviour
     private float lineSpacing = 30f;
 
     private UnimoStatData unimoStatData;
-    private EquipmentStatData equipmentStatData;
+    public EquipmentStatData equipmentStatData;
     
     public void Start()
     {
