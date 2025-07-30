@@ -11,10 +11,17 @@ public enum CameraMoveState
     Offline,
     Vane,
     
+    
     Alta_LevelUP,
     Character,
-    TeaPot,
-    BonusReward
+    BonusReward,
+    
+    Cattle,
+    Cake,
+    Phonograph,
+    TypeWriter,
+    fountain
+    
 }
 [System.Serializable]
 public class CameraMoveEvent

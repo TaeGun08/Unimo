@@ -18,8 +18,6 @@ public class UI_Change : UI_Base
     {
         blueCount = (int)Base_Mng.Data.data.Blue;
 
-        Camera_Event.instance.GetCameraEvent(CameraMoveState.TeaPot);
-
         CountCheck();
 
         OrangeSlider.onValueChanged.AddListener(ValueChangeSlider_Orange);

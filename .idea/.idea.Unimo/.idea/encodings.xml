@@ -23,5 +23,6 @@
     <file url="file://$PROJECT_DIR$/Assets/02_Scripts/Play/PlaySystem/ScoreManager.cs" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/Assets/02_Scripts/Play/Player/PlayerMover_ST001.cs" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/Assets/02_Scripts/System/GameRecordManager.cs" charset="EUC-KR" />
+    <file url="file://$PROJECT_DIR$/Assets/Resources/Datas/LO_UI.csv" charset="EUC-KR" />
   </component>
 </project>
