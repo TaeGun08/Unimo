@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayTimeManager : MonoBehaviour
@@ -13,7 +14,8 @@ public class PlayTimeManager : MonoBehaviour
     private float minReduce = 1f;
     private bool isPaused;
     private ItemGenerator itemGenerator;
-    [SerializeField] private TimeGaugeController timerGauge;
+    // [SerializeField] private TimeGaugeController timerGauge;
+    [SerializeField] private TMP_Text timerText;
     void Awake()
     {
         PlaySystemRefStorage.playTimeManager = this;
@@ -23,7 +25,8 @@ public class PlayTimeManager : MonoBehaviour
     private void Start()
     {
         remainTime = maxTime;
-        timerGauge.SetGauge(remainTime / maxTime);
+        timerText.text = maxTime.ToString("F2");
+        // timerGauge.SetGauge(remainTime / maxTime);
     }
 
     // Update is called once per frame
@@ -35,6 +38,7 @@ public class PlayTimeManager : MonoBehaviour
         float rate = calcReduceRate(LapseTime);
         itemGenerator.DecreaseTick(Time.deltaTime * rate);
         ChangeTimer(-Time.deltaTime * rate);
+        timerText.text = remainTime.ToString("F2");
     }
     
     public void InitTimer()
@@ -60,7 +64,7 @@ public class PlayTimeManager : MonoBehaviour
             remainTime = 0f;
             timeUp();
         }
-        timerGauge.SetGauge(remainTime / maxTime);
+        // timerGauge.SetGauge(remainTime / maxTime);
     }
     public float GetMaxTime()
     {
