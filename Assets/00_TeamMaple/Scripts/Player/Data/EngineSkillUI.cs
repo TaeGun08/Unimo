@@ -14,6 +14,7 @@ public class EngineSkillUI : MonoBehaviour
 
    [Header("PrefabUISettings")]
    [SerializeField] private RectTransform contentParent;
+   private float currentY = 0;
    
    private void Start()
    {
@@ -40,7 +41,6 @@ public class EngineSkillUI : MonoBehaviour
    /// </summary>
    private EquipmentSkillData GetSkillData(int skillId, int level)
    {
-      Debug.Log($"GetSkillData :: {skillId}");
       return skillId != 0 
          ? EQSkillDataSO.GetFinalEquipmentSkillData(skillId, level) 
          : null;
@@ -57,12 +57,16 @@ public class EngineSkillUI : MonoBehaviour
    /// </summary>
    private void SetSkillData(EquipmentSkillData data)
    {
-      Debug.Log($"SetSkillData :: {data.Id} =============================");
-      
       if(data == null) return;
       
       GameObject tmp = Instantiate(skillUIPrefab, contentParent, false);
       TMP_Text[] tmps = tmp.GetComponentsInChildren<TMP_Text>();
+      RectTransform rt = tmp.GetComponent<RectTransform>();
+      
+      float startY = 150f;
+      float offsetY = startY - (250f * currentY);
+      rt.anchoredPosition = new Vector2(0f, offsetY);
+      currentY++;
       
       tmps[0].text = data.Id.ToString();
       tmps[1].text = data.Name;
