@@ -16,8 +16,8 @@ public class EquipmentSkillData
     public int Id { get; set; }    // 엔진 스킬 아이디
     public string Name { get; set; }    // 엔진 스킬 이름
     public EquipmentSkillType Type { get; set; }    // 엔진 스킬 타입 (패시브 or 액티브)
-    public int Cooldown { get; set; }   // 엔진 스킬 쿨타임
-    public int Duration { get; set; }   // 엔진 스킬 지속시간
+    public float Cooldown { get; set; }   // 엔진 스킬 쿨타임
+    public float Duration { get; set; }   // 엔진 스킬 지속시간
     public float Param { get; set; }   // 엔진 스킬 파라미터
     public string Description { get; set; }    // 엔진 스킬 설명
 }

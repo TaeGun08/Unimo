@@ -34,9 +34,9 @@ public class HpGaugeController : MonoBehaviour
         
         SetGauge(1);
         
-        PlaySystemRefStorage.playProcessController.SubscribePauseAction(stopCaution);
-        PlaySystemRefStorage.playProcessController.SubscribeGameoverAction(stopCaution);
-        PlaySystemRefStorage.playProcessController.SubscribeResumeAction(startCaution);
+        // PlaySystemRefStorage.playProcessController.SubscribePauseAction(stopCaution);
+        // PlaySystemRefStorage.playProcessController.SubscribeGameoverAction(stopCaution);
+        // PlaySystemRefStorage.playProcessController.SubscribeResumeAction(startCaution);
     }
 
     private void Update()

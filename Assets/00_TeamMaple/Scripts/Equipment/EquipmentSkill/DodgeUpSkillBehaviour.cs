@@ -28,7 +28,7 @@ public class DodgeUpSkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviour
         }
     }
     
-    private IEnumerator ActiveDodgeUp(ClampedFloat dodge, int duration, float addDodge)
+    private IEnumerator ActiveDodgeUp(ClampedFloat dodge, float duration, float addDodge)
     {
         dodge.Add(addDodge);    // 회피율 일시 증가
         yield return new WaitForSeconds(duration);    // duration초 대기

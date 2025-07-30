@@ -39,12 +39,7 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
     private PlayerController playerController;
     public Vector3 LastAttackerPos { get; private set; }
     public CombatEvent CombatEvent { get; set; }
-
     public bool IsInvincible { get; set; }
-
-    // [SerializeField] private TMP_Text remainHp;
-    // public TMP_Text RemainHp => remainHp;
-    public TMP_Text RemainHp;
     
     // --------------테스트--------------
     [SerializeField] private Button unimoLevelDownButton;
@@ -120,12 +115,6 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
 
         // 10초마다 체력 회복
         StartCoroutine(HpRecoveryCoroutine(PlayerStatHolder.HpRecovery.Value));
-    }
-
-    private void Update()
-    {
-        if (RemainHp == null) return;
-        RemainHp.text = PlayerStatHolder.Hp.Value.ToString();
     }
 
     // StatCalculator의 UnimoStatData에 값 넣어주기

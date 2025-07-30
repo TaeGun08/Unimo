@@ -51,7 +51,7 @@ public class AuraController : MonoBehaviour
     }
 
     // 오라 크기 증가 후 복구
-    public void ChangeScale(int next, int duration)
+    public void ChangeScale(int next, float duration)
     {
         // 만약 이미 변경 중이라면 기존 코루틴 중단
         if (changeScaleCoroutine != null)
@@ -61,7 +61,7 @@ public class AuraController : MonoBehaviour
         changeScaleCoroutine = StartCoroutine(ChangeScaleCoroutine(next, duration));
     }
     
-    private IEnumerator ChangeScaleCoroutine(int next, int duration)
+    private IEnumerator ChangeScaleCoroutine(int next, float duration)
     {
         float elapsed = 0f;
         Vector3 startScale = transform.localScale;

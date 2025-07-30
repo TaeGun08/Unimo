@@ -31,7 +31,7 @@ public class DamageToHealSkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviou
         }
     }
     
-    private IEnumerator ActiveDamageToHeal(int duration)
+    private IEnumerator ActiveDamageToHeal(float duration)
     {
         statHolder.SetDamageToHeal(true);    // IsDamageToHeal -> true로 설정
         yield return new WaitForSeconds(duration);    // duration초 대기

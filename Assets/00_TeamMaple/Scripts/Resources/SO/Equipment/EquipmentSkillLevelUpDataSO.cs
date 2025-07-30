@@ -9,8 +9,8 @@ public class EquipmentSkillLevelUpData
 {
     public int Id { get; set; }
     public int Level { get; set; }
-    public int Cooldown { get; set; }
-    public int Duration { get; set; }
+    public float Cooldown { get; set; }
+    public float Duration { get; set; }
     public float Param { get; set; }   // 엔진 스킬 파라미터
     public string Description { get; set; }
 }

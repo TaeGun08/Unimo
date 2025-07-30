@@ -4,7 +4,7 @@ using UnityEngine;
 // 피격 무효화 스킬
 public class HitInvalidationSkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviour
 {
-    private int passiveCooldown;
+    private float passiveCooldown;
     
     private Coroutine passiveCoroutine;
     private Coroutine passiveCooldownCoroutine;
@@ -61,7 +61,7 @@ public class HitInvalidationSkillBehaviour : MonoBehaviour, IEquipmentSkillBehav
         passiveCoroutine = null;
     }
     
-    private IEnumerator ActiveInvincible(int duration)
+    private IEnumerator ActiveInvincible(float duration)
     {
         statHolder.GiveInvincible();    // 무적 부여
         yield return new WaitForSeconds(duration);    // 액티브 지속시간 대기
