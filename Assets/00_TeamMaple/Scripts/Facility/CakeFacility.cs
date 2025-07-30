@@ -8,6 +8,10 @@ public class CakeFacility : MonoBehaviour
     [SerializeField] private Data_Mng dataMng;
     [SerializeField] private float productionInterval = 11520f; // 8 hours
     [SerializeField] private int maxPending = 10;
+    
+    public float GetProductionInterval() => productionInterval;
+    public float GetCurrentTimer() => timer;
+    public int GetMaxPending() => maxPending;
 
     private float timer = 0f;
     private int pendingAmount = 0;
@@ -25,6 +29,7 @@ public class CakeFacility : MonoBehaviour
     private void Start()
     {
         CalculateOfflineProduction();
+        StartProduction();
     }
 
     private void Update()
