@@ -11,7 +11,8 @@ public class UI_Costume : UI_Base
     public GameObject[] Objs;
 
     public TextMeshProUGUI TitleText;
-    
+
+    public UnimoStatUI UnimoStatUI;
     public GameObject UnimoUpGradePanel;
     public GameObject EngineUpGradePanel;
 
@@ -38,14 +39,14 @@ public class UI_Costume : UI_Base
     public void CharacterChange(int value)
     {
         Costumer.ChangeCharacter(value + 1);
-        
+        UnimoStatUI.RefreshUI();
         UnimoUpGradePanel.SetActive(true);
     }
 
     public void EQChange(int value)
     {
         Costumer.ChangeEquip(value + 1);
-        
+        UnimoStatUI.RefreshUI();
         EngineUpGradePanel.SetActive(true);
     }
 
