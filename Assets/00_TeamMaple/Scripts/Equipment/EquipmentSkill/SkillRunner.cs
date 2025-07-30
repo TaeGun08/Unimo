@@ -7,11 +7,20 @@ using UnityEngine.UI;
 
 public class SkillRunner : MonoBehaviour
 {
+    public static SkillRunner Instance;
+    
     [SerializeField] private PrefabsTable skillTable;
     [SerializeField] private GameObject player;
     
     [SerializeField] private EquipmentStatDataSO equipmentStatDataSo;
     [SerializeField] private EquipmentSkillDataSO skillDataSo;
+    
+    [Header("UI Settings")]
+    [SerializeField] private Button activeSkillButton;
+    [SerializeField] private Image skill1CooldownFill;
+    [SerializeField] private TMP_Text skill1CooldownText;
+    [SerializeField] private Image skill2CooldownFill;
+    [SerializeField] private TMP_Text skill2CooldownText;
 
     [Header("Skill Change UI")]
     [SerializeField] private TMP_InputField skillInput1;
@@ -33,7 +42,12 @@ public class SkillRunner : MonoBehaviour
     
     private float lastTapTime = 0f;
     private const float doubleTapThreshold = 0.25f; // 더블탭 허용 간격 (초)
-    
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     private void Start()
     {
         engineStatData = equipmentStatDataSo.GetEquipmentStatData(Base_Mng.Data.data.EQCount);
@@ -43,6 +57,11 @@ public class SkillRunner : MonoBehaviour
         var skillId2 = engineStatData.Skill2;
         
         SetEngineSkills(skillId1, skillId2);
+
+        activeSkillButton.onClick.AddListener(() =>
+        {
+            TryUseSkill2();
+        });
         
         // 확인 버튼에 이벤트 연결
         confirmButton.onClick.AddListener(() =>
@@ -167,13 +186,65 @@ public class SkillRunner : MonoBehaviour
         skill2CooldownCoroutine = StartCoroutine(Skill2Cooldown(skillData2.Cooldown));
     }
     
+    public void StartSkill1Cooldown(float cooldown)
+    {
+        StartCoroutine(Skill1Cooldown(cooldown));
+    }
+    
+    private IEnumerator Skill1Cooldown(float cooldown)
+    {
+        Debug.Log($"[Skill1] 쿨타임 시작 ({cooldown}초)");
+        
+        float timer = cooldown;
+        
+        // UI 활성화
+        skill1CooldownText.gameObject.SetActive(true);
+        skill1CooldownFill.gameObject.SetActive(true);
+
+        while (timer > 0f)
+        {
+            // UI 업데이트
+            skill1CooldownText.text = Mathf.Ceil(timer).ToString("F0");
+            skill1CooldownFill.fillAmount = timer / cooldown;
+            
+            timer -= Time.deltaTime;
+            yield return null;
+        }
+        
+        // 쿨타임 종료 시 UI 비활성화/초기화
+        skill1CooldownText.gameObject.SetActive(false);
+        skill2CooldownText.text = "";
+        skill1CooldownFill.fillAmount = 0f;
+        
+        Debug.Log("[Skill1] 쿨타임 종료");
+    }
+    
     private IEnumerator Skill2Cooldown(float cooldown)
     {
         isSkill2OnCooldown = true;
         Debug.Log($"[Skill2] 쿨타임 시작 ({cooldown}초)");
         
-        yield return new WaitForSeconds(cooldown);
+        float timer = cooldown;
+
+        // UI 활성화
+        skill2CooldownText.gameObject.SetActive(true);
+        skill2CooldownFill.gameObject.SetActive(true);
         
+        while (timer > 0f)
+        {
+            // UI 업데이트
+            skill2CooldownText.text = Mathf.Ceil(timer).ToString("F0"); // 정수 초 표시
+            skill2CooldownFill.fillAmount = timer / cooldown; // 1~0로 감소
+
+            timer -= Time.deltaTime;
+            yield return null;
+        }
+        
+        // 쿨타임 종료 시 UI 비활성화/초기화
+        skill2CooldownText.gameObject.SetActive(false);
+        skill2CooldownText.text = "";
+        skill2CooldownFill.fillAmount = 0f;
+
         isSkill2OnCooldown = false;
         Debug.Log("[Skill2] 쿨타임 종료");
     }

@@ -7,6 +7,7 @@ public class HitInvalidationSkillBehaviour : MonoBehaviour, IEquipmentSkillBehav
     private int passiveCooldown;
     
     private Coroutine passiveCoroutine;
+    private Coroutine passiveCooldownCoroutine;
     private Coroutine activeCoroutine;
     private PlayerStatHolder statHolder;
     
@@ -50,13 +51,12 @@ public class HitInvalidationSkillBehaviour : MonoBehaviour, IEquipmentSkillBehav
             StopCoroutine(passiveCoroutine);
         }
         passiveCoroutine = StartCoroutine(PassiveCooldown());
+        SkillRunner.Instance.StartSkill1Cooldown(passiveCooldown);
     }
 
     private IEnumerator PassiveCooldown()
     {
-        Debug.Log($"[Skill1] 쿨타임 시작 ({passiveCooldown}초)");
         yield return new WaitForSeconds(passiveCooldown);    // 패시브 쿨타임 대기
-        Debug.Log("[Skill1] 쿨타임 종료");
         statHolder.GiveOnceInvalid();    // 다시 1회 피격 무효 부여
         passiveCoroutine = null;
     }

@@ -29,7 +29,7 @@ public class PlayerHitState : PlayerState
             }
             else
             {
-                int damage = Mathf.Max(10, LocalPlayer.CombatEvent.Damage - (int)(statHolder.Def.Value * 0.1f));
+                int damage = Mathf.Max(10, LocalPlayer.CombatEvent.Damage - (int)(statHolder.Def.Value * 0.1f));    // 방어력 계산
                 Debug.Log($" statHolder.IsDamageToHeal :: {statHolder.IsDamageToHeal}");
                 
                 // 피격 데미지를 체력 회복으로 전환 스킬 On인 경우
