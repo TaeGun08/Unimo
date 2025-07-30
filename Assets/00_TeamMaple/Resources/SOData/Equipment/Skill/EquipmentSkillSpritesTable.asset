@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be45af7e2c4d4814ca2556aaff13a3fb, type: 3}
+  m_Name: EquipmentSkillSpritesTable
+  m_EditorClassIdentifier: 
+  spriteEntries:
+  - spriteKey: 2001
+    sprite: {fileID: 21300000, guid: 945373d6e70b9cd46a163a48f1f3faf4, type: 3}
+  - spriteKey: 2002
+    sprite: {fileID: 21300000, guid: 5c645b5919c3d8f4ba188ac8cbcd4b08, type: 3}
+  - spriteKey: 2003
+    sprite: {fileID: 21300000, guid: 5a9fca2e277d2d744bbfc64d4b3d35c6, type: 3}
+  - spriteKey: 2004
+    sprite: {fileID: 21300000, guid: 7b3caecd535d3304fa10852c80453470, type: 3}
+  - spriteKey: 2005
+    sprite: {fileID: 21300000, guid: 28f548c65cc43dc4cb15890bb1307990, type: 3}
+  - spriteKey: 2006
+    sprite: {fileID: 21300000, guid: dbb0ae7a5ff14434a8ce5fc0ead4d9f0, type: 3}
+  - spriteKey: 2007
+    sprite: {fileID: 21300000, guid: 82044b413421df347a992772c6483b1a, type: 3}
+  - spriteKey: 2008
+    sprite: {fileID: 21300000, guid: 1455ac14de3a58d489c663a0b5fced31, type: 3}
+  - spriteKey: 2009
+    sprite: {fileID: 21300000, guid: c0f960e24b325f94d9816282e56ea5c6, type: 3}
+  - spriteKey: 2010
+    sprite: {fileID: 21300000, guid: 17d8140d945b212449a298128ee23136, type: 3}
+  - spriteKey: 2011
+    sprite: {fileID: 21300000, guid: 812ebd0af81645e4586a86e8bf6d3fa0, type: 3}
+  - spriteKey: 2012
+    sprite: {fileID: 21300000, guid: 8479c7e71210107488d0b76ff465b3f9, type: 3}
+  - spriteKey: 2013
+    sprite: {fileID: 21300000, guid: 4e8b57d8b46828b4faa4e0db5e98d8bb, type: 3}
+  - spriteKey: 2014
+    sprite: {fileID: 21300000, guid: 4012fe1b6d523fc4bb9d7156c52f5108, type: 3}
+  - spriteKey: 2015
+    sprite: {fileID: 21300000, guid: 75116e68f41c5ce4fa8462eac2978da9, type: 3}
+  - spriteKey: 2016
+    sprite: {fileID: 21300000, guid: 179a6a0a3ccc5bb4da3dd6b187275bbb, type: 3}
+  - spriteKey: 2017
+    sprite: {fileID: 21300000, guid: 9f6f2130fc43f2b42913ee45f0c39002, type: 3}
+  - spriteKey: 2018
+    sprite: {fileID: 21300000, guid: 7875dea29411f8e43b756b5765de8579, type: 3}
+  - spriteKey: 2019
+    sprite: {fileID: 21300000, guid: f8da1de4880221c4d986aece6d2a6597, type: 3}
+  - spriteKey: 2020
+    sprite: {fileID: 21300000, guid: 90efd6b81ed1a0f4c88bf6c027b2465a, type: 3}
+  - spriteKey: 2021
+    sprite: {fileID: 21300000, guid: 3df9b199ed409c8499be69a67da02694, type: 3}
+  - spriteKey: 2022
+    sprite: {fileID: 21300000, guid: a2a0ce58131c26043a528f72dc99f37a, type: 3}
+  - spriteKey: 2023
+    sprite: {fileID: 21300000, guid: da769dcfc4b525745bad84571d3a127e, type: 3}
+  - spriteKey: 2024
+    sprite: {fileID: 21300000, guid: d1c33c6e25507774c8e5b392845c22ff, type: 3}
+  - spriteKey: 2025
+    sprite: {fileID: 21300000, guid: 18c38925cd09acd4f95c09ec14e2f5d6, type: 3}
+  - spriteKey: 2026
+    sprite: {fileID: 21300000, guid: 3c7ab13e1936e89469b5b47f888cb307, type: 3}
+  - spriteKey: 2027
+    sprite: {fileID: 21300000, guid: ca602d822b69173429a4233dccab8dfc, type: 3}

@@ -14,11 +14,16 @@ public class SkillRunner : MonoBehaviour
     
     [SerializeField] private EquipmentStatDataSO equipmentStatDataSo;
     [SerializeField] private EquipmentSkillDataSO skillDataSo;
+    [SerializeField] private SpriteTable skillSpriteTable;
     
     [Header("UI Settings")]
     [SerializeField] private Button activeSkillButton;
+    
+    [SerializeField] private Image skill1Sprite;
     [SerializeField] private Image skill1CooldownFill;
     [SerializeField] private TMP_Text skill1CooldownText;
+    
+    [SerializeField] private Image skill2Sprite;
     [SerializeField] private Image skill2CooldownFill;
     [SerializeField] private TMP_Text skill2CooldownText;
 
@@ -58,6 +63,7 @@ public class SkillRunner : MonoBehaviour
         var skillId1 = engineStatData.Skill1;
         var skillId2 = engineStatData.Skill2;
         
+        SetSkillsSprite(skillId1, skillId2);
         SetEngineSkills(skillId1, skillId2);
 
         activeSkillButton.onClick.AddListener(() =>
@@ -126,6 +132,21 @@ public class SkillRunner : MonoBehaviour
 
         Debug.Log($"[SkillChange] Skill1: {id1}, Skill2: {id2}");
 
+        LocalPlayer.Instance.TestSetPlayerStats();
+        
+        // 쿨타임 종료 시 UI 비활성화/초기화
+        skill1CooldownText.gameObject.SetActive(false);
+        skill1CooldownText.text = "";
+        skill1CooldownFill.gameObject.SetActive(false);
+        skill1CooldownFill.fillAmount = 0f;
+        
+        // 쿨타임 종료 시 UI 비활성화/초기화
+        skill2CooldownText.gameObject.SetActive(false);
+        skill2CooldownText.text = "";
+        skill2CooldownFill.gameObject.SetActive(false);
+        skill2CooldownFill.fillAmount = 0f;
+        
+        SetSkillsSprite(id1, id2);
         SetEngineSkills(id1, id2); // 새로운 스킬로 교체
 
         isSkill2OnCooldown = false;
@@ -168,12 +189,35 @@ public class SkillRunner : MonoBehaviour
             else
             {
                 skillExcutor2 = skillPrefab2.GetComponent<IEquipmentSkillBehaviour>();
-                skillData2 = skillDataSo.GetEquipmentSkillData(skillId2);
+                skillData2 = skillDataSo.GetFinalEquipmentSkillData(skillId2, engineStatData.Level);
             }
         }
         else
         {
             Debug.Log("[Skill2] 스킬 없음 (ID=0)");
+        }
+    }
+
+    private void SetSkillsSprite(int skillId1, int skillId2)
+    {
+        if (skillId1 != 0)
+        {
+            skill1Sprite.gameObject.SetActive(true);
+            skill1Sprite.sprite = skillSpriteTable.GetSpriteByKey(skillId1);
+        }
+        else
+        {
+            skill1Sprite.gameObject.SetActive(false);
+        }
+        
+        if (skillId2 != 0)
+        {
+            skill2Sprite.gameObject.SetActive(true);
+            skill2Sprite.sprite = skillSpriteTable.GetSpriteByKey(skillId2);
+        }
+        else
+        {
+            skill2Sprite.gameObject.SetActive(false);
         }
     }
     
@@ -228,7 +272,8 @@ public class SkillRunner : MonoBehaviour
         
         // 쿨타임 종료 시 UI 비활성화/초기화
         skill1CooldownText.gameObject.SetActive(false);
-        skill2CooldownText.text = "";
+        skill1CooldownText.text = "";
+        skill1CooldownFill.gameObject.SetActive(false);
         skill1CooldownFill.fillAmount = 0f;
         
         Debug.Log("[Skill1] 쿨타임 종료");
@@ -258,6 +303,7 @@ public class SkillRunner : MonoBehaviour
         // 쿨타임 종료 시 UI 비활성화/초기화
         skill2CooldownText.gameObject.SetActive(false);
         skill2CooldownText.text = "";
+        skill2CooldownFill.gameObject.SetActive(false);
         skill2CooldownFill.fillAmount = 0f;
 
         isSkill2OnCooldown = false;

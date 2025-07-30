@@ -5,9 +5,15 @@ using UnityEngine;
 public class HpRecoverySkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviour
 {
     private Coroutine passiveCoroutine;
+
+    private int maxHp;
+    private ClampedInt hp;
     
     public void Excute(GameObject caster, EquipmentSkillData skillData)
     {
+        maxHp = LocalPlayer.Instance.StatCalculator.Hp;    // 정해진 Hp 최대값
+        hp = LocalPlayer.Instance.PlayerStatHolder.Hp;    // 변경 가능한 Hp 값
+        
         switch (skillData.Type)
         {
             case EquipmentSkillType.Passive:
@@ -26,9 +32,6 @@ public class HpRecoverySkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviour
     
     private IEnumerator PassiveHpRecovery(float percentPerSec)
     {
-        var maxHp = LocalPlayer.Instance.StatCalculator.Hp;    // 정해진 Hp 최대값
-        var hp = LocalPlayer.Instance.PlayerStatHolder.Hp;    // 변경 가능한 Hp 값
-
         while (true)
         {
             int baseHp = maxHp;
@@ -41,8 +44,7 @@ public class HpRecoverySkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviour
 
     private void ActiveHpRegen(float percent)
     {
-        var hp = LocalPlayer.Instance.PlayerStatHolder.Hp;    // 기존 값
-        var addHp = (int)(hp.Value * percent);    // 기존 값 * 증가 퍼센트
+        var addHp = (int)(maxHp * percent);    // 기존 값 * 증가 퍼센트
         hp.Add(addHp);    // 체력 증가
     }
 }

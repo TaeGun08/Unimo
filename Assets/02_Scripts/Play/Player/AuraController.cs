@@ -43,7 +43,7 @@ public class AuraController : MonoBehaviour
     {
         playerStatHolder = LocalPlayer.Instance.PlayerStatHolder;
         
-        transform.localScale = playerStatHolder.BloomRange.Value *  Vector3.one;
+        transform.localScale = playerStatHolder.BloomRange.Value * Vector3.one;
         originalScale = transform.localScale;
         
         growthperSec = playerStatHolder.BloomSpeed.Value;

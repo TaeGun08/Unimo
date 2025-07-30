@@ -166,7 +166,7 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
     
     // -------------------테스트----------------------
     
-    private void TestSetPlayerStats()
+    public void TestSetPlayerStats()
     {
         StopCoroutine(HpRecoveryCoroutine(PlayerStatHolder.HpRecovery.Value));
         SetPlayerStats();
