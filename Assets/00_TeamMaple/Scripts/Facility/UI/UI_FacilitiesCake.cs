@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.Collections.Generic;
 
 public class UI_FacilitiesCake : UI_Base
 {
@@ -10,10 +11,11 @@ public class UI_FacilitiesCake : UI_Base
     [SerializeField] private TextMeshProUGUI infoText;
     [SerializeField] private TextMeshProUGUI storageText;
     [SerializeField] private TextMeshProUGUI intervalText;
-    [SerializeField] private Transform flowerRoot;
+    [SerializeField] private List<GameObject> greenFlowers;
 
     private void OnEnable()
     {
+        
         exitButton.onClick.AddListener(CloseSelf);
         collectButton.onClick.AddListener(OnClick_Collect);
 
@@ -47,12 +49,31 @@ public class UI_FacilitiesCake : UI_Base
 
         storageText.text = $"{current} / {max}";
 
-        for (int i = 0; i < flowerRoot.childCount; i++)
+        for (int i = 0; i < greenFlowers.Count; i++)
         {
-            var green = flowerRoot.GetChild(i).Find("Flower(green)").gameObject;
-            green.SetActive(i < current);
+            var flower = greenFlowers[i];
+            var image = flower.GetComponent<Image>();
+
+            // 1) 현재까지 채워진 별꿀만 활성화하고 fillAmount 1로 고정
+            if (i < current)
+            {
+                flower.SetActive(true);
+                if (image != null) image.fillAmount = 1f;
+            }
+            // 2) 진행 중인 다음 꽃은 활성화만 시키고, fillAmount는 UpdateTimer에서 채움
+            else if (i == current)
+            {
+                flower.SetActive(true);
+                if (image != null) image.fillAmount = 0f; // 이후에 채워짐
+            }
+            // 3) 그 이후는 꺼두기
+            else
+            {
+                flower.SetActive(false);
+            }
         }
     }
+
 
     private void UpdateTimer()
     {
@@ -60,10 +81,19 @@ public class UI_FacilitiesCake : UI_Base
 
         float interval = CakeFacility.Instance.GetProductionInterval();
         float currentTimer = CakeFacility.Instance.GetCurrentTimer();
-
         float remain = Mathf.Clamp(interval - currentTimer, 0f, interval);
+
         TimeSpan ts = TimeSpan.FromSeconds(remain);
         intervalText.text = $"{ts.Hours}:{ts.Minutes:D2}:{ts.Seconds:D2}";
+
+        int current = CakeFacility.Instance.GetPendingReward();
+        float fillRatio = Mathf.Clamp01(currentTimer / interval);
+
+        if (current < greenFlowers.Count)
+        {
+            var image = greenFlowers[current].GetComponent<Image>();
+            if (image != null) image.fillAmount = fillRatio;
+        }
     }
 
     private void OnClick_Collect()
@@ -75,16 +105,12 @@ public class UI_FacilitiesCake : UI_Base
 
         CakeFacility.Instance.CollectReward();
 
-        for (int i = 0; i < flowerRoot.childCount; i++)
-        {
-            var green = flowerRoot.GetChild(i).Find("Flower(green)").gameObject;
-            green.SetActive(false);
-        }
+        foreach (var flower in greenFlowers)
+            flower.SetActive(false);
 
-        if (current > 0)
+        if (current > 0 && greenFlowers.Count > 0)
         {
-            var green = flowerRoot.GetChild(0).Find("Flower(green)").gameObject;
-            green.SetActive(true);
+            greenFlowers[0].SetActive(true);
             storageText.text = $"1 / {max}";
         }
         else
@@ -92,6 +118,7 @@ public class UI_FacilitiesCake : UI_Base
             storageText.text = $"0 / {max}";
         }
     }
+
 
     private void CloseSelf()
     {

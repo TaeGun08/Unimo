@@ -5,8 +5,8 @@ public class CakeFacility : MonoBehaviour
 {
     public static CakeFacility Instance { get; private set; }
 
-    [SerializeField] private Data_Mng dataMng;
-    [SerializeField] private float productionInterval = 11520f; // 8 hours
+    private Data_Mng dataMng;
+    [SerializeField] private float productionInterval = 100f; // 8 hours
     [SerializeField] private int maxPending = 10;
     
     public float GetProductionInterval() => productionInterval;
@@ -24,6 +24,7 @@ public class CakeFacility : MonoBehaviour
     {
         Instance = this;
         pendingAmount = PlayerPrefs.GetInt(PendingKey, 0);
+        dataMng = Base_Mng.Data;
     }
 
     private void Start()
@@ -93,7 +94,6 @@ public class CakeFacility : MonoBehaviour
     public void StartProduction()
     {
         isProducing = true;
-        timer = 0f;
     }
 
     public void StopProduction()

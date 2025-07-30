@@ -63806,8 +63806,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19ae2876e2e3d40418ee322f0c049270, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraMover: 0
-  state: 0
+  CameraMover: 1
+  state: 5
   ResourcesName: '##Character'
 --- !u!208 &6743997290226768241
 NavMeshObstacle:
@@ -69618,7 +69618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19ae2876e2e3d40418ee322f0c049270, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraMover: 0
+  CameraMover: 1
   state: 10
   ResourcesName: '##FacilitiesTypeWriter'
 --- !u!65 &7370824839516978922
@@ -76064,6 +76064,7 @@ GameObject:
   - component: {fileID: 8054430240673361256}
   - component: {fileID: 8054430240673361257}
   - component: {fileID: 8054430240673361258}
+  - component: {fileID: 8054430240673361259}
   m_Layer: 0
   m_Name: Cake_low (1)
   m_TagString: Untagged
@@ -76394,7 +76395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19ae2876e2e3d40418ee322f0c049270, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraMover: 0
+  CameraMover: 1
   state: 8
   ResourcesName: '##FacilitiesCake'
 --- !u!65 &8054430240673361258
@@ -76418,6 +76419,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.339966, y: 2.058908, z: 2.2627017}
   m_Center: {x: -1.6628743, y: 1.0294559, z: -0.84931755}
+--- !u!114 &8054430240673361259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7980800632539860643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c98dea03bd7ee441a78b3b7203d6845, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  productionInterval: 240
+  maxPending: 10
 --- !u!114 &8075917867019591718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76608,39 +76623,64 @@ MonoBehaviour:
   events:
   - State: 0
     Pos: {fileID: 3572636216417798385}
-    Plus_Pos: {x: 5, y: 10, z: 0}
+    Plus_Pos: {x: 0, y: 5, z: 0}
     rotation: {x: 0, y: -2, z: 0}
     fieldView: 15
   - State: 4
     Pos: {fileID: 3572636216417798385}
-    Plus_Pos: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0}
-    fieldView: 0
+    Plus_Pos: {x: 0, y: 5, z: 0}
+    rotation: {x: 0, y: -2, z: 0}
+    fieldView: 30
   - State: 7
     Pos: {fileID: 7888920483918194318}
-    Plus_Pos: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0}
-    fieldView: 0
+    Plus_Pos: {x: -2, y: 1, z: -2}
+    rotation: {x: 0, y: -5, z: 0}
+    fieldView: 10
   - State: 8
     Pos: {fileID: 5773780804901304330}
-    Plus_Pos: {x: -5, y: 2, z: -5}
-    rotation: {x: 0, y: -2, z: 0}
+    Plus_Pos: {x: -2, y: 1, z: 2}
+    rotation: {x: 0, y: -5, z: 0}
     fieldView: 15
   - State: 9
     Pos: {fileID: 1834748611030403160}
     Plus_Pos: {x: -2, y: 1, z: -2}
-    rotation: {x: 30, y: -5, z: 0}
+    rotation: {x: 0, y: -5, z: 0}
     fieldView: 15
   - State: 10
     Pos: {fileID: 3943580832365032404}
-    Plus_Pos: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0}
-    fieldView: 0
+    Plus_Pos: {x: -2, y: 1, z: 2}
+    rotation: {x: 0, y: -5, z: 0}
+    fieldView: 15
   - State: 11
     Pos: {fileID: 4807676754254343846}
-    Plus_Pos: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0}
+    Plus_Pos: {x: 0, y: 3, z: 3}
+    rotation: {x: 30, y: -10, z: 0}
     fieldView: 0
+  - State: 1
+    Pos: {fileID: 4807676754254343846}
+    Plus_Pos: {x: 0, y: 5, z: 0}
+    rotation: {x: 0, y: 90, z: 0}
+    fieldView: 30
+  - State: 3
+    Pos: {fileID: 828754556457556522}
+    Plus_Pos: {x: 5, y: 5, z: 5}
+    rotation: {x: 0, y: -25, z: 0}
+    fieldView: 15
+  - State: 2
+    Pos: {fileID: 3572636216417798385}
+    Plus_Pos: {x: 0, y: 10, z: 0}
+    rotation: {x: 0, y: -50, z: 0}
+    fieldView: 45
+  - State: 6
+    Pos: {fileID: 4807676754254343846}
+    Plus_Pos: {x: 0, y: 5, z: 0}
+    rotation: {x: 0, y: 90, z: 0}
+    fieldView: 15
+  - State: 5
+    Pos: {fileID: 4589109546872325090}
+    Plus_Pos: {x: 2, y: -4, z: 5}
+    rotation: {x: 0, y: 30, z: 0}
+    fieldView: 15
 --- !u!114 &8122633699489810126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81905,7 +81945,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19ae2876e2e3d40418ee322f0c049270, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraMover: 0
+  CameraMover: 1
   state: 11
   ResourcesName: '##FacilitiesFountain'
 --- !u!65 &8437378575198626054
