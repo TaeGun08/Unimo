@@ -3366,6 +3366,11 @@ MonoBehaviour:
   equipmentStatDataSo: {fileID: 11400000, guid: 5c1e008d9caf25c4c96cfeddb9d9d1be,
     type: 2}
   skillDataSo: {fileID: 11400000, guid: 28cf012214853794489021f808449e17, type: 2}
+  activeSkillButton: {fileID: 1374077320960792889}
+  skill1CooldownFill: {fileID: 1983491794}
+  skill1CooldownText: {fileID: 889042430}
+  skill2CooldownFill: {fileID: 680570475}
+  skill2CooldownText: {fileID: 2063845027}
   skillInput1: {fileID: 136021736}
   skillInput2: {fileID: 2145344856}
   confirmButton: {fileID: 797756948}
@@ -5007,7 +5012,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &680570474
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6686,7 +6691,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &889042429
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10010,7 +10015,8 @@ MonoBehaviour:
   ScoreText: {fileID: 0}
   ADSButton: {fileID: 8454269295379800024}
   starBar: {fileID: 944078672}
-  starText: {fileID: 932271061}
+  starsTrs: []
+  flowerTexts: []
 --- !u!1 &1581787323
 GameObject:
   m_ObjectHideFlags: 0
@@ -12077,7 +12083,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1983491793
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12976,7 +12982,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2063845026
 RectTransform:
   m_ObjectHideFlags: 0
