@@ -13,10 +13,26 @@ public class UI_Game : UI_Base
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private GameObject[] starImg;
     [SerializeField] private GameObject bonusStageButton;
-
+    [SerializeField] private GameObject selectStageUI;
+    [SerializeField] private GameObject starRewardUI;
+    [SerializeField] private TMP_Text getStarText;
+    
+    [Header("Equipped")]
+    [SerializeField] private GetUnimoAndEngineImageSO so;
+    [SerializeField] private Image[] images;
+    
+    [Header("SelectStage")]
+    [SerializeField] private SelectStage selectStage;
+    
     private void OnEnable()
     {
         stageCount = Base_Mng.Data.data.HighStage;
+        
+        images[0].sprite = so.GetSprites.UnimoSprite[Base_Mng.Data.data.CharCount - 1];
+        images[1].sprite = so.GetSprites.EngineSprite[Base_Mng.Data.data.EQCount - 1];
+
+        selectStage.stage = 1;
+        
         UpdateStar();
         SetStageText();
         BonusStageOn();
@@ -30,6 +46,9 @@ public class UI_Game : UI_Base
         base.Start();
 
         stageCount = Base_Mng.Data.data.HighStage;
+        
+        selectStage.stage = 1;
+        
         UpdateStar();
         SetStageText();
         BonusStageOn();
@@ -158,5 +177,20 @@ public class UI_Game : UI_Base
                 starImg[i].SetActive(false);
             }
         }
+    }
+
+    public void ActiveTrueStage()
+    {
+        selectStageUI.SetActive(true);
+    }
+
+    public void ActiveFalseStage()
+    {
+        selectStageUI.SetActive(false);
+    }
+    
+    public void ActiveTrueReward()
+    {
+        starRewardUI.SetActive(true);
     }
 }
