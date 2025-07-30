@@ -25,15 +25,20 @@ public class PlayerController : MonoBehaviour
         
         StatesDic = new Dictionary<IPlayerState.EState, PlayerState>();
         
+        PlayerVisualController visualController = GetComponent<PlayerVisualController>();
+        
         foreach (PlayerState playerSate in playerSates)
         {
             StatesDic.Add(playerSate.State, playerSate);
             StatesDic[playerSate.State].PlayerController = this;
+            StatesDic[playerSate.State].VisualController = visualController;
             playerSate.gameObject.SetActive(false);
         }
         
         CurrentState = StatesDic[IPlayerState.EState.Idle];
         CurrentState.gameObject.SetActive(true);
+        
+        UnimoAnim.Play("Appear");
     }
 
     public void ChangeState(IPlayerState.EState newState)

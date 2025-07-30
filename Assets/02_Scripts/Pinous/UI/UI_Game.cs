@@ -16,7 +16,7 @@ public class UI_Game : UI_Base
 
     private void OnEnable()
     {
-        stageCount = Base_Mng.Data.data.CurrentStage;
+        stageCount = Base_Mng.Data.data.HighStage;
         UpdateStar();
         SetStageText();
         BonusStageOn();
@@ -29,7 +29,7 @@ public class UI_Game : UI_Base
         GameTwoBest.text = "Best Score\n" + StringMethod.ToCurrencyString(Base_Mng.Data.data.BestScoreGameTwo);
         base.Start();
 
-        stageCount = Base_Mng.Data.data.CurrentStage;
+        stageCount = Base_Mng.Data.data.HighStage;
         UpdateStar();
         SetStageText();
         BonusStageOn();

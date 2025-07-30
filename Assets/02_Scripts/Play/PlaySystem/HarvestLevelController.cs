@@ -10,7 +10,7 @@ public class HarvestLevelController : MonoBehaviour
     private float currentExp = 0f;
     private float lossperStun = 0.1f;
     private float minLoss = 0.05f;
-    private HarvestLevelVisualCtrl visualCtrl;
+    // private HarvestLevelVisualCtrl visualCtrl;
     [SerializeField] private float nextLvExp = 1.5f;
     [SerializeField] private float scoreAddatSatu = 5f;
     [SerializeField] private float timeBonusatSatu = 1f;
@@ -20,13 +20,13 @@ public class HarvestLevelController : MonoBehaviour
     {
         PlaySystemRefStorage.harvestLvController = this;
         FlowerController.HarvestLvCtrlSTATIC = this;
-        visualCtrl = GetComponent<HarvestLevelVisualCtrl>();
-        visualCtrl.SetSaturationStandard(saturationLvStandard);
+        // visualCtrl = GetComponent<HarvestLevelVisualCtrl>();
+        // visualCtrl.SetSaturationStandard(saturationLvStandard);
     }
     // Update is called once per frame
     void Update()
     {
-        visualCtrl.SetExpGauge(Mathf.Clamp01(currentExp / nextLvExp));
+        // visualCtrl.SetExpGauge(Mathf.Clamp01(currentExp / nextLvExp));
     }
     public void AddExp(float exp)
     {
@@ -56,7 +56,7 @@ public class HarvestLevelController : MonoBehaviour
     {
         currentExp -= nextLvExp;
         harvestLevel++;
-        visualCtrl.SetLvVisual(harvestLevel);
+        // visualCtrl.SetLvVisual(harvestLevel);
         nextLvExp *= 1.06f;
     }
 }

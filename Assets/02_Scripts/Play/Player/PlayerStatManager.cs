@@ -49,7 +49,7 @@ public class PlayerStatManager : MonoBehaviour
             });
         }
         auraController = FindAnyObjectByType<AuraController>();
-
+        
         playerMover.FindAuraCtrl(auraController);
         auraController.gameObject.SetActive(false);
         PlaySystemRefStorage.playProcessController.SubscribeGameoverAction(stopPlay);

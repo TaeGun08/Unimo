@@ -40,6 +40,8 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
     public Vector3 LastAttackerPos { get; private set; }
     public CombatEvent CombatEvent { get; set; }
 
+    public bool IsInvincible { get; set; }
+
     // [SerializeField] private TMP_Text remainHp;
     // public TMP_Text RemainHp => remainHp;
     public TMP_Text RemainHp;
@@ -101,6 +103,20 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
                   $"HpRecovery: {StatCalculator.HpRecovery}\n" +
                   $"FlowerDropSpeed: {StatCalculator.FlowerDropSpeed}\n" +
                   $"FlowerDropAmount: {StatCalculator.FlowerDropAmount}");
+        
+        Debug.Log($"[UnimoStats (SkillOn)]\n" +
+                  $"Hp: {PlayerStatHolder.Hp.Value}\n" +
+                  $"Def: {PlayerStatHolder.Def.Value}\n" +
+                  $"Speed: {PlayerStatHolder.Speed.Value}\n" +
+                  $"BloomRange: {PlayerStatHolder.BloomRange.Value}\n" +
+                  $"BloomSpeed: {PlayerStatHolder.BloomSpeed.Value}\n" +
+                  $"FlowerRate: {PlayerStatHolder.FlowerRate.Value}\n" +
+                  $"RareFlowerRate: {PlayerStatHolder.RareFlowerRate.Value}\n" +
+                  $"Dodge: {PlayerStatHolder.Dodge.Value}\n" +
+                  $"StunRecovery: {PlayerStatHolder.StunRecovery.Value}\n" +
+                  $"HpRecovery: {PlayerStatHolder.HpRecovery.Value}\n" +
+                  $"FlowerDropSpeed: {PlayerStatHolder.FlowerDropSpeed.Value}\n" +
+                  $"FlowerDropAmount: {PlayerStatHolder.FlowerDropAmount.Value}");
 
         // 10초마다 체력 회복
         StartCoroutine(HpRecoveryCoroutine(PlayerStatHolder.HpRecovery.Value));
@@ -137,6 +153,7 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
 
     public void TakeDamage(CombatEvent e)
     {
+        if (IsInvincible) return;
         CombatEvent = e;
         LastAttackerPos = e.Position;
         
