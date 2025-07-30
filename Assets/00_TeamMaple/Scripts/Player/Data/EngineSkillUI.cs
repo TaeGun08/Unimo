@@ -14,14 +14,10 @@ public class EngineSkillUI : MonoBehaviour
 
    [Header("PrefabUISettings")]
    [SerializeField] private RectTransform contentParent;
-   // [SerializeField] private TMP_Text Name;
-   // [SerializeField] private TMP_Text Type;
-   // [SerializeField] private TMP_Text Description;
    
    private void Start()
    {
       StartCoroutine(EngineSkillUISetting(unimoStatUI.equipmentStatData));
-      UpdataSkillUISetting();
    }
 
    private IEnumerator EngineSkillUISetting(EquipmentStatData data)
@@ -29,7 +25,14 @@ public class EngineSkillUI : MonoBehaviour
       yield return new WaitForSeconds(1f);
       
       skillType1 = GetSkillData(data.Skill1, data.Level);
+      
+      Debug.Log(skillType1);
+      
       skillType2 = GetSkillData(data.Skill2, data.Level);
+
+      Debug.Log(skillType2);
+      
+      UpdataSkillUISetting();
    }
    
    /// <summary>
@@ -37,6 +40,7 @@ public class EngineSkillUI : MonoBehaviour
    /// </summary>
    private EquipmentSkillData GetSkillData(int skillId, int level)
    {
+      Debug.Log($"GetSkillData :: {skillId}");
       return skillId != 0 
          ? EQSkillDataSO.GetFinalEquipmentSkillData(skillId, level) 
          : null;
@@ -53,6 +57,8 @@ public class EngineSkillUI : MonoBehaviour
    /// </summary>
    private void SetSkillData(EquipmentSkillData data)
    {
+      Debug.Log($"SetSkillData :: {data.Id} =============================");
+      
       if(data == null) return;
       
       GameObject tmp = Instantiate(skillUIPrefab, contentParent, false);
