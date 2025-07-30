@@ -27,7 +27,7 @@ public class FlowerDropSpeedUpSkillBehaviour : MonoBehaviour, IEquipmentSkillBeh
         }
     }
     
-    private IEnumerator ActiveFlowerDropSpeedUp(ClampedFloat flowerDropSpeed, int duration, float addFlowerDropSpeed)
+    private IEnumerator ActiveFlowerDropSpeedUp(ClampedFloat flowerDropSpeed, float duration, float addFlowerDropSpeed)
     {
         flowerDropSpeed.Add(addFlowerDropSpeed);    // 꽃 낙하 속도 일시 증가
         yield return new WaitForSeconds(duration);    // duration초 대기

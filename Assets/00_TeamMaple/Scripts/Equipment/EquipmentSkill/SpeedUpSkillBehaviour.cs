@@ -28,7 +28,7 @@ public class SpeedUpSkillBehaviour : MonoBehaviour,IEquipmentSkillBehaviour
         }
     }
     
-    private IEnumerator ActiveSpeedUp(ClampedFloat speed, int duration, float addSpeed)
+    private IEnumerator ActiveSpeedUp(ClampedFloat speed, float duration, float addSpeed)
     {
         speed.Add(addSpeed);    // 이동 속도 일시 증가
         yield return new WaitForSeconds(duration);    // duration초 대기

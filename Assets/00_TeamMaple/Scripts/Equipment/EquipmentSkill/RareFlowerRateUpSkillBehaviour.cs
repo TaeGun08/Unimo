@@ -28,7 +28,7 @@ public class RareFlowerRateUpSkillBehaviour : MonoBehaviour, IEquipmentSkillBeha
         }
     }
     
-    private IEnumerator ActiveRareFlowerRateUp(ClampedFloat rareFlowerRate, int duration, float addRareFlowerRate)
+    private IEnumerator ActiveRareFlowerRateUp(ClampedFloat rareFlowerRate, float duration, float addRareFlowerRate)
     {
         rareFlowerRate.Add(addRareFlowerRate);    // Èñ±Í ²É »ý¼º È®·ü ÀÏ½Ã Áõ°¡
         yield return new WaitForSeconds(duration);    // durationÃÊ ´ë±â
