@@ -144,7 +144,7 @@ public class Canvas_Holder : MonoBehaviour
                     bars[i].SetActive(false);
                 }
                 bars[4].SetActive(true);
-                PeekCheck = true;
+                PeekCheck = false;
 
                 break;
             case "##BonusReward":
