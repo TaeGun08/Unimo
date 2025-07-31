@@ -35,7 +35,7 @@ public class SelectStage : MonoBehaviour
         {
             buttons[i] = Instantiate(prefab, transform).GetComponent<SelectStageButton>();
             buttons[i].StageName.text = $"Stage - {index}";
-            buttons[i].ActiveTrueStars(stageManager.GetStars(index));
+            buttons[i].ActiveTrueStars(stageManager.GetStars(index + 1000));
             buttons[i].CurrentStage = index;
             if (Base_Mng.Data.data.HighStage < index)
             {
@@ -54,9 +54,9 @@ public class SelectStage : MonoBehaviour
         foreach (var button in buttons)
         {
             button.StageName.text = $"Stage - {index}";
-            button.ActiveTrueStars(stageManager.GetStars(index));
+            button.ActiveTrueStars(stageManager.GetStars(index + 1000));
             button.CurrentStage = index;
-            if (Base_Mng.Data.data.HighStage <= index)
+            if (Base_Mng.Data.data.HighStage < index)
             {
                 button.Interactable(false);
             }

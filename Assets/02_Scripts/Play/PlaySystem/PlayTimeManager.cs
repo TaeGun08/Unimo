@@ -24,7 +24,7 @@ public class PlayTimeManager : MonoBehaviour
 
     private void Start()
     {
-        remainTime = maxTime;
+        remainTime = reduceIncTime;
         timerText.text = maxTime.ToString("F2");
         // timerGauge.SetGauge(remainTime / maxTime);
     }
