@@ -14,6 +14,7 @@ public class Land : MonoBehaviour
     public GameObject TestUnimo;
 
     private List<GameObject> Unimos = new List<GameObject>();
+    public int FlowerValue = 0;
     private int[] landIndexTable = { 2, 5, 6, 7, 8 }; // 랜드 위치 랜덤 참조용
     private int CacheValue = 0;
 
