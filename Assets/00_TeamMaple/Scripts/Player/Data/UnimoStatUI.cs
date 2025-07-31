@@ -267,6 +267,7 @@ public class UnimoStatUI : MonoBehaviour
         GameObject line = Instantiate(statTextPrefab, upgradeEngineContentParent, false);
         TMP_Text tmp = line.GetComponent<TMP_Text>();
         tmp.text = $"{text:F2}"; 
+        tmp.fontSize = 50;
         lineSpacing = 55;
         
         RectTransform rt = line.GetComponent<RectTransform>();
@@ -303,7 +304,8 @@ public class UnimoStatUI : MonoBehaviour
         
         GameObject line = Instantiate(statTextPrefab, upgradeEngineContentParent, false);
         TMP_Text tmp = line.GetComponent<TMP_Text>();
-        tmp.text = $"{value:F2}"; 
+        tmp.text = $"<color=#E79517>{value:F2}</color>"; 
+        tmp.fontSize = 50;
         lineSpacing = 55;
         
         RectTransform rt = line.GetComponent<RectTransform>();

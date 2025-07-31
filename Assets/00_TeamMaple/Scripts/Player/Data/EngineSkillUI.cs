@@ -8,6 +8,7 @@ public class EngineSkillUI : MonoBehaviour
 {
    [SerializeField] private UnimoStatUI unimoStatUI;
    [SerializeField] private GameObject skillUIPrefab;
+   [SerializeField] private GameObject noneUIPrefab;
    [SerializeField] private EquipmentSkillDataSO EQSkillDataSO;
    [SerializeField] private SpriteTable spriteTable;
    
@@ -25,7 +26,7 @@ public class EngineSkillUI : MonoBehaviour
 
    private IEnumerator EngineSkillUISetting(EquipmentStatData data)
    {
-      yield return new WaitForSeconds(0.1f);
+      yield return new WaitForSeconds(0.05f);
       
       skillType1 = GetSkillData(data.Skill1, data.Level);
       skillType2 = GetSkillData(data.Skill2, data.Level);
@@ -51,7 +52,13 @@ public class EngineSkillUI : MonoBehaviour
          Destroy(child.gameObject);
       }
       currentY = 0;
-      
+
+      if (skillType1 == null && skillType2 == null)
+      {
+         GameObject tmp = Instantiate(noneUIPrefab, contentParent, false);
+         return;
+      }
+         
       SetSkillData(skillType1);
       SetSkillData(skillType2);
    }
