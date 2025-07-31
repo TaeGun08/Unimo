@@ -26,8 +26,8 @@ public class EquipmentSkillManager : MonoBehaviour
     private bool[] isSkillOnCooldown = new bool[2];
     
     // 컨트롤러 & 핸들러
-    [SerializeField] private EquipmentSkillUIController uiController;
-    [SerializeField] private EquipmentSkillEffectController effectController;
+    public EquipmentSkillUIController uiController;
+    public EquipmentSkillEffectController effectController;
 
     private void Awake()
     {
