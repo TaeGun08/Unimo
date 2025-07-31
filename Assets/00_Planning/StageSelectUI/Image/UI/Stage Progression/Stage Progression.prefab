@@ -1524,7 +1524,7 @@ GameObject:
   - component: {fileID: 3186958455033406568}
   - component: {fileID: 6332348686932920806}
   m_Layer: 5
-  m_Name: StageSelect 3
+  m_Name: Stage Progression
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
