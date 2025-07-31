@@ -116,7 +116,7 @@ public class UnimoStatUI : MonoBehaviour
     {
         EQName.text = data.Name;
         EQRank.text = data.Rank.ToString();
-        EQLevel.text = Base_Mng.Data.data.EQLevel.ToString();
+        EQLevel.text = Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1].ToString();
         
         EQAbility.text = BuildSpecialEQAbilityText(data);
         
