@@ -8,10 +8,13 @@ public class CakeFacility : MonoBehaviour
     private Data_Mng dataMng;
     [SerializeField] private float productionInterval = 100f; // 8 hours
     [SerializeField] private int maxPending = 10;
+    private const string TimerKey = "Cake_Timer";
     
     public float GetProductionInterval() => productionInterval;
     public float GetCurrentTimer() => timer;
     public int GetMaxPending() => maxPending;
+    
+    public int GetPendingReward() => pendingAmount;
 
     private float timer = 0f;
     private int pendingAmount = 0;
@@ -24,8 +27,10 @@ public class CakeFacility : MonoBehaviour
     {
         Instance = this;
         pendingAmount = PlayerPrefs.GetInt(PendingKey, 0);
+        timer = PlayerPrefs.GetFloat(TimerKey, 0f);
         dataMng = Base_Mng.Data;
     }
+
 
     private void Start()
     {
@@ -72,6 +77,7 @@ public class CakeFacility : MonoBehaviour
     {
         PlayerPrefs.SetString(LastExitKey, DateTime.Now.ToString("O"));
         PlayerPrefs.SetInt(PendingKey, pendingAmount);
+        PlayerPrefs.SetFloat(TimerKey, timer);
         PlayerPrefs.Save();
     }
 
@@ -103,8 +109,6 @@ public class CakeFacility : MonoBehaviour
         SaveExitTime();
     }
 
-    public int GetPendingReward() => pendingAmount;
-
     public void CollectReward()
     {
         if (pendingAmount <= 0) return;
@@ -113,9 +117,11 @@ public class CakeFacility : MonoBehaviour
         Debug.Log($"[케이크] 초록 별꿀 {pendingAmount}개 수령됨");
 
         pendingAmount = 0;
+        timer = 0f;
         PlayerPrefs.SetInt(PendingKey, 0);
         PlayerPrefs.Save();
-        
+
         StartProduction();
     }
+
 }

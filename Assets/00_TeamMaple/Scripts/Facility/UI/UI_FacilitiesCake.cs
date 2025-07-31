@@ -102,24 +102,13 @@ public class UI_FacilitiesCake : UI_Base
     private void OnClick_Collect()
     {
         if (CakeFacility.Instance == null) return;
-
-        int current = CakeFacility.Instance.GetPendingReward();
-        int max = CakeFacility.Instance.GetMaxPending();
-
+    
         CakeFacility.Instance.CollectReward();
-
+    
         foreach (var flower in greenFlowers)
             flower.SetActive(false);
-
-        if (current > 0 && greenFlowers.Count > 0)
-        {
-            greenFlowers[0].SetActive(true);
-            storageText.text = $"1 / {max}";
-        }
-        else
-        {
-            storageText.text = $"0 / {max}";
-        }
+    
+        UpdateUI(); // 수령 후 현재 상태로 UI 재반영
     }
 
 
