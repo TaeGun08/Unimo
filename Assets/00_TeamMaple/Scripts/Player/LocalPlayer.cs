@@ -46,6 +46,7 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
     [SerializeField] private Button unimoLevelUpButton;
     [SerializeField] private Button equipmentLevelDownButton;
     [SerializeField] private Button equipmentLevelUpButton;
+    [SerializeField] private Button statTestButton;
     
     [SerializeField] private TMP_Text unimoLevelText;
     [SerializeField] private TMP_Text equipmentLevelText;
@@ -85,6 +86,37 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
 
     private void Start()
     {
+        statTestButton.onClick.AddListener(() =>
+        {
+            Debug.Log($"[UnimoStats]\n" +
+                      $"Hp: {StatCalculator.Hp}\n" +
+                      $"Def: {StatCalculator.Def}\n" +
+                      $"Speed: {StatCalculator.Speed}\n" +
+                      $"BloomRange: {StatCalculator.BloomRange}\n" +
+                      $"BloomSpeed: {StatCalculator.BloomSpeed}\n" +
+                      $"FlowerRate: {StatCalculator.FlowerRate}\n" +
+                      $"RareFlowerRate: {StatCalculator.RareFlowerRate}\n" +
+                      $"Dodge: {StatCalculator.Dodge}\n" +
+                      $"StunRecovery: {StatCalculator.StunRecovery}\n" +
+                      $"HpRecovery: {StatCalculator.HpRecovery}\n" +
+                      $"FlowerDropSpeed: {StatCalculator.FlowerDropSpeed}\n" +
+                      $"FlowerDropAmount: {StatCalculator.FlowerDropAmount}");
+        
+            Debug.Log($"[UnimoStats (SkillOn)]\n" +
+                      $"Hp: {PlayerStatHolder.Hp.Value}\n" +
+                      $"Def: {PlayerStatHolder.Def.Value}\n" +
+                      $"Speed: {PlayerStatHolder.Speed.Value}\n" +
+                      $"BloomRange: {PlayerStatHolder.BloomRange.Value}\n" +
+                      $"BloomSpeed: {PlayerStatHolder.BloomSpeed.Value}\n" +
+                      $"FlowerRate: {PlayerStatHolder.FlowerRate.Value}\n" +
+                      $"RareFlowerRate: {PlayerStatHolder.RareFlowerRate.Value}\n" +
+                      $"Dodge: {PlayerStatHolder.Dodge.Value}\n" +
+                      $"StunRecovery: {PlayerStatHolder.StunRecovery.Value}\n" +
+                      $"HpRecovery: {PlayerStatHolder.HpRecovery.Value}\n" +
+                      $"FlowerDropSpeed: {PlayerStatHolder.FlowerDropSpeed.Value}\n" +
+                      $"FlowerDropAmount: {PlayerStatHolder.FlowerDropAmount.Value}");
+        });
+        
         Debug.Log($"[UnimoStats]\n" +
                   $"Hp: {StatCalculator.Hp}\n" +
                   $"Def: {StatCalculator.Def}\n" +
