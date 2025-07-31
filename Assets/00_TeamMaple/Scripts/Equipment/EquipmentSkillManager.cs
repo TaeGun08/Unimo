@@ -27,6 +27,7 @@ public class EquipmentSkillManager : MonoBehaviour
     
     // 컨트롤러 & 핸들러
     [SerializeField] private EquipmentSkillUIController uiController;
+    [SerializeField] private EquipmentSkillEffectController effectController;
 
     private void Awake()
     {
@@ -72,6 +73,7 @@ public class EquipmentSkillManager : MonoBehaviour
             }
             
             uiController.SetSkillSprite(i, skillIds[i]);    // 스킬 Sprite 설정
+            effectController.SetSkillEffects(i, skillIds[i]);    // 스킬 Effect 설정
             
             skillPrefabs[i] = Instantiate(skillTable.GetPrefabByKey(skillIds[i]), player.transform);
             
@@ -87,7 +89,7 @@ public class EquipmentSkillManager : MonoBehaviour
                 // 패시브는 장착과 동시에 사용
                 if (skillDatas[i].Type == EquipmentSkillType.Passive)
                 {
-                    skillExecutors[i].Excute(player, skillDatas[i]);
+                    UseSkill(i);
                     Debug.Log($"[[Skill{i}]]\n" +
                               $"Id: {skillDatas[i].Id}\n" +
                               $"Name: {skillDatas[i].Name}\n" +
@@ -110,6 +112,7 @@ public class EquipmentSkillManager : MonoBehaviour
         }
         
         skillExecutors[idx].Excute(player, skillDatas[idx]);
+        effectController.PlaySkillEffect(idx);
         Debug.Log($"[[Skill{idx}]]\n" +
                   $"Id: {skillDatas[idx].Id}\n" +
                   $"Name: {skillDatas[idx].Name}\n" +
@@ -118,8 +121,11 @@ public class EquipmentSkillManager : MonoBehaviour
                   $"Duration: {skillDatas[idx].Id}\n" +
                   $"Param: {skillDatas[idx].Id}\n" +
                   $"Description: {skillDatas[idx].Description}\n");
-        
-        StartSkillCooldown(idx, skillDatas[idx].Cooldown);
+
+        if (skillDatas[idx].Type == EquipmentSkillType.Active)
+        {
+            StartSkillCooldown(idx, skillDatas[idx].Cooldown);
+        }
     }
 
     // 스킬 쿨타임 시작

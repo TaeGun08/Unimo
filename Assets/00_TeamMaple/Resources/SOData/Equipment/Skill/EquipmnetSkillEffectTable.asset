@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84879357db9b6f45ba3896ad4e96f8a, type: 3}
+  m_Name: EquipmnetSkillEffectTable
+  m_EditorClassIdentifier: 
+  prefabEntries:
+  - prefabKey: 2001
+    prefab: {fileID: 0}
+  - prefabKey: 2002
+    prefab: {fileID: 1137368206947874, guid: e69b426058605e94a8875db062a6beb3, type: 3}
+  - prefabKey: 2003
+    prefab: {fileID: 0}
+  - prefabKey: 2004
+    prefab: {fileID: 0}
+  - prefabKey: 2005
+    prefab: {fileID: 0}
+  - prefabKey: 2006
+    prefab: {fileID: 3208469172170980495, guid: 5d5026dec1f32f847b2d842efb2d8a67,
+      type: 3}
+  - prefabKey: 2007
+    prefab: {fileID: 0}
+  - prefabKey: 2008
+    prefab: {fileID: 0}
+  - prefabKey: 2009
+    prefab: {fileID: 0}
+  - prefabKey: 2010
+    prefab: {fileID: 0}
+  - prefabKey: 2011
+    prefab: {fileID: 8525505213111709677, guid: 5288968025e38094786b7a89f76509c5,
+      type: 3}
+  - prefabKey: 2012
+    prefab: {fileID: 0}
+  - prefabKey: 2013
+    prefab: {fileID: 0}
+  - prefabKey: 2014
+    prefab: {fileID: 0}
+  - prefabKey: 2015
+    prefab: {fileID: 150944, guid: 4030636ab2d23ff4c931f4fccc7afc9f, type: 3}
+  - prefabKey: 2016
+    prefab: {fileID: 7395350200383773721, guid: 00951e6c438471c459f25fd38af64fe8,
+      type: 3}
+  - prefabKey: 2017
+    prefab: {fileID: 118094709120759156, guid: 46e1238ea3a693244a93a20665a4eca1, type: 3}
+  - prefabKey: 2018
+    prefab: {fileID: 1732862054488416, guid: 422a5b5dc0466694bab0f00276feef45, type: 3}
+  - prefabKey: 2019
+    prefab: {fileID: 119634, guid: e64e8bd930d7c074fba726e1ff00a333, type: 3}
+  - prefabKey: 2020
+    prefab: {fileID: 1041383898900682, guid: 6b6966eaea0b78d41b6766e68abee097, type: 3}
+  - prefabKey: 2021
+    prefab: {fileID: 0}
+  - prefabKey: 2022
+    prefab: {fileID: 1627529331328210, guid: 1a187439f9150914cb57ec44a403fa61, type: 3}
+  - prefabKey: 2023
+    prefab: {fileID: 1592372973558972, guid: fc52a3b195fcd0d4083c4cd95479da45, type: 3}
+  - prefabKey: 2024
+    prefab: {fileID: 1128922939517096, guid: 871986f0044c7a24da61bcd284c0dcbd, type: 3}
+  - prefabKey: 2025
+    prefab: {fileID: 1817797803601600, guid: ce61ce96e73fef94e8d44c34f644bb9f, type: 3}
+  - prefabKey: 2026
+    prefab: {fileID: 100000, guid: 0687af1a47e1d2c4785cd662df7fecde, type: 3}
+  - prefabKey: 2027
+    prefab: {fileID: 1135644536747142, guid: 7e536812436f97345ad251a7e6ffe622, type: 3}
