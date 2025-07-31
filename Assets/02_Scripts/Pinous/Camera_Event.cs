@@ -16,7 +16,7 @@ public enum CameraMoveState
     Character,
     BonusReward,
     
-    Cattle,
+    Kettle,
     Cake,
     Phonograph,
     TypeWriter,

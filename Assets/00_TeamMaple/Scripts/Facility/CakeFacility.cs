@@ -52,6 +52,7 @@ public class CakeFacility : MonoBehaviour
             else
             {
                 Debug.Log($"[케이크] 생산 중단 (대기량 {pendingAmount}개 ≥ 최대 {maxPending})");
+                isProducing = false;
             }
         }
     }
@@ -114,5 +115,7 @@ public class CakeFacility : MonoBehaviour
         pendingAmount = 0;
         PlayerPrefs.SetInt(PendingKey, 0);
         PlayerPrefs.Save();
+        
+        StartProduction();
     }
 }

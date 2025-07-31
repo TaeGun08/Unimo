@@ -79,22 +79,25 @@ public class UI_FacilitiesCake : UI_Base
     {
         if (CakeFacility.Instance == null) return;
 
+        int current = CakeFacility.Instance.GetPendingReward();
         float interval = CakeFacility.Instance.GetProductionInterval();
         float currentTimer = CakeFacility.Instance.GetCurrentTimer();
-        float remain = Mathf.Clamp(interval - currentTimer, 0f, interval);
 
+        if (current >= greenFlowers.Count)
+        {
+            intervalText.text = "생산 완료"; // 다 찼을 때
+            return;
+        }
+
+        float remain = Mathf.Clamp(interval - currentTimer, 0f, interval);
         TimeSpan ts = TimeSpan.FromSeconds(remain);
         intervalText.text = $"{ts.Hours}:{ts.Minutes:D2}:{ts.Seconds:D2}";
 
-        int current = CakeFacility.Instance.GetPendingReward();
         float fillRatio = Mathf.Clamp01(currentTimer / interval);
-
-        if (current < greenFlowers.Count)
-        {
-            var image = greenFlowers[current].GetComponent<Image>();
-            if (image != null) image.fillAmount = fillRatio;
-        }
+        var image = greenFlowers[current].GetComponent<Image>();
+        if (image != null) image.fillAmount = fillRatio;
     }
+
 
     private void OnClick_Collect()
     {

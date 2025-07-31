@@ -62328,7 +62328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraMover: 1
   state: 7
-  ResourcesName: '##FacilitiesCattle'
+  ResourcesName: '##FacilitiesKettle'
 --- !u!4 &6075022275896956740
 Transform:
   m_ObjectHideFlags: 0
