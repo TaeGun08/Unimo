@@ -120,25 +120,7 @@ public class GetRewardScript : MonoBehaviour
                     yellowTrade += StringMethod.ToCurrencyDouble(starY1);
                     break;
             }
-
-            stageManager.UpdateStageStars(Base_Mng.Data.data.CurrentStage + 1000, 3);
-
-            if (getStar != 1 && getStar < 2)
-            {
-                yellowTrade += StringMethod.ToCurrencyDouble(starY1);
-            }
-
-            if (getStar != 2 && getStar < 3)
-            {
-                redTrade += StringMethod.ToCurrencyDouble(starR2);
-            }
-
-            yellowTrade += StringMethod.ToCurrencyDouble(starY3);
-            redTrade += StringMethod.ToCurrencyDouble(starR3);
-
-            Debug.Log("최고 스테이지"+Base_Mng.Data.data.HighStage);
-            Debug.Log("현재 스테이지"+Base_Mng.Data.data.CurrentStage);
-            Debug.Log(Base_Mng.Data.data.HighStage == Base_Mng.Data.data.CurrentStage);
+            
             if (Base_Mng.Data.data.HighStage == Base_Mng.Data.data.CurrentStage)
             {
                 Base_Mng.Data.data.HighStage++;

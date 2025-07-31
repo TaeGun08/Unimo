@@ -32,7 +32,7 @@ public class SelectStageButton : MonoBehaviour
     
     public void GoGameScene()
     {
-        WholeSceneController.Instance.ReadyNextScene(CurrentStage);
+        WholeSceneController.Instance.ReadyNextScene(1);
         Base_Mng.Data.data.GamePlay++;
         Pinous_Flower_Holder.FlowerHolder.Clear();
         Base_Mng.Data.data.CurrentStage = CurrentStage;
