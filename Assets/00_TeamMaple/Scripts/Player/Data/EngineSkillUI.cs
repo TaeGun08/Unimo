@@ -2,37 +2,35 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EngineSkillUI : MonoBehaviour
 {
    [SerializeField] private UnimoStatUI unimoStatUI;
    [SerializeField] private GameObject skillUIPrefab;
+   [SerializeField] private GameObject noneUIPrefab;
    [SerializeField] private EquipmentSkillDataSO EQSkillDataSO;
-
+   [SerializeField] private SpriteTable spriteTable;
+   
    private EquipmentSkillData skillType1;
    private EquipmentSkillData skillType2;
 
    [Header("PrefabUISettings")]
    [SerializeField] private RectTransform contentParent;
    private float currentY = 0;
-   
-   private void Start()
+
+   private void OnEnable()
    {
       StartCoroutine(EngineSkillUISetting(unimoStatUI.equipmentStatData));
    }
 
    private IEnumerator EngineSkillUISetting(EquipmentStatData data)
    {
-      yield return new WaitForSeconds(1f);
+      yield return new WaitForSeconds(0.05f);
       
       skillType1 = GetSkillData(data.Skill1, data.Level);
-      
-      Debug.Log(skillType1);
-      
       skillType2 = GetSkillData(data.Skill2, data.Level);
 
-      Debug.Log(skillType2);
-      
       UpdataSkillUISetting();
    }
    
@@ -48,6 +46,19 @@ public class EngineSkillUI : MonoBehaviour
 
    private void UpdataSkillUISetting()
    {
+      // 기존 UI 초기화
+      foreach (Transform child in contentParent)
+      {
+         Destroy(child.gameObject);
+      }
+      currentY = 0;
+
+      if (skillType1 == null && skillType2 == null)
+      {
+         GameObject tmp = Instantiate(noneUIPrefab, contentParent, false);
+         return;
+      }
+         
       SetSkillData(skillType1);
       SetSkillData(skillType2);
    }
@@ -60,11 +71,14 @@ public class EngineSkillUI : MonoBehaviour
       if(data == null) return;
       
       GameObject tmp = Instantiate(skillUIPrefab, contentParent, false);
+      Image img = tmp.GetComponentsInChildren<Image>(true)[1]; 
+      img.sprite = spriteTable.GetSpriteByKey(data.Id);
+      
       TMP_Text[] tmps = tmp.GetComponentsInChildren<TMP_Text>();
       RectTransform rt = tmp.GetComponent<RectTransform>();
       
-      float startY = 150f;
-      float offsetY = startY - (250f * currentY);
+      float startY = 130f;
+      float offsetY = startY - (330f * currentY);
       rt.anchoredPosition = new Vector2(0f, offsetY);
       currentY++;
       

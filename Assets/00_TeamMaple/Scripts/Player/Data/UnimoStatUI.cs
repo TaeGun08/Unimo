@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UnimoStatUI : MonoBehaviour
 {
@@ -9,9 +10,13 @@ public class UnimoStatUI : MonoBehaviour
     [SerializeField] private EquipmentStatDataSO equipmentStatDataSo;
     [SerializeField] private UnimoStatLevelUpDataSO unimoLevelDataSO;
     [SerializeField] private EquipmentStatLevelUpDataSO engineLevelDataSO;
-    
+    [SerializeField] private SpriteTable spriteTable;
     public StatCalculator StatCalculator { get; private set; }
     public GameObject statTextPrefab;
+    
+    [Header("Unimo Basic Settings")]
+    [SerializeField] private TMP_Text BasicName;
+    [SerializeField] private TMP_Text BasicEngine;
     
     [Header("Unimo Upgrade Settings")]
     public RectTransform contentParent;
@@ -25,9 +30,9 @@ public class UnimoStatUI : MonoBehaviour
     
     [Header("Engine Upgrade Settings")]
     public RectTransform upgradeEngineContentParent;
+    [SerializeField] private GameObject EQSprite;
     [SerializeField] private TMP_Text EQName;
     [SerializeField] private TMP_Text EQRank;
-    [SerializeField] private TMP_Text EQLevel;
     [SerializeField] private TMP_Text EQAbility;
     
     private float lineSpacing = 30f;
@@ -56,6 +61,8 @@ public class UnimoStatUI : MonoBehaviour
     // 최종 stat UI
     public void UpdateStatUI()
     {
+        UpdateEnginSpriteUI();
+        
         foreach (var (stat, getter) in StatCalculator._finalStats)
         {
             CreateStatLine($"{stat.Ko()} {stat.Format(getter(StatCalculator))}");
@@ -65,6 +72,8 @@ public class UnimoStatUI : MonoBehaviour
     // 유니모 강화 UI
     private void UpgradeStatUI(UnimoStatData data)
     {
+        BasicName.text = $"유니모 : {data.Name}";
+
         Name.text = data.Name;
         Level.text = Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1].ToString();
         CurrentLevel.text = $"Lv. { Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]}";
@@ -110,9 +119,10 @@ public class UnimoStatUI : MonoBehaviour
     // 엔진 강화 UI
     private void UpgradeEngineStatUI(EquipmentStatData data)
     {
+        BasicEngine.text = $"붕붕엔진 : {data.Name}";
+        
         EQName.text = data.Name;
         EQRank.text = data.Rank.ToString();
-        EQLevel.text = Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1].ToString();
         
         EQAbility.text = BuildSpecialEQAbilityText(data);
         
@@ -120,9 +130,35 @@ public class UnimoStatUI : MonoBehaviour
         ShowStatLine(data.StatType2, data.StatValue2);
         ShowStatLine(data.StatType3, data.StatValue3);
         ShowStatLine(data.StatType4, data.StatValue4);
+        SetStarLevelUI(Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1]);
         
         // 다음 레벨 업그레이드 수치 가져오기
         ShowUpgradeEngineStat(Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1]);
+    }
+    
+    [SerializeField] private Image[] topStarImages;   
+    [SerializeField] private Image[] bottomStarImages;
+    [SerializeField] private Image[] nextStarImages;
+    
+    [SerializeField] private Sprite blackStarSprite;  
+    [SerializeField] private Sprite blueStarSprite;  
+    
+    private void SetStarLevelUI(int level)
+    {
+        for (int i = 0; i < topStarImages.Length; i++)
+        {
+            topStarImages[i].sprite = i < level ? blueStarSprite : blackStarSprite;
+        }
+        
+        for (int i = 0; i < bottomStarImages.Length; i++)
+        {
+            bottomStarImages[i].sprite = i < level ? blueStarSprite : blackStarSprite;
+        }
+        
+        for (int i = 0; i < nextStarImages.Length; i++)
+        {
+            nextStarImages[i].sprite = i < level + 1 ? blueStarSprite : blackStarSprite;
+        }
     }
     
     private string BuildSpecialEQAbilityText(EquipmentStatData data)
@@ -189,8 +225,8 @@ public class UnimoStatUI : MonoBehaviour
         GameObject statLine = Instantiate(statTextPrefab, contentParent, false);
         TMP_Text tmp = statLine.GetComponent<TMP_Text>();
         tmp.text = text;
-        tmp.fontSize = 20;
-        lineSpacing = 40;
+        tmp.fontSize = 30;
+        lineSpacing = 45;
         
         RectTransform rt = statLine.GetComponent<RectTransform>();
         
@@ -213,6 +249,7 @@ public class UnimoStatUI : MonoBehaviour
         GameObject line = Instantiate(statTextPrefab, upgradeContentParent, false);
         TMP_Text tmp = line.GetComponent<TMP_Text>();
         tmp.text = $"{text:F2}";
+        tmp.fontSize = 45;
         lineSpacing = 55;
         
         RectTransform rt = line.GetComponent<RectTransform>();
@@ -230,6 +267,7 @@ public class UnimoStatUI : MonoBehaviour
         GameObject line = Instantiate(statTextPrefab, upgradeEngineContentParent, false);
         TMP_Text tmp = line.GetComponent<TMP_Text>();
         tmp.text = $"{text:F2}"; 
+        tmp.fontSize = 50;
         lineSpacing = 55;
         
         RectTransform rt = line.GetComponent<RectTransform>();
@@ -246,7 +284,8 @@ public class UnimoStatUI : MonoBehaviour
     {
         GameObject line = Instantiate(statTextPrefab, upgradeContentParent, false);
         TMP_Text tmp = line.GetComponent<TMP_Text>();
-        tmp.text = $"{text:F2}"; 
+        tmp.text = $"<color=#E79517>{text:F2}</color>"; 
+        tmp.fontSize = 45;
         lineSpacing = 55;
         
         RectTransform rt = line.GetComponent<RectTransform>();
@@ -265,8 +304,8 @@ public class UnimoStatUI : MonoBehaviour
         
         GameObject line = Instantiate(statTextPrefab, upgradeEngineContentParent, false);
         TMP_Text tmp = line.GetComponent<TMP_Text>();
-        tmp.text = $"{value:F2}"; 
-        //tmp.text = $"+ {value.ToString()}"; 
+        tmp.text = $"<color=#E79517>{value:F2}</color>"; 
+        tmp.fontSize = 50;
         lineSpacing = 55;
         
         RectTransform rt = line.GetComponent<RectTransform>();
@@ -309,8 +348,6 @@ public class UnimoStatUI : MonoBehaviour
         upgradeEngineNextBaseX = 40f;
         upgradeEngineNextBaseY = 90f; 
         
-        Debug.Log($"Base_Mng.Data.data.CharCount:: {Base_Mng.Data.data.CharCount}");
-        
         unimoStatData = unimoStatDataSo.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount, Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]);
         equipmentStatData = equipmentStatDataSo.GetFinalEquipmnetStatData(Base_Mng.Data.data.EQCount, Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1]);
         
@@ -322,6 +359,12 @@ public class UnimoStatUI : MonoBehaviour
             UpgradeStatUI(unimoStatData);
             UpgradeEngineStatUI(equipmentStatData);
         }
+    }
+
+    private void UpdateEnginSpriteUI()
+    {
+        Image img = EQSprite.GetComponent<Image>();
+        img.sprite = spriteTable.GetSpriteByKey(Base_Mng.Data.data.EQCount);
     }
     
     // 유니모 레벨업
