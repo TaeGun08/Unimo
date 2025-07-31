@@ -9,6 +9,8 @@ public class UI_Game : UI_Base
     public TextMeshProUGUI GameOneBest, GameTwoBest;
     private int stageCount;
 
+    private StageManager stageManager;
+    
     [SerializeField] private TMP_Text stageText;
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private GameObject[] starImg;
@@ -23,6 +25,8 @@ public class UI_Game : UI_Base
     
     [Header("SelectStage")]
     [SerializeField] private SelectStage selectStage;
+
+    private int stage = 1;
     
     private void OnEnable()
     {
@@ -31,27 +35,33 @@ public class UI_Game : UI_Base
         images[0].sprite = so.GetSprites.UnimoSprite[Base_Mng.Data.data.CharCount - 1];
         images[1].sprite = so.GetSprites.EngineSprite[Base_Mng.Data.data.EQCount - 1];
 
-        selectStage.stage = 1;
+        selectStage.stage = stage;
         
         UpdateStar();
         SetStageText();
         BonusStageOn();
+        
+        GetStar();
     }
 
     public override void Start()
     {
-        Camera_Event.instance.GetCameraEvent(CameraMoveState.InGame);
+        //Camera_Event.instance.GetCameraEvent(CameraMoveState.InGame);
         GameOneBest.text = "Best Score\n" + StringMethod.ToCurrencyString(Base_Mng.Data.data.BestScoreGameOne);
         GameTwoBest.text = "Best Score\n" + StringMethod.ToCurrencyString(Base_Mng.Data.data.BestScoreGameTwo);
         base.Start();
 
+        stageManager = StageManager.Instance;
+        
         stageCount = Base_Mng.Data.data.HighStage;
         
-        selectStage.stage = 1;
+        selectStage.stage = stage;
         
         UpdateStar();
         SetStageText();
         BonusStageOn();
+        
+        GetStar();
     }
 
     public void GoGameScene(int value)
@@ -80,6 +90,22 @@ public class UI_Game : UI_Base
 
         //};
         //Base_Mng.ADS.ShowInterstitialAds();
+    }
+
+    private void GetStar()
+    {
+        getStarText.text = $"0 / 135";
+        
+        if (stageManager == null) return;
+        
+        int starCount = 0;
+        for (int i = 0; i < 50; i++)
+        {
+            if (stageManager.GetStars(i + 1) != 0) return;
+            starCount += stageManager.GetStars(i + 1);
+        }
+        
+        getStarText.text = $"{starCount} / 135";
     }
 
     private void SetStageText()
@@ -177,6 +203,11 @@ public class UI_Game : UI_Base
                 starImg[i].SetActive(false);
             }
         }
+    }
+
+    public void SelectPlanet()
+    {
+        
     }
 
     public void ActiveTrueStage()
