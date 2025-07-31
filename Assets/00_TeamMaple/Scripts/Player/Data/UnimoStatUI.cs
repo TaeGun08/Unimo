@@ -14,6 +14,10 @@ public class UnimoStatUI : MonoBehaviour
     public StatCalculator StatCalculator { get; private set; }
     public GameObject statTextPrefab;
     
+    [Header("Unimo Basic Settings")]
+    [SerializeField] private TMP_Text BasicName;
+    [SerializeField] private TMP_Text BasicEngine;
+    
     [Header("Unimo Upgrade Settings")]
     public RectTransform contentParent;
     public RectTransform upgradeContentParent;
@@ -68,6 +72,8 @@ public class UnimoStatUI : MonoBehaviour
     // 유니모 강화 UI
     private void UpgradeStatUI(UnimoStatData data)
     {
+        BasicName.text = $"유니모 : {data.Name}";
+
         Name.text = data.Name;
         Level.text = Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1].ToString();
         CurrentLevel.text = $"Lv. { Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]}";
@@ -113,9 +119,10 @@ public class UnimoStatUI : MonoBehaviour
     // 엔진 강화 UI
     private void UpgradeEngineStatUI(EquipmentStatData data)
     {
+        BasicEngine.text = $"붕붕엔진 : {data.Name}";
+        
         EQName.text = data.Name;
         EQRank.text = data.Rank.ToString();
-        //EQLevel.text = Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1].ToString();
         
         EQAbility.text = BuildSpecialEQAbilityText(data);
         
@@ -218,8 +225,8 @@ public class UnimoStatUI : MonoBehaviour
         GameObject statLine = Instantiate(statTextPrefab, contentParent, false);
         TMP_Text tmp = statLine.GetComponent<TMP_Text>();
         tmp.text = text;
-        tmp.fontSize = 20;
-        lineSpacing = 40;
+        tmp.fontSize = 30;
+        lineSpacing = 45;
         
         RectTransform rt = statLine.GetComponent<RectTransform>();
         
@@ -242,6 +249,7 @@ public class UnimoStatUI : MonoBehaviour
         GameObject line = Instantiate(statTextPrefab, upgradeContentParent, false);
         TMP_Text tmp = line.GetComponent<TMP_Text>();
         tmp.text = $"{text:F2}";
+        tmp.fontSize = 45;
         lineSpacing = 55;
         
         RectTransform rt = line.GetComponent<RectTransform>();
@@ -275,7 +283,8 @@ public class UnimoStatUI : MonoBehaviour
     {
         GameObject line = Instantiate(statTextPrefab, upgradeContentParent, false);
         TMP_Text tmp = line.GetComponent<TMP_Text>();
-        tmp.text = $"{text:F2}"; 
+        tmp.text = $"<color=#E79517>{text:F2}</color>"; 
+        tmp.fontSize = 45;
         lineSpacing = 55;
         
         RectTransform rt = line.GetComponent<RectTransform>();
@@ -295,7 +304,6 @@ public class UnimoStatUI : MonoBehaviour
         GameObject line = Instantiate(statTextPrefab, upgradeEngineContentParent, false);
         TMP_Text tmp = line.GetComponent<TMP_Text>();
         tmp.text = $"{value:F2}"; 
-        //tmp.text = $"+ {value.ToString()}"; 
         lineSpacing = 55;
         
         RectTransform rt = line.GetComponent<RectTransform>();
