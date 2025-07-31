@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UnimoStatUI : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class UnimoStatUI : MonoBehaviour
     [SerializeField] private EquipmentStatDataSO equipmentStatDataSo;
     [SerializeField] private UnimoStatLevelUpDataSO unimoLevelDataSO;
     [SerializeField] private EquipmentStatLevelUpDataSO engineLevelDataSO;
-    
+    [SerializeField] private SpriteTable spriteTable;
     public StatCalculator StatCalculator { get; private set; }
     public GameObject statTextPrefab;
     
@@ -25,6 +26,7 @@ public class UnimoStatUI : MonoBehaviour
     
     [Header("Engine Upgrade Settings")]
     public RectTransform upgradeEngineContentParent;
+    [SerializeField] private GameObject EQSprite;
     [SerializeField] private TMP_Text EQName;
     [SerializeField] private TMP_Text EQRank;
     [SerializeField] private TMP_Text EQLevel;
@@ -56,6 +58,8 @@ public class UnimoStatUI : MonoBehaviour
     // 최종 stat UI
     public void UpdateStatUI()
     {
+        UpdateEnginSpriteUI();
+        
         foreach (var (stat, getter) in StatCalculator._finalStats)
         {
             CreateStatLine($"{stat.Ko()} {stat.Format(getter(StatCalculator))}");
@@ -112,7 +116,7 @@ public class UnimoStatUI : MonoBehaviour
     {
         EQName.text = data.Name;
         EQRank.text = data.Rank.ToString();
-        EQLevel.text = Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1].ToString();
+        EQLevel.text = Base_Mng.Data.data.EQLevel.ToString();
         
         EQAbility.text = BuildSpecialEQAbilityText(data);
         
@@ -309,8 +313,6 @@ public class UnimoStatUI : MonoBehaviour
         upgradeEngineNextBaseX = 40f;
         upgradeEngineNextBaseY = 90f; 
         
-        Debug.Log($"Base_Mng.Data.data.CharCount:: {Base_Mng.Data.data.CharCount}");
-        
         unimoStatData = unimoStatDataSo.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount, Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]);
         equipmentStatData = equipmentStatDataSo.GetFinalEquipmnetStatData(Base_Mng.Data.data.EQCount, Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1]);
         
@@ -322,6 +324,12 @@ public class UnimoStatUI : MonoBehaviour
             UpgradeStatUI(unimoStatData);
             UpgradeEngineStatUI(equipmentStatData);
         }
+    }
+
+    private void UpdateEnginSpriteUI()
+    {
+        Image img = EQSprite.GetComponent<Image>();
+        img.sprite = spriteTable.GetSpriteByKey(Base_Mng.Data.data.EQCount);
     }
     
     // 유니모 레벨업

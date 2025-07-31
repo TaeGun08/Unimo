@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be45af7e2c4d4814ca2556aaff13a3fb, type: 3}
+  m_Name: EngineSpriteTable
+  m_EditorClassIdentifier: 
+  spriteEntries:
+  - spriteKey: 1
+    sprite: {fileID: 21300000, guid: 7b93000b215e8024198619d99f5dd32b, type: 3}
+  - spriteKey: 2
+    sprite: {fileID: 21300000, guid: 2ebf4a5eff1cb124f8365b2c6380e025, type: 3}
+  - spriteKey: 3
+    sprite: {fileID: 21300000, guid: 00145deaca1149a41a67a7438509ae80, type: 3}
+  - spriteKey: 4
+    sprite: {fileID: 21300000, guid: de6b1c4cc18d1514dacab49b2700bd12, type: 3}
+  - spriteKey: 5
+    sprite: {fileID: 21300000, guid: 32a165f820e00894aaa4431c6e00bcde, type: 3}
+  - spriteKey: 6
+    sprite: {fileID: 21300000, guid: 3db93fc29ad9e744c8308e3f01b4142e, type: 3}
+  - spriteKey: 7
+    sprite: {fileID: 21300000, guid: 0b9186369dcd4e448ba1ae22ea294339, type: 3}
+  - spriteKey: 8
+    sprite: {fileID: 21300000, guid: 2e5cd44ea3d59974ab58e33d71b3bd43, type: 3}
+  - spriteKey: 9
+    sprite: {fileID: 21300000, guid: 531215ba61898634aa9f618bf595c999, type: 3}
+  - spriteKey: 10
+    sprite: {fileID: 21300000, guid: 74eb02dfd2dd7eb4c8f1770d26a29c78, type: 3}
+  - spriteKey: 11
+    sprite: {fileID: 21300000, guid: 9ee4786cdf73b6641b371868d33b69ee, type: 3}
+  - spriteKey: 12
+    sprite: {fileID: 21300000, guid: 4066771a27750cd4b9a9641a528b9ab4, type: 3}
+  - spriteKey: 13
+    sprite: {fileID: 21300000, guid: 35f7a2e6f9db5cb4e8f929d41dfb6bda, type: 3}
+  - spriteKey: 14
+    sprite: {fileID: 21300000, guid: afe458fb495cf084cb14fbc7d590e5da, type: 3}
+  - spriteKey: 15
+    sprite: {fileID: 21300000, guid: 1c72d4b94ed2d6740a3e0e7bfa9e93ba, type: 3}
+  - spriteKey: 16
+    sprite: {fileID: 21300000, guid: e30ebb12162adc740adb3755b43a9c12, type: 3}
+  - spriteKey: 17
+    sprite: {fileID: 21300000, guid: 22ead7b9a7b07934da0f4c1d9e29c8d9, type: 3}
+  - spriteKey: 18
+    sprite: {fileID: 21300000, guid: 0e7d9081fe1d7c540ac761a155cd13a1, type: 3}
+  - spriteKey: 19
+    sprite: {fileID: 21300000, guid: a5c974c50fbc3154aa1d38d3d67355ea, type: 3}
+  - spriteKey: 20
+    sprite: {fileID: 21300000, guid: 35f7a2e6f9db5cb4e8f929d41dfb6bda, type: 3}
+  - spriteKey: 21
+    sprite: {fileID: 21300000, guid: 8444abae7e4bfd14f9a69a0331e6dcfe, type: 3}
+  - spriteKey: 22
+    sprite: {fileID: 21300000, guid: e9e9948515bc1b042b33d1831eb08f45, type: 3}
+  - spriteKey: 20
+    sprite: {fileID: 21300000, guid: 35f7a2e6f9db5cb4e8f929d41dfb6bda, type: 3}
