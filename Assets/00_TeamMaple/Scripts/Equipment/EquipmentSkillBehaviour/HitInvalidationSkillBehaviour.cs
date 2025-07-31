@@ -54,7 +54,7 @@ public class HitInvalidationSkillBehaviour : MonoBehaviour, IEquipmentSkillBehav
             StopCoroutine(passiveCoroutine);
         }
         passiveCoroutine = StartCoroutine(PassiveCooldown());
-        SkillRunner.Instance.StartSkill1Cooldown(passiveCooldown);
+        EquipmentSkillManager.Instance.StartSkillCooldown(0, passiveCooldown);
     }
 
     private IEnumerator PassiveCooldown()

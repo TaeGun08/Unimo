@@ -3664,6 +3664,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 399878376}
   m_CullTransparentMesh: 1
+--- !u!1 &410035799
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 410035801}
+  - component: {fileID: 410035800}
+  m_Layer: 0
+  m_Name: EquipmentSkillManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &410035800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410035799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e9b873cd58144c48931936c3df51475, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 7723116977559001203}
+  equipmentStatDataSo: {fileID: 11400000, guid: 5c1e008d9caf25c4c96cfeddb9d9d1be,
+    type: 2}
+  skillDataSo: {fileID: 11400000, guid: 28cf012214853794489021f808449e17, type: 2}
+  skillTable: {fileID: 11400000, guid: dc08681057585764bb821697c69f9c21, type: 2}
+  uiController: {fileID: 1124698760}
+--- !u!4 &410035801
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410035799}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 459890024}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &421998813
 GameObject:
   m_ObjectHideFlags: 0
@@ -3853,9 +3903,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 459890024}
-  - component: {fileID: 459890025}
   m_Layer: 0
-  m_Name: SkillRunner
+  m_Name: Skill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3873,37 +3922,13 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 410035801}
+  - {fileID: 1124698761}
+  - {fileID: 592254701}
+  - {fileID: 1378362686}
   m_Father: {fileID: 1217114931}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &459890025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 459890023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccd36f339725456408cb5993db07c224, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillTable: {fileID: 11400000, guid: dc08681057585764bb821697c69f9c21, type: 2}
-  player: {fileID: 7723116977559001203}
-  equipmentStatDataSo: {fileID: 11400000, guid: 5c1e008d9caf25c4c96cfeddb9d9d1be,
-    type: 2}
-  skillDataSo: {fileID: 11400000, guid: 28cf012214853794489021f808449e17, type: 2}
-  skillSpriteTable: {fileID: 11400000, guid: 023440dc5a2842349aabaa47bcf68972, type: 2}
-  activeSkillButton: {fileID: 315087318}
-  skill1Sprite: {fileID: 468794853}
-  skill1CooldownFill: {fileID: 936659894}
-  skill1CooldownText: {fileID: 771129611}
-  skill2Sprite: {fileID: 315087319}
-  skill2CooldownFill: {fileID: 545740790}
-  skill2CooldownText: {fileID: 491368827}
-  skillInput1: {fileID: 136021736}
-  skillInput2: {fileID: 2145344856}
-  confirmButton: {fileID: 797756948}
 --- !u!1 &466639999
 GameObject:
   m_ObjectHideFlags: 0
@@ -5155,6 +5180,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 552236660}
   m_CullTransparentMesh: 1
+--- !u!1 &592254700
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 592254701}
+  - component: {fileID: 592254702}
+  m_Layer: 0
+  m_Name: EquipmentSkillInputHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &592254701
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 592254700}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 459890024}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &592254702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 592254700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1d08f0e2d8445a4e9576f0677e0f300, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeSkillButton: {fileID: 315087318}
+  skillInputs:
+  - {fileID: 136021736}
+  - {fileID: 2145344856}
+  confirmButton: {fileID: 797756948}
+  equipmentSkillManager: {fileID: 410035800}
 --- !u!1 &596272600
 GameObject:
   m_ObjectHideFlags: 0
@@ -10057,6 +10132,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1115491422}
   m_CullTransparentMesh: 1
+--- !u!1 &1124698759
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1124698761}
+  - component: {fileID: 1124698760}
+  m_Layer: 0
+  m_Name: EquipmentSkillUIController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1124698760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124698759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f7b5062b766f5843b631e3dfdbee9b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillSpriteTable: {fileID: 11400000, guid: 023440dc5a2842349aabaa47bcf68972, type: 2}
+  skillSprites:
+  - {fileID: 468794853}
+  - {fileID: 315087319}
+  skillCooldownFills:
+  - {fileID: 936659894}
+  - {fileID: 545740790}
+  skillCooldownTexts:
+  - {fileID: 771129611}
+  - {fileID: 491368827}
+--- !u!4 &1124698761
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124698759}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 459890024}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1147394978
 GameObject:
   m_ObjectHideFlags: 0
@@ -11218,6 +11347,50 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 667548445}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1378362685
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1378362686}
+  - component: {fileID: 1378362687}
+  m_Layer: 0
+  m_Name: EquipmentSkillEffectController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1378362686
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378362685}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 459890024}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1378362687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378362685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d88c267a61d44fd4cb8dc92d5684eda6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1383590446
 GameObject:
   m_ObjectHideFlags: 0
@@ -20846,7 +21019,7 @@ PrefabInstance:
         type: 3}
       propertyPath: skillRunner
       value: 
-      objectReference: {fileID: 459890025}
+      objectReference: {fileID: 0}
     - target: {fileID: 5953960002914474849, guid: 35ca479c1a46ff444b6adde214f7cc9f,
         type: 3}
       propertyPath: auraController
@@ -20925,6 +21098,11 @@ PrefabInstance:
       propertyPath: unimoLevelDownButton
       value: 
       objectReference: {fileID: 1733999852}
+    - target: {fileID: 5953960002914474849, guid: 35ca479c1a46ff444b6adde214f7cc9f,
+        type: 3}
+      propertyPath: equipmentSkillManager
+      value: 
+      objectReference: {fileID: 410035800}
     - target: {fileID: 5953960002914474849, guid: 35ca479c1a46ff444b6adde214f7cc9f,
         type: 3}
       propertyPath: equipmentLevelUpButton

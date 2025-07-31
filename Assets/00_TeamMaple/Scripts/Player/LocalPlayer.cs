@@ -51,7 +51,7 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
     [SerializeField] private TMP_Text unimoLevelText;
     [SerializeField] private TMP_Text equipmentLevelText;
     
-    [SerializeField] private SkillRunner skillRunner;
+    [SerializeField] private EquipmentSkillManager equipmentSkillManager;
     [SerializeField] private AuraController auraController;
     // --------------테스트--------------
     
@@ -175,7 +175,7 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
         StopCoroutine(HpRecoveryCoroutine(PlayerStatHolder.HpRecovery.Value));
         SetPlayerStats();
         StartCoroutine(HpRecoveryCoroutine(PlayerStatHolder.HpRecovery.Value));
-        skillRunner.InitSkillSet();
+        equipmentSkillManager.SetSkills();
         auraController.InitAura();
     }
 
