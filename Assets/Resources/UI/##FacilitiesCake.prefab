@@ -189,7 +189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Character: 0
   Motor: 0
-  Local_Count: Close
+  Local_Count: Get
   Semi_Data: 
   Get_Format: 0
   Foramt_Count: 

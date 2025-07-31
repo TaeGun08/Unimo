@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 7975493714671280235}
   - component: {fileID: 4166240931181088825}
   - component: {fileID: 334069104803608083}
-  - component: {fileID: 1349691384931140525}
+  - component: {fileID: 5193726104351154225}
   m_Layer: 5
   m_Name: '##FacilitiesPhonograph'
   m_TagString: Untagged
@@ -371,7 +371,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1349691384931140525
+--- !u!114 &5193726104351154225
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -380,18 +380,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5363535845528781669}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b118e53993190234f83b21e84878d909, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f9a49d9335ff46458c28b88637fb99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   GetTransform: {fileID: 0}
   startTransformPos: 0
   animator: {fileID: 0}
   exitButton: {fileID: 7829424764469110795}
-  collectButton: {fileID: 0}
   infoText: {fileID: 5186752407965103068}
-  storageText: {fileID: 0}
-  intervalText: {fileID: 0}
-  flowerRoot: {fileID: 0}
 --- !u!1 &7187249326647619492
 GameObject:
   m_ObjectHideFlags: 0
