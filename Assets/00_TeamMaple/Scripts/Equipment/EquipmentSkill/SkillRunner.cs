@@ -34,17 +34,20 @@ public class SkillRunner : MonoBehaviour
     
     private EquipmentStatData engineStatData;
     
-    private bool isSkill2OnCooldown = false;    // 쿨타임 체크 변수
-    private Coroutine skill2CooldownCoroutine;
-    
     // 스킬 프리펩
     private GameObject skillPrefab1;
     private GameObject skillPrefab2;
     
-    // Skill2 실행 참조용 변수 (셋업 시 저장)
+    // 스킬 실행 참조용 변수 (셋업 시 저장)
+    private IEquipmentSkillBehaviour skillExcutor1;
+    private EquipmentSkillData skillData1;
     private IEquipmentSkillBehaviour skillExcutor2;
     private EquipmentSkillData skillData2;
     
+    private Coroutine skill1CooldownCoroutine;
+    private Coroutine skill2CooldownCoroutine;
+    private bool isSkill2OnCooldown = false;    // 쿨타임 체크 변수
+
     private float lastTapTime = 0f;
     private const float doubleTapThreshold = 0.25f; // 더블탭 허용 간격 (초)
 
@@ -57,15 +60,8 @@ public class SkillRunner : MonoBehaviour
 
     private void Start()
     {
-        engineStatData = equipmentStatDataSo.GetEquipmentStatData(Base_Mng.Data.data.EQCount);
+        InitSkillSet();
         
-        // 스킬 아이디 확인 (0이면 스킬 없음)
-        var skillId1 = engineStatData.Skill1;
-        var skillId2 = engineStatData.Skill2;
-        
-        SetSkillsSprite(skillId1, skillId2);
-        SetEngineSkills(skillId1, skillId2);
-
         activeSkillButton.onClick.AddListener(() =>
         {
             TryUseSkill2();
@@ -134,25 +130,27 @@ public class SkillRunner : MonoBehaviour
 
         LocalPlayer.Instance.TestSetPlayerStats();
         
-        // 쿨타임 종료 시 UI 비활성화/초기화
-        skill1CooldownText.gameObject.SetActive(false);
-        skill1CooldownText.text = "";
-        skill1CooldownFill.gameObject.SetActive(false);
-        skill1CooldownFill.fillAmount = 0f;
-        
-        // 쿨타임 종료 시 UI 비활성화/초기화
-        skill2CooldownText.gameObject.SetActive(false);
-        skill2CooldownText.text = "";
-        skill2CooldownFill.gameObject.SetActive(false);
-        skill2CooldownFill.fillAmount = 0f;
-        
         SetSkillsSprite(id1, id2);
         SetEngineSkills(id1, id2); // 새로운 스킬로 교체
 
         isSkill2OnCooldown = false;
     }
+
+    public void InitSkillSet()
+    {
+        engineStatData = equipmentStatDataSo.GetEquipmentStatData(Base_Mng.Data.data.EQCount);
+        
+        // 스킬 아이디 확인 (0이면 스킬 없음)
+        var skillId1 = engineStatData.Skill1;
+        var skillId2 = engineStatData.Skill2;
+
+        ResetCooldownUI();
+        
+        SetSkillsSprite(skillId1, skillId2);
+        SetEngineSkills(skillId1, skillId2);
+    }
     
-    public void SetEngineSkills(int skillId1, int skillId2)
+    private void SetEngineSkills(int skillId1, int skillId2)
     {
         ResetSkills();
         
@@ -166,8 +164,8 @@ public class SkillRunner : MonoBehaviour
             }
             else
             {
-                var skillExcutor1 = skillPrefab1.GetComponent<IEquipmentSkillBehaviour>();
-                var skillData1 = skillDataSo.GetFinalEquipmentSkillData(skillId1, engineStatData.Level);
+                skillExcutor1 = skillPrefab1.GetComponent<IEquipmentSkillBehaviour>();
+                skillData1 = skillDataSo.GetFinalEquipmentSkillData(skillId1, engineStatData.Level);
 
                 skillExcutor1.Excute(player, skillData1);
                 Debug.Log($"[Skill1] Id: {skillId1} / Type: {skillData1.Type} / Cooldown: {skillData1.Cooldown} / Duration: {skillData1.Duration} / Param: {skillData1.Param}");
@@ -247,7 +245,11 @@ public class SkillRunner : MonoBehaviour
     
     public void StartSkill1Cooldown(float cooldown)
     {
-        StartCoroutine(Skill1Cooldown(cooldown));
+        if (skill1CooldownCoroutine != null)
+        {
+            StopCoroutine(skill1CooldownCoroutine);
+        }
+        skill1CooldownCoroutine = StartCoroutine(Skill1Cooldown(cooldown));
     }
     
     private IEnumerator Skill1Cooldown(float cooldown)
@@ -317,7 +319,40 @@ public class SkillRunner : MonoBehaviour
         if (skillPrefab1 != null) Destroy(skillPrefab1);
         if (skillPrefab2 != null) Destroy(skillPrefab2);
         
+        // 상태 초기화
+        LocalPlayer.Instance.PlayerStatHolder.RemoveOnceInvalid();
+        LocalPlayer.Instance.PlayerStatHolder.RemoveInvincible();
+        
+        skillExcutor1 = null;
+        skillData1 = null;
         skillExcutor2 = null;
         skillData2 = null;
+    }
+    
+    private void ResetCooldownUI()
+    {
+        // Skill1
+        if (skill1CooldownCoroutine != null)
+        {
+            StopCoroutine(skill1CooldownCoroutine);
+            skill1CooldownCoroutine = null;
+        }
+        skill1CooldownText.gameObject.SetActive(false);
+        skill1CooldownText.text = "";
+        skill1CooldownFill.gameObject.SetActive(false);
+        skill1CooldownFill.fillAmount = 0f;
+    
+        // Skill2
+        if (skill2CooldownCoroutine != null)
+        {
+            StopCoroutine(skill2CooldownCoroutine);
+            skill2CooldownCoroutine = null;
+        }
+        skill2CooldownText.gameObject.SetActive(false);
+        skill2CooldownText.text = "";
+        skill2CooldownFill.gameObject.SetActive(false);
+        skill2CooldownFill.fillAmount = 0f;
+
+        isSkill2OnCooldown = false;
     }
 }

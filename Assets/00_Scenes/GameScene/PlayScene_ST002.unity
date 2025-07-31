@@ -7910,6 +7910,7 @@ GameObject:
   - component: {fileID: 5}
   - component: {fileID: 4876853301214706924}
   - component: {fileID: 4876853301214706923}
+  - component: {fileID: 4876853301214706925}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -32859,6 +32860,21 @@ MonoBehaviour:
   equipmentLevelText: {fileID: 1132461799}
   skillRunner: {fileID: 2030849075}
   auraController: {fileID: 667548446}
+--- !u!114 &4876853301214706925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981523601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9f4faf2cee44364b9d7d05bf36118c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitFX: {fileID: 2419645022750026240}
+  disappearPortal: {fileID: 8087840630463123781}
+  hitParticle: {fileID: 2774163619696221119}
 --- !u!82 &4876853301587824339
 AudioSource:
   m_ObjectHideFlags: 0

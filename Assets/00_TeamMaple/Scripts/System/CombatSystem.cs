@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class CombatSystem : SingletonBehaviour<CombatSystem>
+public class CombatSystem : MonoBehaviour
 {
+    public static CombatSystem Instance { get; private set; }
+
     public class Callbacks
     {
         public Action<CombatEvent> OnCombatEvent;
@@ -11,6 +14,11 @@ public class CombatSystem : SingletonBehaviour<CombatSystem>
     public readonly Callbacks CallbackEvents = new();
 
     private Queue<InGameEvent> inGameEventQueue = new();
+
+    private void Awake()
+    {
+        Instance = this;
+    }
     
     private void Update()
     {

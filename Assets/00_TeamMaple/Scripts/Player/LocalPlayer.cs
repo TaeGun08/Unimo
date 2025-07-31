@@ -117,34 +117,6 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
                       $"FlowerDropAmount: {PlayerStatHolder.FlowerDropAmount.Value}");
         });
         
-        Debug.Log($"[UnimoStats]\n" +
-                  $"Hp: {StatCalculator.Hp}\n" +
-                  $"Def: {StatCalculator.Def}\n" +
-                  $"Speed: {StatCalculator.Speed}\n" +
-                  $"BloomRange: {StatCalculator.BloomRange}\n" +
-                  $"BloomSpeed: {StatCalculator.BloomSpeed}\n" +
-                  $"FlowerRate: {StatCalculator.FlowerRate}\n" +
-                  $"RareFlowerRate: {StatCalculator.RareFlowerRate}\n" +
-                  $"Dodge: {StatCalculator.Dodge}\n" +
-                  $"StunRecovery: {StatCalculator.StunRecovery}\n" +
-                  $"HpRecovery: {StatCalculator.HpRecovery}\n" +
-                  $"FlowerDropSpeed: {StatCalculator.FlowerDropSpeed}\n" +
-                  $"FlowerDropAmount: {StatCalculator.FlowerDropAmount}");
-        
-        Debug.Log($"[UnimoStats (SkillOn)]\n" +
-                  $"Hp: {PlayerStatHolder.Hp.Value}\n" +
-                  $"Def: {PlayerStatHolder.Def.Value}\n" +
-                  $"Speed: {PlayerStatHolder.Speed.Value}\n" +
-                  $"BloomRange: {PlayerStatHolder.BloomRange.Value}\n" +
-                  $"BloomSpeed: {PlayerStatHolder.BloomSpeed.Value}\n" +
-                  $"FlowerRate: {PlayerStatHolder.FlowerRate.Value}\n" +
-                  $"RareFlowerRate: {PlayerStatHolder.RareFlowerRate.Value}\n" +
-                  $"Dodge: {PlayerStatHolder.Dodge.Value}\n" +
-                  $"StunRecovery: {PlayerStatHolder.StunRecovery.Value}\n" +
-                  $"HpRecovery: {PlayerStatHolder.HpRecovery.Value}\n" +
-                  $"FlowerDropSpeed: {PlayerStatHolder.FlowerDropSpeed.Value}\n" +
-                  $"FlowerDropAmount: {PlayerStatHolder.FlowerDropAmount.Value}");
-
         // 10초마다 체력 회복
         StartCoroutine(HpRecoveryCoroutine(PlayerStatHolder.HpRecovery.Value));
     }
@@ -203,22 +175,8 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
         StopCoroutine(HpRecoveryCoroutine(PlayerStatHolder.HpRecovery.Value));
         SetPlayerStats();
         StartCoroutine(HpRecoveryCoroutine(PlayerStatHolder.HpRecovery.Value));
-        skillRunner.SetEngineSkills(0, 0);     // 보유 스킬 제거
+        skillRunner.InitSkillSet();
         auraController.InitAura();
-        
-        Debug.Log($"[UnimoStats]\n" +
-                  $"Hp: {StatCalculator.Hp}\n" +
-                  $"Def: {StatCalculator.Def}\n" +
-                  $"Speed: {StatCalculator.Speed}\n" +
-                  $"BloomRange: {StatCalculator.BloomRange}\n" +
-                  $"BloomSpeed: {StatCalculator.BloomSpeed}\n" +
-                  $"FlowerRate: {StatCalculator.FlowerRate}\n" +
-                  $"RareFlowerRate: {StatCalculator.RareFlowerRate}\n" +
-                  $"Dodge: {StatCalculator.Dodge}\n" +
-                  $"StunRecovery: {StatCalculator.StunRecovery}\n" +
-                  $"HpRecovery: {StatCalculator.HpRecovery}\n" +
-                  $"FlowerDropSpeed: {StatCalculator.FlowerDropSpeed}\n" +
-                  $"FlowerDropAmount: {StatCalculator.FlowerDropAmount}");
     }
 
     private void SetLevelTestButton()

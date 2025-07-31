@@ -7,7 +7,6 @@ public class HitInvalidationSkillBehaviour : MonoBehaviour, IEquipmentSkillBehav
     private float passiveCooldown;
     
     private Coroutine passiveCoroutine;
-    private Coroutine passiveCooldownCoroutine;
     private Coroutine activeCoroutine;
     private PlayerStatHolder statHolder;
     
@@ -18,6 +17,10 @@ public class HitInvalidationSkillBehaviour : MonoBehaviour, IEquipmentSkillBehav
 
     private void OnDestroy()
     {
+        if (passiveCoroutine != null)
+        {
+            StopCoroutine(passiveCoroutine);
+        }
         LocalPlayer.Instance.PlayerStatHolder.OnOnceInvalidUsed -= StartPassiveCooldown;
     }
 

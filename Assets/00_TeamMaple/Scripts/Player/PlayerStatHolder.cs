@@ -53,6 +53,12 @@ public class PlayerStatHolder
         HasOnceInvalid = true;
     }
 
+    // 1회 피격 무효 삭제
+    public void RemoveOnceInvalid()
+    {
+        HasOnceInvalid = false;
+    }
+    
     // 무적 부여
     public void GiveInvincible()
     {
