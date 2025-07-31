@@ -29,7 +29,6 @@ public class UnimoStatUI : MonoBehaviour
     [SerializeField] private GameObject EQSprite;
     [SerializeField] private TMP_Text EQName;
     [SerializeField] private TMP_Text EQRank;
-    [SerializeField] private TMP_Text EQLevel;
     [SerializeField] private TMP_Text EQAbility;
     
     private float lineSpacing = 30f;
@@ -116,7 +115,7 @@ public class UnimoStatUI : MonoBehaviour
     {
         EQName.text = data.Name;
         EQRank.text = data.Rank.ToString();
-        EQLevel.text = Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1].ToString();
+        //EQLevel.text = Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1].ToString();
         
         EQAbility.text = BuildSpecialEQAbilityText(data);
         
@@ -124,9 +123,35 @@ public class UnimoStatUI : MonoBehaviour
         ShowStatLine(data.StatType2, data.StatValue2);
         ShowStatLine(data.StatType3, data.StatValue3);
         ShowStatLine(data.StatType4, data.StatValue4);
+        SetStarLevelUI(Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1]);
         
         // 다음 레벨 업그레이드 수치 가져오기
         ShowUpgradeEngineStat(Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1]);
+    }
+    
+    [SerializeField] private Image[] topStarImages;   
+    [SerializeField] private Image[] bottomStarImages;
+    [SerializeField] private Image[] nextStarImages;
+    
+    [SerializeField] private Sprite blackStarSprite;  
+    [SerializeField] private Sprite blueStarSprite;  
+    
+    private void SetStarLevelUI(int level)
+    {
+        for (int i = 0; i < topStarImages.Length; i++)
+        {
+            topStarImages[i].sprite = i < level ? blueStarSprite : blackStarSprite;
+        }
+        
+        for (int i = 0; i < bottomStarImages.Length; i++)
+        {
+            bottomStarImages[i].sprite = i < level ? blueStarSprite : blackStarSprite;
+        }
+        
+        for (int i = 0; i < nextStarImages.Length; i++)
+        {
+            nextStarImages[i].sprite = i < level + 1 ? blueStarSprite : blackStarSprite;
+        }
     }
     
     private string BuildSpecialEQAbilityText(EquipmentStatData data)
