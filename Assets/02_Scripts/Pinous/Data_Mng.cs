@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -25,6 +26,7 @@ public class Server_Data
     public bool[] GetCharacterData = { true, false, false, false, false, false, false, false, false, false, false, false, false };
     public bool[] GetEQData = { true, false, false, false, false, false, false, false, false, false, false, false, false , false, false , false, false, false, false , false, false, false, false};
 
+    public List<int> unlockedLands = new List<int>();
     public double BestScoreGameOne, BestScoreGameTwo;
 
     public bool[] GetFacilityData = { false, false, false, false, false, false, false };
@@ -83,8 +85,14 @@ public class Data_Mng
     public static SpriteAtlas atlas;
 
     public Server_Data data;
-    public int[] AltaCount = { 149, 349, 699, 1199 };
-
+    public int[] AltaCount = { 2, 5, 10, 20 };
+    private readonly Dictionary<int, int[]> AltaToLandMap = new Dictionary<int, int[]>
+    {
+        { 0, new[] { 0, 1 } }, // 149레벨 도달 시 → 랜드 2, 3 해금
+        { 1, new[] { 2, 3 } }, // 349레벨 도달 시 → 랜드 4, 5 해금
+        // 이후 필요 시 추가
+    };
+    
     public EXP_DATA exp_data;
 
     public float EXP_SET = 0;
@@ -183,16 +191,23 @@ public class Data_Mng
 
     private void LevelCheck()
     {
-        for (int i = 0; i < AltaCount.Length; i++)
+        int level = data.Level;
+    
+        Land.instance.UpdateMainTreeVisual(level);
+        
+        if (level == 2)
         {
-            if (data.Level == AltaCount[i])
-            {
-                Land.instance.GetLevelUpAlta(i);
-            }
+            Land.instance.UnlockMultipleLands(new int[] { 0, 1 }); // 랜드 2, 3
         }
-
-        CheckFacilityUnlock(); // ← 여기서 해금 및 스탯 적용도 같이 처리
+        else if (level == 3)
+        {
+            Land.instance.UnlockMultipleLands(new int[] { 2, 3 }); // 랜드 4, 5
+        }
+    
+        CheckFacilityUnlock();
     }
+
+
     
     public void AssetPlus(Asset_State state, double value)
     {
@@ -207,6 +222,7 @@ public class Data_Mng
                 Main_UI.instance.TextColorCheck();
                 break;
             case Asset_State.Red: data.Red += value; break;
+            case Asset_State.Green: data.Green += value; break;
             case Asset_State.Blue: data.Blue += value; break;
         }
 
@@ -316,7 +332,6 @@ public class Data_Mng
                 break;
 
             case 3: // 주전자
-                //KettleFacility.Instance?.UnlockExchange();
                 break;
 
             case 4: // 타자기
