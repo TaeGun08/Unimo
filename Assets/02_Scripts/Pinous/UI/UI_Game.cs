@@ -1,7 +1,6 @@
 using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class UI_Game : UI_Base
@@ -9,8 +8,6 @@ public class UI_Game : UI_Base
     public TextMeshProUGUI GameOneBest, GameTwoBest;
     private int stageCount;
 
-    private StageManager stageManager;
-    
     [SerializeField] private TMP_Text stageText;
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private GameObject[] starImg;
@@ -18,29 +15,31 @@ public class UI_Game : UI_Base
     [SerializeField] private GameObject selectStageUI;
     [SerializeField] private GameObject starRewardUI;
     [SerializeField] private TMP_Text getStarText;
-    
-    [Header("Equipped")]
-    [SerializeField] private GetUnimoAndEngineImageSO so;
-    [SerializeField] private Image[] images;
-    
-    [Header("SelectStage")]
-    [SerializeField] private SelectStage selectStage;
 
-    private int stage = 1;
-    
+    [Header("Equipped")] [SerializeField] private GetUnimoAndEngineImageSO so;
+    [SerializeField] private Image[] images;
+
+    [Header("SelectStage")] [SerializeField]
+    private SelectStage selectStage;
+
+    [SerializeField] private Image planetImage;
+
     private void OnEnable()
     {
         stageCount = Base_Mng.Data.data.HighStage;
-        
+
         images[0].sprite = so.GetSprites.UnimoSprite[Base_Mng.Data.data.CharCount - 1];
         images[1].sprite = so.GetSprites.EngineSprite[Base_Mng.Data.data.EQCount - 1];
 
-        selectStage.stage = stage;
+        stageCount = ((stageCount - 1) / 50) * 50 + 1;
         
+        selectStage.Stage = stageCount;
+
+        UpdatePlanetAndUI();
         UpdateStar();
         SetStageText();
         BonusStageOn();
-        
+
         GetStar();
     }
 
@@ -51,22 +50,25 @@ public class UI_Game : UI_Base
         GameTwoBest.text = "Best Score\n" + StringMethod.ToCurrencyString(Base_Mng.Data.data.BestScoreGameTwo);
         base.Start();
 
-        stageManager = StageManager.Instance;
-        
         stageCount = Base_Mng.Data.data.HighStage;
+
+        stageCount = ((stageCount - 1) / 50) * 50 + 1;
         
-        selectStage.stage = stage;
-        
+        selectStage.Stage = stageCount;
+
+        UpdatePlanetAndUI();
         UpdateStar();
         SetStageText();
         BonusStageOn();
-        
+
         GetStar();
     }
 
-    public void GoGameScene(int value)
+    public void GoGameScene()
     {
         int stageText = 0;
+
+        int value = StageLoader.IsBonusStageByIndex(stageCount) ? 2 : 1;
 
         WholeSceneController.Instance.ReadyNextScene(value);
         Base_Mng.Data.data.GamePlay++;
@@ -95,16 +97,16 @@ public class UI_Game : UI_Base
     private void GetStar()
     {
         getStarText.text = $"0 / 135";
-        
-        if (stageManager == null) return;
-        
+
+        if (StageManager.Instance == null) return;
+
         int starCount = 0;
         for (int i = 0; i < 50; i++)
         {
-            if (stageManager.GetStars(i + 1) != 0) return;
-            starCount += stageManager.GetStars(i + 1);
+            if (StageManager.Instance.GetStars(i + 1) != 0) return;
+            starCount += StageManager.Instance.GetStars(i + 1);
         }
-        
+
         getStarText.text = $"{starCount} / 135";
     }
 
@@ -122,12 +124,15 @@ public class UI_Game : UI_Base
             stageCount = Base_Mng.Data.data.HighStage;
             return;
         }
-        
+
         if (StageLoader.IsBonusStageByIndex(stageCount) && !Base_Mng.Data.data.BonusStageOn)
         {
             stageCount++;
         }
 
+        PlanetData planetData = StageManager.Instance.StageData.GetPlanetData(stageCount);
+        planetImage.sprite = planetData.PlanetSprite;
+        
         BonusStageOn();
         SetStageText();
         UpdateStar();
@@ -146,6 +151,9 @@ public class UI_Game : UI_Base
         {
             stageCount--;
         }
+
+        PlanetData planetData = StageManager.Instance.StageData.GetPlanetData(stageCount);
+        planetImage.sprite = planetData.PlanetSprite;
         
         BonusStageOn();
         SetStageText();
@@ -155,7 +163,7 @@ public class UI_Game : UI_Base
     private void BonusStageOn()
     {
         if (StageLoader.IsBonusStageByIndex(stageCount) && Base_Mng.Data.data.BonusStageOn
-            && Base_Mng.Data.data.HighStage <= stageCount)
+                                                        && Base_Mng.Data.data.HighStage <= stageCount)
         {
             stageText.text = $"Bonus Stage";
             bonusStageButton.SetActive(true);
@@ -169,12 +177,13 @@ public class UI_Game : UI_Base
     private void UpdateStar()
     {
         if (StageLoader.IsBonusStageByIndex(stageCount) && Base_Mng.Data.data.BonusStageOn
-            && Base_Mng.Data.data.HighStage <= stageCount)
+                                                        && Base_Mng.Data.data.HighStage <= stageCount)
         {
             for (int i = 0; i < starImg.Length; i++)
             {
                 starImg[i].SetActive(false);
             }
+
             return;
         }
 
@@ -205,9 +214,38 @@ public class UI_Game : UI_Base
         }
     }
 
-    public void SelectPlanet()
+    public void SelectPlanetUp()
     {
-        
+        stageCount = ((stageCount - 1) / 50 + 1) * 50 + 1;
+        if (stageCount > Base_Mng.Data.data.HighStage)
+        {
+            stageCount = Base_Mng.Data.data.HighStage;
+        }
+
+        UpdatePlanetAndUI();
+    }
+
+    public void SelectPlanetDown()
+    {
+        stageCount = ((stageCount - 1) / 50) * 50 + 1;
+        stageCount -= 50;
+        if (stageCount < 1)
+        {
+            stageCount = 1;
+        }
+
+        UpdatePlanetAndUI();
+    }
+
+    private void UpdatePlanetAndUI()
+    {
+        PlanetData planetData = StageManager.Instance.StageData.GetPlanetData(stageCount);
+        planetImage.sprite = planetData.PlanetSprite;
+        selectStage.Stage = stageCount;
+
+        BonusStageOn();
+        SetStageText();
+        UpdateStar();
     }
 
     public void ActiveTrueStage()
@@ -219,7 +257,7 @@ public class UI_Game : UI_Base
     {
         selectStageUI.SetActive(false);
     }
-    
+
     public void ActiveTrueReward()
     {
         starRewardUI.SetActive(true);

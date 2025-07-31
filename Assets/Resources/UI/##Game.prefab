@@ -643,8 +643,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -231}
-  m_SizeDelta: {x: 580, y: 580}
+  m_AnchoredPosition: {x: 0, y: -176}
+  m_SizeDelta: {x: 700, y: 700}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6149555260980445614
 CanvasRenderer:
@@ -1017,7 +1017,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3104164340134480612}
         m_TargetAssemblyTypeName: UI_Game, Assembly-CSharp
-        m_MethodName: StageCountUp
+        m_MethodName: SelectPlanetUp
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1716,6 +1716,7 @@ MonoBehaviour:
   - {fileID: 994442133769739422}
   - {fileID: 6430203737062381056}
   selectStage: {fileID: 6962484036868220350}
+  planetImage: {fileID: 2027351819822991434}
 --- !u!1 &4510353449614412519
 GameObject:
   m_ObjectHideFlags: 0
@@ -2639,7 +2640,7 @@ MonoBehaviour:
       - m_Target: {fileID: 3104164340134480612}
         m_TargetAssemblyTypeName: UI_Game, Assembly-CSharp
         m_MethodName: GoGameScene
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2770,7 +2771,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3104164340134480612}
         m_TargetAssemblyTypeName: UI_Game, Assembly-CSharp
-        m_MethodName: StageCountDown
+        m_MethodName: SelectPlanetDown
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

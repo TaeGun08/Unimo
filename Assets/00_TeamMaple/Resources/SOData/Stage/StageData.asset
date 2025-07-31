@@ -13,3 +13,24 @@ MonoBehaviour:
   m_Name: StageData
   m_EditorClassIdentifier: 
   stageCsv: {fileID: 4900000, guid: 1fba2868b1517ca43b8e3b19d3f23387, type: 3}
+  planetData:
+  - ReturnId: 1
+    PlanetSprite: {fileID: 21300000, guid: 5c3d04fc0715d184786b0edf50c4f09e, type: 3}
+  - ReturnId: 51
+    PlanetSprite: {fileID: 21300000, guid: 042f20c4f9e32724199f072ffb5e4b84, type: 3}
+  - ReturnId: 101
+    PlanetSprite: {fileID: 21300000, guid: f99a3181977bd874f9fa8ffb35df632a, type: 3}
+  - ReturnId: 151
+    PlanetSprite: {fileID: 21300000, guid: ab215753a0bd1334faa30e72fd465629, type: 3}
+  - ReturnId: 201
+    PlanetSprite: {fileID: 21300000, guid: 084589ff4f12ba040b467a39bc3c9a4d, type: 3}
+  - ReturnId: 251
+    PlanetSprite: {fileID: 21300000, guid: 1d9d053f95d13e64280954aa80c3b42c, type: 3}
+  - ReturnId: 301
+    PlanetSprite: {fileID: 21300000, guid: 9fbef2480066c9c4392bdb25723423e1, type: 3}
+  - ReturnId: 351
+    PlanetSprite: {fileID: 21300000, guid: eccfde0c4c4552a439d3279a74da71f6, type: 3}
+  - ReturnId: 401
+    PlanetSprite: {fileID: 21300000, guid: 565d61ebea747b34093741660d4dff7b, type: 3}
+  - ReturnId: 451
+    PlanetSprite: {fileID: 21300000, guid: 4618805aa68f37949baff60f224b24d9, type: 3}
