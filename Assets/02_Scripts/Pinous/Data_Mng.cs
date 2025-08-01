@@ -86,12 +86,6 @@ public class Data_Mng
 
     public Server_Data data;
     public int[] AltaCount = { 2, 5, 10, 20 };
-    private readonly Dictionary<int, int[]> AltaToLandMap = new Dictionary<int, int[]>
-    {
-        { 0, new[] { 0, 1 } }, // 149레벨 도달 시 → 랜드 2, 3 해금
-        { 1, new[] { 2, 3 } }, // 349레벨 도달 시 → 랜드 4, 5 해금
-        // 이후 필요 시 추가
-    };
     
     public EXP_DATA exp_data;
 
@@ -189,22 +183,17 @@ public class Data_Mng
         return (myExp / exp) * 100.0f;
     }
 
-    private void LevelCheck()
+    public void LevelCheck()
     {
-        int level = data.Level;
-    
-        Land.instance.UpdateMainTreeVisual(level);
-        
-        if (level == 2)
+        for (int i = 0; i < AltaCount.Length; i++)
         {
-            Land.instance.UnlockMultipleLands(new int[] { 0, 1 }); // 랜드 2, 3
+            if (data.Level == AltaCount[i])
+            {
+                Land.instance.GetLevelUpAlta(i);
+            }
         }
-        else if (level == 3)
-        {
-            Land.instance.UnlockMultipleLands(new int[] { 2, 3 }); // 랜드 4, 5
-        }
-    
-        CheckFacilityUnlock();
+
+        CheckFacilityUnlock(); // 시설 해금 체크
     }
 
 
