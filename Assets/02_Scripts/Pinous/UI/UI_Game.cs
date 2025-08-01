@@ -17,88 +17,84 @@ public class UI_Game : UI_Base
     [SerializeField] private GameObject starRewardUI;
     [SerializeField] private TMP_Text getStarText;
 
-    [Header("Equipped")] [SerializeField] private GetUnimoAndEngineImageSO so;
+    [Header("Equipped")]
+    [SerializeField] private GetUnimoAndEngineImageSO so;
     [SerializeField] private Image[] images;
 
-    [Header("SelectStage")] [SerializeField]
-    private SelectStage selectStage;
+    [Header("SelectStage")]
+    [SerializeField] private SelectStage selectStage;
     [SerializeField] private Image planetImage;
-    
+
+    [Header("Ticket")]
+    [SerializeField] private TMP_Text ticketText;
+
     private void OnEnable()
     {
-        stageCount = Base_Mng.Data.data.HighStage;
-
         images[0].sprite = so.GetSprites.UnimoSprite[Base_Mng.Data.data.CharCount - 1];
         images[1].sprite = so.GetSprites.EngineSprite[Base_Mng.Data.data.EQCount - 1];
 
-        stageCount = ((stageCount - 1) / 50) * 50 + 1;
-        
-        selectStage.Stage = stageCount;
-
-        UpdatePlanetAndUI();
-
-        GetStar();
+        InitializeStage();
     }
 
     public override void Start()
     {
-        //Camera_Event.instance.GetCameraEvent(CameraMoveState.InGame);
-        GameOneBest.text = "Best Score\n" + StringMethod.ToCurrencyString(Base_Mng.Data.data.BestScoreGameOne);
-        GameTwoBest.text = "Best Score\n" + StringMethod.ToCurrencyString(Base_Mng.Data.data.BestScoreGameTwo);
         base.Start();
 
-        stageCount = Base_Mng.Data.data.HighStage;
+        GameOneBest.text = "Best Score\n" + StringMethod.ToCurrencyString(Base_Mng.Data.data.BestScoreGameOne);
+        GameTwoBest.text = "Best Score\n" + StringMethod.ToCurrencyString(Base_Mng.Data.data.BestScoreGameTwo);
 
-        stageCount = ((stageCount - 1) / 50) * 50 + 1;
-        
+        InitializeStage();
+    }
+
+    private void InitializeStage()
+    {
+        stageCount = ((Base_Mng.Data.data.HighStage - 1) / 50) * 50 + 1;
         selectStage.Stage = stageCount;
 
         UpdatePlanetAndUI();
-
         GetStar();
+        ticketText.text = $"{Base_Mng.Data.data.GetTicket} / 8";
     }
 
     public void GoGameScene()
     {
-        int stageText = 0;
+        if (Base_Mng.Data.data.GetTicket <= 0) return;
 
+        int stageTextInput = 0;
         int value = StageLoader.IsBonusStageByIndex(stageCount) ? 2 : 1;
 
         WholeSceneController.Instance.ReadyNextScene(value);
         Base_Mng.Data.data.GamePlay++;
         Pinous_Flower_Holder.FlowerHolder.Clear();
-        if (!string.IsNullOrEmpty(inputField.text))
+
+        if (!string.IsNullOrEmpty(inputField.text) && int.TryParse(inputField.text, out stageTextInput))
         {
-            stageText = int.Parse(inputField.text);
-            Base_Mng.Data.data.CurrentStage = stageText;
-            Base_Mng.Data.data.HighStage = stageText;
+            Base_Mng.Data.data.CurrentStage = stageTextInput;
+            Base_Mng.Data.data.HighStage = stageTextInput;
         }
         else
         {
             Base_Mng.Data.data.CurrentStage = stageCount;
         }
 
-        //Base_Mng.Data.data.CurrentStage = stageCount;
         JsonDataLoader.SaveServerData(Base_Mng.Data.data);
-
-        //Base_Mng.ADS._interstitialCallback = () =>
-        //{
-
-        //};
-        //Base_Mng.ADS.ShowInterstitialAds();
     }
 
     private void GetStar()
     {
-        getStarText.text = $"0 / 135";
-
-        if (StageManager.Instance == null) return;
+        if (StageManager.Instance == null)
+        {
+            getStarText.text = "0 / 135";
+            return;
+        }
 
         int starCount = 0;
+        int startStage = ((stageCount - 1) / 50) * 50 + 1;
+
         for (int i = 0; i < 50; i++)
         {
-            if (StageManager.Instance.GetStars(i + 1) != 0) return;
-            starCount += StageManager.Instance.GetStars(i + 1);
+            int currentStage = startStage + i;
+            starCount += StageManager.Instance.GetStars(currentStage + 1000);
         }
 
         getStarText.text = $"{starCount} / 135";
@@ -124,18 +120,13 @@ public class UI_Game : UI_Base
             stageCount++;
         }
 
-        PlanetData planetData = StageManager.Instance.StageData.GetPlanetData(stageCount);
-        planetImage.sprite = planetData.PlanetSprite;
-        
-        BonusStageOn();
-        SetStageText();
-        UpdateStar();
+        UpdatePlanetAndUI();
     }
 
     public void StageCountDown()
     {
         stageCount--;
-        if (0 >= stageCount)
+        if (stageCount < 1)
         {
             stageCount = 1;
             return;
@@ -146,65 +137,23 @@ public class UI_Game : UI_Base
             stageCount--;
         }
 
-        PlanetData planetData = StageManager.Instance.StageData.GetPlanetData(stageCount);
-        planetImage.sprite = planetData.PlanetSprite;
-        
-        BonusStageOn();
-        SetStageText();
-        UpdateStar();
+        UpdatePlanetAndUI();
     }
 
     private void BonusStageOn()
     {
-        if (StageLoader.IsBonusStageByIndex(stageCount) && Base_Mng.Data.data.BonusStageOn
-                                                        && Base_Mng.Data.data.HighStage <= stageCount)
-        {
-            stageText.text = $"Bonus Stage";
-            bonusStageButton.SetActive(true);
-        }
-        else
-        {
-            bonusStageButton.SetActive(false);
-        }
+        bool isBonus = StageLoader.IsBonusStageByIndex(stageCount) && Base_Mng.Data.data.BonusStageOn && Base_Mng.Data.data.HighStage <= stageCount;
+        stageText.text = isBonus ? "Bonus Stage" : $"Stage-{stageCount}";
+        bonusStageButton.SetActive(isBonus);
     }
 
     private void UpdateStar()
     {
-        if (StageLoader.IsBonusStageByIndex(stageCount) && Base_Mng.Data.data.BonusStageOn
-                                                        && Base_Mng.Data.data.HighStage <= stageCount)
-        {
-            for (int i = 0; i < starImg.Length; i++)
-            {
-                starImg[i].SetActive(false);
-            }
+        int stars = StageManager.Instance.GetStars(stageCount + 1000);
 
-            return;
-        }
-
-        if (StageManager.Instance.GetStars(stageCount + 1000) == 3)
+        for (int i = 0; i < starImg.Length; i++)
         {
-            for (int i = 0; i < starImg.Length; i++)
-            {
-                starImg[i].SetActive(true);
-            }
-        }
-        else if (StageManager.Instance.GetStars(stageCount + 1000) == 2)
-        {
-            for (int i = 0; i < starImg.Length - 1; i++)
-            {
-                starImg[i].SetActive(true);
-            }
-        }
-        else if (StageManager.Instance.GetStars(stageCount + 1000) == 1)
-        {
-            starImg[0].SetActive(true);
-        }
-        else
-        {
-            for (int i = 0; i < starImg.Length; i++)
-            {
-                starImg[i].SetActive(false);
-            }
+            starImg[i].SetActive(i < stars);
         }
     }
 
@@ -213,7 +162,7 @@ public class UI_Game : UI_Base
         stageCount = ((stageCount - 1) / 50 + 1) * 50 + 1;
         if (stageCount > Base_Mng.Data.data.HighStage)
         {
-            stageCount = Base_Mng.Data.data.HighStage;
+            stageCount = ((Base_Mng.Data.data.HighStage - 1) / 50) * 50 + 1;
         }
 
         UpdatePlanetAndUI();
@@ -221,12 +170,8 @@ public class UI_Game : UI_Base
 
     public void SelectPlanetDown()
     {
-        stageCount = ((stageCount - 1) / 50) * 50 + 1;
-        stageCount -= 50;
-        if (stageCount < 1)
-        {
-            stageCount = 1;
-        }
+        stageCount = ((stageCount - 1) / 50) * 50 + 1 - 50;
+        if (stageCount < 1) stageCount = 1;
 
         UpdatePlanetAndUI();
     }
@@ -240,20 +185,10 @@ public class UI_Game : UI_Base
         BonusStageOn();
         SetStageText();
         UpdateStar();
+        GetStar();
     }
 
-    public void ActiveTrueStage()
-    {
-        selectStageUI.SetActive(true);
-    }
-
-    public void ActiveFalseStage()
-    {
-        selectStageUI.SetActive(false);
-    }
-
-    public void ActiveTrueReward()
-    {
-        starRewardUI.SetActive(true);
-    }
+    public void ActiveTrueStage() => selectStageUI.SetActive(true);
+    public void ActiveFalseStage() => selectStageUI.SetActive(false);
+    public void ActiveTrueReward() => starRewardUI.SetActive(true);
 }
