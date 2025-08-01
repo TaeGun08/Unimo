@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
 
 public class Land : MonoBehaviour
 {
     public static Land instance = null;
-    
+
     [SerializeField] private LandAnimator[] animators;
     [SerializeField] private GameObject[] objects;
     [SerializeField] private Transform[] landCheck;
@@ -23,74 +22,62 @@ public class Land : MonoBehaviour
     {
         if (instance == null) instance = this;
     }
-    
+
     private void Start()
     {
-        Generators[0].InitGenFlower();
+        ResetAllLands();
 
-        // 🌲 현재 열려있는 별나무(알타) 인덱스를 기준으로 판단
-        int currentAlta = GetCurrentAltaIndex();
+        int level = Base_Mng.Data.data.Level;
 
-        // 🌿 알타 1단계 → 랜드 1, 2 해금
-        if (currentAlta >= 2)
+        for (int i = 0; i < objects.Length; i++)
+            objects[i].transform.parent.gameObject.SetActive(false);
+
+        if (level < objects.Length)
+        {
+            var go = objects[level].transform.parent.gameObject;
+            go.SetActive(true);
+            go.transform.localScale = Vector3.one; // ✅ 나무가 보이도록 스케일 초기화 보장
+        }
+
+        if (level >= 2)
         {
             animators[0].gameObject.SetActive(true);
             animators[0].DefaultInitalize();
-
             animators[1].gameObject.SetActive(true);
             animators[1].DefaultInitalize();
         }
-
-        // 🌳 알타 2단계 → 랜드 3, 4 해금
-        if (currentAlta >= 3)
+        if (level >= 3)
         {
             animators[2].gameObject.SetActive(true);
             animators[2].DefaultInitalize();
-
             animators[3].gameObject.SetActive(true);
             animators[3].DefaultInitalize();
         }
 
-        // 🌲 별나무 비주얼 처리 (비주얼만, 로직과 무관)
-        for (int i = 0; i < objects.Length; i++)
-        {
-            var obj = objects[i].transform.parent.gameObject;
-            obj.SetActive(false);
-        }
-
-        // 열려있는 알타 기준 비주얼 표시
-        if (currentAlta >= 0 && currentAlta < objects.Length)
-            objects[currentAlta].transform.parent.gameObject.SetActive(true);
-
+        Generators[0].InitGenFlower();
         GetUnimo();
     }
-    
-    private int GetCurrentAltaIndex()
-    {
-        for (int i = objects.Length - 1; i >= 0; i--)
-        {
-            if (objects[i].transform.parent.gameObject.activeSelf)
-                return i;
-        }
-        return 0;
-    }
 
+    private void ResetAllLands()
+    {
+        foreach (var anim in animators)
+        {
+            anim.gameObject.SetActive(false);
+        }
+    }
 
     public void GetUnimo()
     {
         for (int i = 0; i < Base_Mng.Data.AltaCount.Length; i++)
         {
-            if (i > 0)
+            if (i > 0 && Base_Mng.Data.data.Level >= Base_Mng.Data.AltaCount[i - 1])
             {
-                if (Base_Mng.Data.data.Level >= Base_Mng.Data.AltaCount[i - 1])
-                {
-                    CacheValue++;
-                }
+                CacheValue++;
             }
         }
         for (int i = 0; i < Base_Mng.Data.data.GetCharacterData.Length; i++)
         {
-            if (Base_Mng.Data.data.GetCharacterData[i] == true)
+            if (Base_Mng.Data.data.GetCharacterData[i])
             {
                 GetCharacter(i);
             }
@@ -100,9 +87,8 @@ public class Land : MonoBehaviour
     public void GetCharacter(int i)
     {
         int value01 = CacheValue - 1;
-        int value02 = value01 <= 0 ? 0 : value01;
+        int value02 = Mathf.Max(0, value01);
         var land = landCheck[Random.Range(0, value[value02])];
-        Debug.Log(value[value02]);
         var go = Instantiate(TestUnimo, new Vector3(land.position.x + Random.Range(-3.0f, 3.0f),
             land.position.y + 8.0f, land.position.z + Random.Range(-1.5f, 1.5f)), Quaternion.identity, transform).GetComponent<TempUnimoSetter>();
         go.GetComponent<AI_Move>().Name = i.ToString();
@@ -110,12 +96,15 @@ public class Land : MonoBehaviour
         go.currentEq = i + 1;
     }
 
-    public void GetLandAnimation(int value)
+    public void GetLandAnimation(int index)
     {
-        animators[value].gameObject.SetActive(true);
-        animators[value].Initalize();
+        if (index < animators.Length)
+        {
+            animators[index].gameObject.SetActive(true);
+            animators[index].Initalize();
+        }
     }
-    
+
     public void GetLevelUpAlta(int value)
     {
         StartCoroutine(LevelUpAlta(value));
@@ -130,54 +119,48 @@ public class Land : MonoBehaviour
         Canvas_Holder.instance.Get_Toast("LevelUP01");
 
         var alta = objects[value].transform.parent.gameObject;
-        float current = 0;
-        float percent = 0;
-        Color startColor = Color.black;
-        Color endColor = Color.white;
-
+        float current = 0, percent = 0;
         GlowParticle.SetActive(true);
+
         while (percent < 1)
         {
             current += Time.deltaTime;
             percent = current / 1.0f;
 
-            Color LerpColor = Color.Lerp(startColor, endColor, percent);
+            Color color = Color.Lerp(Color.black, Color.white, percent);
             for (int i = 0; i < objects[value].transform.childCount; i++)
             {
                 var obj = objects[value].transform.GetChild(i).GetComponent<Renderer>();
-                obj.material.SetColor("_EmissionColor", LerpColor);
+                obj.material.SetColor("_EmissionColor", color);
             }
             yield return null;
         }
-        current = 0.0f;
-        percent = 0.0f;
-        Vector3 startPos = Vector3.one;
-        Vector3 endPos = Vector3.zero;
-        GlowParticle.SetActive(false);
 
-        while (percent < 1.0f)
+        current = percent = 0f;
+        while (percent < 1)
         {
             current += Time.deltaTime;
             percent = current / 0.2f;
-            Vector3 LerpVector = Vector3.Lerp(startPos, endPos, percent);
-            alta.transform.localScale = LerpVector;
+            alta.transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, percent);
             yield return null;
         }
         alta.SetActive(false);
-        current = 0.0f;
-        percent = 0.0f;
-        Vector3 LaststartPos = Vector3.zero;
-        Vector3 LastendPos = Vector3.one;
-        var go = objects[value + 1];
-        go.transform.parent.gameObject.SetActive(true);
-        while (percent < 1.0f)
+
+        if (value + 1 < objects.Length)
         {
-            current += Time.deltaTime;
-            percent = current / 0.2f;
-            Vector3 LerpVector = Vector3.Lerp(LaststartPos, LastendPos, percent);
-            go.transform.localScale = LerpVector;
-            yield return null;
+            var next = objects[value + 1].transform.parent.gameObject;
+            next.SetActive(true);
+            next.transform.localScale = Vector3.zero;
+            current = percent = 0f;
+            while (percent < 1f)
+            {
+                current += Time.deltaTime;
+                percent = current / 0.2f;
+                next.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, percent);
+                yield return null;
+            }
         }
+
         StarParticle.SetActive(true);
         Sound_Manager.instance.Play(Sound.Effect, "effect_1001");
 
@@ -185,20 +168,28 @@ public class Land : MonoBehaviour
         StarParticle.SetActive(false);
 
         yield return new WaitForSeconds(0.5f);
-
         Canvas_Holder.instance.GetLock(true);
         Camera_Event.instance.ReturnCamera();
         yield return new WaitForSeconds(1.0f);
         Canvas_Holder.instance.Get_Toast("LevelUP02");
-        GetLandAnimation(value);
-        if (value == 2)
+
+        // 랜드 해금 처리
+        if (value == 1)
+        {
+            GetLandAnimation(0);
+            GetLandAnimation(1);
+        }
+        else if (value == 2)
+        {
+            GetLandAnimation(2);
+            GetLandAnimation(3);
+        }
+
+        if (value == 2 && !Base_Mng.Data.data.GetVane)
         {
             yield return new WaitForSeconds(0.5f);
-            if (Base_Mng.Data.data.GetVane == false)
-            {
-                Base_Mng.Data.data.GetVane = true;
-                Canvas_Holder.instance.GetUI("##Vane");
-            }
+            Base_Mng.Data.data.GetVane = true;
+            Canvas_Holder.instance.GetUI("##Vane");
         }
     }
 }

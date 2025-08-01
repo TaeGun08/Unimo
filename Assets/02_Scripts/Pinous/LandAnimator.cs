@@ -25,6 +25,10 @@ public class LandAnimator : MonoBehaviour
     }
     public void Initalize()
     {
+        for (int i = 0; i < animators.Length; i++)
+        {
+            animators[i].enabled = true;
+        }
         StartCoroutine(InitCoroutine());
     }
 
