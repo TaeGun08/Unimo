@@ -40,10 +40,10 @@ public class StageData : ParsingStageData<StageDataRecord>
             case "넓은별_블랙홀":
                 return planetData[0];
             case "낙뢰의별":
-            case "낙뢰의별_블랙홀":
+            case "낙뢰의 별_블랙홀":
                 return planetData[1];
             case "초록가스 별":
-            case "초록가스 별_블랙홀":
+            case "초록가스별_블랙홀":
                 return planetData[2];
             case "얼어붙은별":
             case "얼어붙은별_블랙홀":
@@ -55,16 +55,16 @@ public class StageData : ParsingStageData<StageDataRecord>
             case "검은별_블랙홀":
                 return planetData[5];
             case "질풍의 별":
-            case "질풍의 별_블랙홀":
+            case "질풍의별_블랙홀":
                 return planetData[6];
             case "안개구름 별":
-            case "안개구름 별_블랙홀":
+            case "안개구름별_블랙홀":
                 return planetData[7];
             case "불안정한 별":
-            case "불안정한 별_블랙홀":
+            case "불안정한별_블랙홀":
                 return planetData[8];
             case "시간의 별":
-            case "시간의 별_블랙홀":
+            case "시간의별_블랙홀":
                 return planetData[9];
         }
         
