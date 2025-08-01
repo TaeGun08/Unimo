@@ -8,6 +8,7 @@ public class UI_Game : UI_Base
     public TextMeshProUGUI GameOneBest, GameTwoBest;
     private int stageCount;
 
+    [Header("Stage Settings")]
     [SerializeField] private TMP_Text stageText;
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private GameObject[] starImg;
@@ -21,9 +22,8 @@ public class UI_Game : UI_Base
 
     [Header("SelectStage")] [SerializeField]
     private SelectStage selectStage;
-
     [SerializeField] private Image planetImage;
-
+    
     private void OnEnable()
     {
         stageCount = Base_Mng.Data.data.HighStage;
@@ -36,9 +36,6 @@ public class UI_Game : UI_Base
         selectStage.Stage = stageCount;
 
         UpdatePlanetAndUI();
-        UpdateStar();
-        SetStageText();
-        BonusStageOn();
 
         GetStar();
     }
@@ -57,9 +54,6 @@ public class UI_Game : UI_Base
         selectStage.Stage = stageCount;
 
         UpdatePlanetAndUI();
-        UpdateStar();
-        SetStageText();
-        BonusStageOn();
 
         GetStar();
     }
