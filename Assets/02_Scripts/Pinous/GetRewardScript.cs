@@ -1,3 +1,4 @@
+
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -135,6 +136,8 @@ public class GetRewardScript : MonoBehaviour
         Base_Mng.Data.data.Red += redTrade;
         Base_Mng.Data.data.Yellow += yellowTrade;
         Base_Mng.Data.data.Blue += blueTrade;
+        Base_Mng.Data.data.GetTicket--;
+        Debug.Log("티켓 감소" + Base_Mng.Data.data.GetTicket);
     }
 
     private async Task ActiveTrueStars(int starCount)
@@ -172,6 +175,8 @@ public class GetRewardScript : MonoBehaviour
         Base_Mng.Data.data.HighStage++;
         Base_Mng.Data.data.CurrentStage = Base_Mng.Data.data.HighStage;
 
+        Base_Mng.Data.data.GetTicket--;
+        
         Base_Mng.Data.data.BonusStageOn = false;
     }
 

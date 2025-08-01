@@ -67,6 +67,8 @@ public class Server_Data
     public bool GetReview = false;
     public bool GetInGame = false;
     public bool GetVane = false;
+
+    public int GetTicket = 0;
 }
 public enum Asset_State
 {

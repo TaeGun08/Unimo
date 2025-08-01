@@ -11,7 +11,12 @@ public class SelectStage : MonoBehaviour
     private GameObject prefab;
 
     private SelectStageButton[] buttons;
-    public int Stage { get; set; }
+    private int stage;
+    public int Stage
+    {
+        get => stage;
+        set => stage = ((value - 1) / 50) * 50 + 1;
+    }
 
     private void OnEnable()
     {
@@ -30,7 +35,7 @@ public class SelectStage : MonoBehaviour
 
     private void CreateButtons()
     {
-        int index = Stage;
+        int index = stage;
 
         for (int i = 0; i < buttons.Length; i++)
         {
@@ -55,7 +60,7 @@ public class SelectStage : MonoBehaviour
 
     private void ButtonsSetting()
     {
-        int index = Stage;
+        int index = stage;
 
         foreach (var button in buttons)
         {

@@ -1717,6 +1717,7 @@ MonoBehaviour:
   - {fileID: 6430203737062381056}
   selectStage: {fileID: 6962484036868220350}
   planetImage: {fileID: 2027351819822991434}
+  ticketText: {fileID: 5065682449704250265}
 --- !u!1 &4510353449614412519
 GameObject:
   m_ObjectHideFlags: 0
@@ -3762,7 +3763,6 @@ GameObject:
   - component: {fileID: 3776985386819325307}
   - component: {fileID: 8960379912814952822}
   - component: {fileID: 1984566966191591931}
-  - component: {fileID: 2704116258478789797}
   m_Layer: 5
   m_Name: Ticket
   m_TagString: Untagged
@@ -3829,20 +3829,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2704116258478789797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7554644469910391800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25dd1ec5739e98740b57023e078def27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  productionInterval: 7200
-  maxTicket: 8
 --- !u!1 &7654166198025907215
 GameObject:
   m_ObjectHideFlags: 0
