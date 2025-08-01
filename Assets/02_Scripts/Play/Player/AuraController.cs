@@ -14,11 +14,14 @@ public class AuraController : MonoBehaviour
     
     private float lerpDuration = 0.5f;    // 오라 범위 변경되는 시간
     
-    private PlayerStatHolder playerStatHolder;
     private Coroutine changeScaleCoroutine;
+    private PlayerStatHolder playerStatHolder;
+    private EquipmentSkillManager skillManager;
 
     private void Start()
     {
+        skillManager = EquipmentSkillManager.Instance;
+        
         InitAura();
     }
 
@@ -63,6 +66,7 @@ public class AuraController : MonoBehaviour
     
     private IEnumerator ChangeScaleCoroutine(int next, float duration)
     {
+        skillManager.effectController.PlaySkillEffect(1);
         float elapsed = 0f;
         Vector3 startScale = transform.localScale;
         Vector3 targetScale = next * Vector3.one;
@@ -93,6 +97,7 @@ public class AuraController : MonoBehaviour
                 yield return null;
             }
             transform.localScale = startScale;
+            skillManager.effectController.StopSkillEffect(1);
         }
     }
 

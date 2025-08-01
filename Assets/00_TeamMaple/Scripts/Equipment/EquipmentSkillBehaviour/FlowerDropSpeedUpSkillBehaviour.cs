@@ -5,6 +5,12 @@ using UnityEngine;
 public class FlowerDropSpeedUpSkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviour
 {
     private Coroutine activeCoroutine;
+    private EquipmentSkillManager skillManager;
+    
+    private void Awake()
+    {
+        skillManager = EquipmentSkillManager.Instance;
+    }
     
     public void Excute(GameObject caster, EquipmentSkillData skillData)
     {
@@ -30,8 +36,11 @@ public class FlowerDropSpeedUpSkillBehaviour : MonoBehaviour, IEquipmentSkillBeh
     private IEnumerator ActiveFlowerDropSpeedUp(ClampedFloat flowerDropSpeed, float duration, float addFlowerDropSpeed)
     {
         flowerDropSpeed.Add(addFlowerDropSpeed);    // 꽃 낙하 속도 일시 증가
+        skillManager.effectController.PlaySkillEffect(1);
         yield return new WaitForSeconds(duration);    // duration초 대기
         flowerDropSpeed.Subtract(addFlowerDropSpeed);    // 증가분 다시 감소
+        skillManager.effectController.StopSkillEffect(1);
+        
         activeCoroutine = null;
     }
 }

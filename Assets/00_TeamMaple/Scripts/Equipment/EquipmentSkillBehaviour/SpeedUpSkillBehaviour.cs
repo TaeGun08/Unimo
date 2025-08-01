@@ -5,6 +5,12 @@ using UnityEngine;
 public class SpeedUpSkillBehaviour : MonoBehaviour,IEquipmentSkillBehaviour
 {
     private Coroutine activeCoroutine;
+    private EquipmentSkillManager skillManager;
+    
+    private void Awake()
+    {
+        skillManager = EquipmentSkillManager.Instance;
+    }
     
     public void Excute(GameObject caster, EquipmentSkillData skillData)
     {
@@ -31,8 +37,10 @@ public class SpeedUpSkillBehaviour : MonoBehaviour,IEquipmentSkillBehaviour
     private IEnumerator ActiveSpeedUp(ClampedFloat speed, float duration, float addSpeed)
     {
         speed.Add(addSpeed);    // 이동 속도 일시 증가
+        skillManager.effectController.PlaySkillEffect(1);
         yield return new WaitForSeconds(duration);    // duration초 대기
         speed.Subtract(addSpeed);    // 증가분 다시 감소
+        skillManager.effectController.StopSkillEffect(1);
         activeCoroutine = null;
     }
 }

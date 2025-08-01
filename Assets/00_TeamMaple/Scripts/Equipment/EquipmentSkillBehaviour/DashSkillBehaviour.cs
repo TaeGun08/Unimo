@@ -5,6 +5,12 @@ using UnityEngine;
 public class DashSkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviour
 {
     private Coroutine activeCoroutine;
+    private EquipmentSkillManager skillManager;
+    
+    private void Awake()
+    {
+        skillManager = EquipmentSkillManager.Instance;
+    }
     
     public void Excute(GameObject caster, EquipmentSkillData skillData)
     {
@@ -29,7 +35,7 @@ public class DashSkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviour
         Vector3 start = caster.transform.position;
         Vector3 end = start + caster.transform.forward * dashPower;
 
-        // 1. 대시 목표 위치가 맵 밖이면 가장 가까운 맵 안 위치로 조정
+        // 대시 목표 위치가 맵 밖이면 가장 가까운 맵 안 위치로 조정
         if (mapSetter != null && !mapSetter.IsInMap(end))
         {
             end = mapSetter.FindNearestPoint(end);
@@ -42,6 +48,7 @@ public class DashSkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
-        caster.transform.position = end; // 마지막 위치 정확히 맞추기
+        caster.transform.position = end;    // 마지막 위치 정확히 맞추기
+        skillManager.effectController.PlaySkillEffect(1);
     }
 }

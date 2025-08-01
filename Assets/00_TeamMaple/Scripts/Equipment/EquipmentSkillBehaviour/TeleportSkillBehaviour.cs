@@ -4,6 +4,13 @@ using UnityEngine;
 // 텔레포트 스킬
 public class TeleportSkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviour
 {
+    private EquipmentSkillManager skillManager;
+    
+    private void Awake()
+    {
+        skillManager = EquipmentSkillManager.Instance;
+    }
+    
     public void Excute(GameObject caster, EquipmentSkillData skillData)
     {
         switch (skillData.Type)
@@ -30,6 +37,6 @@ public class TeleportSkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviour
         }
 
         caster.transform.position = end;
-        // 이펙트나 사운드 등 추가 가능
+        skillManager.effectController.PlaySkillEffect(1);
     }
 }

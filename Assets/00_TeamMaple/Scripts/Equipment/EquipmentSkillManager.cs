@@ -90,14 +90,6 @@ public class EquipmentSkillManager : MonoBehaviour
                 if (skillDatas[i].Type == EquipmentSkillType.Passive)
                 {
                     UseSkill(i);
-                    Debug.Log($"[[Skill{i}]]\n" +
-                              $"Id: {skillDatas[i].Id}\n" +
-                              $"Name: {skillDatas[i].Name}\n" +
-                              $"Type: {skillDatas[i].Id}\n" +
-                              $"Cooldown: {skillDatas[i].Id}\n" +
-                              $"Duration: {skillDatas[i].Id}\n" +
-                              $"Param: {skillDatas[i].Id}\n" +
-                              $"Description: {skillDatas[i].Description}\n");
                 }
             }
         }
@@ -112,14 +104,13 @@ public class EquipmentSkillManager : MonoBehaviour
         }
         
         skillExecutors[idx].Excute(player, skillDatas[idx]);
-        effectController.PlaySkillEffect(idx);
         Debug.Log($"[[Skill{idx}]]\n" +
                   $"Id: {skillDatas[idx].Id}\n" +
                   $"Name: {skillDatas[idx].Name}\n" +
-                  $"Type: {skillDatas[idx].Id}\n" +
-                  $"Cooldown: {skillDatas[idx].Id}\n" +
-                  $"Duration: {skillDatas[idx].Id}\n" +
-                  $"Param: {skillDatas[idx].Id}\n" +
+                  $"Type: {skillDatas[idx].Type}\n" +
+                  $"Cooldown: {skillDatas[idx].Cooldown}\n" +
+                  $"Duration: {skillDatas[idx].Duration}\n" +
+                  $"Param: {skillDatas[idx].Param}\n" +
                   $"Description: {skillDatas[idx].Description}\n");
 
         if (skillDatas[idx].Type == EquipmentSkillType.Active)

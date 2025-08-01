@@ -36,6 +36,7 @@ public class HitInvalidationSkillBehaviour : MonoBehaviour, IEquipmentSkillBehav
                 statHolder.OnOnceInvalidUsed += StartPassiveCooldown;
                 passiveCooldown = skillData.Cooldown;
                 statHolder.GiveOnceInvalid();    // 1회 피격 무효 부여
+                skillManager.effectController.PlaySkillEffect(0);
                 break;
             case EquipmentSkillType.Active:
                 Debug.Log("[Active] 무적 액티브 발동");
@@ -72,7 +73,9 @@ public class HitInvalidationSkillBehaviour : MonoBehaviour, IEquipmentSkillBehav
     private IEnumerator ActiveInvincible(float duration)
     {
         statHolder.GiveInvincible();    // 무적 부여
+        skillManager.effectController.PlaySkillEffect(1);
         yield return new WaitForSeconds(duration);    // 액티브 지속시간 대기
         statHolder.RemoveInvincible();    // 무적 삭제
+        skillManager.effectController.StopSkillEffect(1);
     }
 }

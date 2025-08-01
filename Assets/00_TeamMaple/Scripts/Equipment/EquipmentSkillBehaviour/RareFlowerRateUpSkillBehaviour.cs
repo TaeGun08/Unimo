@@ -5,6 +5,12 @@ using UnityEngine;
 public class RareFlowerRateUpSkillBehaviour : MonoBehaviour, IEquipmentSkillBehaviour
 {
     private Coroutine activeCoroutine;
+    private EquipmentSkillManager skillManager;
+    
+    private void Awake()
+    {
+        skillManager = EquipmentSkillManager.Instance;
+    }
     
     public void Excute(GameObject caster, EquipmentSkillData skillData)
     {
@@ -31,8 +37,10 @@ public class RareFlowerRateUpSkillBehaviour : MonoBehaviour, IEquipmentSkillBeha
     private IEnumerator ActiveRareFlowerRateUp(ClampedFloat rareFlowerRate, float duration, float addRareFlowerRate)
     {
         rareFlowerRate.Add(addRareFlowerRate);    // 희귀 꽃 생성 확률 일시 증가
+        skillManager.effectController.PlaySkillEffect(1);
         yield return new WaitForSeconds(duration);    // duration초 대기
         rareFlowerRate.Subtract(addRareFlowerRate);    // 증가분 다시 감소
+        skillManager.effectController.StopSkillEffect(1);
         activeCoroutine = null;
     }
 }
