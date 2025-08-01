@@ -172,6 +172,9 @@ public class EquipmentSkillManager : MonoBehaviour
             // 스킬 세팅 초기화
             skillExecutors[i] = null;
             skillDatas[i] = null;
+            
+            // 스킬 이펙트 초기화
+            effectController.StopSkillEffect(i);
         }
         
         // 상태 초기화
