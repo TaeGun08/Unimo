@@ -981,6 +981,7 @@ MonoBehaviour:
   skillDataSo: {fileID: 11400000, guid: 28cf012214853794489021f808449e17, type: 2}
   skillTable: {fileID: 11400000, guid: dc08681057585764bb821697c69f9c21, type: 2}
   uiController: {fileID: 972091525}
+  effectController: {fileID: 896711600}
 --- !u!4 &83035358
 Transform:
   m_ObjectHideFlags: 0
@@ -7412,6 +7413,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d88c267a61d44fd4cb8dc92d5684eda6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 981523601}
+  effectTable: {fileID: 11400000, guid: 40b75027accd61d48bc5e48e619ac2c2, type: 2}
 --- !u!1 &904286661
 GameObject:
   m_ObjectHideFlags: 0
