@@ -87,7 +87,7 @@ public class Data_Mng
     public static SpriteAtlas atlas;
 
     public Server_Data data;
-    public int[] AltaCount = { 2, 5, 10, 20 };
+    public int[] AltaCount = { 149, 349, 699, 1099 };
     
     public EXP_DATA exp_data;
 
