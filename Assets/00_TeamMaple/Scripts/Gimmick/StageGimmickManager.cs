@@ -32,8 +32,15 @@ public class StageGimmickManager : MonoBehaviour
             var gimmickLogic = GimmickRegistry.GetLogic(gimmickType);
             if (gimmickLogic != null)
             {
+                // 💡 비주얼 적용
+                var visualApplier = FindObjectOfType<StageGimmickVisualApplier>();
+                if (visualApplier != null)
+                    visualApplier.ApplyVisuals(gimmickLogic);
+
+                // 💥 기믹 실행
                 GameObject gimmickObj = gimmickLogic.Execute(transform.position);
                 if (gimmickObj != null) currentGimmickInstance = gimmickObj;
+
                 Debug.Log($"[기믹] 스테이지 {stageNum}: {gimmickType} 실행");
             }
         }

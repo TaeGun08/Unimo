@@ -14706,7 +14706,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cc64caa63d876da42976a2ce04471391, type: 2}
+  - {fileID: 2100000, guid: 928781b092f20e248aa8fa86d0e24b10, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15070,7 +15070,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5d027e3c99871c3449afa496dc919953, type: 2}
+  - {fileID: 2100000, guid: 7fcaab5cac11d2549b1229f454332476, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15115,7 +15115,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 502f92592010cd642bb8c2fa14e33734, type: 2}
+  - {fileID: 2100000, guid: fb0ee6ab91d8b0546a7fbcd9bd09bd5e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -16644,6 +16644,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9034130852324184809}
   - component: {fileID: 9034130852324184810}
+  - component: {fileID: 9034130852324184811}
   m_Layer: 0
   m_Name: ST001_Infinite
   m_TagString: Untagged
@@ -16718,6 +16719,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapRadius: 16
+--- !u!114 &9034130852324184811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8301550458809705492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4893321b66c84e442ac474c496b79073, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundRenderer: {fileID: 5128004119720737243}
+  backgroundRenderer: {fileID: 2845400961675306266}
+  environmentRenderer: {fileID: 4326043156084823985}
 --- !u!222 &9069257689681190135
 CanvasRenderer:
   m_ObjectHideFlags: 0

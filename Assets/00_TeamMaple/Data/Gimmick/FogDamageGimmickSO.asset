@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: FogDamageGimmickSO
   m_EditorClassIdentifier: 
   gimmickType: 7
+  groundMaterial: {fileID: 2100000, guid: 6ac204a8d5f00b94cb2eef96c426be33, type: 2}
+  backgroundMaterial: {fileID: 2100000, guid: 8cc594911374c7545bf72c97c6cd5831, type: 2}
+  environmentMaterial: {fileID: 2100000, guid: ad0487a650611954a9bb846d776bbdde, type: 2}
   duration: 15
   damageInterval: 2
   damageAmount: 5

@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: PoisonGasGimmickSO
   m_EditorClassIdentifier: 
   gimmickType: 2
+  groundMaterial: {fileID: 2100000, guid: 50594f8aabc6f3443be8292851dc9131, type: 2}
+  backgroundMaterial: {fileID: 2100000, guid: ae8b273b5f41ba144b1724abce23e4e2, type: 2}
+  environmentMaterial: {fileID: 2100000, guid: 3dd27b7480560eb4a854da57fdd19271, type: 2}
   gasPrefab: {fileID: 7737821957911359092, guid: 0ee0d02d91df97f44be8333f0f2e2f4c,
     type: 3}
   gasDuration: 20

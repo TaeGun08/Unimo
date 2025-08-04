@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: WildWindGimmickSO
   m_EditorClassIdentifier: 
   gimmickType: 6
+  groundMaterial: {fileID: 2100000, guid: 6db0fe34d460c1b4b9e688f5f2033471, type: 2}
+  backgroundMaterial: {fileID: 2100000, guid: b135f39f9abf97e419eb19930137f3ec, type: 2}
+  environmentMaterial: {fileID: 2100000, guid: cf34a7c4909063b43aa3ed97ec32e05b, type: 2}
   delayBeforeStart: 30
   windDuration: 20
   windDirection: {x: -1, y: 0, z: 0}

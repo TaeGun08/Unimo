@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: MeteorFallGimmickSO
   m_EditorClassIdentifier: 
   gimmickType: 4
+  groundMaterial: {fileID: 2100000, guid: e8278f86d848fac449eeedbabf9afcd5, type: 2}
+  backgroundMaterial: {fileID: 2100000, guid: 9d1ad4a7608d9454398303da92bd091f, type: 2}
+  environmentMaterial: {fileID: 2100000, guid: fecf13dfd57d0d74cbe106bc4e390b9b, type: 2}
   meteorPrefab: {fileID: 1448005828616997895, guid: 3c5b3c55ec6a03a499459aff1745f253,
     type: 3}
   markerPrefab: {fileID: 701437982668235559, guid: 43621e523a79cf141a9cea53badd5299,

@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: EarthquakeGimmickSO
   m_EditorClassIdentifier: 
   gimmickType: 8
+  groundMaterial: {fileID: 2100000, guid: 86edccb728589c8438dde7d72458a4e5, type: 2}
+  backgroundMaterial: {fileID: 2100000, guid: b18f1017dffe04044895b03bebf5807f, type: 2}
+  environmentMaterial: {fileID: 2100000, guid: faf17fd4c630b5d4aba15b37225c53e4, type: 2}
   shakeDuration: 5
   intensity: 0.3
