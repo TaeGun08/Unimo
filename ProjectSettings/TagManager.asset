@@ -14,6 +14,7 @@ TagManager:
   - Door
   - Ground
   - New tag
+  - Meteor
   layers:
   - Default
   - TransparentFX
@@ -30,7 +31,7 @@ TagManager:
   - AStarBlocker
   - Unimo
   - Ground
-  - 
+  - Meteor
   - 
   - 
   - 

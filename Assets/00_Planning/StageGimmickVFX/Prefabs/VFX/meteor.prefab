@@ -14,9 +14,12 @@ GameObject:
   - component: {fileID: 6938445292608650690}
   - component: {fileID: 271667264609382775}
   - component: {fileID: 2748699213424802612}
-  m_Layer: 0
+  - component: {fileID: 5679987336463039996}
+  - component: {fileID: 6648928380593639544}
+  - component: {fileID: 9214266019912381546}
+  m_Layer: 15
   m_Name: meteor
-  m_TagString: Untagged
+  m_TagString: Meteor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4958,6 +4961,71 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!136 &5679987336463039996
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448005828616997895}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.6745
+  m_Height: 1.349
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &6648928380593639544
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448005828616997895}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &9214266019912381546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448005828616997895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30629f506f591204a97352cf59153c41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyDelay: 0.2
+  fallSpeed: 20
+  fallDirection: {x: 0.5, y: -1, z: 0}
 --- !u!1 &1652732835550783044
 GameObject:
   m_ObjectHideFlags: 0
@@ -4969,7 +5037,7 @@ GameObject:
   - component: {fileID: 6063435629493982126}
   - component: {fileID: 3825154796384676901}
   - component: {fileID: 2921694433623406023}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: FireGlowTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9751,7 +9819,7 @@ GameObject:
   - component: {fileID: 3874869137634738927}
   - component: {fileID: 7496895727553238112}
   - component: {fileID: 2401040484673739750}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: SparkTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14569,7 +14637,7 @@ GameObject:
   - component: {fileID: 525571560383275594}
   - component: {fileID: 3443983784996808130}
   - component: {fileID: 4197656685862028468}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: RingGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19409,7 +19477,7 @@ GameObject:
   - component: {fileID: 8247519863885784669}
   - component: {fileID: 8257255044856129849}
   - component: {fileID: 3621103326952318801}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: FireTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24182,7 +24250,7 @@ GameObject:
   - component: {fileID: 2798496914736651863}
   - component: {fileID: 7565221481591659047}
   - component: {fileID: 7295453979091965803}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: BigGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28997,9 +29065,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6999017881518138291}
     m_Modifications:
+    - target: {fileID: 118964, guid: 78e9787b10a1cf646b9e2d7cfd4b6402, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 127626, guid: 78e9787b10a1cf646b9e2d7cfd4b6402, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 128070, guid: 78e9787b10a1cf646b9e2d7cfd4b6402, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 130346, guid: 78e9787b10a1cf646b9e2d7cfd4b6402, type: 3}
       propertyPath: m_Name
       value: NukeExplosionFire 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 130346, guid: 78e9787b10a1cf646b9e2d7cfd4b6402, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 175850, guid: 78e9787b10a1cf646b9e2d7cfd4b6402, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 191454, guid: 78e9787b10a1cf646b9e2d7cfd4b6402, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 468048, guid: 78e9787b10a1cf646b9e2d7cfd4b6402, type: 3}
       propertyPath: m_LocalPosition.x

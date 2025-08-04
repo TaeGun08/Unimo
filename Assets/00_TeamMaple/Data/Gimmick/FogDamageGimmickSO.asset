@@ -16,3 +16,4 @@ MonoBehaviour:
   duration: 15
   damageInterval: 2
   damageAmount: 5
+  fogMaterial: {fileID: 2100000, guid: 6ab5de8b36bcbd149bf977ab979d9b9f, type: 2}

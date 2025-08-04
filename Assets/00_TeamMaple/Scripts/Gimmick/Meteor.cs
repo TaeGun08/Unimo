@@ -12,8 +12,6 @@ public class Meteor : MonoBehaviour
 
     void Start()
     {
-        transform.rotation = Quaternion.Euler(70f, 90f, 0f);
-
         rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -29,28 +27,52 @@ public class Meteor : MonoBehaviour
 
         // Meteor 레이어 간 충돌 비활성화
         Physics.IgnoreLayerCollision(meteorLayer, meteorLayer, true);
-    }
-
-    void Update()
-    {
-        transform.Rotate(0f, 0f, 720f * Time.deltaTime);
+        Transform explosionEffect = transform.Find("NukeExplosionFire 1");
+        if (explosionEffect != null)
+            explosionEffect.gameObject.SetActive(false);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (hasExploded) return;
-        if (!collision.collider.CompareTag("Ground")) return;
+
+        bool hitGround = collision.collider.CompareTag("Ground");
+        bool hitUnimo = collision.collider.CompareTag("Player");
+
+        if (!hitGround && !hitUnimo) return;
 
         hasExploded = true;
+
+        // 💥 이펙트 실행
+        Transform explosion = transform.Find("NukeExplosionFire 1");
+        if (explosion != null)
+        {
+            explosion.gameObject.SetActive(true);
+
+            ParticleSystem ps = explosion.GetComponent<ParticleSystem>();
+            if (ps != null)
+                ps.Play();
+        }
 
         MeteorFallRunner runner = FindObjectOfType<MeteorFallRunner>();
         if (runner != null)
         {
             runner.NotifyMeteorDestroyed(gameObject);
         }
+        
+        if (hitUnimo)
+        {
+            Rigidbody unimoRb = collision.rigidbody;
+            if (unimoRb != null)
+            {
+                unimoRb.linearVelocity = Vector3.zero;
+                unimoRb.angularVelocity = Vector3.zero;
+            }
+        }
 
         Destroy(gameObject, destroyDelay);
     }
+
 
     private void OnDestroy()
     {

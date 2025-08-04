@@ -4,12 +4,15 @@ using UnityEngine;
 public class DarknessGimmickSO : StageGimmickSO
 {
     public float duration = 15f;
+    public GameObject darknessPrefab;
 
     public override GameObject Execute(Vector3 origin)
     {
         var obj = new GameObject("DarknessRunner");
         var runner = obj.AddComponent<DarknessRunner>();
-        runner.Init(duration);
+        runner.duration = duration;
+        runner.darknessPrefab = darknessPrefab;
+        runner.Init();
         return obj;
     }
     
@@ -21,30 +24,29 @@ public class DarknessGimmickSO : StageGimmickSO
 
 public class DarknessRunner : MonoBehaviour
 {
-    private float timer;
-    private float duration;
-    private Color originalAmbient;
-    private Color originalFog;
-    private bool fogInitiallyEnabled;
+    public float duration = 15f;
+    public GameObject darknessPrefab;
 
-    public void Init(float d)
+    private GameObject darknessInstance;
+    private Material darknessMaterial;
+    private Transform player;
+    private float timer = 0f;
+
+    public void Init()
     {
-        duration = d;
+        player = LocalPlayer.Instance.transform;
 
-        // ✅ 기존 설정 백업
-        originalAmbient = RenderSettings.ambientLight;
-        originalFog = RenderSettings.fogColor;
-        fogInitiallyEnabled = RenderSettings.fog;
+        darknessInstance = Instantiate(darknessPrefab);
+        darknessInstance.transform.SetParent(player);
+        darknessInstance.transform.localPosition = Vector3.zero;
+        darknessInstance.transform.localScale = Vector3.one * 50f;
 
-        // ✅ 어둠 적용
-        RenderSettings.ambientLight = Color.black;
-        RenderSettings.fog = true;
-        RenderSettings.fogColor = Color.black;
-
-        // 옵션: Directional Light 끄기
-        var light = GameObject.FindObjectOfType<Light>();
-        if (light != null && light.type == LightType.Directional)
-            light.enabled = false;
+        // ✅ 머티리얼 인스턴싱
+        var renderer = darknessInstance.GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            darknessMaterial = renderer.material; // 인스턴스 복제됨
+        }
     }
 
     private void Update()
@@ -52,18 +54,15 @@ public class DarknessRunner : MonoBehaviour
         timer += Time.deltaTime;
         if (timer > duration)
         {
-            // ✅ 원복
-            RenderSettings.ambientLight = originalAmbient;
-            RenderSettings.fogColor = originalFog;
-            RenderSettings.fog = fogInitiallyEnabled;
-
-            var light = GameObject.FindObjectOfType<Light>();
-            if (light != null && light.type == LightType.Directional)
-                light.enabled = true;
-
+            Destroy(darknessInstance);
             Destroy(gameObject);
+            return;
+        }
+
+        // ✅ 플레이어 위치를 쉐이더에 전달
+        if (darknessMaterial != null && player != null)
+        {
+            darknessMaterial.SetVector("_PlayerWorldPosition", player.position);
         }
     }
 }
-
-

@@ -82,7 +82,7 @@ public class MeteorFallRunner : MonoBehaviour
 
             Vector3 rayOrigin = randomXZ + Vector3.up * 50f;
 
-            if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, 100f, LayerMask.NameToLayer("Ground")))
+            if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, 100f, LayerMask.GetMask("Ground")))
             {
                 return hit.point;
             }

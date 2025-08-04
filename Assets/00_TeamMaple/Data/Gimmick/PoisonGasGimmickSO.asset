@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PoisonGasGimmickSO
   m_EditorClassIdentifier: 
   gimmickType: 2
-  gasPrefab: {fileID: 5533022081094470953, guid: c499f86a948072d4ca8dba2142933b45,
+  gasPrefab: {fileID: 7737821957911359092, guid: 0ee0d02d91df97f44be8333f0f2e2f4c,
     type: 3}
   gasDuration: 20
   interval: 30

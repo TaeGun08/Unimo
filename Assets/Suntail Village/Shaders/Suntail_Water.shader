@@ -344,7 +344,6 @@ Shader "Raygeas/Suntail Water"
 				int _PassValue;
 			#endif
 
-			uniform float4 _CameraDepthTexture_TexelSize;
 			sampler2D _WavesNormal;
 
 
@@ -1012,7 +1011,6 @@ Shader "Raygeas/Suntail Water"
 				int _PassValue;
 			#endif
 
-			uniform float4 _CameraDepthTexture_TexelSize;
 
 
 			
@@ -1300,7 +1298,6 @@ Shader "Raygeas/Suntail Water"
 				int _PassValue;
 			#endif
 
-			uniform float4 _CameraDepthTexture_TexelSize;
 			sampler2D _WavesNormal;
 
 
@@ -1691,7 +1688,7 @@ Shader "Raygeas/Suntail Water"
 			#endif
 
 			sampler2D _WavesNormal;
-			uniform float4 _CameraDepthTexture_TexelSize;
+
 
 
 			
@@ -2085,7 +2082,6 @@ Shader "Raygeas/Suntail Water"
 				int _PassValue;
 			#endif
 
-			uniform float4 _CameraDepthTexture_TexelSize;
 			sampler2D _WavesNormal;
 
 
@@ -2602,7 +2598,7 @@ Shader "Raygeas/Suntail Water"
 				int _PassValue;
 			#endif
 
-			uniform float4 _CameraDepthTexture_TexelSize;
+
 
 
 			
@@ -2863,8 +2859,7 @@ Shader "Raygeas/Suntail Water"
 				int _ObjectId;
 				int _PassValue;
 			#endif
-
-			uniform float4 _CameraDepthTexture_TexelSize;
+			
 
 
 			
