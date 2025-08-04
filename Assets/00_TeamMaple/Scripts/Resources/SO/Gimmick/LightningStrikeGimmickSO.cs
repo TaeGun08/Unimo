@@ -103,7 +103,7 @@ public class LightningStrikeRunner : MonoBehaviour
 
         Ray ray = new Ray(randomPos, Vector3.down);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 50f, LayerMask.GetMask("Default")))
+        if (Physics.Raycast(ray, out RaycastHit hit, 50f, LayerMask.GetMask("Ground")))
         {
             Debug.Log($"[낙뢰 Raycast 성공] hit: {hit.point} / normal: {hit.normal} / target: {hit.collider.gameObject.name}");
             return hit.point;

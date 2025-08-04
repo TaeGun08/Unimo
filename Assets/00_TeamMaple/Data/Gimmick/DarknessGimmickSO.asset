@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gimmickType: 5
   duration: 15
+  darknessPrefab: {fileID: 7358183998289495080, guid: 9d6c9a3e87ec72b4a82b5d3713df0969,
+    type: 3}

@@ -15,7 +15,7 @@ MonoBehaviour:
   gimmickType: 1
   markerPrefab: {fileID: 701437982668235559, guid: a246385e8d0847e478aa6d4f7dab1ddc,
     type: 3}
-  lightningPrefab: {fileID: 755839686174752804, guid: 0294bf9728fd0634987ce58b5960f1fd,
+  lightningPrefab: {fileID: 659125156172680609, guid: 68239b501819b8d47a64fbda7a12cebc,
     type: 3}
   markerGrowTime: 1.5
   interval: 5
