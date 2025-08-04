@@ -230,6 +230,8 @@ MonoBehaviour:
   explodeFX: {fileID: 3334270714622040670, guid: 591be72f292aa7a4fba90570ef2e99b4,
     type: 3}
   isexplodeFXAtPlayer: 1
+  monsterType: 4
+  damageData: {fileID: 11400000, guid: 58e5f561610277c41b77164cb4c59295, type: 2}
 --- !u!114 &5706223018843034203
 MonoBehaviour:
   m_ObjectHideFlags: 0
