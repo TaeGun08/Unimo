@@ -33,6 +33,7 @@ public class PlayProcessController : MonoBehaviour
     public void TimeUp()
     {
         if (gameoverAction != null) { gameoverAction.Invoke(); }
+        LocalPlayer.Instance.PlayerStatHolder.Dodge.Add(999f);
         gameoverText.SetActive(true);
         StartCoroutine(CoroutineExtensions.DelayedActionCall(
             () => { gameResultObjs[0].SetActive(true);
