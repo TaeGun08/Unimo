@@ -45,10 +45,12 @@ public class UI_Game : UI_Base
 
     private void InitializeStage()
     {
-        stageCount = ((Base_Mng.Data.data.HighStage - 1) / 50 + 1) * 50;
+        int highStage = Base_Mng.Data.data.HighStage;
+        
+        stageCount = ((highStage - 1) / 50 + 1) * 50 - 1;
 
-        if (stageCount > Base_Mng.Data.data.HighStage)
-            stageCount = Base_Mng.Data.data.HighStage;
+        if (stageCount > highStage)
+            stageCount = highStage;
 
         selectStage.Stage = stageCount;
 
@@ -110,15 +112,21 @@ public class UI_Game : UI_Base
     public void StageCountUp()
     {
         stageCount++;
+        
         if (StageLoader.HighStageChecker(stageCount))
         {
             stageCount = Base_Mng.Data.data.HighStage;
             return;
         }
-
-        if (StageLoader.IsBonusStageByIndex(stageCount) && !Base_Mng.Data.data.BonusStageOn)
+        
+        if (StageLoader.IsBonusStageByIndex(stageCount))
         {
             stageCount++;
+            
+            if (StageLoader.HighStageChecker(stageCount))
+            {
+                stageCount = Base_Mng.Data.data.HighStage;
+            }
         }
 
         UpdatePlanetAndUI();
@@ -127,13 +135,14 @@ public class UI_Game : UI_Base
     public void StageCountDown()
     {
         stageCount--;
+        
         if (stageCount < 1)
         {
             stageCount = 1;
             return;
         }
-
-        if (StageLoader.IsBonusStageByIndex(stageCount) && !Base_Mng.Data.data.BonusStageOn)
+        
+        if (StageLoader.IsBonusStageByIndex(stageCount))
         {
             stageCount--;
         }
@@ -161,8 +170,8 @@ public class UI_Game : UI_Base
     public void SelectPlanetUp()
     {
         int planetIndex = ((stageCount - 1) / 50) + 1;
-        int nextStageCount = (planetIndex + 1) * 50;
-        
+        int nextStageCount = ((planetIndex + 1) * 50) - 1;
+
         if (nextStageCount > Base_Mng.Data.data.HighStage)
             nextStageCount = Base_Mng.Data.data.HighStage;
 
@@ -177,8 +186,8 @@ public class UI_Game : UI_Base
         if (planetIndex < 0)
             planetIndex = 0;
 
-        int prevStageCount = (planetIndex + 1) * 50;
-        
+        int prevStageCount = ((planetIndex + 1) * 50) - 1;
+
         if (prevStageCount > Base_Mng.Data.data.HighStage)
             prevStageCount = Base_Mng.Data.data.HighStage;
 
@@ -190,13 +199,18 @@ public class UI_Game : UI_Base
     {
         BonusStageOn();
         
+        for (int i = 0; i < starImg.Length; i++)
+        {
+            starImg[i].SetActive(false);
+        }
+        
         if (StageLoader.IsBonusStageByIndex(stageCount)) return;
         PlanetData planetData = StageManager.Instance.StageData.GetPlanetData(stageCount);
         planetImage.sprite = planetData.PlanetSprite;
         selectStage.Stage = stageCount;
         
-        SetStageText();
         UpdateStar();
+        SetStageText();
         GetStar();
     }
 

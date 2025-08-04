@@ -161,7 +161,7 @@ public class GetRewardScript : MonoBehaviour
 
     private void GetBonusReward()
     {
-        float condition = float.Parse(stageFlowerConditions.GetData(Base_Mng.Data.data.CurrentStage + 1000).Star3Condition);
+        float condition = float.Parse(stageFlowerConditions.GetData(Base_Mng.Data.data.CurrentStage + 999).Star3Condition);
 
         redTrade = StringMethod.ToCurrencyDouble(texts[0].text) * 
                    (StringMethod.ToCurrencyDouble(starR2) / (condition * 0.67d)) * 3f;

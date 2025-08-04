@@ -10348,6 +10348,16 @@ PrefabInstance:
       propertyPath: 'texts.Array.data[2]'
       value: 
       objectReference: {fileID: 1905443530}
+    - target: {fileID: 7256537087758196326, guid: f21cc34c4ea2bdb4d85ce53be5427a43,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 159835809}
+    - target: {fileID: 7256537087758196326, guid: f21cc34c4ea2bdb4d85ce53be5427a43,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadLobby
+      objectReference: {fileID: 0}
     - target: {fileID: 7530888761187744117, guid: f21cc34c4ea2bdb4d85ce53be5427a43,
         type: 3}
       propertyPath: m_SizeDelta.y
@@ -10385,6 +10395,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1656213172}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1656213175 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6208641115652441601, guid: f21cc34c4ea2bdb4d85ce53be5427a43,
+    type: 3}
+  m_PrefabInstance: {fileID: 1656213172}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1659610324
 GameObject:
   m_ObjectHideFlags: 0
@@ -13323,7 +13345,7 @@ MonoBehaviour:
   specialResourceTxts:
   - {fileID: 440926814}
   scoreTxt: {fileID: 1725336537}
-  resultTxt: {fileID: 0}
+  resultTxt: {fileID: 1656213175}
   blueTxt: {fileID: 1905443530}
   starBar: {fileID: 1952168021}
   stageFlowerConditions: {fileID: 11400000, guid: e5ff2c14a8830fd46b40abb8973976e4,
@@ -13341,7 +13363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInfinite: 0
-  reduceIncTime: 90
+  reduceIncTime: 10
   timerText: {fileID: 1997461218}
 --- !u!114 &1971803518
 MonoBehaviour:

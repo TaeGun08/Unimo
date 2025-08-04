@@ -58,7 +58,13 @@ public class ScoreManager : SingletonBehaviour<ScoreManager>
     {
         gatheredResources[idx] += 1;
         this.score += 1;
-        float condition = float.Parse(stageFlowerConditions.GetData(Base_Mng.Data.data.CurrentStage + 1000).Star3Condition);
+        int id = 1000;
+        if (StageLoader.IsBonusStageByIndex(Base_Mng.Data.data.CurrentStage))
+        {
+            id--;
+        }
+        
+        float condition = float.Parse(stageFlowerConditions.GetData(Base_Mng.Data.data.CurrentStage + id).Star3Condition);
         if (starBar != null && starBar.value < 1)
         {
             starBar.value = (float)(this.score / condition);
