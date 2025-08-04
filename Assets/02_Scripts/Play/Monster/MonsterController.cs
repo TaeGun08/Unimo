@@ -2,6 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Monstertype
+{
+    Monster1,
+    Monster2,
+    Monster3,
+    Monster4,
+    Monster5,
+}
+
 public class MonsterController : MonoBehaviour
 {
     static private float MONmaxLifeTimeSTATIC = 12f;
@@ -23,6 +32,9 @@ public class MonsterController : MonoBehaviour
     private MonsterState_Disappear enemyDiappear;
     private MonsterState_Explode enemyExplode;
     private float existTime = 0f;
+    
+    [SerializeField] private Monstertype monsterType;
+    [SerializeField] private MonsterDamageData damageData;
 
     private void Update()
     {
@@ -42,7 +54,7 @@ public class MonsterController : MonoBehaviour
                 CombatEvent combatEvent = new();
                 combatEvent.Sender = null;
                 combatEvent.Receiver = player;
-                combatEvent.Damage = 100;
+                combatEvent.Damage = (int)damageData.GetMonsterDamage(Base_Mng.Data.data.CurrentStage, monsterType);
                 combatEvent.Position = player.transform.position;
                 combatEvent.KnockbackDir = hitpos; 
                 

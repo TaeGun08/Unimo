@@ -19,6 +19,7 @@ public class ScoreManager : SingletonBehaviour<ScoreManager>
     private GameRecordManager recordManager;
 
     [SerializeField] private Slider starBar;
+    [SerializeField] private StageFlowerConditionData stageFlowerConditions;
 
     private void Awake()
     {
@@ -57,10 +58,10 @@ public class ScoreManager : SingletonBehaviour<ScoreManager>
     {
         gatheredResources[idx] += 1;
         this.score += 1;
-        
+        float condition = float.Parse(stageFlowerConditions.GetData(Base_Mng.Data.data.CurrentStage + 1000).Star3Condition);
         if (starBar != null && starBar.value < 1)
         {
-            starBar.value = (float)(this.score / 200);
+            starBar.value = (float)(this.score / condition);
         }
         
         if (idx != 0 && idx - 1 < specialResourceTxts.Count)
@@ -128,9 +129,10 @@ public class ScoreManager : SingletonBehaviour<ScoreManager>
     public void ScoreUpButton()
     {
         score += 50;
+        float condition = float.Parse(stageFlowerConditions.GetData(Base_Mng.Data.data.CurrentStage + 1000).Star3Condition);
         if (starBar != null && starBar.value < 1)
         {
-            starBar.value = (float)(this.score / 200);
+            starBar.value = (float)(score / condition);
         }
     }
 }

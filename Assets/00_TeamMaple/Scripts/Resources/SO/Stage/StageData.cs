@@ -33,7 +33,7 @@ public class StageData : ParsingStageData<StageDataRecord>
 
     public PlanetData GetPlanetData(int index)
     {
-        Debug.Log($"행성이름 ::: {GetData(index + 1000).PlanetName}");
+        if (StageLoader.IsBonusStageByIndex(index)) return null;
         switch (GetData(index + 1000).PlanetName)
         {
             case "넓은별":

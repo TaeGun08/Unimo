@@ -43,7 +43,6 @@ public class WholeSceneController : SingletonBehaviour<WholeSceneController>
     {
         if (isLoadingScene)
         {
-            Debug.Log("로딩씬");
             if (SceneManager.GetActiveScene().buildIndex == initSceneIdx)
             {
                 if (nextSceneIdx == 3 || nextSceneIdx == 6)
@@ -90,13 +89,8 @@ public class WholeSceneController : SingletonBehaviour<WholeSceneController>
 
     private void ResetSceneChangeCtrlList(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log(SceneManager.GetActiveScene().buildIndex);
-        Debug.Log(initSceneIdx);
-        //Initialize mViewCtrl and mInputBlocker
-        Debug.Log("들어오긴 함?");
         mViewCtrl = FindObjectsByType<SceneChangeEffecter>(FindObjectsSortMode.None);
-        Debug.Log(SceneManager.GetActiveScene().buildIndex);
-        Debug.Log(initSceneIdx);
+
         if (SceneManager.GetActiveScene().buildIndex == initSceneIdx ||
             SceneManager.GetActiveScene().buildIndex == loadSceneIdx)
         {

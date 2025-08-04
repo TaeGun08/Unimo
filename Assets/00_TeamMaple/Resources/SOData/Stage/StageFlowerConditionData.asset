@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50d7d7ca2b9043d4190c043a445dc041, type: 3}
-  m_Name: StageRewardData
+  m_Script: {fileID: 11500000, guid: f620ba3447f785043a5e55d3d7dd6504, type: 3}
+  m_Name: StageFlowerConditionData
   m_EditorClassIdentifier: 
-  stageCsv: {fileID: 4900000, guid: 45123dc7252331845be37c23b9b66b8e, type: 3}
+  stageCsv: {fileID: 4900000, guid: f92ef72d3510fa64e9e9b8e515b68fe6, type: 3}

@@ -192,7 +192,7 @@ public partial class Firebase_Mng: MonoBehaviour
 
         data.BonusRewardCount = 1000.0f;
 
-        data.GetTicket = 8;
+        data.GetTicket = 10;
 
         string value = JsonUtility.ToJson(data);
 

@@ -28,32 +28,33 @@ public class UI_Game : UI_Base
     [Header("Ticket")]
     [SerializeField] private TMP_Text ticketText;
 
-    private void OnEnable()
-    {
-        images[0].sprite = so.GetSprites.UnimoSprite[Base_Mng.Data.data.CharCount - 1];
-        images[1].sprite = so.GetSprites.EngineSprite[Base_Mng.Data.data.EQCount - 1];
-
-        InitializeStage();
-    }
-
     public override void Start()
     {
         base.Start();
-
+        
         GameOneBest.text = "Best Score\n" + StringMethod.ToCurrencyString(Base_Mng.Data.data.BestScoreGameOne);
         GameTwoBest.text = "Best Score\n" + StringMethod.ToCurrencyString(Base_Mng.Data.data.BestScoreGameTwo);
 
+        images[0].sprite = so.GetSprites.UnimoSprite[Base_Mng.Data.data.CharCount - 1];
+        images[1].sprite = so.GetSprites.EngineSprite[Base_Mng.Data.data.EQCount - 1];
+        
+        stageCount = Base_Mng.Data.data.HighStage;
+        
         InitializeStage();
     }
 
     private void InitializeStage()
     {
-        stageCount = ((Base_Mng.Data.data.HighStage - 1) / 50) * 50 + 1;
+        stageCount = ((Base_Mng.Data.data.HighStage - 1) / 50 + 1) * 50;
+
+        if (stageCount > Base_Mng.Data.data.HighStage)
+            stageCount = Base_Mng.Data.data.HighStage;
+
         selectStage.Stage = stageCount;
 
         UpdatePlanetAndUI();
         GetStar();
-        ticketText.text = $"{Base_Mng.Data.data.GetTicket} / 8";
+        ticketText.text = $"{Base_Mng.Data.data.GetTicket} / 10";
     }
 
     public void GoGameScene()
@@ -159,30 +160,41 @@ public class UI_Game : UI_Base
 
     public void SelectPlanetUp()
     {
-        stageCount = ((stageCount - 1) / 50 + 1) * 50 + 1;
-        if (stageCount > Base_Mng.Data.data.HighStage)
-        {
-            stageCount = ((Base_Mng.Data.data.HighStage - 1) / 50) * 50 + 1;
-        }
+        int planetIndex = ((stageCount - 1) / 50) + 1;
+        int nextStageCount = (planetIndex + 1) * 50;
+        
+        if (nextStageCount > Base_Mng.Data.data.HighStage)
+            nextStageCount = Base_Mng.Data.data.HighStage;
 
+        stageCount = nextStageCount;
         UpdatePlanetAndUI();
     }
 
     public void SelectPlanetDown()
     {
-        stageCount = ((stageCount - 1) / 50) * 50 + 1 - 50;
-        if (stageCount < 1) stageCount = 1;
+        int planetIndex = ((stageCount - 1) / 50) - 1;
 
+        if (planetIndex < 0)
+            planetIndex = 0;
+
+        int prevStageCount = (planetIndex + 1) * 50;
+        
+        if (prevStageCount > Base_Mng.Data.data.HighStage)
+            prevStageCount = Base_Mng.Data.data.HighStage;
+
+        stageCount = prevStageCount;
         UpdatePlanetAndUI();
     }
 
     private void UpdatePlanetAndUI()
     {
+        BonusStageOn();
+        
+        if (StageLoader.IsBonusStageByIndex(stageCount)) return;
         PlanetData planetData = StageManager.Instance.StageData.GetPlanetData(stageCount);
         planetImage.sprite = planetData.PlanetSprite;
         selectStage.Stage = stageCount;
-
-        BonusStageOn();
+        
         SetStageText();
         UpdateStar();
         GetStar();
@@ -190,5 +202,5 @@ public class UI_Game : UI_Base
 
     public void ActiveTrueStage() => selectStageUI.SetActive(true);
     public void ActiveFalseStage() => selectStageUI.SetActive(false);
-    public void ActiveTrueReward() => starRewardUI.SetActive(true);
+    public void ActiveTrueCharacter() => Canvas_Holder.instance.GetUI("##Character");
 }
