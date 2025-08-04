@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27ba6c8851c930341ae596901de07d0d, type: 3}
   m_Name: UnimoStatDataSO
   m_EditorClassIdentifier: 
-  unimoStatDataCsv: {fileID: 4900000, guid: 5adea121b45545619fc5862a610d3beb, type: 3}
-  unimoLevelDataCsv: {fileID: 4900000, guid: c65e66d91abc0c149afef26eacb95941, type: 3}
+  unimoStatDataCsv: {fileID: 4900000, guid: c11cf0c31c7fd124691f804debed335c, type: 3}
   unimoStatLevelUpDataSO: {fileID: 11400000, guid: d22d6938206f9e34e96943adf08a18b7,
     type: 2}
