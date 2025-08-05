@@ -1,3 +1,4 @@
+// LightningStrikeGimmickSO.cs (수정 버전)
 using System;
 using System.Collections;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class LightningStrikeGimmickSO : StageGimmickSO
     public float markerGrowTime = 1.5f;
     public float interval = 5f;
     public float radius = 6f;
+    public float stunDuration = 2f; // ✅ SO에서 조정 가능한 스턴 시간
 
     public override GameObject Execute(Vector3 origin)
     {
@@ -19,11 +21,11 @@ public class LightningStrikeGimmickSO : StageGimmickSO
         runner.Init(this, origin);
         return runnerObj;
     }
+
     private void OnEnable()
     {
         GimmickRegistry.Register(StageGimmickType.LightningStrike, this);
     }
-
 }
 
 public class LightningStrikeRunner : MonoBehaviour
@@ -60,21 +62,16 @@ public class LightningStrikeRunner : MonoBehaviour
     {
         strikeInProgress = true;
 
-        // 마커 생성 (지면)
         GameObject marker = Instantiate(data.markerPrefab, pos, Quaternion.identity);
-        LightningStrikeMarker markerScript = marker.GetComponent<LightningStrikeMarker>();
-    
+        var markerScript = marker.GetComponent<LightningStrikeMarker>();
+
         if (markerScript != null)
         {
             markerScript.Init(() =>
             {
-                // ✅ 낙뢰 이펙트는 위에서 생성되도록 Y 보정
-                Vector3 lightningPos = pos + Vector3.up * 3f;
+                Vector3 lightningPos = pos + Vector3.up * 0.1f;
                 GameObject lightning = Instantiate(data.lightningPrefab, lightningPos, Quaternion.identity);
-
-                // ✅ 일정 시간 후 제거
                 Destroy(lightning, 2f);
-
                 ApplyStun(pos);
             }, data.markerGrowTime);
         }
@@ -88,10 +85,13 @@ public class LightningStrikeRunner : MonoBehaviour
         Collider[] hits = Physics.OverlapSphere(center, 1.5f);
         foreach (var hit in hits)
         {
-            var stunnable = hit.GetComponent<IStunnable>();
-            if (stunnable != null)
+            if (!hit.CompareTag("Player")) continue;
+
+            var restrictor = hit.GetComponent<StunRestrictor>();
+            if (restrictor != null)
             {
-                stunnable.Stun(2f);
+                restrictor.ApplyStun(data.stunDuration);
+                Debug.Log("[낙뢰 스턴] 이동 제한 적용됨");
             }
         }
     }
@@ -119,5 +119,4 @@ public class LightningStrikeRunner : MonoBehaviour
     {
         if (routine != null) StopCoroutine(routine);
     }
-
 }
