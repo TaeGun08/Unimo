@@ -12,5 +12,6 @@ public class MapChanger : MonoBehaviour
     private IEnumerator Start()
     {
         yield return null;
+        //bg.materials = StageManager.Instance.StageData.GetData(Base_Mng.Data.data.CurrentStage).
     }
 }
