@@ -1,23 +1,19 @@
+using System.Collections;
 using UnityEngine;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine.AI;
 
 [CreateAssetMenu(fileName = "SlipperyFloorGimmickSO", menuName = "StageGimmick/SlipperyFloor")]
 public class SlipperyFloorGimmickSO : StageGimmickSO
 {
-    public float effectDuration = 15f;
+    public float slipperyDuration = 2f;
 
     public override GameObject Execute(Vector3 origin)
     {
-        Debug.Log("[SlipperyFloor] 얼어붙은 바닥 기믹 실행됨");
-
-        GameObject runnerObj = new GameObject("SlipperyFloorRunner");
-        SlipperyFloorRunner runner = runnerObj.AddComponent<SlipperyFloorRunner>();
-        runner.Init(effectDuration);
+        var runnerObj = new GameObject("SlipperyFloorRunner");
+        var runner = runnerObj.AddComponent<SlipperyFloorRunner>();
+        runner.Init(this);
         return runnerObj;
     }
-    
+
     private void OnEnable()
     {
         GimmickRegistry.Register(StageGimmickType.SlipperyFloor, this);
@@ -26,60 +22,43 @@ public class SlipperyFloorGimmickSO : StageGimmickSO
 
 public class SlipperyFloorRunner : MonoBehaviour
 {
-    private float duration;
-    private float elapsed;
-    private Renderer[] groundRenderers;
-    private Dictionary<Renderer, Color> originalColors = new();
+    private SlipperyFloorGimmickSO data;
 
-    public void Init(float effectDuration)
+    public void Init(SlipperyFloorGimmickSO so)
     {
-        duration = effectDuration;
-
-        GameObject[] grounds = GameObject.FindGameObjectsWithTag("Ground");
-        groundRenderers = grounds.Select(go => go.GetComponent<Renderer>())
-                                  .Where(r => r != null)
-                                  .ToArray();
-
-        foreach (var r in groundRenderers)
-        {
-            originalColors[r] = r.material.color;
-            r.material.color = Color.cyan;
-        }
-
-        ApplySlipperyEffect(true);
+        data = so;
+        StartCoroutine(SlipperySequence());
     }
 
-    private void Update()
+    private IEnumerator SlipperySequence()
     {
-        elapsed += Time.deltaTime;
-        if (elapsed >= duration)
+        // 플레이어 찾기
+        var player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player != null)
         {
-            ApplySlipperyEffect(false);
-
-            foreach (var r in groundRenderers)
+            var slippery = player.GetComponent<SlipperyReceiver>();
+            if (slippery != null)
             {
-                if (!originalColors.ContainsKey(r))
-                    originalColors[r] = r.material.color;
+                // 현재 이동 방향 계산
+                Vector3 moveDir = Vector3.zero;
 
-                // ✅ 머티리얼 복제
-                r.material = new Material(r.material);
-                r.material.color = Color.cyan;
-            }
+                Rigidbody rb = player.GetComponent<Rigidbody>();
+                if (rb != null && rb.linearVelocity.magnitude > 0.1f)
+                {
+                    moveDir = rb.linearVelocity.normalized;
+                }
+                else
+                {
+                    moveDir = player.transform.forward;
+                }
 
-            Destroy(gameObject);
-        }
-    }
-
-    private void ApplySlipperyEffect(bool enable)
-    {
-        foreach (var controller in FindObjectsOfType<MonoBehaviour>())
-        {
-            if (controller is ISlipperyEffectReceiver receiver)
-            {
-                Debug.Log($"[슬리퍼리] {controller.name} → Slippery: {enable}");
-                receiver.SetSlippery(enable);
+                slippery.slipperyDuration = data.slipperyDuration;
+                slippery.ApplySlippery(moveDir);
             }
         }
-    }
 
+        yield return new WaitForSeconds(data.slipperyDuration);
+        Destroy(gameObject);
+    }
 }

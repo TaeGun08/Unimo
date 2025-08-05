@@ -128,8 +128,8 @@ Material:
     - _ColorA: {r: 0.603, g: 0.95368326, b: 1, a: 0.047058824}
     - _ColorB: {r: 0.427451, g: 1, b: 0.99045753, a: 0.12156863}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _InnerColor: {r: 0.63, g: 1, b: 0.97533333, a: 0.019607844}
-    - _OuterColor: {r: 0.63, g: 1, b: 0.97063494, a: 0.14901961}
+    - _InnerColor: {r: 0.63, g: 1, b: 0.9753333, a: 0.5019608}
+    - _OuterColor: {r: 0.63, g: 1, b: 0.9706349, a: 0.69803923}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -16,4 +16,4 @@ MonoBehaviour:
   groundMaterial: {fileID: 2100000, guid: 1072b60c7cb5b144abf40cdbf6c3337f, type: 2}
   backgroundMaterial: {fileID: 2100000, guid: 9e6dbe30e9baef149aa08fa6fda27a0c, type: 2}
   environmentMaterial: {fileID: 2100000, guid: c4bef0590b9136d439afce0afa165d31, type: 2}
-  effectDuration: 15
+  slipperyDuration: 120

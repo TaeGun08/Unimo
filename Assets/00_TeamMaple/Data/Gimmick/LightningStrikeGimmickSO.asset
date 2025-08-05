@@ -21,5 +21,6 @@ MonoBehaviour:
   lightningPrefab: {fileID: 659125156172680609, guid: 68239b501819b8d47a64fbda7a12cebc,
     type: 3}
   markerGrowTime: 1.5
-  interval: 5
+  interval: 0.1
   radius: 6
+  stunDuration: 2

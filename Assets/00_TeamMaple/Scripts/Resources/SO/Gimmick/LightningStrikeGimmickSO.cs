@@ -83,18 +83,40 @@ public class LightningStrikeRunner : MonoBehaviour
     private void ApplyStun(Vector3 center)
     {
         Collider[] hits = Physics.OverlapSphere(center, 1.5f);
+        Debug.Log($"[낙뢰] 감지된 대상 수: {hits.Length}");
+
         foreach (var hit in hits)
         {
+            Debug.Log($"[낙뢰] 충돌 감지 대상: {hit.name}");
+
             if (!hit.CompareTag("Player")) continue;
 
             var restrictor = hit.GetComponent<StunRestrictor>();
             if (restrictor != null)
             {
-                restrictor.ApplyStun(data.stunDuration);
-                Debug.Log("[낙뢰 스턴] 이동 제한 적용됨");
+                Debug.Log("[낙뢰] StunRestrictor 발견, 스턴 적용 시도");
+
+                if (restrictor.IsStunned)
+                {
+                    restrictor.TemporarilyDisable(0.35f);
+                }
+                if (gameObject.activeInHierarchy) // 또는 runnerObj != null 확인
+                    StartCoroutine(DelayedStun(restrictor, data.stunDuration, 0.35f));
+
+            }
+            else
+            {
+                Debug.LogWarning("[낙뢰] Player 태그에는 맞았지만 StunRestrictor 없음!");
             }
         }
     }
+
+    private IEnumerator DelayedStun(StunRestrictor restrictor, float duration, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        restrictor.ApplyStun(duration);
+    }
+
 
     private Vector3 GetRandomGroundPosition()
     {
