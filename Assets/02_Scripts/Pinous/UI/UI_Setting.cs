@@ -17,29 +17,29 @@ public class UI_Setting : UI_Base
     public GameObject[] CheckBox;
     public override void Start()
     {
-        BGMSlider.value = Sound_Manager.BGM_volume;
-        FXSlider.value = Sound_Manager.FX_volume;
+        BGMSlider.value = PlayerPrefs.GetFloat("BGM");
+        FXSlider.value = PlayerPrefs.GetFloat("FX");
 #if UNITY_IOS
                 OnRestoreButton.onClick.AddListener(() => Base_Mng.IAP.RestoreClass());
 #endif
 
-        QualityLevelCheck();
+        QualityLevelCheck(2);
         base.Start();
     }
 
     public void GetQualityLevel(int value)
     {
-        QualitySettings.SetQualityLevel(value, true);
+        //QualitySettings.SetQualityLevel(value, true);
 
         PlayerPrefs.SetInt("QualityLevel", value);
         PlayerPrefs.Save();
 
-        QualityLevelCheck();
+        QualityLevelCheck(value);
     }
 
-    private void QualityLevelCheck()
+    private void QualityLevelCheck(int Value)
     {
-        var Value = PlayerPrefs.GetInt("QualityLevel");
+        //var Value = PlayerPrefs.GetInt("QualityLevel");
         for(int i = 0; i < CheckBox.Length; i++)
         {
             CheckBox[i].gameObject.SetActive(false);

@@ -23,6 +23,9 @@ public class PlanetData
 {
     public int ReturnId;
     public Sprite PlanetSprite;
+    public Material BG;
+    public Material Land;
+    public Material Rock;
 }
 
 [CreateAssetMenu(fileName = "StageData", menuName = "Scriptable Object/StageData")]

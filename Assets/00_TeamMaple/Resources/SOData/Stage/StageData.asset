@@ -16,21 +16,51 @@ MonoBehaviour:
   planetData:
   - ReturnId: 1
     PlanetSprite: {fileID: 21300000, guid: 5c3d04fc0715d184786b0edf50c4f09e, type: 3}
+    BG: {fileID: 2100000, guid: 928781b092f20e248aa8fa86d0e24b10, type: 2}
+    Land: {fileID: 2100000, guid: fb0ee6ab91d8b0546a7fbcd9bd09bd5e, type: 2}
+    Rock: {fileID: 2100000, guid: 7fcaab5cac11d2549b1229f454332476, type: 2}
   - ReturnId: 51
     PlanetSprite: {fileID: 21300000, guid: 042f20c4f9e32724199f072ffb5e4b84, type: 3}
+    BG: {fileID: 2100000, guid: 363e2e1eb9810714b879e1c7dfdb4cad, type: 2}
+    Land: {fileID: 2100000, guid: 8255b28ea0cacec409a44d39a280ac91, type: 2}
+    Rock: {fileID: 2100000, guid: 54a7138fff0cf2445a35d24a48faaa73, type: 2}
   - ReturnId: 101
     PlanetSprite: {fileID: 21300000, guid: f99a3181977bd874f9fa8ffb35df632a, type: 3}
+    BG: {fileID: 2100000, guid: ae8b273b5f41ba144b1724abce23e4e2, type: 2}
+    Land: {fileID: 2100000, guid: 50594f8aabc6f3443be8292851dc9131, type: 2}
+    Rock: {fileID: 2100000, guid: 3dd27b7480560eb4a854da57fdd19271, type: 2}
   - ReturnId: 151
     PlanetSprite: {fileID: 21300000, guid: ab215753a0bd1334faa30e72fd465629, type: 3}
+    BG: {fileID: 2100000, guid: 9e6dbe30e9baef149aa08fa6fda27a0c, type: 2}
+    Land: {fileID: 2100000, guid: 1072b60c7cb5b144abf40cdbf6c3337f, type: 2}
+    Rock: {fileID: 2100000, guid: c4bef0590b9136d439afce0afa165d31, type: 2}
   - ReturnId: 201
     PlanetSprite: {fileID: 21300000, guid: 084589ff4f12ba040b467a39bc3c9a4d, type: 3}
+    BG: {fileID: 2100000, guid: 9d1ad4a7608d9454398303da92bd091f, type: 2}
+    Land: {fileID: 2100000, guid: e8278f86d848fac449eeedbabf9afcd5, type: 2}
+    Rock: {fileID: 2100000, guid: fecf13dfd57d0d74cbe106bc4e390b9b, type: 2}
   - ReturnId: 251
     PlanetSprite: {fileID: 21300000, guid: 1d9d053f95d13e64280954aa80c3b42c, type: 3}
+    BG: {fileID: 2100000, guid: ab1619ec41e703b4892e643811ff07f9, type: 2}
+    Land: {fileID: 2100000, guid: d5cceedc0b4f859438ce058d6eca857a, type: 2}
+    Rock: {fileID: 2100000, guid: 9ce8aa1a5c216f24eb29991a25a2fe67, type: 2}
   - ReturnId: 301
     PlanetSprite: {fileID: 21300000, guid: 9fbef2480066c9c4392bdb25723423e1, type: 3}
+    BG: {fileID: 2100000, guid: b135f39f9abf97e419eb19930137f3ec, type: 2}
+    Land: {fileID: 2100000, guid: 6db0fe34d460c1b4b9e688f5f2033471, type: 2}
+    Rock: {fileID: 2100000, guid: cf34a7c4909063b43aa3ed97ec32e05b, type: 2}
   - ReturnId: 351
     PlanetSprite: {fileID: 21300000, guid: eccfde0c4c4552a439d3279a74da71f6, type: 3}
+    BG: {fileID: 2100000, guid: 8cc594911374c7545bf72c97c6cd5831, type: 2}
+    Land: {fileID: 2100000, guid: 6ac204a8d5f00b94cb2eef96c426be33, type: 2}
+    Rock: {fileID: 2100000, guid: 6ac204a8d5f00b94cb2eef96c426be33, type: 2}
   - ReturnId: 401
     PlanetSprite: {fileID: 21300000, guid: 565d61ebea747b34093741660d4dff7b, type: 3}
+    BG: {fileID: 2100000, guid: b18f1017dffe04044895b03bebf5807f, type: 2}
+    Land: {fileID: 2100000, guid: 86edccb728589c8438dde7d72458a4e5, type: 2}
+    Rock: {fileID: 2100000, guid: faf17fd4c630b5d4aba15b37225c53e4, type: 2}
   - ReturnId: 451
     PlanetSprite: {fileID: 21300000, guid: 4618805aa68f37949baff60f224b24d9, type: 3}
+    BG: {fileID: 2100000, guid: 9af0eb5e917fe89448577e9247355804, type: 2}
+    Land: {fileID: 2100000, guid: ab71adaf01bb6d34c91f4b091829de00, type: 2}
+    Rock: {fileID: 2100000, guid: 3029cbf75a1741143aa1646830f7b767, type: 2}
