@@ -10,8 +10,10 @@ using Button = UnityEngine.UI.Button;
 public class LocalPlayer : MonoBehaviour, IDamageAble
 {
     public static LocalPlayer Instance { get; private set; }
-
+    public Coroutine ActiveDotCoroutine { get; set; }
+    
     public GameObject GameObject => gameObject;
+    
     
     [Header("UnimoStatDataSO")]
     [SerializeField] private PrefabsTable unimoTable;
@@ -36,7 +38,7 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
     public StatCalculator StatCalculator { get; private set; }
     public PlayerStatHolder PlayerStatHolder { get; private set; }
 
-    private PlayerController playerController;
+    public PlayerController playerController;
     public Vector3 LastAttackerPos { get; private set; }
     public CombatEvent CombatEvent { get; set; }
     public bool IsInvincible { get; set; }

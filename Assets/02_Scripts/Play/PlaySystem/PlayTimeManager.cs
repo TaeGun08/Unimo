@@ -34,10 +34,10 @@ public class PlayTimeManager : MonoBehaviour
     {
         if (isPaused) return; 
         
-        LapseTime += Time.deltaTime;
+        LapseTime += Time.unscaledDeltaTime;
         float rate = calcReduceRate(LapseTime);
-        itemGenerator.DecreaseTick(Time.deltaTime * rate);
-        ChangeTimer(-Time.deltaTime * rate);
+        itemGenerator.DecreaseTick(Time.unscaledDeltaTime * rate);
+        ChangeTimer(-Time.unscaledDeltaTime * rate);
         timerText.text = remainTime.ToString("F2");
     }
     

@@ -16,5 +16,8 @@ MonoBehaviour:
   groundMaterial: {fileID: 2100000, guid: ab71adaf01bb6d34c91f4b091829de00, type: 2}
   backgroundMaterial: {fileID: 2100000, guid: 9af0eb5e917fe89448577e9247355804, type: 2}
   environmentMaterial: {fileID: 2100000, guid: 3029cbf75a1741143aa1646830f7b767, type: 2}
-  slowTimeScale: 0.5
-  duration: 5
+  slowTimeScale: 0.3
+  fastTimeScale: 3
+  slowDuration: 3
+  fastDuration: 2
+  normalDuration: 5

@@ -4,58 +4,88 @@ using UnityEngine;
 public class TimeSlowGimmickSO : StageGimmickSO
 {
     public float slowTimeScale = 0.5f;
-    public float duration = 5f;
+    public float fastTimeScale = 1.5f;
+
+    public float slowDuration = 5f;
+    public float fastDuration = 5f;
+    public float normalDuration = 3f;
 
     public override GameObject Execute(Vector3 origin)
     {
-        var obj = new GameObject("TimeSlowRunner");
-        var runner = obj.AddComponent<TimeSlowRunner>();
-        runner.Init(this);
+        var obj = new GameObject("TimeSlowCycleRunner");
+        var runner = obj.AddComponent<TimeSlowCycleRunner>();
+        runner.so = this;
+        runner.Init();
         return obj;
     }
-    
+
     private void OnEnable()
     {
         GimmickRegistry.Register(StageGimmickType.TimeSlow, this);
     }
 }
 
-public class TimeSlowRunner : MonoBehaviour
+public class TimeSlowCycleRunner : MonoBehaviour
 {
-    private float timer;
-    private float duration;
+    public TimeSlowGimmickSO so;
+
+    private float timer = 0f;
+    private int stateIndex = 0;
+
+    private float[] timeScales;
+    private float[] durations;
+
     private float originalTimeScale;
     private float originalFixedDelta;
 
-    public void Init(TimeSlowGimmickSO so)
+    public void Init()
     {
-        duration = so.duration;
-
-        // ✅ 기존 값 저장
         originalTimeScale = Time.timeScale;
         originalFixedDelta = Time.fixedDeltaTime;
 
-        // ✅ 느려짐 적용
-        Time.timeScale = so.slowTimeScale;
-        Time.fixedDeltaTime = 0.02f * so.slowTimeScale;
+        timeScales = new float[]
+        {
+            so.slowTimeScale,    // 느림
+            1f,                  // 정상
+            so.fastTimeScale,    // 빠름
+            1f                   // 정상
+        };
 
-        Debug.Log($"[TimeSlow] 시간 느려짐: {Time.timeScale}");
+        durations = new float[]
+        {
+            so.slowDuration,
+            so.normalDuration,
+            so.fastDuration,
+            so.normalDuration
+        };
+
+        ApplyState(0);
     }
 
     private void Update()
     {
-        // ⚠️ unscaledDeltaTime 사용해야 정확하게 유지됨
         timer += Time.unscaledDeltaTime;
 
-        if (timer > duration)
+        if (timer >= durations[stateIndex])
         {
-            // ✅ 원복
-            Time.timeScale = originalTimeScale;
-            Time.fixedDeltaTime = originalFixedDelta;
-
-            Debug.Log("[TimeSlow] 시간 복구됨");
-            Destroy(gameObject);
+            timer = 0f;
+            stateIndex = (stateIndex + 1) % timeScales.Length;
+            ApplyState(stateIndex);
         }
     }
-}
 
+    private void ApplyState(int index)
+    {
+        float scale = timeScales[index];
+        Time.timeScale = scale;
+        Time.fixedDeltaTime = 0.02f * scale;
+
+        Debug.Log($"[Time] 상태 {index}: 배속 {scale}");
+    }
+
+    private void OnDestroy()
+    {
+        Time.timeScale = originalTimeScale;
+        Time.fixedDeltaTime = originalFixedDelta;
+    }
+}

@@ -18,5 +18,6 @@ public class CombatEvent : InGameEvent
     public int Damage { get; set; }
     public Vector3 Position { get; set; }
     public Vector3 KnockbackDir;
+    
     public override EventType Type => EventType.Combat;
 }

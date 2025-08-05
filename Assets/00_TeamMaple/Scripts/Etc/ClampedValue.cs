@@ -5,6 +5,9 @@ public abstract class ClampedValue<T> where T : IComparable<T>
     public T Value { get; protected set; }
     protected T min;
     protected T max;
+    
+    public T MinValue => min;
+    public T MaxValue => max;
 
     public event Action<T> OnValueChanged;
 
