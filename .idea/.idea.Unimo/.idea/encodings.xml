@@ -9,9 +9,17 @@
     <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerHitState.cs" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerMoveState.cs" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Player/State/PlayerStunState.cs" charset="EUC-KR" />
+    <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Resources/JsonLoader/JsonDataLoader.cs" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Resources/SO/Equipment/EquipmentSkillDataSO.cs" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Resources/SO/Equipment/EquipmentStatDataSO.cs" charset="EUC-KR" />
+    <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Resources/SO/Equipment/EquipmentStatLevelUpCostDataSO.cs" charset="EUC-KR" />
+    <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Resources/SO/Equipment/EquipmentStatLevelUpDataSO.cs" charset="EUC-KR" />
+    <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Resources/SO/Equipment/ParsingStageData.cs" charset="EUC-KR" />
+    <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Resources/SO/ParsingUpgradeData.cs" charset="EUC-KR" />
+    <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Resources/SO/Stage/ParsingStageData.cs" charset="EUC-KR" />
+    <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Resources/SO/Stage/StageData.cs" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Resources/SO/Unimo/UnimoStatDataSO.cs" charset="EUC-KR" />
+    <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/Resources/SO/Unimo/UnimoStatLevelUpDataSO.cs" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/Equipment/EquipmentSkillDataSO.cs" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/Equipment/EquipmentStatDataSO.cs" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/Equipment/EquipmentStatLevelUpDataSO.cs" charset="EUC-KR" />

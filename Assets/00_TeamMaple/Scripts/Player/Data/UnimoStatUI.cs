@@ -6,11 +6,6 @@ using UnityEngine.UI;
 
 public class UnimoStatUI : MonoBehaviour
 {
-    [SerializeField] private UnimoStatDataSO unimoStatDataSo;
-    [SerializeField] private EquipmentStatDataSO equipmentStatDataSo;
-    [SerializeField] private UnimoStatLevelUpDataSO unimoLevelDataSO;
-    [SerializeField] private EquipmentStatLevelUpDataSO engineLevelDataSO;
-    [SerializeField] private SpriteTable spriteTable;
     public StatCalculator StatCalculator { get; private set; }
     public GameObject statTextPrefab;
     
@@ -19,6 +14,8 @@ public class UnimoStatUI : MonoBehaviour
     [SerializeField] private TMP_Text BasicEngine;
     
     [Header("Unimo Upgrade Settings")]
+    [SerializeField] private UnimoStatDataSO unimoStatDataSo;
+    [SerializeField] private UnimoStatLevelUpDataSO unimoLevelDataSO;
     public RectTransform contentParent;
     public RectTransform upgradeContentParent;
     [SerializeField] private TMP_Text Name;
@@ -28,12 +25,28 @@ public class UnimoStatUI : MonoBehaviour
     [SerializeField] private TMP_Text NextLevel;
     [SerializeField] private TMP_Text Ability;
     
+    [Header("Unimo Rank Upgrade Settings")]
+    [SerializeField] private UnimoStatLevelUpCostDataSO unimoStatLevelUpCostSO;
+    [SerializeField] private TMP_Text Yellow_u;
+    [SerializeField] private TMP_Text Orange_u;
+    [SerializeField] private TMP_Text Green_u;
+    
     [Header("Engine Upgrade Settings")]
+    [SerializeField] private EquipmentStatDataSO equipmentStatDataSo;
+    [SerializeField] private EquipmentStatLevelUpDataSO engineLevelDataSO;
+    [SerializeField] private SpriteTable spriteTable;
+
     public RectTransform upgradeEngineContentParent;
     [SerializeField] private GameObject EQSprite;
     [SerializeField] private TMP_Text EQName;
     [SerializeField] private TMP_Text EQRank;
     [SerializeField] private TMP_Text EQAbility;
+    
+    [Header("Engine Rank Upgrade Settings")]
+    [SerializeField] private EquipmentStatLevelUpCostDataSO equipLevelUpCostSO;
+    [SerializeField] private TMP_Text Yellow;
+    [SerializeField] private TMP_Text Orange;
+    [SerializeField] private TMP_Text Green;
     
     private float lineSpacing = 30f;
 
@@ -87,6 +100,9 @@ public class UnimoStatUI : MonoBehaviour
 
         // 다음 레벨 업그레이드 수치 가져오기
         ShowUpgradeStat(Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]);
+        
+        // 다음 레벨 강화 비용 체크
+        UpgradeEngineStatCostUI();
     }
     
     private string BuildSpecialAbilityText(UnimoStatData data)
@@ -115,6 +131,16 @@ public class UnimoStatUI : MonoBehaviour
             UpGradeNextStatLine($"+ {stat.Format(v)}");
         }
     }
+
+    private void UpgradeEngineStatCostUI()
+    {
+        int nextLevel = Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1] + 1;
+        UnimoStatLevelUpCost levelData = unimoStatLevelUpCostSO.GetData(nextLevel);
+        
+        Yellow_u.text = levelData.need_yel.ToString();
+        Orange_u.text = levelData.need_org.ToString();
+        Green_u.text = levelData.need_grn.ToString();
+    }
     
     // 엔진 강화 UI
     private void UpgradeEngineStatUI(EquipmentStatData data)
@@ -134,6 +160,31 @@ public class UnimoStatUI : MonoBehaviour
         
         // 다음 레벨 업그레이드 수치 가져오기
         ShowUpgradeEngineStat(Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1]);
+        
+        // 다음 레벨 강화 비용 체크
+        UpgradeEngineStatCostUI(data.Rank);
+    }
+    
+    // 엔진 강화 비용
+    private void UpgradeEngineStatCostUI(EquipmentRank grade)
+    {
+        if (Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1] >= 5)
+        {
+            Yellow.text = "-";
+            Orange.text = "-";
+            Green.text = "-";
+            
+            return;
+        };
+        
+        int nextLevel = Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1] + 1;
+
+        var levelData = equipLevelUpCostSO.GetData(grade, nextLevel);
+        if (levelData == null) return;
+
+        Yellow.text = levelData.need_yel.ToString();
+        Orange.text = levelData.need_org.ToString();
+        Green.text = levelData.need_grn.ToString();
     }
     
     [SerializeField] private Image[] topStarImages;   
@@ -370,6 +421,21 @@ public class UnimoStatUI : MonoBehaviour
     // 유니모 레벨업
     public void UpgradeUnimoAndStatUI()
     {
+        int nextLevel = Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1] + 1;
+        UnimoStatLevelUpCost levelData = unimoStatLevelUpCostSO.GetData(nextLevel);
+        
+        if (Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1] >= 50)
+        {
+            Debug.Log("최대 레벨입니다.");
+            return;
+        }
+        
+        if (levelData.need_yel > Base_Mng.Data.data.Yellow || levelData.need_org > Base_Mng.Data.data.Red || levelData.need_grn > Base_Mng.Data.data.Green )
+        {
+            Debug.Log("재화가 부족합니다");
+            return;
+        }
+        
         Base_Mng.instance.UpgradeUnimoLevel();
         RefreshUI();
     }
@@ -377,13 +443,22 @@ public class UnimoStatUI : MonoBehaviour
     // 엔진 레벨업
     public void UpgradeEngineAndStatUI()
     {
-        if (Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1] >= 5)
-        {
-            Debug.Log("최대 레벨입니다.");
-            return;
-        }
+         int nextLevel = Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1] + 1;
+         EquipmentStatLevelUpCost levelData = equipLevelUpCostSO.GetData(equipmentStatData.Rank, nextLevel);
         
-        Base_Mng.instance.UpgradeEngineLevel();
-        RefreshUI();
+         if (Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1] >= 5)
+         {
+             Debug.Log("최대 레벨입니다.");
+             return;
+         }
+        
+         if (levelData.need_yel > Base_Mng.Data.data.Yellow || levelData.need_org > Base_Mng.Data.data.Red || levelData.need_grn > Base_Mng.Data.data.Green )
+         {
+             Debug.Log("재화가 부족합니다");
+             return;
+         }
+        
+         Base_Mng.instance.UpgradeEngineLevel();
+         RefreshUI();
     }
 }
