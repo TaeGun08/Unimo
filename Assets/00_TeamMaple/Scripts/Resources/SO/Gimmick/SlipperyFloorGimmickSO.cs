@@ -4,7 +4,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SlipperyFloorGimmickSO", menuName = "StageGimmick/SlipperyFloor")]
 public class SlipperyFloorGimmickSO : StageGimmickSO
 {
-    public float slipperyDuration = 2f;
+    public float slipperyDuration = 3f;
+    public float slipperyForce = 150f;
+    public float maxSlipSpeed = 3f;
 
     public override GameObject Execute(Vector3 origin)
     {
@@ -32,7 +34,6 @@ public class SlipperyFloorRunner : MonoBehaviour
 
     private IEnumerator SlipperySequence()
     {
-        // 플레이어 찾기
         var player = GameObject.FindGameObjectWithTag("Player");
 
         if (player != null)
@@ -40,25 +41,19 @@ public class SlipperyFloorRunner : MonoBehaviour
             var slippery = player.GetComponent<SlipperyReceiver>();
             if (slippery != null)
             {
-                // 현재 이동 방향 계산
-                Vector3 moveDir = Vector3.zero;
+                // SetSlippery 확장 버전 적용
+                slippery.SetSlippery(
+                    enable: true,
+                    force: data.slipperyForce,
+                    max: data.maxSlipSpeed
+                );
 
-                Rigidbody rb = player.GetComponent<Rigidbody>();
-                if (rb != null && rb.linearVelocity.magnitude > 0.1f)
-                {
-                    moveDir = rb.linearVelocity.normalized;
-                }
-                else
-                {
-                    moveDir = player.transform.forward;
-                }
+                yield return new WaitForSeconds(data.slipperyDuration);
 
-                slippery.slipperyDuration = data.slipperyDuration;
-                slippery.ApplySlippery(moveDir);
+                slippery.SetSlippery(false);
             }
         }
 
-        yield return new WaitForSeconds(data.slipperyDuration);
         Destroy(gameObject);
     }
 }
