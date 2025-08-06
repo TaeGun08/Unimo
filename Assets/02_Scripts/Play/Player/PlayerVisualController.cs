@@ -30,6 +30,12 @@ public class PlayerVisualController : MonoBehaviour
     {
         characterAnimator = playerController.UnimoAnim;
         equipAnimator = playerController.EgineAnim;
+        
+        InitModelingAsync(PlayProcessController.InitTimeSTATIC, () =>
+        {
+            transform.position = Vector3.zero;
+            FindAnyObjectByType<PlayTimeManager>().InitTimer();
+        });
     }
 
     public void test_InitModeling(GameObject equipPrefab, GameObject playerPrefab)
@@ -50,6 +56,7 @@ public class PlayerVisualController : MonoBehaviour
                 StartCoroutine(CoroutineExtensions.ScaleInterpCoroutine(transform.Find("Shadow"), new Vector3(1.5f, 1.5f, 1f), initTime));
             }, 0.3f));
         };
+
         Addressables.InstantiateAsync(AddressableKeyCtrl.EqAssetKey_Play(GameManager.Instance.EqIdx), transform).Completed += (op) =>
         {
             GameObject equip = op.Result.gameObject;

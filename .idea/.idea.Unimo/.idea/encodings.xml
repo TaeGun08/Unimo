@@ -26,6 +26,7 @@
     <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/EquipmentStatDataSO.cs" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/Unimo/UnimoStatDataSO.cs" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/Assets/00_TeamMaple/Scripts/SO/UnimoStatDataSO.cs" charset="EUC-KR" />
+    <file url="file://$PROJECT_DIR$/Assets/02_Scripts/Pinous/ADS_Mng.cs" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/Assets/02_Scripts/Pinous/Firebase/Firebase_Database.cs" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/Assets/02_Scripts/Pinous/IAP_Manager.cs" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/Assets/02_Scripts/Play/PlaySystem/ScoreManager.cs" charset="EUC-KR" />

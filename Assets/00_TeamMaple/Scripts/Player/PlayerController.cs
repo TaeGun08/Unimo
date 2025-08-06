@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     
     public Animator UnimoAnim { get; set; }
     public Animator EgineAnim { get; set; }
-
+    
     private IEnumerator Start()
     {
         yield return null;
@@ -37,8 +37,6 @@ public class PlayerController : MonoBehaviour
         
         CurrentState = StatesDic[IPlayerState.EState.Idle];
         CurrentState.gameObject.SetActive(true);
-        
-        UnimoAnim.Play("Appear");
     }
 
     public void ChangeState(IPlayerState.EState newState)
