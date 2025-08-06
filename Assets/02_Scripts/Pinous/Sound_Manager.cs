@@ -21,7 +21,7 @@ public class Sound_Manager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
 
@@ -32,8 +32,16 @@ public class Sound_Manager : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        BGM_volume = PlayerPrefs.GetFloat("BGM");
-        FX_volume = PlayerPrefs.GetFloat("FX");
+        if (!string.IsNullOrEmpty(PlayerPrefs.GetString("PlayerData")))
+        {
+            BGM_volume = PlayerPrefs.GetFloat("BGM");
+            FX_volume = PlayerPrefs.GetFloat("FX");
+        }
+        else
+        {
+            BGM_volume = 0.5f;
+            FX_volume = 0.5f;
+        }
     }
 
     public void SoundCheck()
@@ -41,6 +49,7 @@ public class Sound_Manager : MonoBehaviour
         _audioSources[0].volume = BGM_volume;
         _audioSources[1].volume = FX_volume;
     }
+
     public void ReturnSound(bool SetSoundZero)
     {
         if (SetSoundZero)
@@ -53,6 +62,7 @@ public class Sound_Manager : MonoBehaviour
             BGM_volume = 0.0f;
             FX_volume = 0.0f;
         }
+
         SoundCheck();
     }
 
@@ -82,7 +92,7 @@ public class Sound_Manager : MonoBehaviour
                 _audioSources[(int)Sound.Bgm].loop = true;
             }
         }
-      
+
         SoundCheck();
     }
 
@@ -101,11 +111,13 @@ public class Sound_Manager : MonoBehaviour
 
         audioSource.pitch = pitch;
     }
+
     public void PlayClip(AudioClip clip)
     {
         AudioSource audioSource = _audioSources[(int)Sound.Effect];
         audioSource.PlayOneShot(clip);
     }
+
     public bool Play(Sound type, string path, float volume = 1.0f, float pitch = 1.0f)
     {
         if (string.IsNullOrEmpty(path))

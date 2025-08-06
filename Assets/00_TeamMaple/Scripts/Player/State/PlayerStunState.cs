@@ -24,9 +24,7 @@ public class PlayerStunState : PlayerState
         yield return null;
         StartCoroutine(PushMoveCoroutine(duration, e));
         
-        PlayerController.EgineAnim.SetTrigger("stun");
-        PlayerController.EgineAnim.SetBool("isstun", true);
-        PlayerController.UnimoAnim.SetBool("isstun", true);
+        VisualController.SetStunAnim(true);
         
         yield return new WaitForSeconds(0.8f * duration);
         yield return new WaitForSeconds(0.2f * duration);
@@ -56,8 +54,7 @@ public class PlayerStunState : PlayerState
 
     public override void StateExit()
     {
-        PlayerController.EgineAnim.SetBool("isstun", false);
-        PlayerController.UnimoAnim.SetBool("isstun", false);
+        VisualController.SetStunAnim(false);
         LocalPlayer.IsInvincible = false;
     }
     
