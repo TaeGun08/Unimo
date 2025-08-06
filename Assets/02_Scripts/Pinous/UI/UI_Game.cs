@@ -7,6 +7,7 @@ public class UI_Game : UI_Base
 {
     public TextMeshProUGUI GameOneBest, GameTwoBest;
     private int stageCount;
+    public int StageCount => stageCount;
 
     [Header("Stage Settings")]
     [SerializeField] private TMP_Text stageText;
@@ -216,5 +217,7 @@ public class UI_Game : UI_Base
 
     public void ActiveTrueStage() => selectStageUI.SetActive(true);
     public void ActiveFalseStage() => selectStageUI.SetActive(false);
+    public void ActiveTrueReward() => starRewardUI.SetActive(true);
+    public void ActiveFalseReward() => starRewardUI.SetActive(false);
     public void ActiveTrueCharacter() => Canvas_Holder.instance.GetUI("##Character");
 }
