@@ -137,11 +137,11 @@ public partial class Firebase_Mng: MonoBehaviour
         data.EXP = 0;
         data.Level = 0;
         data.Second_Base = 5;
-        data.Yellow = 0;
-        data.Red = 0;
-        data.Blue = 0;
-        data.Green = 0;
-        data.HighStage = 1;
+        data.Yellow = 999999999;
+        data.Red = 999999999;
+        data.Blue = 999999;
+        data.Green = 999999;
+        data.HighStage = 999;
         data.CurrentStage = 1;
         data.BonusStageOn = false;
         data.NextLevel_Base = 10;
