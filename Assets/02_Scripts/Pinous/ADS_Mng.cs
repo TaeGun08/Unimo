@@ -97,35 +97,35 @@ public class ADS_Mng
     private void OnAdLoadCallback(InterstitialAd ad, LoadAdError error)
     {
         // if error is not null, the load request failed.
-        if (error != null || ad == null)
-        {
-            Debug.LogError("interstitial ad failed to load an ad " +
-                           "with error : " + error);
-            return;
-        }
-
-        Debug.Log("Interstitial ad loaded with response : "
-                  + ad.GetResponseInfo());
-
-        _interstitialAd = ad;
-        RegisterReloadHandler(_interstitialAd);
+        // if (error != null || ad == null)
+        // {
+        //     Debug.LogError("interstitial ad failed to load an ad " +
+        //                    "with error : " + error);
+        //     return;
+        // }
+        //
+        // Debug.Log("Interstitial ad loaded with response : "
+        //           + ad.GetResponseInfo());
+        //
+        // _interstitialAd = ad;
+        // RegisterReloadHandler(_interstitialAd);
     }
 
     private void OnAdRewardCallback(RewardedAd ad, LoadAdError error)
     {
         // if error is not null, the load request failed.
-        if (error != null || ad == null)
-        {
-            Debug.LogError("Rewarded ad failed to load an ad " +
-                           "with error : " + error);
-            return;
-        }
-
-        Debug.Log("Rewarded ad loaded with response : "
-                  + ad.GetResponseInfo());
-        _rewardedAd = ad;
-
-        RegisterEventHandlers(_rewardedAd);
+        // if (error != null || ad == null)
+        // {
+        //     Debug.LogError("Rewarded ad failed to load an ad " +
+        //                    "with error : " + error);
+        //     return;
+        // }
+        //
+        // Debug.Log("Rewarded ad loaded with response : "
+        //           + ad.GetResponseInfo());
+        // _rewardedAd = ad;
+        //
+        // RegisterEventHandlers(_rewardedAd);
     }
 
     private void RegisterReloadHandler(InterstitialAd ad)

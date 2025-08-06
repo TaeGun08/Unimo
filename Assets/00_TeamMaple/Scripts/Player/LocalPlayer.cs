@@ -78,9 +78,6 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
         // 플레이어 스탯 계산기 설정
         SetPlayerStats();
         
-        // 플레이어 애니메이터 설정
-        SetPlayerAnimator(unimo,  engine);
-        
         // 테스트 세팅
         SetLevelTestButton();
         SetLevelTestText();
@@ -104,6 +101,7 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
                       $"FlowerDropSpeed: {StatCalculator.FlowerDropSpeed}\n" +
                       $"FlowerDropAmount: {StatCalculator.FlowerDropAmount}");
         
+            
             Debug.Log($"[UnimoStats (SkillOn)]\n" +
                       $"Hp: {PlayerStatHolder.Hp.Value}\n" +
                       $"Def: {PlayerStatHolder.Def.Value}\n" +
@@ -134,17 +132,17 @@ public class LocalPlayer : MonoBehaviour, IDamageAble
         PlayerStatHolder = new PlayerStatHolder(StatCalculator);
     }
     
-    private void SetPlayerAnimator(GameObject unimo, GameObject engine)
-    {
-        playerController.UnimoAnim = InstantiateAnimator(unimo, transform.position + Vector3.up);
-        playerController.EgineAnim = InstantiateAnimator(engine, transform.position);
-    }
-
-    private Animator InstantiateAnimator(GameObject prefab, Vector3 position)
-    {
-        return Instantiate(prefab, position, Quaternion.Euler(0, 180f, 0), transform)
-            .GetComponent<Animator>();
-    }
+    // private void SetPlayerAnimator(GameObject unimo, GameObject engine)
+    // {
+    //     playerController.UnimoAnim = InstantiateAnimator(unimo, transform.position + Vector3.up);
+    //     playerController.EgineAnim = InstantiateAnimator(engine, transform.position);
+    // }
+    //
+    // private Animator InstantiateAnimator(GameObject prefab, Vector3 position)
+    // {
+    //     return Instantiate(prefab, position, Quaternion.Euler(0, 180f, 0), transform)
+    //         .GetComponent<Animator>();
+    // }
 
     public void TakeDamage(CombatEvent e)
     {
