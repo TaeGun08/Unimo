@@ -24,7 +24,7 @@ public class Server_Data
     public float[] BuffFloating = new float[3];
 
     public bool[] GetCharacterData = { true, false, false, false, false, false, false, false, false, false, false, false, false };
-    public bool[] GetEQData = { true, false, false, false, false, false, false, false, false, false, false, false, false , false, false , false, false, false, false , false, false, false, false};
+    public bool[] GetEQData = { true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
 
     public List<int> unlockedLands = new List<int>();
     public double BestScoreGameOne, BestScoreGameTwo;
