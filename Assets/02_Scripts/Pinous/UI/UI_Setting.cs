@@ -23,28 +23,28 @@ public class UI_Setting : UI_Base
                 OnRestoreButton.onClick.AddListener(() => Base_Mng.IAP.RestoreClass());
 #endif
 
-        QualityLevelCheck(2);
+        QualityLevelCheck();
         base.Start();
     }
 
     public void GetQualityLevel(int value)
     {
-        //QualitySettings.SetQualityLevel(value, true);
+        QualitySettings.SetQualityLevel(value, true);
 
         PlayerPrefs.SetInt("QualityLevel", value);
         PlayerPrefs.Save();
 
-        QualityLevelCheck(value);
+        QualityLevelCheck();
     }
 
-    private void QualityLevelCheck(int Value)
+    private void QualityLevelCheck()
     {
-        //var Value = PlayerPrefs.GetInt("QualityLevel");
+        var value = PlayerPrefs.GetInt("QualityLevel");
         for(int i = 0; i < CheckBox.Length; i++)
         {
             CheckBox[i].gameObject.SetActive(false);
         }
-        CheckBox[Value].gameObject.SetActive(true);
+        CheckBox[value].gameObject.SetActive(true);
     }
 
     public override void Update()

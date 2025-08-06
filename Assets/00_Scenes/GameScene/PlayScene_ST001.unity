@@ -15745,8 +15745,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4959bd93f64648b45a1ace685e76492d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slipperyPower: 3
-  slipperyDrag: 0.95
+  slipperyDuration: 2
+  initialSpeed: 5
+  drag: 0.5
 --- !u!1 &7969321136227252092
 GameObject:
   m_ObjectHideFlags: 0

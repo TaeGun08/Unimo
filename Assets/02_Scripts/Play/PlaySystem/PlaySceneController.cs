@@ -32,6 +32,7 @@ public class PlaySceneController : MonoBehaviour
         Sound_Manager.instance.Play(Sound.Effect, "Click_01");
 
         PlaySystemRefStorage.playProcessController.GamePaused();
+        PlaySystemRefStorage.playTimeManager.ToggleTimer();
         Time.timeScale = 0f;
     }
     public void ResumeGame()
@@ -39,6 +40,7 @@ public class PlaySceneController : MonoBehaviour
         Sound_Manager.instance.Play(Sound.Effect, "Click_01");
 
         PlaySystemRefStorage.playProcessController.GameResumed();
+        PlaySystemRefStorage.playTimeManager.ToggleTimer();
         Time.timeScale = 1f;
     }
     public void LoadLobby()
