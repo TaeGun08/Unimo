@@ -1,52 +1,67 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
 public class SlipperyReceiver : MonoBehaviour
 {
+    [Header("슬리퍼리 설정")]
+    public float drag = 3f;
+
     private Rigidbody rb;
     private bool isSlippery = false;
-    private float slipperyTimer = 0f;
+    private float slipperyForce;
+    private float maxSpeed;
 
-    [Header("슬리퍼리 설정")]
-    public float slipperyDuration = 2f;
-    public float initialSpeed = 5f;
-    public float drag = 0.5f; // 작을수록 오래 미끄러짐
+    private VirtualJoystickCtrl_ST001 joystick;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        rb.useGravity = false;
-        rb.linearDamping = 0f;
+
+        // 버츄얼 조이스틱을 씬에서 찾아오기
+        joystick = FindObjectOfType<VirtualJoystickCtrl_ST001>();
+        if (joystick == null)
+        {
+            Debug.LogWarning("[SlipperyReceiver] VirtualJoystickCtrl_ST001을 찾을 수 없습니다.");
+        }
     }
 
     private void FixedUpdate()
     {
-        if (isSlippery)
-        {
-            slipperyTimer -= Time.fixedDeltaTime;
+        if (!isSlippery || rb == null || joystick == null)
+            return;
 
-            if (slipperyTimer <= 0f)
+        // 조이스틱 입력값 가져오기
+        Vector2 input = joystick.Dir;
+
+        if (input != Vector2.zero)
+        {
+            Vector3 moveDir = new Vector3(input.x, 0f, input.y).normalized;
+
+            // 속도가 maxSpeed를 넘지 않도록 제한
+            if (rb.linearVelocity.magnitude < maxSpeed)
             {
-                isSlippery = false;
-                rb.linearDamping = 0f;
-                rb.linearVelocity = Vector3.zero;
-                Debug.Log("[SlipperyReceiver] 슬리퍼리 종료");
+                rb.AddForce(moveDir * slipperyForce, ForceMode.Acceleration);
             }
         }
+
+        // 감속 효과를 위한 Drag 적용
+        rb.linearDamping = drag;
     }
 
-    /// <summary>
-    /// 외부에서 호출해 슬리퍼리 효과를 적용
-    /// </summary>
-    /// <param name="dir">현재 이동 방향</param>
-    public void ApplySlippery(Vector3 dir)
+    public void SetSlippery(bool enable, float force = 0f, float max = 0f)
     {
-        rb.linearVelocity = dir.normalized * initialSpeed;
-        rb.linearDamping = drag;
+        isSlippery = enable;
 
-        slipperyTimer = slipperyDuration;
-        isSlippery = true;
-
-        Debug.Log("[SlipperyReceiver] 슬리퍼리 적용됨");
+        if (enable)
+        {
+            slipperyForce = force;
+            maxSpeed = max;
+            rb.linearDamping = drag;
+            Debug.Log("[SlipperyReceiver] 슬리퍼리 적용됨");
+        }
+        else
+        {
+            rb.linearDamping = 0f;
+            Debug.Log("[SlipperyReceiver] 슬리퍼리 종료");
+        }
     }
 }

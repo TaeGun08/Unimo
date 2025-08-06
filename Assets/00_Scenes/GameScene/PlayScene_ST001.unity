@@ -15602,6 +15602,11 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 5953960002914474849, guid: 35ca479c1a46ff444b6adde214f7cc9f,
         type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 7723116977559001209}
+    - target: {fileID: 5953960002914474849, guid: 35ca479c1a46ff444b6adde214f7cc9f,
+        type: 3}
       propertyPath: equipmentLevelText
       value: 
       objectReference: {fileID: 992071414}
@@ -15745,9 +15750,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4959bd93f64648b45a1ace685e76492d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slipperyDuration: 2
-  initialSpeed: 5
-  drag: 0.5
+  drag: 3
+--- !u!114 &7723116977559001209 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5958562109759819987, guid: 35ca479c1a46ff444b6adde214f7cc9f,
+    type: 3}
+  m_PrefabInstance: {fileID: 7723116977559001202}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7723116977559001203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f258f13b1853e8f4d82668045201f3b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7969321136227252092
 GameObject:
   m_ObjectHideFlags: 0
