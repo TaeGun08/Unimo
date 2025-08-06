@@ -13363,7 +13363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInfinite: 0
-  reduceIncTime: 10
+  reduceIncTime: 90
   timerText: {fileID: 1997461218}
 --- !u!114 &1971803518
 MonoBehaviour:
@@ -29963,6 +29963,7 @@ MonoBehaviour:
     type: 2}
   equipmentSkillDataSo: {fileID: 11400000, guid: 28cf012214853794489021f808449e17,
     type: 2}
+  playerController: {fileID: 0}
   unimoLevelDownButton: {fileID: 198511829}
   unimoLevelUpButton: {fileID: 863859306}
   equipmentLevelDownButton: {fileID: 772085699}

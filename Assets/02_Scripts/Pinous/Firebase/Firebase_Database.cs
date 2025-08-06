@@ -158,9 +158,12 @@ public partial class Firebase_Mng: MonoBehaviour
         data.BestScoreGameOne = 0;
         data.BestScoreGameTwo = 0;
 
-        bool[] charDatas = { true, false, false, false, false, false, false, false, false, false, false, false, false };
-        bool[] EqDatas = { true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
+        // bool[] charDatas = { true, false, false, false, false, false, false, false, false, false, false, false, false };
+        // bool[] EqDatas = { true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
 
+        bool[] charDatas = { true, true, true, true, true, true, true, true, true, true, true, true, true };
+        bool[] EqDatas = { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true };
+        
         data.GetCharacterData = charDatas;
         data.GetEQData = EqDatas;
 
