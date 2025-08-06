@@ -1,24 +1,30 @@
+using System.Collections;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "FogDamageGimmickSO", menuName = "StageGimmick/FogDamage")]
 public class FogDamageGimmickSO : StageGimmickSO
 {
-    public float duration = 15f;
-    public float damageInterval = 2f;
-    public float damageAmount = 5f;
-    public Material fogMaterial;
+    [Header("Prefabs")]
+    public GameObject fogPrefab;
+    public GameObject safeZonePrefab;
+
+    [Header("Damage")]
+    public float tickInterval = 1f;
+    public float damagePercent = 0.01f;
+
+    [Header("Safe Zone")]
+    public float initialSafeRadius = 8f;
+    public float finalSafeRadius = 2f;
+    public float shrinkDuration = 30f;
 
     public override GameObject Execute(Vector3 origin)
     {
-        var obj = new GameObject("FogDamageRunner");
-        obj.transform.position = origin;
-
-        var runner = obj.AddComponent<FogDamageRunner>();
-        runner.fogMaterial = fogMaterial;
-        runner.Init(this);
-        return obj;
+        var runnerObj = new GameObject("FogDamageRunner");
+        var runner = runnerObj.AddComponent<FogDamageRunner>();
+        runner.Init(this, origin);
+        return runnerObj;
     }
-    
+
     private void OnEnable()
     {
         GimmickRegistry.Register(StageGimmickType.FogDamage, this);
@@ -27,67 +33,88 @@ public class FogDamageGimmickSO : StageGimmickSO
 
 public class FogDamageRunner : MonoBehaviour
 {
-    private FogDamageGimmickSO data;
-    private float timer;
-    private float damageTimer;
+    private FogDamageGimmickSO config;
+    private Transform player;
+    private Transform safeZone;
 
-    public float maxRadius = 30f;
-    public float minRadius = 3f;
-    private float currentRadius;
+    private float shrinkTimer;
+    private float dotTimer;
 
-    private GameObject fogVisual;
-
-    public Material fogMaterial; // ✅ 반투명한 Shader Graph 머티리얼 연결
-
-    public void Init(FogDamageGimmickSO so)
+    public void Init(FogDamageGimmickSO so, Vector3 origin)
     {
-        data = so;
-        timer = 0f;
-        damageTimer = 0f;
+        config = so;
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
 
-        // ✅ 비주얼용 안개 Sphere 생성
-        fogVisual = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        fogVisual.transform.position = Vector3.zero;
-        fogVisual.transform.localScale = Vector3.one * maxRadius * 2f;
-        fogVisual.GetComponent<Collider>().enabled = false;
-        fogVisual.GetComponent<MeshRenderer>().material = fogMaterial;
+        if (config.fogPrefab != null)
+            Instantiate(config.fogPrefab, origin, Quaternion.identity);
 
-        currentRadius = maxRadius;
+        if (config.safeZonePrefab != null)
+        {
+            var zone = Instantiate(config.safeZonePrefab, origin, Quaternion.identity);
+            safeZone = zone.transform;
+            safeZone.localScale = Vector3.one * config.initialSafeRadius * 2f;
+        }
     }
 
     private void Update()
     {
-        timer += Time.deltaTime;
-        damageTimer += Time.deltaTime;
+        if (player == null || safeZone == null) return;
 
-        // ✅ 반지름 조이기
-        float t = Mathf.Clamp01(timer / data.duration);
-        currentRadius = Mathf.Lerp(maxRadius, minRadius, t);
-        fogVisual.transform.localScale = Vector3.one * currentRadius * 2f;
+        // SafeZone 축소
+        shrinkTimer += Time.deltaTime;
+        float t = Mathf.Clamp01(shrinkTimer / config.shrinkDuration);
+        float radius = Mathf.Lerp(config.initialSafeRadius, config.finalSafeRadius, t);
+        safeZone.localScale = Vector3.one * radius * 2f;
 
-        // ✅ 데미지 처리
-        if (damageTimer >= data.damageInterval)
+        // 플레이어 거리 확인
+        float distance = Vector3.Distance(player.position, safeZone.position);
+        if (distance > radius)
         {
-            foreach (var player in FindObjectsOfType<LocalPlayer>())
+            dotTimer += Time.deltaTime;
+            if (dotTimer >= config.tickInterval)
             {
-                float dist = Vector3.Distance(player.transform.position, transform.position);
-                if (dist > currentRadius)
-                {
-                    var evt = new CombatEvent
-                    {
-                        Receiver = player,
-                        Damage = (int)data.damageAmount
-                    };
-                    CombatSystem.Instance.AddInGameEvent(evt);
-                }
+                ApplyFogDamage();
+                dotTimer = 0f;
             }
-            damageTimer = 0f;
+        }
+        else
+        {
+            dotTimer = 0f; // 안에 있으면 타이머 초기화
+        }
+    }
+
+    private void ApplyFogDamage()
+    {
+        var statHolder = LocalPlayer.Instance.PlayerStatHolder;
+
+        if (LocalPlayer.Instance.IsInvincible || statHolder.HasInvincible || statHolder.HasOnceInvalid)
+        {
+            Debug.Log("[FogZone] 무적 상태 → 피해 무효");
+
+            if (statHolder.HasOnceInvalid)
+            {
+                statHolder.OnInvalidation();
+                Debug.Log("[FogZone] 1회 무효화 소모");
+            }
+
+            return;
         }
 
-        if (timer > data.duration)
+        int maxHp = statHolder.Hp.MaxValue;
+        int damage = Mathf.CeilToInt(maxHp * config.damagePercent);
+
+        Vector3 knockbackDir = (player.position - safeZone.position).normalized;
+
+        var combat = new CombatEvent
         {
-            Destroy(fogVisual);
-            Destroy(gameObject);
-        }
+            Damage = damage,
+            Position = safeZone.position,
+            KnockbackDir = knockbackDir
+        };
+
+        LocalPlayer.Instance.CombatEvent = combat;
+        LocalPlayer.Instance.playerController.ChangeState(IPlayerState.EState.Hit);
+
+        Debug.Log($"[FogZone] {damage} 피해 및 넉백 적용됨");
     }
 }
