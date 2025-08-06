@@ -9,7 +9,6 @@ public class PlayTimeManager : MonoBehaviour
     public float LapseTime { get; private set; } = 0f;
     [SerializeField] private bool isInfinite = false;
     [SerializeField] private float reduceIncTime = 120f;
-    private float maxTime = 180f;
     private float remainTime = 0f;
     private float minReduce = 1f;
     private bool isPaused;
@@ -25,7 +24,7 @@ public class PlayTimeManager : MonoBehaviour
     private void Start()
     {
         remainTime = reduceIncTime;
-        timerText.text = maxTime.ToString("F2");
+        timerText.text = reduceIncTime.ToString("F2");
         // timerGauge.SetGauge(remainTime / maxTime);
     }
 
@@ -43,7 +42,7 @@ public class PlayTimeManager : MonoBehaviour
     
     public void InitTimer()
     {
-        remainTime = maxTime;
+        remainTime = reduceIncTime;
         isPaused = true;
         StartCoroutine(CoroutineExtensions.DelayedActionCall(() => { ToggleTimer(); }, PlayProcessController.InitTimeSTATIC));
     }
@@ -55,9 +54,9 @@ public class PlayTimeManager : MonoBehaviour
     {
         if (isInfinite) { return; }
         remainTime += tchange;
-        if (remainTime > maxTime) 
+        if (remainTime > reduceIncTime) 
         {
-            remainTime = maxTime; 
+            remainTime = reduceIncTime; 
         }
         if (remainTime < 0f) 
         { 
@@ -68,11 +67,11 @@ public class PlayTimeManager : MonoBehaviour
     }
     public float GetMaxTime()
     {
-        return maxTime;
+        return reduceIncTime;
     }
     public float GetRemainTimeRatio()
     {
-        return remainTime / maxTime;
+        return remainTime / reduceIncTime;
     }
     private float calcReduceRate(float lapse)
     {
