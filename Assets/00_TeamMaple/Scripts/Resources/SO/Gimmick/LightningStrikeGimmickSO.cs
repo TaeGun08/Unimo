@@ -96,13 +96,9 @@ public class LightningStrikeRunner : MonoBehaviour
             {
                 Debug.Log("[낙뢰] StunRestrictor 발견, 스턴 적용 시도");
 
-                if (restrictor.IsStunned)
-                {
-                    restrictor.TemporarilyDisable(0.35f);
-                }
-                if (gameObject.activeInHierarchy) // 또는 runnerObj != null 확인
-                    StartCoroutine(DelayedStun(restrictor, data.stunDuration, 0.35f));
-
+                // ✅ 즉시 스턴 적용
+                restrictor.TemporarilyDisable(0.35f);
+                restrictor.ApplyStun(data.stunDuration);
             }
             else
             {
@@ -111,11 +107,6 @@ public class LightningStrikeRunner : MonoBehaviour
         }
     }
 
-    private IEnumerator DelayedStun(StunRestrictor restrictor, float duration, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        restrictor.ApplyStun(duration);
-    }
 
 
     private Vector3 GetRandomGroundPosition()

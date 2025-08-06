@@ -6,8 +6,9 @@ public class Land : MonoBehaviour
 {
     public static Land instance = null;
 
+   
     [SerializeField] private LandAnimator[] animators;
-    [SerializeField] private GameObject[] objects;
+    [SerializeField] private GameObject[] objects; // MainTree 비주얼용 (레벨 1~5)
     [SerializeField] private Transform[] landCheck;
     [SerializeField] private FlowerGenerator_Lobby[] Generators;
     public GameObject GlowParticle, StarParticle;
@@ -29,29 +30,20 @@ public class Land : MonoBehaviour
 
         int level = Base_Mng.Data.data.Level;
 
-        for (int i = 0; i < objects.Length; i++)
-            objects[i].transform.parent.gameObject.SetActive(false);
-
-        if (level < objects.Length)
+        if (level >= 1 && objects.Length > 0)
         {
-            var go = objects[level].transform.parent.gameObject;
-            go.SetActive(true);
-            go.transform.localScale = Vector3.one; // ✅ 나무가 보이도록 스케일 초기화 보장
+            objects[0].transform.parent.gameObject.SetActive(true);
+            objects[0].transform.parent.localScale = Vector3.one;
         }
 
-        if (level >= 2)
+        for (int i = 0; i < Base_Mng.Data.AltaCount.Length; i++)
         {
-            animators[0].gameObject.SetActive(true);
-            animators[0].DefaultInitalize();
-            animators[1].gameObject.SetActive(true);
-            animators[1].DefaultInitalize();
-        }
-        if (level >= 3)
-        {
-            animators[2].gameObject.SetActive(true);
-            animators[2].DefaultInitalize();
-            animators[3].gameObject.SetActive(true);
-            animators[3].DefaultInitalize();
+            if (level >= Base_Mng.Data.AltaCount[i])
+            {
+                var go = objects[i + 1].transform.parent.gameObject;
+                go.SetActive(true);
+                go.transform.localScale = Vector3.one;
+            }
         }
 
         Generators[0].InitGenFlower();
@@ -174,16 +166,9 @@ public class Land : MonoBehaviour
         Canvas_Holder.instance.Get_Toast("LevelUP02");
 
         // 랜드 해금 처리
-        if (value == 1)
-        {
-            GetLandAnimation(0);
-            GetLandAnimation(1);
-        }
-        else if (value == 2)
-        {
-            GetLandAnimation(2);
-            GetLandAnimation(3);
-        }
+        int nextIndex = value * 2;
+        if (nextIndex < animators.Length) GetLandAnimation(nextIndex);
+        if (nextIndex + 1 < animators.Length) GetLandAnimation(nextIndex + 1);
 
         if (value == 2 && !Base_Mng.Data.data.GetVane)
         {
