@@ -38,6 +38,8 @@ public class UI_Costume : UI_Base
 
     public void CharacterChange(int value)
     {
+        Sound_Manager.instance.Play(Sound.Effect, "Click_01");
+        
         Costumer.ChangeCharacter(value + 1);
         UnimoStatUI.RefreshUI();
         UnimoUpGradePanel.SetActive(true);
@@ -45,6 +47,8 @@ public class UI_Costume : UI_Base
 
     public void EQChange(int value)
     {
+        Sound_Manager.instance.Play(Sound.Effect, "Click_01");
+        
         Costumer.ChangeEquip(value + 1);
         UnimoStatUI.RefreshUI();
         EngineUpGradePanel.SetActive(true);
@@ -52,6 +56,8 @@ public class UI_Costume : UI_Base
 
     public void GetUnimo()
     {
+        Sound_Manager.instance.Play(Sound.Effect, "Click_01");
+
         TitleText.text = Localization_Mng.local_Data["UI/Unimo"].Get_Data();
 
         SelectObj[0].SetActive(true);
@@ -63,6 +69,8 @@ public class UI_Costume : UI_Base
 
     public void GetEQ()
     {
+        Sound_Manager.instance.Play(Sound.Effect, "Click_01");
+        
         TitleText.text = Localization_Mng.local_Data["UI/B-B-Engine"].Get_Data();
         SelectObj[0].SetActive(false);
         SelectObj[1].SetActive(true);
@@ -73,6 +81,7 @@ public class UI_Costume : UI_Base
     
     public void CloseUpgradePanel()
     {
+        Sound_Manager.instance.Play(Sound.Effect, "Click_02");
         UnimoUpGradePanel.SetActive(false);
         EngineUpGradePanel.SetActive(false);
     }
