@@ -429,6 +429,8 @@ public class UnimoStatUI : MonoBehaviour
     // 유니모 레벨업
     public void UpgradeUnimoAndStatUI()
     {
+        Sound_Manager.instance.Play(Sound.Effect, "Click_01");
+        
         int nextLevel = Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1] + 1;
         UnimoStatLevelUpCost levelData = unimoStatLevelUpCostSO.GetData(nextLevel);
         
