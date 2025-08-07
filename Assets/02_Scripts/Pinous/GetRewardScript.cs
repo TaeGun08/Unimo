@@ -83,6 +83,10 @@ public class GetRewardScript : MonoBehaviour
 
         ADSButton.SetActive(true);
 
+        YellowText.text = "0";
+        RedText.text = "0";
+        BlueText.text = "0";
+        
         if (getStar == 0)
         {
             YellowText.text = StringMethod.ToCurrencyString(yellowTrade);
@@ -114,8 +118,9 @@ public class GetRewardScript : MonoBehaviour
                     redTrade += StringMethod.ToCurrencyDouble(starR3);
                     break;
                 }
-                case < 1f and >= 0.8f when getStar != 2:
+                case < 1f and >= 0.8f when getStar != 2 :
                 {
+                    if (getStar >= 2) return;
                     Debug.Log("2성 보상");
                     stageManager.UpdateStageStars(Base_Mng.Data.data.CurrentStage + 1000, 2);
                     _= ActiveTrueStars(2);
@@ -128,6 +133,7 @@ public class GetRewardScript : MonoBehaviour
                     break;
                 }
                 case < 0.8f and >= 0.6f when getStar != 1:
+                    if (getStar >= 1) return;
                     Debug.Log("1성 보상");
                     _= ActiveTrueStars(1);
                     stageManager.UpdateStageStars(Base_Mng.Data.data.CurrentStage + 1000, 1);
