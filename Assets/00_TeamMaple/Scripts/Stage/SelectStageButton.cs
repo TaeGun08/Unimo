@@ -36,6 +36,7 @@ public class SelectStageButton : MonoBehaviour
         Base_Mng.Data.data.GamePlay++;
         Pinous_Flower_Holder.FlowerHolder.Clear();
         Base_Mng.Data.data.CurrentStage = CurrentStage;
+        Canvas_Holder.CloseAllPopupUI();
         JsonDataLoader.SaveServerData(Base_Mng.Data.data);
     }
 }

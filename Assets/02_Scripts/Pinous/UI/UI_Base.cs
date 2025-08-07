@@ -55,10 +55,10 @@ public class UI_Base : MonoBehaviour
 
     protected void DisableCheck(bool MoveChange = true)
     {
-        Debug.Log("카메라 움직여 줘");
         Canvas_Holder.UI_Holder.Pop();
         Camera_Event.instance.MoverChange(MoveChange);
         Sound_Manager.instance.Play(Sound.Effect, "Click_02");
-        Destroy(this.gameObject);
+        if(gameObject == null) return;
+        Destroy(gameObject);
     }
 }

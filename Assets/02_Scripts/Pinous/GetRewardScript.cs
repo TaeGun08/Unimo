@@ -71,6 +71,8 @@ public class GetRewardScript : MonoBehaviour
     {
         float condition = float.Parse(stageFlowerConditions.GetData(Base_Mng.Data.data.CurrentStage + 1000).Star3Condition);
 
+        int getStar = stageManager.GetStars(Base_Mng.Data.data.CurrentStage + 1000);
+        
         redTrade = StringMethod.ToCurrencyDouble(texts[0].text) * 
                    (StringMethod.ToCurrencyDouble(starR2) / (condition * 0.67d));
         
@@ -81,17 +83,20 @@ public class GetRewardScript : MonoBehaviour
 
         ADSButton.SetActive(true);
 
-        YellowText.text = StringMethod.ToCurrencyString(yellowTrade);
-        RedText.text = StringMethod.ToCurrencyString(redTrade);
-        BlueText.text = StringMethod.ToCurrencyString(blueTrade);
-
+        if (getStar == 0)
+        {
+            YellowText.text = StringMethod.ToCurrencyString(yellowTrade);
+            RedText.text = StringMethod.ToCurrencyString(redTrade);
+            BlueText.text = StringMethod.ToCurrencyString(blueTrade);
+        }
+        
         if (!(starBar.value < 0.6f))
         {
-            int getStar = stageManager.GetStars(Base_Mng.Data.data.CurrentStage + 1000);
-
             switch (starBar.value)
             {
                 case >= 1f when getStar != 3:
+                {
+                    Debug.Log("3성 보상");
                     stageManager.UpdateStageStars(Base_Mng.Data.data.CurrentStage + 1000, 3);
 
                     _= ActiveTrueStars(3);
@@ -107,9 +112,11 @@ public class GetRewardScript : MonoBehaviour
 
                     yellowTrade += StringMethod.ToCurrencyDouble(starY3);
                     redTrade += StringMethod.ToCurrencyDouble(starR3);
-
                     break;
+                }
                 case < 1f and >= 0.8f when getStar != 2:
+                {
+                    Debug.Log("2성 보상");
                     stageManager.UpdateStageStars(Base_Mng.Data.data.CurrentStage + 1000, 2);
                     _= ActiveTrueStars(2);
                     if (getStar != 1 && getStar < 2)
@@ -118,16 +125,17 @@ public class GetRewardScript : MonoBehaviour
                     }
 
                     redTrade += StringMethod.ToCurrencyDouble(starR2);
-                    
                     break;
+                }
                 case < 0.8f and >= 0.6f when getStar != 1:
+                    Debug.Log("1성 보상");
                     _= ActiveTrueStars(1);
                     stageManager.UpdateStageStars(Base_Mng.Data.data.CurrentStage + 1000, 1);
                     
                     yellowTrade += StringMethod.ToCurrencyDouble(starY1);
-                    
                     break;
             }
+
             
             if (Base_Mng.Data.data.HighStage == Base_Mng.Data.data.CurrentStage)
             {
@@ -140,11 +148,11 @@ public class GetRewardScript : MonoBehaviour
             }
         }
 
+        if (getStar != 0) return;
         Base_Mng.Data.data.Red += redTrade;
         Base_Mng.Data.data.Yellow += yellowTrade;
         Base_Mng.Data.data.Blue += blueTrade;
         Base_Mng.Data.data.GetTicket--;
-        Debug.Log("티켓 감소" + Base_Mng.Data.data.GetTicket);
     }
 
     private async Task ActiveTrueStars(int starCount)
@@ -163,11 +171,11 @@ public class GetRewardScript : MonoBehaviour
     {
         float condition = float.Parse(stageFlowerConditions.GetData(Base_Mng.Data.data.CurrentStage + 999).Star3Condition);
 
-        redTrade = StringMethod.ToCurrencyDouble(texts[0].text) * 
-                   (StringMethod.ToCurrencyDouble(starR2) / (condition * 0.67d)) * 3f;
+        redTrade = (StringMethod.ToCurrencyDouble(texts[0].text) * 
+                    (StringMethod.ToCurrencyDouble(starR2) / (condition * 0.67d))) * 3f;
 
-        yellowTrade = StringMethod.ToCurrencyDouble(texts[1].text) *
-                      (StringMethod.ToCurrencyDouble(starY1) / (condition * 0.67d)) * 3f;
+        yellowTrade = (StringMethod.ToCurrencyDouble(texts[1].text) *
+                       (StringMethod.ToCurrencyDouble(starY1) / (condition * 0.67d))) * 3f;
 
         blueTrade = StringMethod.ToCurrencyDouble(texts[2].text) * 3f;
 

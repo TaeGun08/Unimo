@@ -26,7 +26,6 @@ public class Mission_Base : MonoBehaviour
         if (state == Mission_State.Daily)
         {
             m_RewardText.text = reward.ToString();
-            Debug.Log(rewardType);
             m_Reward.sprite = Data_Mng.atlas.GetSprite(rewardType.ToString());
             GetCheck(style);
 
@@ -50,6 +49,10 @@ public class Mission_Base : MonoBehaviour
     {
         switch(style)
         {
+            case "DailyAccount":
+                button.gameObject.SetActive(Base_Mng.Data.data.GetDaily ? false : true);
+                InProgress.SetActive(Base_Mng.Data.data.GetDaily ? true : false);
+                break;
             case "GamePlay": 
                 button.gameObject.SetActive(Base_Mng.Data.data.GetGamePlay ? false : true);
                 InProgress.SetActive(Base_Mng.Data.data.GetGamePlay ? true : false);
@@ -58,21 +61,17 @@ public class Mission_Base : MonoBehaviour
                 button.gameObject.SetActive(Base_Mng.Data.data.GetADS ? false : true);
                 InProgress.SetActive(Base_Mng.Data.data.GetADS ? true : false);
                 break;
-            case "Touch":
-                button.gameObject.SetActive(Base_Mng.Data.data.GetTouch ? false : true);
-                InProgress.SetActive(Base_Mng.Data.data.GetTouch ? true : false);
+            case "UnimoEnforce":
+                button.gameObject.SetActive(Base_Mng.Data.data.GetUnimoEnforce ? false : true);
+                InProgress.SetActive(Base_Mng.Data.data.GetUnimoEnforce ? true : false);
                 break;
-            case "DailyAccount":
-                button.gameObject.SetActive(Base_Mng.Data.data.GetDaily ? false : true);
-                InProgress.SetActive(Base_Mng.Data.data.GetDaily ? true : false);
+            case "EngineEnforce":
+                button.gameObject.SetActive(Base_Mng.Data.data.GetEngineEnforce ? false : true);
+                InProgress.SetActive(Base_Mng.Data.data.GetEngineEnforce ? true : false);
                 break;
-            case "TimeItem":
-                button.gameObject.SetActive(Base_Mng.Data.data.GetTimeItem ? false : true);
-                InProgress.SetActive(Base_Mng.Data.data.GetTimeItem ? true : false);
-                break;
-            case "RePlay":
-                button.gameObject.SetActive(Base_Mng.Data.data.GetRePlay ? false : true);
-                InProgress.SetActive(Base_Mng.Data.data.GetRePlay ? true : false);
+            case "TreeLevelUp":
+                button.gameObject.SetActive(Base_Mng.Data.data.GetTreeLevelUp ? false : true);
+                InProgress.SetActive(Base_Mng.Data.data.GetTreeLevelUp ? true : false);
                 break;
         }
     }
@@ -100,12 +99,12 @@ public class Mission_Base : MonoBehaviour
 
         switch (style)
         {
+            case "DailyAccount": Base_Mng.Data.data.GetDaily = true; break;
             case "GamePlay": Base_Mng.Data.data.GetGamePlay = true; break;
             case "ADS": Base_Mng.Data.data.GetADS = true; break;
-            case "Touch": Base_Mng.Data.data.GetTouch = true; break;
-            case "DailyAccount": Base_Mng.Data.data.GetDaily = true; break;
-            case "TimeItem": Base_Mng.Data.data.GetTimeItem = true; break;
-            case "RePlay": Base_Mng.Data.data.GetRePlay = true; break;
+            case "UnimoEnforce": Base_Mng.Data.data.GetUnimoEnforce = true; break;
+            case "EngineEnforce": Base_Mng.Data.data.GetEngineEnforce = true; break;
+            case "TreeLevelUp": Base_Mng.Data.data.GetTreeLevelUp = true; break;
         }
 
         Canvas_Holder.instance.NoneClose = true;
@@ -121,14 +120,14 @@ public class Mission_Base : MonoBehaviour
     {
         switch(style)
         {
+            case "DailyAccount": return Base_Mng.Data.data.DailyAccount;
             case "GamePlay": return Base_Mng.Data.data.GamePlay;
             case "ADS": return Base_Mng.Data.data.ADS;
-            case "ADSNONE": return Base_Mng.Data.data.ADSNoneReset;
-            case "Touch": return Base_Mng.Data.data.Touch;
+            case "UnimoEnforce": return Base_Mng.Data.data.UnimoEnforce;
+            case "EngineEnforce":  return Base_Mng.Data.data.EngineEnforce;
+            case "TreeLevelUp": return Base_Mng.Data.data.TreeLevelUp;
             case "Level": return Base_Mng.Data.data.Level + 1;
-            case "DailyAccount": return Base_Mng.Data.data.DailyAccount;
-            case "TimeItem":  return Base_Mng.Data.data.TimeItem;
-            case "RePlay": return Base_Mng.Data.data.RePlay;
+            case "ADSNONE": return Base_Mng.Data.data.ADSNoneReset;
             case "IAP": return Base_Mng.Data.data.IAP;
             case "Collection":
                 int a = 0;
