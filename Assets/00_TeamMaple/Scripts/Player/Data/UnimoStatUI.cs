@@ -119,7 +119,7 @@ public class UnimoStatUI : MonoBehaviour
         Add(data.SpecialStat2);
         Add(data.SpecialStat3);
 
-        return "특화 능력치 : " + (parts.Count > 0 ? string.Join(" / ", parts) : "없음");
+        return (parts.Count > 0 ? string.Join(" / ", parts) : "없음");
     }
     
     public void ShowUpgradeStat(int currentLevel)
@@ -418,6 +418,13 @@ public class UnimoStatUI : MonoBehaviour
         img.sprite = spriteTable.GetSpriteByKey(Base_Mng.Data.data.EQCount);
     }
     
+    private void ConsumeCurrency(float yellow, float orange, float green)
+    {
+        Base_Mng.Data.data.Yellow -= yellow;
+        Base_Mng.Data.data.Red    -= orange;
+        Base_Mng.Data.data.Green  -= green;
+    }
+    
     // 유니모 레벨업
     public void UpgradeUnimoAndStatUI()
     {
@@ -435,6 +442,9 @@ public class UnimoStatUI : MonoBehaviour
             Debug.Log("재화가 부족합니다");
             return;
         }
+        
+        // 재화 차감
+        ConsumeCurrency(levelData.need_yel, levelData.need_org, levelData.need_grn);
         
         Base_Mng.instance.UpgradeUnimoLevel();
         RefreshUI();
@@ -457,6 +467,9 @@ public class UnimoStatUI : MonoBehaviour
              Debug.Log("재화가 부족합니다");
              return;
          }
+         
+         // 재화 차감
+         ConsumeCurrency(levelData.need_yel, levelData.need_org, levelData.need_grn);
         
          Base_Mng.instance.UpgradeEngineLevel();
          RefreshUI();
