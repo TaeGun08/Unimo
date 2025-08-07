@@ -953,6 +953,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageSlider: {fileID: 358677747702979926}
   uiGame: {fileID: 3104164340134480612}
+  rewardThresholds: 1e0000003c0000005a0000007300000087000000
 --- !u!1 &1033129061416372702
 GameObject:
   m_ObjectHideFlags: 0

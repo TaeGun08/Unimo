@@ -5,7 +5,7 @@ using UnityEngine;
 public class TicketGenerator : MonoBehaviour
 {
     [Header("Ticket Settings")]
-    [SerializeField] private float productionInterval = 7200f;
+    [SerializeField] private float productionInterval = 6000f; // 100Ка = 6000УЪ
     [SerializeField] private int maxTicket = 10;
 
     [SerializeField] private TMP_Text time;
@@ -13,6 +13,7 @@ public class TicketGenerator : MonoBehaviour
     private float timer;
     private int lastDisplayedHours = -1;
     private int lastDisplayedMinutes = -1;
+    private int lastDisplayedSeconds = -1;
 
     private void Start()
     {
@@ -34,19 +35,14 @@ public class TicketGenerator : MonoBehaviour
         }
 
         ticket.text = $"{Base_Mng.Data.data.GetTicket} / {maxTicket}";
-        
+
         if (Base_Mng.Data.data.GetTicket >= maxTicket)
         {
-            time.text = "Time - 02:00";
+            time.text = FormatTime(productionInterval);
         }
         else
         {
-            int startHours = (int)(timer / 3600);
-            int startMinutes = (int)((timer % 3600) / 60);
-            time.text = $"Time - {startHours}:{startMinutes:00}";
-
-            lastDisplayedHours = startHours;
-            lastDisplayedMinutes = startMinutes;
+            UpdateTimeDisplay();
         }
     }
 
@@ -54,21 +50,11 @@ public class TicketGenerator : MonoBehaviour
     {
         if (Base_Mng.Data.data.GetTicket >= maxTicket)
         {
-            time.text = "Time - 02:00";
+            time.text = FormatTime(productionInterval);
             return;
         }
 
         timer -= Time.deltaTime;
-
-        int currentHours = (int)(timer / 3600);
-        int currentMinutes = (int)((timer % 3600) / 60);
-
-        if (currentHours != lastDisplayedHours || currentMinutes != lastDisplayedMinutes)
-        {
-            time.text = $"Time - {currentHours}:{currentMinutes:00}";
-            lastDisplayedHours = currentHours;
-            lastDisplayedMinutes = currentMinutes;
-        }
 
         if (timer <= 0f)
         {
@@ -77,15 +63,43 @@ public class TicketGenerator : MonoBehaviour
 
             if (Base_Mng.Data.data.GetTicket >= maxTicket)
             {
-                time.text = "Time - 02:00";
+                time.text = FormatTime(productionInterval);
             }
             else
             {
                 timer = productionInterval;
                 lastDisplayedHours = -1;
                 lastDisplayedMinutes = -1;
+                lastDisplayedSeconds = -1;
             }
         }
+        else
+        {
+            UpdateTimeDisplay();
+        }
+    }
+
+    private void UpdateTimeDisplay()
+    {
+        int currentHours = (int)(timer / 3600);
+        int currentMinutes = (int)((timer % 3600) / 60);
+        int currentSeconds = (int)(timer % 60);
+
+        if (currentHours != lastDisplayedHours || currentMinutes != lastDisplayedMinutes || currentSeconds != lastDisplayedSeconds)
+        {
+            time.text = $"Time - {currentHours:D2}:{currentMinutes:D2}:{currentSeconds:D2}";
+            lastDisplayedHours = currentHours;
+            lastDisplayedMinutes = currentMinutes;
+            lastDisplayedSeconds = currentSeconds;
+        }
+    }
+
+    private string FormatTime(float timeInSeconds)
+    {
+        int h = (int)(timeInSeconds / 3600);
+        int m = (int)((timeInSeconds % 3600) / 60);
+        int s = (int)(timeInSeconds % 60);
+        return $"Time - {h:D2}:{m:D2}:{s:D2}";
     }
 
     private void OnApplicationQuit()
@@ -102,7 +116,6 @@ public class TicketGenerator : MonoBehaviour
     private void SaveState()
     {
         PlayerPrefs.SetString("LastExitTime", DateTime.Now.ToString());
-
         PlayerPrefs.Save();
     }
 }
