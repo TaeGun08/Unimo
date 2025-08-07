@@ -173,8 +173,18 @@ public partial class Firebase_Mng: MonoBehaviour
         data.Touch = 0;
         data.TimeItem = 0;
         data.RePlay = 0;
+        
+        data.UnimoEnforce = 0;
+        data.EngineEnforce = 0;
+        data.TreeLevelUp = 0;
+        
+        data.DailyQuestCount = 0;
+        data.Stage3Star = 0;
+        data.StageClear50 = 0;
+        data.BlackHole = 0;
+        data.BonusStage = 0;
 
-        bool[] archive = { false, false, false, false, false, false, false, false, false };
+        bool[] archive = { false, false, false, false, false, false, false, false, false, false, false };
         data.GetArchivements = archive;
 
         data.IAP = 0;
@@ -189,6 +199,9 @@ public partial class Firebase_Mng: MonoBehaviour
         data.ADSNoneReset = 0;
         data.S_DateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         data.E_DateTime = "";
+        data.GetUnimoEnforce = false;
+        data.GetEngineEnforce = false;
+        data.GetTreeLevelUp = false;
 
         data.CharCount = 1;
         data.EQCount = 1;

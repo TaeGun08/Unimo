@@ -43,6 +43,17 @@ UI/TreeLevelUp,별나무 레벨업하기,Levelup StarTree, 1 Tree
 UI/GetTimerItem,게임 내에서 타이머<br>증가 아이템 먹기,Get the time Item in game,Recoger ítem de aumento de tiempo en el juego
 UI/WatchReward,광고보기,Watch the Ads,Ver anuncios
 UI/x2Reward,두 배 보상,Double<br>Reward,Recompensa<br>doble
+UI/DailyQuestCount42,일일 퀘스트 42회 클리어,DailyQuest 42 Clear,42 Clear
+UI/DailyQuestCount84,일일 퀘스트 84회 클리어,DailyQuest 84 Clear,84 Clear
+UI/Get3Star,아무 스테이지 별 3개 달성,Get 3 Star,3 Star
+UI/50StageClear,스테이지 50단계 클리어,Clear 50 Stage,Clear 50 Stage
+UI/BlackHoleStage1Clear,501 스테이지 클리어,BlackHoleStage1Clear,BlackHoleStage1Clear
+UI/Watch10ads,광고 10회 시청,Watch 10 ads,Watch 10 ads
+UI/EnterBonusStage,보너스 스테이지 진입,Enter Bonus Stage,Enter Bonus Stage
+UI/CleartheBonusStage10times,보너스 스테이지 10번 클리어,Clear the Bonus Stage 10 times,Clear the Bonus Stage 10 times
+UI/ReachStarTreeLevel150,별나무 레벨 150 달성,Reach Star Tree Level 150,Reach Star Tree Level 150
+UI/ReachStarTreeLevel350,별나무 레벨 350 달성,Reach Star Tree Level 350,Reach Star Tree Level 350
+UI/ReachStarTreeLevel1000,별나무 레벨 1000 달성,Reach Star Tree Level 1000,Reach Star Tree Level 1000
 UI/Get,받기,Claim,Recibir
 UI/Daily,일일,Daily,Diario
 UI/Achivment,업적,Trophy,Logro

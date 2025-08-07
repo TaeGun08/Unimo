@@ -103,6 +103,11 @@ public class GetRewardScript : MonoBehaviour
                     Debug.Log("3¼º º¸»ó");
                     stageManager.UpdateStageStars(Base_Mng.Data.data.CurrentStage + 1000, 3);
 
+                    if (Base_Mng.Data.data.Stage3Star == 0)
+                    {
+                        Base_Mng.Data.data.Stage3Star++;
+                    }
+                    
                     _= ActiveTrueStars(3);
                     if (getStar != 1 && getStar < 2)
                     {
@@ -159,6 +164,16 @@ public class GetRewardScript : MonoBehaviour
         Base_Mng.Data.data.Yellow += yellowTrade;
         Base_Mng.Data.data.Blue += blueTrade;
         Base_Mng.Data.data.GetTicket--;
+
+        if (Base_Mng.Data.data.BlackHole == 0 && Base_Mng.Data.data.CurrentStage == 501)
+        {
+            Base_Mng.Data.data.BlackHole++;
+        }
+        
+        if (Base_Mng.Data.data.StageClear50 < 50)
+        {
+            Base_Mng.Data.data.StageClear50++;
+        }
     }
 
     private async Task ActiveTrueStars(int starCount)
@@ -201,6 +216,11 @@ public class GetRewardScript : MonoBehaviour
         Base_Mng.Data.data.GetTicket--;
         
         Base_Mng.Data.data.BonusStageOn = false;
+        
+        if (Base_Mng.Data.data.BonusStage < 10)
+        {
+            Base_Mng.Data.data.BonusStage++;
+        }
     }
 
     private void ADSReward(float multiplication)

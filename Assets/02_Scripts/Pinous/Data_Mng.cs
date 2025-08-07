@@ -60,7 +60,14 @@ public class Server_Data
     public bool GetEngineEnforce;
     public bool GetTreeLevelUp;
 
-    public bool[] GetArchivements = { false, false, false, false, false, false, false, false, false };
+    //업적 목록
+    public int DailyQuestCount;
+    public int Stage3Star;
+    public int StageClear50;
+    public int BlackHole;
+    public int BonusStage;
+    
+    public bool[] GetArchivements = { false, false, false, false, false, false, false, false, false, false, false };
 
     public string S_DateTime, E_DateTime;
 

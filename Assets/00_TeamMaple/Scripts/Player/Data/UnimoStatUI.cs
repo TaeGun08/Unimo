@@ -446,6 +446,8 @@ public class UnimoStatUI : MonoBehaviour
             return;
         }
         
+        Base_Mng.Data.data.UnimoEnforce++;
+        
         // 재화 차감
         ConsumeCurrency(levelData.need_yel, levelData.need_org, levelData.need_grn);
         
@@ -470,6 +472,8 @@ public class UnimoStatUI : MonoBehaviour
              Debug.Log("재화가 부족합니다");
              return;
          }
+         
+         Base_Mng.Data.data.EngineEnforce++;
          
          // 재화 차감
          ConsumeCurrency(levelData.need_yel, levelData.need_org, levelData.need_grn);

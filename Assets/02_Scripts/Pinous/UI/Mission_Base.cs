@@ -107,6 +107,10 @@ public class Mission_Base : MonoBehaviour
             case "TreeLevelUp": Base_Mng.Data.data.GetTreeLevelUp = true; break;
         }
 
+        if (Base_Mng.Data.data.DailyQuestCount < 84)
+        {
+            Base_Mng.Data.data.DailyQuestCount++;
+        }
         Canvas_Holder.instance.NoneClose = true;
         Canvas_Holder.instance.GetUI("##Reward");
         Canvas_Holder.UI_Holder.Peek().transform.parent = Canvas_Holder.instance.transform;
@@ -126,29 +130,34 @@ public class Mission_Base : MonoBehaviour
             case "UnimoEnforce": return Base_Mng.Data.data.UnimoEnforce;
             case "EngineEnforce":  return Base_Mng.Data.data.EngineEnforce;
             case "TreeLevelUp": return Base_Mng.Data.data.TreeLevelUp;
-            case "Level": return Base_Mng.Data.data.Level + 1;
+            case "DailyQuestCount": return Base_Mng.Data.data.DailyQuestCount;
+            case "Stage3Star": return Base_Mng.Data.data.Stage3Star;
+            case "StageClear50": return Base_Mng.Data.data.StageClear50;
+            case "BlackHole": return Base_Mng.Data.data.BlackHole;
             case "ADSNONE": return Base_Mng.Data.data.ADSNoneReset;
-            case "IAP": return Base_Mng.Data.data.IAP;
-            case "Collection":
-                int a = 0;
-                for(int i = 0; i < Base_Mng.Data.data.GetCharacterData.Length; i++)
-                {
-                    if (Base_Mng.Data.data.GetCharacterData[i] == true)
-                    {
-                        a++;
-                    }
-                }
-                return a;
-            case "Collection_EQ":
-                int b = 0;
-                for(int i = 0; i < Base_Mng.Data.data.GetEQData.Length; i++)
-                {
-                    if (Base_Mng.Data.data.GetEQData[i] == true)
-                    {
-                        b++;
-                    }
-                }
-                return b;
+            case "BonusStage": return Base_Mng.Data.data.BonusStage;
+            case "Level": return Base_Mng.Data.data.Level + 1;
+            //case "IAP": return Base_Mng.Data.data.IAP;
+            // case "Collection":
+            //     int a = 0;
+            //     for(int i = 0; i < Base_Mng.Data.data.GetCharacterData.Length; i++)
+            //     {
+            //         if (Base_Mng.Data.data.GetCharacterData[i] == true)
+            //         {
+            //             a++;
+            //         }
+            //     }
+            //     return a;
+            // case "Collection_EQ":
+            //     int b = 0;
+            //     for(int i = 0; i < Base_Mng.Data.data.GetEQData.Length; i++)
+            //     {
+            //         if (Base_Mng.Data.data.GetEQData[i] == true)
+            //         {
+            //             b++;
+            //         }
+            //     }
+            //     return b;
         }
         return -1;
     }

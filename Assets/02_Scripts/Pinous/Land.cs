@@ -107,6 +107,8 @@ public class Land : MonoBehaviour
         Canvas_Holder.instance.GetLock(false);
         Camera_Event.instance.GetCameraEvent(CameraMoveState.Alta_LevelUP);
 
+        Base_Mng.Data.data.TreeLevelUp++;
+        
         yield return new WaitForSeconds(0.3f);
         Canvas_Holder.instance.Get_Toast("LevelUP01");
 
