@@ -53,18 +53,18 @@ public class MissionFinder : MonoBehaviour
     {
         switch (style)
         {
-            case "GamePlay":
+            case "DailyAccount":
+                return Base_Mng.Data.data.GetDaily;
+            case "GamePlay": 
                 return Base_Mng.Data.data.GetGamePlay;
             case "ADS":
                 return Base_Mng.Data.data.GetADS;
-            case "Touch":
-                return Base_Mng.Data.data.GetTouch;
-            case "DailyAccount":
-                return Base_Mng.Data.data.GetDaily;
-            case "TimeItem":
-                return Base_Mng.Data.data.GetTimeItem;
-            case "RePlay":
-                return Base_Mng.Data.data.GetRePlay;
+            case "UnimoEnforce":
+                return Base_Mng.Data.data.GetUnimoEnforce;
+            case "EngineEnforce":
+                return Base_Mng.Data.data.GetEngineEnforce;
+            case "TreeLevelUp":
+                return Base_Mng.Data.data.GetTreeLevelUp;
         }
         return false;
     }
@@ -79,14 +79,14 @@ public class MissionFinder : MonoBehaviour
     {
         switch (style)
         {
+            case "DailyAccount": return Base_Mng.Data.data.DailyAccount;
             case "GamePlay": return Base_Mng.Data.data.GamePlay;
             case "ADS": return Base_Mng.Data.data.ADS;
-            case "ADSNONE": return Base_Mng.Data.data.ADSNoneReset;
-            case "Touch": return Base_Mng.Data.data.Touch;
+            case "UnimoEnforce": return Base_Mng.Data.data.UnimoEnforce;
+            case "EngineEnforce": return Base_Mng.Data.data.EngineEnforce;
+            case "TreeLevelUp": return Base_Mng.Data.data.TreeLevelUp;
             case "Level": return Base_Mng.Data.data.Level + 1;
-            case "DailyAccount": return Base_Mng.Data.data.DailyAccount;
-            case "TimeItem": return Base_Mng.Data.data.TimeItem;
-            case "RePlay": return Base_Mng.Data.data.RePlay;
+            case "ADSNONE": return Base_Mng.Data.data.ADSNoneReset;
             case "IAP": return Base_Mng.Data.data.IAP;
             case "Collection":
                 int a = 0;

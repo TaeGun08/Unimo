@@ -47,7 +47,6 @@ public class Ray_Checker : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject(0) && Canvas_Holder.UI_Holder.Count == 0)
         {
-            Debug.Log(isClick);
             if(isClick == false)
             {
                 return;

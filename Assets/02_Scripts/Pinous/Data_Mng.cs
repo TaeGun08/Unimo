@@ -43,12 +43,22 @@ public class Server_Data
     public int TimeItem;
     public int RePlay;
 
+    //수정한 퀘스트 목록
+    public int UnimoEnforce;
+    public int EngineEnforce;
+    public int TreeLevelUp;
+    
     public bool GetDaily;
     public bool GetGamePlay;
     public bool GetADS;
     public bool GetTouch;
     public bool GetTimeItem;
     public bool GetRePlay;
+    
+    //수정한 데일리 퀘스트
+    public bool GetUnimoEnforce;
+    public bool GetEngineEnforce;
+    public bool GetTreeLevelUp;
 
     public bool[] GetArchivements = { false, false, false, false, false, false, false, false, false };
 
@@ -252,6 +262,9 @@ public class Data_Mng
                     data.Touch = 0;
                     data.TimeItem = 0;
                     data.RePlay = 0;
+                    data.UnimoEnforce = 0;
+                    data.EngineEnforce = 0;
+                    data.TreeLevelUp = 0;
 
                     data.GetReview = false;
                     data.GetInGame = false;
@@ -261,6 +274,10 @@ public class Data_Mng
                     data.GetTouch = false;
                     data.GetTimeItem = false;
                     data.GetRePlay = false;
+
+                    data.GetUnimoEnforce = false;
+                    data.GetEngineEnforce = false;
+                    data.GetTreeLevelUp = false;
                 }
 
                 if(data.GetCharacterData.Length <= 12)

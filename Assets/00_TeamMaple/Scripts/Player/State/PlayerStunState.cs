@@ -62,6 +62,10 @@ public class PlayerStunState : PlayerState
     {
         Vector3 dir = PlayerController.transform.position - e.KnockbackDir;
         dir.y = 0f;
+        if (StageLoader.IsBonusStageByIndex(Base_Mng.Data.data.CurrentStage))
+        {
+            dir.z = 0f;
+        }
         dir.Normalize();
         Vector2 dirin = new Vector2(dir.x, dir.z);
         duration = Mathf.Min(duration, 1f);

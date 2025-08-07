@@ -80,6 +80,8 @@ public class UI_Game : UI_Base
         {
             Base_Mng.Data.data.CurrentStage = stageCount;
         }
+        
+        Canvas_Holder.CloseAllPopupUI();
 
         JsonDataLoader.SaveServerData(Base_Mng.Data.data);
     }

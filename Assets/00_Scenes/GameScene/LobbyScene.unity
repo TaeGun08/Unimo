@@ -8621,7 +8621,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25dd1ec5739e98740b57023e078def27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  productionInterval: 7200
+  productionInterval: 6000
   maxTicket: 10
   time: {fileID: 723877232}
   ticket: {fileID: 1351287429}
@@ -8794,7 +8794,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -24.5, y: 38.6}
+  m_AnchoredPosition: {x: -17.8, y: 38.6}
   m_SizeDelta: {x: 105.3, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &723877232
@@ -8817,7 +8817,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Time: 02:00'
+  m_text: Time - 02:00:00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5e994e850b8324b18a58aa8c049a7865, type: 2}
   m_sharedMaterial: {fileID: -676856466882600281, guid: 5e994e850b8324b18a58aa8c049a7865,
@@ -8883,7 +8883,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -65.155945, w: 0}
+  m_margin: {x: -33.335144, y: 0, z: -77.43744, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
