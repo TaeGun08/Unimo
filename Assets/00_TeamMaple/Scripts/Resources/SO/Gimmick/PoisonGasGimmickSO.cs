@@ -1,16 +1,20 @@
 // PoisonGasGimmickSO.cs
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PoisonGasGimmickSO", menuName = "StageGimmick/PoisonGas")]
 public class PoisonGasGimmickSO : StageGimmickSO
 {
     public GameObject gasPrefab;
-    public float gasDuration = 20f;
-    public float interval = 30f;
+    public float gasDuration = 60f;
+    public float interval = 20f;
     public float spawnRadius = 8f;
     public float scaleDuration = 2f;
-    public float targetScale = 6f;
+    public float targetScale = 3f;
+    public float tickInterval = 3f;
+    public float percentDamage = 0.1f;
+    public float initialDelay = 0f;
 
     public override GameObject Execute(Vector3 origin)
     {
@@ -32,6 +36,7 @@ public class PoisonGasRunner : MonoBehaviour
     private PoisonGasGimmickSO data;
     private Vector3 center;
     private Coroutine routine;
+    private List<GameObject> spawnedGases = new();
 
     public void Init(PoisonGasGimmickSO so, Vector3 origin)
     {
@@ -41,49 +46,77 @@ public class PoisonGasRunner : MonoBehaviour
     }
 
     private IEnumerator GasRoutine()
+{
+    yield return new WaitForSeconds(5f); // 첫 생성까지 대기
+
+    while (true)
     {
-        while (true)
+        spawnedGases.RemoveAll(x => x == null);
+        if (spawnedGases.Count >= 3)
         {
-            // ✅ 위치 생성
+            yield return new WaitForSeconds(data.interval);
+            continue;
+        }
+
+        bool spawned = false;
+        int maxAttempts = 20;
+
+        for (int attempt = 0; attempt < maxAttempts; attempt++)
+        {
             Vector3 randomPos = center + new Vector3(
                 Random.Range(-data.spawnRadius, data.spawnRadius),
                 0,
                 Random.Range(-data.spawnRadius, data.spawnRadius)
             );
 
-            // ✅ 지면 확인
             Vector3 rayOrigin = randomPos + Vector3.up * 20f;
+
             if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, 40f))
             {
-                Vector3 groundPos = hit.point;
+                if (!hit.collider.CompareTag("Ground"))
+                {
+                    Debug.Log($"[PoisonGasRunner] [{attempt + 1}] Ground 아님 → 재시도");
+                    continue;
+                }
 
-                // ✅ 가스 생성
+                Vector3 groundPos = hit.point;
+                groundPos.y -= 0.25f; // 위치 보정
+
                 GameObject gas = Instantiate(data.gasPrefab, groundPos, Quaternion.identity);
+                gas.SetActive(true);
                 gas.transform.localScale = Vector3.zero;
 
-                // ✅ PoisonArea 초기화
                 PoisonArea area = gas.GetComponent<PoisonArea>();
                 if (area != null)
                 {
+                    area.Init(
+                        tick: data.tickInterval,
+                        percent: data.percentDamage,
+                        delay: data.initialDelay
+                    );
+
                     area.scaleDuration = data.scaleDuration;
                     area.targetScale = data.targetScale;
-                    Debug.Log($"[가스 생성됨] 위치: {groundPos}, 범위: {data.targetScale}");
-                }
-                else
-                {
-                    Debug.LogWarning("[가스] PoisonArea 컴포넌트 없음!");
                 }
 
+                spawnedGases.Add(gas);
                 Destroy(gas, data.gasDuration);
-            }
-            else
-            {
-                Debug.LogWarning("[가스] 지면 감지 실패, 생성 스킵");
-            }
 
-            yield return new WaitForSeconds(data.interval);
+                Debug.Log($"[PoisonGasRunner] 생성 성공 at {groundPos}");
+                spawned = true;
+                break;
+            }
         }
+
+        if (!spawned)
+        {
+            Debug.LogWarning("[PoisonGasRunner] 최대 시도 실패 → 이번 생성 건너뜀");
+        }
+
+        yield return new WaitForSeconds(data.interval);
     }
+}
+
 
 
     private void OnDestroy()

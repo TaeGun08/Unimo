@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 7737821957911359092}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4889,12 +4889,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 362a54d8beffc5140976ef775cc96019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialDelay: 3
-  tickInterval: 0.1
-  percentDamage: 0.05
-  targetTag: Player
   scaleDuration: 2
-  targetScale: 0.5
+  targetScale: 6
+  detectionRadius: 6
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1001 &599616146499763443
 PrefabInstance:
   m_ObjectHideFlags: 0

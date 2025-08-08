@@ -18,8 +18,11 @@ MonoBehaviour:
   environmentMaterial: {fileID: 2100000, guid: 3dd27b7480560eb4a854da57fdd19271, type: 2}
   gasPrefab: {fileID: 7737821957911359092, guid: 0ee0d02d91df97f44be8333f0f2e2f4c,
     type: 3}
-  gasDuration: 20
-  interval: 30
+  gasDuration: 60
+  interval: 20
   spawnRadius: 8
   scaleDuration: 2
   targetScale: 6
+  tickInterval: 3
+  percentDamage: 0.1
+  initialDelay: 0
