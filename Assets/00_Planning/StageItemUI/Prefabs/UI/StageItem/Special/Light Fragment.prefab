@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 7905468569463826218}
   - component: {fileID: 6848940202632579438}
   - component: {fileID: 8815269008894822754}
-  m_Layer: 0
+  - component: {fileID: 5996108722998132912}
+  - component: {fileID: 414584037941295879}
+  m_Layer: 17
   m_Name: Light Fragment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4941,6 +4943,39 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!65 &5996108722998132912
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4035746911033078952}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &414584037941295879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4035746911033078952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: becb8e1aaf2359441b7c0c78806b9bf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4305919122136132865
 GameObject:
   m_ObjectHideFlags: 0
@@ -4952,7 +4987,7 @@ GameObject:
   - component: {fileID: 9025993073989380820}
   - component: {fileID: 4514592333767535486}
   - component: {fileID: 893083465758574268}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Tinysparkles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9891,7 +9926,7 @@ GameObject:
   - component: {fileID: 7628653485656120109}
   - component: {fileID: 7974785610895924397}
   - component: {fileID: 5999506537383998302}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: GlowCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

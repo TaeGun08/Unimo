@@ -1,7 +1,7 @@
-// MeteorFallGimmickSO.cs
+// ✅ MeteorFallGimmickSO 및 Runner 전체 수정 (아이템 생성 포함)
+
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MeteorFallGimmickSO", menuName = "StageGimmick/MeteorFall")]
@@ -15,6 +15,9 @@ public class MeteorFallGimmickSO : StageGimmickSO
     public float fallHeight = 50f;
     public float fallSpeed = 20f;
     
+    public float itemSpawnInterval = 15f;
+    public Vector3 itemSpawnCenter;
+    public float itemSpawnRadius = 10f;
 
     public override GameObject Execute(Vector3 origin)
     {
@@ -23,7 +26,7 @@ public class MeteorFallGimmickSO : StageGimmickSO
         runner.Init(this, origin);
         return runnerObj;
     }
-    
+
     private void OnEnable()
     {
         GimmickRegistry.Register(StageGimmickType.MeteorFall, this);
@@ -35,23 +38,33 @@ public class MeteorFallRunner : MonoBehaviour
     private MeteorFallGimmickSO data;
     private Vector3 center;
     private Coroutine routine;
+    private Coroutine itemRoutine;
     private List<GameObject> activeMeteors = new();
     private int maxMeteors = 1;
+
+    private float itemSpawnInterval;
+    private Vector3 itemSpawnCenter;
+    private float itemSpawnRadius;
+    private GameObject gimmickItemPrefab;
 
     public void Init(MeteorFallGimmickSO so, Vector3 origin)
     {
         data = so;
         center = origin;
 
-        // ✅ 기믹 시작 시 플레이어에게 추가 체력 10%
         var statHolder = LocalPlayer.Instance.PlayerStatHolder;
         int bonusHp = Mathf.CeilToInt(statHolder.Hp.MaxValue * 0.1f);
         statHolder.Hp.Add(bonusHp);
         Debug.Log($"[Meteor] 추가 체력 부여됨: {bonusHp}");
 
-        routine = StartCoroutine(FallRoutine());
-    }
+        itemSpawnInterval = data.itemSpawnInterval;
+        itemSpawnCenter = data.itemSpawnCenter == Vector3.zero ? origin : data.itemSpawnCenter;
+        itemSpawnRadius = data.itemSpawnRadius;
+        gimmickItemPrefab = data.gimmickItemPrefab;
 
+        routine = StartCoroutine(FallRoutine());
+        itemRoutine = StartCoroutine(SpawnItemRoutine());
+    }
 
     private IEnumerator FallRoutine()
     {
@@ -68,14 +81,13 @@ public class MeteorFallRunner : MonoBehaviour
                 else
                     Debug.LogWarning("[메테오] 지면을 못 찾아 생성 스킵");
 
-                yield return null; // Raycast 시도 후 프레임 쉬기
+                yield return null;
             }
 
             yield return intervalWait;
         }
     }
 
-    // ✅ 지면 탐색 시도 제한 및 yield 포함
     private Vector3? FindGroundPosition()
     {
         const int maxAttempts = 10;
@@ -116,7 +128,6 @@ public class MeteorFallRunner : MonoBehaviour
         float fallDistance = offset.magnitude;
         float markerDuration = fallDistance / data.fallSpeed;
 
-        // ✅ 마커 생성
         GameObject marker = Instantiate(data.markerPrefab, groundPos, Quaternion.identity);
         MeteorMarker markerComp = marker.GetComponent<MeteorMarker>();
         if (markerComp != null)
@@ -124,12 +135,51 @@ public class MeteorFallRunner : MonoBehaviour
             markerComp.duration = markerDuration;
         }
 
-        // ✅ 메테오 생성
         GameObject meteor = Instantiate(data.meteorPrefab, spawnPos, Quaternion.identity);
         activeMeteors.Add(meteor);
 
         Debug.Log($"[메테오 생성] 위치: {spawnPos} / 지면: {groundPos} / 거리: {fallDistance}");
     }
+
+    private IEnumerator SpawnItemRoutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(itemSpawnInterval);
+
+            if (gimmickItemPrefab != null)
+            {
+                Vector3 randomPos = itemSpawnCenter + new Vector3(
+                    Random.Range(-itemSpawnRadius, itemSpawnRadius),
+                    0.5f,
+                    Random.Range(-itemSpawnRadius, itemSpawnRadius)
+                );
+
+                var item = Instantiate(gimmickItemPrefab, randomPos, Quaternion.identity);
+                item.GetComponent<GimmickItem>()?.Init(StageGimmickType.MeteorFall, this);
+            }
+        }
+    }
+
+    public static void RemoveBurning()
+    {
+        Debug.Log("[Meteor] 화상 해제 요청됨");
+
+        var player = LocalPlayer.Instance;
+
+        if (player != null && player.ActiveDotCoroutine != null)
+        {
+            player.StopCoroutine(player.ActiveDotCoroutine);
+            player.ActiveDotCoroutine = null;
+
+            Debug.Log("[Meteor] 화상 DOT 해제 완료");
+        }
+        else
+        {
+            Debug.Log("[Meteor] DOT 상태가 없거나 이미 해제됨");
+        }
+    }
+
 
     public void NotifyMeteorDestroyed(GameObject meteor)
     {
@@ -142,5 +192,6 @@ public class MeteorFallRunner : MonoBehaviour
     private void OnDestroy()
     {
         if (routine != null) StopCoroutine(routine);
+        if (itemRoutine != null) StopCoroutine(itemRoutine);
     }
 }

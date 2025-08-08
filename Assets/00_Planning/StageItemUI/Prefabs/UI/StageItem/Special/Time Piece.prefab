@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6848526180344055299}
   - component: {fileID: 4604032737839372289}
   - component: {fileID: 5259767345819212618}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Tinysparkles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4950,7 +4950,7 @@ GameObject:
   - component: {fileID: 3263691361658906238}
   - component: {fileID: 8019559518454619280}
   - component: {fileID: 8797500895643126302}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: GlowCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9763,7 +9763,9 @@ GameObject:
   - component: {fileID: 4473876563373552654}
   - component: {fileID: 5316727898586329439}
   - component: {fileID: 5694476630723831481}
-  m_Layer: 0
+  - component: {fileID: -3134749600504480933}
+  - component: {fileID: 5696887540406039807}
+  m_Layer: 17
   m_Name: Time Piece
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14693,3 +14695,36 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!65 &-3134749600504480933
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7735017414658353597}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5696887540406039807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7735017414658353597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: becb8e1aaf2359441b7c0c78806b9bf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

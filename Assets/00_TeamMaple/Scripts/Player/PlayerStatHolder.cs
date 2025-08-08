@@ -18,15 +18,15 @@ public class PlayerStatHolder
     public bool HasOnceInvalid { get; private set; }
     public bool HasInvincible { get; private set; }
     public bool IsDamageToHeal { get; private set; }
-
+    
     private StatCalculator statCalculator;
 
     public PlayerStatHolder(StatCalculator calculator)
     {
         statCalculator = calculator;
 
-        // ±âº»°ª, ÃÖ¼Ò°ª, ÃÖ´ë°ªÀ¸·Î ClampedValue ÃÊ±âÈ­
-        // ÃÖ¼Ò, ÃÖ´ë°ª ¼öÁ¤ ÇÊ¿ä
+        // ï¿½âº»ï¿½ï¿½, ï¿½Ö¼Ò°ï¿½, ï¿½Ö´ë°ªï¿½ï¿½ï¿½ï¿½ ClampedValue ï¿½Ê±ï¿½È­
+        // ï¿½Ö¼ï¿½, ï¿½Ö´ë°ª ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½
         Hp                = new ClampedInt(statCalculator.Hp, 0, statCalculator.Hp);
         Def               = new ClampedInt(statCalculator.Def, 0, 9999);
         Speed             = new ClampedFloat(statCalculator.Speed, 0f, 99f);
@@ -47,48 +47,48 @@ public class PlayerStatHolder
     
     public event Action OnOnceInvalidUsed;
     
-    // 1È¸ ÇÇ°Ý ¹«È¿ ºÎ¿©
+    // 1È¸ ï¿½Ç°ï¿½ ï¿½ï¿½È¿ ï¿½Î¿ï¿½
     public void GiveOnceInvalid()
     {
         HasOnceInvalid = true;
     }
 
-    // 1È¸ ÇÇ°Ý ¹«È¿ »èÁ¦
+    // 1È¸ ï¿½Ç°ï¿½ ï¿½ï¿½È¿ ï¿½ï¿½ï¿½ï¿½
     public void RemoveOnceInvalid()
     {
         HasOnceInvalid = false;
     }
     
-    // ¹«Àû ºÎ¿©
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Î¿ï¿½
     public void GiveInvincible()
     {
         HasInvincible = true;
     }
     
-    // ¹«Àû »èÁ¦
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void RemoveInvincible()
     {
         HasInvincible = false;
     }
 
-    // InvalidTypeÀÌ NoneÀÌ ¾Æ´Ò ¶§, ÇÇ°Ý ½Ã¿¡ È£Ãâ
+    // InvalidTypeï¿½ï¿½ Noneï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½, ï¿½Ç°ï¿½ ï¿½Ã¿ï¿½ È£ï¿½ï¿½
     public void OnInvalidation()
     {
         if (HasInvincible)
         {
-            Debug.Log("¹«Àû! µ¥¹ÌÁö ¹«È¿");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¿");
             return;
         }
         
         if (HasOnceInvalid)
         {
-            Debug.Log("1È¸ ÇÇ°Ý ¹«È¿È­! µ¥¹ÌÁö ¹«È¿");
+            Debug.Log("1È¸ ï¿½Ç°ï¿½ ï¿½ï¿½È¿È­! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¿");
             HasOnceInvalid = false;
-            OnOnceInvalidUsed?.Invoke();    // ÄðÅ¸ÀÓ ½ºÅ¸Æ®
+            OnOnceInvalidUsed?.Invoke();    // ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½Å¸Æ®
         }
     }
 
-    // ÇÇ°Ý µ¥¹ÌÁö¸¦ Ã¼·Â È¸º¹À¸·Î ÀüÈ¯ ¿©ºÎ ¼³Á¤
+    // ï¿½Ç°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void SetDamageToHeal(bool yesOrNo)
     {
         IsDamageToHeal = yesOrNo;

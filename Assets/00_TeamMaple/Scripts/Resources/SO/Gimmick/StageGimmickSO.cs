@@ -9,5 +9,8 @@ public abstract class StageGimmickSO : ScriptableObject
     public Material backgroundMaterial; // 선택 사항
     public Material environmentMaterial; // 선택 사항
     
+    [Header("Gimmick Items")]
+    public GameObject gimmickItemPrefab; // ✅ 아이템 프리팹 등록
+    
     public abstract GameObject Execute(Vector3 origin);
 }

@@ -1,24 +1,30 @@
+// ✅ WildWindGimmickSO 및 Runner 수정: 아이템 생성 추가, 20초간 바람 면역 적용 기능 포함
+
 using System.Collections;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "WildWindGimmickSO", menuName = "StageGimmick/WildWind")]
 public class WildWindGimmickSO : StageGimmickSO
 {
-    public float delayBeforeStart = 5f; // 기믹 시작 시간
-    public float windDuration = 20f;     // 바람 지속 시간
-    public float windInterval = 30f;     // 바람 간격 주기
-    public Vector3 windDirection = Vector3.left; // 초기 바람 방향
-    public AnimationCurve decayCurve = AnimationCurve.Linear(0, 1f, 1, 0f); // ✅ 시간에 따라 점점 약해짐
-    public GameObject windVisualPrefab; // 바람 시각화 프리팹
-    public bool alternateDirection = true; // 좌우로 번갈아 바람
-    public float windForce = 10f; // 바람 세기 조절
-    public float groundClampRadius = 15f; // 맵 밖으로 벗어나지 않도록 반경 제한
+    public float delayBeforeStart = 5f;
+    public float windDuration = 20f;
+    public float windInterval = 30f;
+    public Vector3 windDirection = Vector3.left;
+    public AnimationCurve decayCurve = AnimationCurve.Linear(0, 1f, 1, 0f);
+    public GameObject windVisualPrefab;
+    public bool alternateDirection = true;
+    public float windForce = 10f;
+    public float groundClampRadius = 15f;
+
+    public float itemSpawnInterval = 15f;
+    public Vector3 itemSpawnCenter;
+    public float itemSpawnRadius = 10f;
 
     public override GameObject Execute(Vector3 origin)
     {
         var runnerObj = new GameObject("WildWindRunner");
         var runner = runnerObj.AddComponent<WildWindRunner>();
-        runner.Init(this);
+        runner.Init(this, origin);
         return runnerObj;
     }
 
@@ -41,10 +47,26 @@ public class WildWindRunner : MonoBehaviour
 
     public static Vector3 CurrentWindDirection { get; private set; } = Vector3.zero;
 
-    public void Init(WildWindGimmickSO so)
+    private float itemSpawnInterval;
+    private Vector3 itemSpawnCenter;
+    private float itemSpawnRadius;
+    private GameObject gimmickItemPrefab;
+    private Coroutine itemRoutine;
+
+    private bool isImmune = false;
+    private Coroutine immuneRoutine;
+
+    public void Init(WildWindGimmickSO so, Vector3 origin)
     {
         data = so;
+
+        itemSpawnInterval = data.itemSpawnInterval;
+        itemSpawnCenter = data.itemSpawnCenter == Vector3.zero ? origin : data.itemSpawnCenter;
+        itemSpawnRadius = data.itemSpawnRadius;
+        gimmickItemPrefab = data.gimmickItemPrefab;
+
         StartCoroutine(WindRoutine());
+        itemRoutine = StartCoroutine(SpawnItemRoutine());
     }
 
     private IEnumerator WindRoutine()
@@ -112,7 +134,7 @@ public class WildWindRunner : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!windActive || playerRb == null) return;
+        if (!windActive || playerRb == null || isImmune) return;
 
         float normalizedTime = timer / data.windDuration;
         float decay = data.decayCurve.Evaluate(normalizedTime);
@@ -130,5 +152,57 @@ public class WildWindRunner : MonoBehaviour
             Vector3 clampedPos = center + offset.normalized * data.groundClampRadius;
             player.position = clampedPos;
         }
+    }
+
+    private IEnumerator SpawnItemRoutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(itemSpawnInterval);
+
+            if (gimmickItemPrefab != null)
+            {
+                Vector3 randomPos = itemSpawnCenter + new Vector3(
+                    Random.Range(-itemSpawnRadius, itemSpawnRadius),
+                    0.5f,
+                    Random.Range(-itemSpawnRadius, itemSpawnRadius)
+                );
+
+                var item = Instantiate(gimmickItemPrefab, randomPos, Quaternion.identity);
+                item.GetComponent<GimmickItem>()?.Init(StageGimmickType.WildWind);
+            }
+        }
+    }
+
+    public static void ApplyWindResist(float duration)
+    {
+        var runner = FindObjectOfType<WildWindRunner>();
+        if (runner != null)
+            runner.SetImmune(duration);
+    }
+
+    private void SetImmune(float duration)
+    {
+        if (immuneRoutine != null)
+            StopCoroutine(immuneRoutine);
+
+        immuneRoutine = StartCoroutine(WindImmuneRoutine(duration));
+    }
+
+    private IEnumerator WindImmuneRoutine(float duration)
+    {
+        isImmune = true;
+        Debug.Log($"[WildWind] 바람 면역 {duration}초 시작");
+
+        yield return new WaitForSeconds(duration);
+
+        isImmune = false;
+        immuneRoutine = null;
+        Debug.Log("[WildWind] 바람 면역 종료");
+    }
+
+    private void OnDestroy()
+    {
+        if (itemRoutine != null) StopCoroutine(itemRoutine);
     }
 }

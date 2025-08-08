@@ -1,5 +1,4 @@
-// LightningStrikeGimmickSO.cs (수정 버전)
-using System;
+// LightningStrikeGimmickSO.cs (전체 리팩토링 버전)
 using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -12,7 +11,12 @@ public class LightningStrikeGimmickSO : StageGimmickSO
     public float markerGrowTime = 1.5f;
     public float interval = 5f;
     public float radius = 6f;
-    public float stunDuration = 2f; // ✅ SO에서 조정 가능한 스턴 시간
+    public float stunDuration = 2f;
+
+    // 아이템 생성 관련 설정
+    public float itemSpawnInterval = 15f;
+    public Vector3 itemSpawnCenter;
+    public float itemSpawnRadius = 10f;
 
     public override GameObject Execute(Vector3 origin)
     {
@@ -32,14 +36,32 @@ public class LightningStrikeRunner : MonoBehaviour
 {
     private LightningStrikeGimmickSO data;
     private Vector3 center;
-    private Coroutine routine;
+    private Coroutine strikeRoutine;
+    private Coroutine itemRoutine;
     private bool strikeInProgress = false;
+
+    // 아이템 관련
+    private float itemSpawnInterval;
+    private float itemSpawnRadius;
+    private Vector3 itemSpawnCenter;
+    private GameObject gimmickItemPrefab;
+
+    // 면역 관련
+    private bool isImmune = false;
+    private Coroutine immuneRoutine;
 
     public void Init(LightningStrikeGimmickSO so, Vector3 origin)
     {
         data = so;
         center = origin;
-        routine = StartCoroutine(StrikeLoop());
+
+        itemSpawnInterval = data.itemSpawnInterval;
+        itemSpawnCenter = data.itemSpawnCenter == Vector3.zero ? origin : data.itemSpawnCenter;
+        itemSpawnRadius = data.itemSpawnRadius;
+        gimmickItemPrefab = data.gimmickItemPrefab;
+
+        strikeRoutine = StartCoroutine(StrikeLoop());
+        itemRoutine = StartCoroutine(SpawnItemRoutine());
     }
 
     private IEnumerator StrikeLoop()
@@ -83,31 +105,24 @@ public class LightningStrikeRunner : MonoBehaviour
     private void ApplyStun(Vector3 center)
     {
         Collider[] hits = Physics.OverlapSphere(center, 1.5f);
-        Debug.Log($"[낙뢰] 감지된 대상 수: {hits.Length}");
-
         foreach (var hit in hits)
         {
-            Debug.Log($"[낙뢰] 충돌 감지 대상: {hit.name}");
-
             if (!hit.CompareTag("Player")) continue;
+
+            if (isImmune)
+            {
+                Debug.Log("[낙뢰] 면역 상태 - 스턴 무효화");
+                return;
+            }
 
             var restrictor = hit.GetComponent<StunRestrictor>();
             if (restrictor != null)
             {
-                Debug.Log("[낙뢰] StunRestrictor 발견, 스턴 적용 시도");
-
-                // ✅ 즉시 스턴 적용
                 restrictor.TemporarilyDisable(0.35f);
                 restrictor.ApplyStun(data.stunDuration);
             }
-            else
-            {
-                Debug.LogWarning("[낙뢰] Player 태그에는 맞았지만 StunRestrictor 없음!");
-            }
         }
     }
-
-
 
     private Vector3 GetRandomGroundPosition()
     {
@@ -118,18 +133,56 @@ public class LightningStrikeRunner : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, 50f, LayerMask.GetMask("Ground")))
         {
-            Debug.Log($"[낙뢰 Raycast 성공] hit: {hit.point} / normal: {hit.normal} / target: {hit.collider.gameObject.name}");
             return hit.point;
         }
         else
         {
-            Debug.LogWarning("[낙뢰 Raycast 실패] 레이: " + ray.origin);
             return Vector3.zero;
         }
     }
 
+    private IEnumerator SpawnItemRoutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(itemSpawnInterval);
+
+            if (gimmickItemPrefab != null)
+            {
+                Vector3 randomPos = itemSpawnCenter + new Vector3(
+                    Random.Range(-itemSpawnRadius, itemSpawnRadius),
+                    0.5f,
+                    Random.Range(-itemSpawnRadius, itemSpawnRadius)
+                );
+
+                var item = Instantiate(gimmickItemPrefab, randomPos, Quaternion.identity);
+                item.GetComponent<GimmickItem>()?.Init(StageGimmickType.LightningStrike);
+            }
+        }
+    }
+
+    public void GrantLightningImmunity(float duration)
+    {
+        if (immuneRoutine != null)
+            StopCoroutine(immuneRoutine);
+
+        immuneRoutine = StartCoroutine(ApplyImmunity(duration));
+    }
+
+    private IEnumerator ApplyImmunity(float duration)
+    {
+        isImmune = true;
+        Debug.Log("[낙뢰] 면역 상태 시작");
+
+        yield return new WaitForSeconds(duration);
+
+        isImmune = false;
+        Debug.Log("[낙뢰] 면역 상태 종료");
+    }
+
     private void OnDestroy()
     {
-        if (routine != null) StopCoroutine(routine);
+        if (strikeRoutine != null) StopCoroutine(strikeRoutine);
+        if (itemRoutine != null) StopCoroutine(itemRoutine);
     }
 }

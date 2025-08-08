@@ -8,11 +8,18 @@ public class FogDamageGimmickSO : StageGimmickSO
     public GameObject fogVisualPrefab;
     public GameObject safeZoneTriggerPrefab;
     public Material safeZoneVisualMaterial;
+
     public float fogRadius = 25f;
     public float initialSafeRadius = 12f;
     public float shrinkDuration = 60f;
+
     public float damageInterval = 1f;
     public float damagePercent = 0.03f;
+
+    // ✅ 아이템 관련 설정
+    public float itemSpawnInterval = 15f;
+    public Vector3 itemSpawnCenter;
+    public float itemSpawnRadius = 10f;
 
     public override GameObject Execute(Vector3 origin)
     {
@@ -30,6 +37,8 @@ public class FogDamageGimmickSO : StageGimmickSO
 
 public class FogDamageRunner : MonoBehaviour
 {
+    public static FogDamageRunner Instance { get; private set; }
+
     private FogDamageGimmickSO config;
     private Transform player;
     private Transform safeZoneTrigger;
@@ -37,14 +46,32 @@ public class FogDamageRunner : MonoBehaviour
 
     private float shrinkTimer;
     private float dotTimer;
+    private float currentRadius;
+
+    private bool isExpanded = false;
+
+    // ✅ 아이템 관련 필드
+    private float itemSpawnInterval;
+    private Vector3 itemSpawnCenter;
+    private float itemSpawnRadius;
+    private GameObject gimmickItemPrefab;
+
+    private Coroutine itemSpawnRoutine;
 
     public void Init(FogDamageGimmickSO so, Vector3 origin)
     {
+        Instance = this;
         config = so;
         player = LocalPlayer.Instance.transform;
 
         transform.position = origin;
         transform.localScale = Vector3.one;
+
+        // ✅ 아이템 정보 설정
+        itemSpawnInterval = config.itemSpawnInterval;
+        itemSpawnCenter = config.itemSpawnCenter == Vector3.zero ? origin : config.itemSpawnCenter;
+        itemSpawnRadius = config.itemSpawnRadius;
+        gimmickItemPrefab = config.gimmickItemPrefab;
 
         // Fog Visual 생성
         if (config.fogVisualPrefab != null)
@@ -59,16 +86,16 @@ public class FogDamageRunner : MonoBehaviour
         {
             var trigger = Instantiate(config.safeZoneTriggerPrefab, transform.position, Quaternion.identity, transform);
             safeZoneTrigger = trigger.transform;
-            safeZoneTrigger.transform.localScale = new Vector3(config.initialSafeRadius, 0.2f, config.initialSafeRadius);
+            safeZoneTrigger.localScale = Vector3.one * config.initialSafeRadius * 2f;
         }
 
-        // SafeZone Visual Sphere 생성 및 머티리얼 적용
+        // SafeZone 시각화
         if (config.safeZoneVisualMaterial != null)
         {
             var visualObj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             visualObj.transform.SetParent(transform);
             visualObj.transform.localPosition = Vector3.zero;
-            visualObj.transform.localScale = new Vector3(config.initialSafeRadius, 0.2f, config.initialSafeRadius);
+            visualObj.transform.localScale = Vector3.one * config.initialSafeRadius * 2f;
 
             var collider = visualObj.GetComponent<Collider>();
             if (collider != null) Destroy(collider);
@@ -76,15 +103,28 @@ public class FogDamageRunner : MonoBehaviour
             visualRenderer = visualObj.GetComponent<Renderer>();
             visualRenderer.material = new Material(config.safeZoneVisualMaterial);
         }
+
+        shrinkTimer = 0f;
+        currentRadius = config.initialSafeRadius;
+
+        // ✅ 아이템 생성 루틴 시작
+        itemSpawnRoutine = StartCoroutine(SpawnItemRoutine());
     }
 
     private void Update()
     {
         if (player == null || safeZoneTrigger == null) return;
 
+        if (isExpanded)
+        {
+            shrinkTimer = 0f;
+            currentRadius = config.initialSafeRadius;
+            isExpanded = false;
+        }
+
         shrinkTimer += Time.deltaTime;
         float t = Mathf.Clamp01(shrinkTimer / config.shrinkDuration);
-        float currentRadius = Mathf.Lerp(config.initialSafeRadius, 0f, t);
+        currentRadius = Mathf.Lerp(config.initialSafeRadius, 0f, t);
 
         safeZoneTrigger.localScale = Vector3.one * currentRadius * 2f;
 
@@ -137,5 +177,37 @@ public class FogDamageRunner : MonoBehaviour
         {
             LocalPlayer.Instance.playerController.ChangeState(IPlayerState.EState.Dead);
         }
+    }
+
+    public void TriggerSafeZoneExpansion()
+    {
+        isExpanded = true;
+        Debug.Log("[FogZone] SafeZone 재확장됨");
+    }
+
+    private IEnumerator SpawnItemRoutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(itemSpawnInterval);
+
+            if (gimmickItemPrefab != null)
+            {
+                Vector3 randomPos = itemSpawnCenter + new Vector3(
+                    Random.Range(-itemSpawnRadius, itemSpawnRadius),
+                    0.5f,
+                    Random.Range(-itemSpawnRadius, itemSpawnRadius)
+                );
+
+                var item = Instantiate(gimmickItemPrefab, randomPos, Quaternion.identity);
+                item.GetComponent<GimmickItem>()?.Init(StageGimmickType.FogDamage);
+            }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
+        if (itemSpawnRoutine != null) StopCoroutine(itemSpawnRoutine);
     }
 }

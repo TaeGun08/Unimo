@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1386600907338975894}
   - component: {fileID: 3397147667422891781}
   - component: {fileID: 2018780021407573143}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Tinysparkles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4950,7 +4950,7 @@ GameObject:
   - component: {fileID: 8309709906987998708}
   - component: {fileID: 1223078668818261125}
   - component: {fileID: 5790886789029348568}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: GlowCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9763,7 +9763,9 @@ GameObject:
   - component: {fileID: 4265751541145755365}
   - component: {fileID: 7661820538956352799}
   - component: {fileID: 658728705483790323}
-  m_Layer: 0
+  - component: {fileID: 7861547178252171919}
+  - component: {fileID: 1001955203998131044}
+  m_Layer: 17
   m_Name: Magma Jelly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14693,3 +14695,36 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &7861547178252171919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5231943999669521273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: becb8e1aaf2359441b7c0c78806b9bf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1001955203998131044
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5231943999669521273}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
