@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "DarknessGimmickSO", menuName = "StageGimmick/Darkness")]
@@ -35,17 +36,16 @@ public class DarknessCycleRunner : MonoBehaviour
 
     public void Init()
     {
-        timer = interval; // 첫 실행을 바로 시작하려면 0f
+        StartCoroutine(DarknessCycleRoutine());
     }
 
-    private void Update()
+    private IEnumerator DarknessCycleRoutine()
     {
-        timer += Time.deltaTime;
+        // ✅ 첫 실행 전 5초 대기
+        yield return new WaitForSeconds(5f);
 
-        if (timer >= interval)
+        while (true)
         {
-            timer = 0f;
-
             if (currentRunner != null)
                 Destroy(currentRunner);
 
@@ -54,8 +54,12 @@ public class DarknessCycleRunner : MonoBehaviour
             runner.duration = duration;
             runner.darknessPrefab = darknessPrefab;
             runner.Init();
+
+            // ✅ 이후 interval 주기마다 반복
+            yield return new WaitForSeconds(interval);
         }
     }
+
 }
 
 public class DarknessRunner : MonoBehaviour
