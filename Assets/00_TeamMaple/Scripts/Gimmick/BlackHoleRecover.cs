@@ -25,7 +25,7 @@ public class BlackHoleRecover : MonoBehaviour
         if (IsGrounded())
         {
             rb.useGravity = false;
-            rb.velocity = Vector3.zero;
+            rb.linearVelocity = Vector3.zero;
             rb.linearVelocity = Vector3.zero;
 
             isFalling = false;

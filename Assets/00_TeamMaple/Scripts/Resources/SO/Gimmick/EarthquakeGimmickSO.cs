@@ -1,5 +1,3 @@
-// ✅ EarthquakeGimmickSO 및 Runner 수정: 슬로우 제거 기능도 Runner 내부에 직접 구현
-
 using UnityEngine;
 using System.Collections;
 
@@ -7,16 +5,17 @@ using System.Collections;
 public class EarthquakeGimmickSO : StageGimmickSO
 {
     public float shakeDuration = 5f;
+    public float interval = 30f;
     public float intensity = 0.3f;
-    
+
     public float itemSpawnInterval = 15f;
     public Vector3 itemSpawnCenter;
     public float itemSpawnRadius = 10f;
 
     public override GameObject Execute(Vector3 origin)
     {
-        var obj = new GameObject("EarthquakeRunner");
-        var runner = obj.AddComponent<EarthquakeRunner>();
+        var obj = new GameObject("EarthquakeCycleRunner");
+        var runner = obj.AddComponent<EarthquakeCycleRunner>();
         runner.Init(this, origin);
         return obj;
     }
@@ -27,92 +26,67 @@ public class EarthquakeGimmickSO : StageGimmickSO
     }
 }
 
-public class EarthquakeRunner : MonoBehaviour
+public class EarthquakeCycleRunner : MonoBehaviour
 {
-    private float duration;
-    private float timer;
-    private float intensity;
-
-    private GameObject gimmickItemPrefab;
-    private float itemSpawnInterval;
-    private Vector3 itemSpawnCenter;
-    private float itemSpawnRadius;
+    private EarthquakeGimmickSO data;
+    private GameObject currentRunner;
+    private Coroutine cycleRoutine;
     private Coroutine itemRoutine;
 
-    public static EarthquakeRunner Instance { get; private set; }
-
-    private bool isSlowed = false;
-    private float slowAmount = 0.5f;
-    private float slowDuration = 5f;
-    private Coroutine slowRoutine;
+    private Vector3 itemSpawnCenter;
+    private float itemSpawnRadius;
 
     public void Init(EarthquakeGimmickSO so, Vector3 origin)
     {
-        Instance = this;
+        data = so;
+        itemSpawnCenter = data.itemSpawnCenter == Vector3.zero ? origin : data.itemSpawnCenter;
+        itemSpawnRadius = data.itemSpawnRadius;
 
-        duration = so.shakeDuration;
-        intensity = so.intensity;
-
-        gimmickItemPrefab = so.gimmickItemPrefab;
-        itemSpawnInterval = so.itemSpawnInterval;
-        itemSpawnCenter = so.itemSpawnCenter == Vector3.zero ? origin : so.itemSpawnCenter;
-        itemSpawnRadius = so.itemSpawnRadius;
-
+        cycleRoutine = StartCoroutine(RunEarthquakeCycle());
         itemRoutine = StartCoroutine(SpawnItemRoutine());
-
-        // 슬로우 효과 발동
-        if (slowRoutine != null) StopCoroutine(slowRoutine);
-        slowRoutine = StartCoroutine(ApplySlow());
     }
 
-    private void Update()
+    private IEnumerator RunEarthquakeCycle()
     {
-        if (timer < duration)
-        {
-            timer += Time.deltaTime;
-            Camera.main.transform.localPosition += Random.insideUnitSphere * intensity * Time.deltaTime;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+        yield return new WaitForSeconds(5f);
 
-    private IEnumerator ApplySlow()
-    {
-        isSlowed = true;
-        Time.timeScale = slowAmount;
-        Time.fixedDeltaTime = 0.02f * Time.timeScale;
-        Debug.Log("[Earthquake] 슬로우 시작");
-
-        yield return new WaitForSecondsRealtime(slowDuration);
-
-        if (isSlowed)
+        while (true)
         {
-            Time.timeScale = 1f;
-            Time.fixedDeltaTime = 0.02f;
-            Debug.Log("[Earthquake] 슬로우 정상화");
-        }
-    }
+            if (currentRunner != null)
+                Destroy(currentRunner);
 
-    public static void RemoveSlow()
-    {
-        if (Instance != null && Instance.isSlowed)
-        {
-            Instance.isSlowed = false;
-            Time.timeScale = 1f;
-            Time.fixedDeltaTime = 0.02f;
-            Debug.Log("[Earthquake] 아이템 사용으로 슬로우 제거됨");
+            currentRunner = new GameObject("EarthquakeRunner");
+            var runner = currentRunner.AddComponent<EarthquakeRunner>();
+            runner.Init(data);
+
+            yield return new WaitForSeconds(data.interval);
         }
     }
 
     private IEnumerator SpawnItemRoutine()
     {
+        int itemLayer = LayerMask.NameToLayer("Item");
+        int itemMask = 1 << itemLayer;
+
         while (true)
         {
-            yield return new WaitForSeconds(itemSpawnInterval);
+            yield return new WaitForSeconds(data.itemSpawnInterval);
 
-            if (gimmickItemPrefab != null)
+            Collider[] hits = Physics.OverlapSphere(transform.position, 100f, itemMask);
+            bool anyValid = false;
+
+            foreach (var hit in hits)
+            {
+                if (hit.isTrigger && hit.gameObject.activeInHierarchy)
+                {
+                    anyValid = true;
+                    break;
+                }
+            }
+
+            if (anyValid) continue;
+
+            if (data.gimmickItemPrefab != null)
             {
                 Vector3 randomPos = itemSpawnCenter + new Vector3(
                     Random.Range(-itemSpawnRadius, itemSpawnRadius),
@@ -120,21 +94,124 @@ public class EarthquakeRunner : MonoBehaviour
                     Random.Range(-itemSpawnRadius, itemSpawnRadius)
                 );
 
-                var item = Instantiate(gimmickItemPrefab, randomPos, Quaternion.identity);
-                item.GetComponent<GimmickItem>()?.Init(StageGimmickType.Earthquake);
+                var item = Instantiate(data.gimmickItemPrefab, randomPos, Quaternion.Euler(-90, 0, 0));
+                item.layer = itemLayer;
+                item.GetComponent<GimmickItem>()?.Init(StageGimmickType.Earthquake, this, data.pickupEffect, null, 0f);
             }
         }
     }
 
     private void OnDestroy()
     {
+        if (cycleRoutine != null) StopCoroutine(cycleRoutine);
         if (itemRoutine != null) StopCoroutine(itemRoutine);
-        if (Instance == this) Instance = null;
+    }
+}
 
-        if (isSlowed)
+public class EarthquakeRunner : MonoBehaviour
+{
+    private float shakeDuration;
+    private float intensity;
+    private float slowAmount = 0.5f;
+
+    private Vector3 originalCamPos;
+    private Coroutine shakeRoutine;
+
+    public static EarthquakeRunner Instance { get; private set; }
+
+    public void Init(EarthquakeGimmickSO data)
+    {
+        Instance = this;
+
+        shakeDuration = data.shakeDuration;
+        intensity = data.intensity;
+
+        StartCoroutine(ApplySlow());
+        shakeRoutine = StartCoroutine(ShakeCamera());
+    }
+
+    private IEnumerator ApplySlow()
+    {
+        Time.timeScale = slowAmount;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        Debug.Log("[Earthquake] 슬로우 시작");
+
+        yield return new WaitForSecondsRealtime(shakeDuration);
+
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f;
+        Debug.Log("[Earthquake] 슬로우 해제");
+
+        if (shakeRoutine != null)
         {
-            Time.timeScale = 1f;
-            Time.fixedDeltaTime = 0.02f;
+            StopCoroutine(shakeRoutine);
+            if (Camera.main != null)
+                Camera.main.transform.localPosition = originalCamPos;
+
+            Debug.Log("[Earthquake] 카메라 흔들림 강제 종료");
         }
+
+        Destroy(gameObject);
+    }
+
+    private IEnumerator ShakeCamera()
+    {
+        if (Camera.main == null) yield break;
+
+        originalCamPos = Camera.main.transform.localPosition;
+        float elapsed = 0f;
+        bool logOnce = false;
+
+        Debug.Log("[Earthquake] 카메라 흔들림 시작");
+
+        while (elapsed < shakeDuration)
+        {
+            elapsed += Time.deltaTime;
+            Camera.main.transform.localPosition = originalCamPos + Random.insideUnitSphere * intensity;
+
+            if (!logOnce)
+            {
+                Debug.Log("[Earthquake] 흔들림 중...");
+                logOnce = true;
+            }
+
+            yield return null;
+        }
+
+        Camera.main.transform.localPosition = originalCamPos;
+        Debug.Log("[Earthquake] 카메라 흔들림 정상 종료");
+    }
+
+    public static void RemoveSlow()
+    {
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f;
+        Debug.Log("[Earthquake] 아이템 사용으로 슬로우 제거");
+
+        if (Instance != null)
+        {
+            if (Instance.shakeRoutine != null)
+            {
+                Instance.StopCoroutine(Instance.shakeRoutine);
+                if (Camera.main != null)
+                    Camera.main.transform.localPosition = Instance.originalCamPos;
+
+                Debug.Log("[Earthquake] 아이템으로 인해 카메라 흔들림 종료");
+            }
+
+            Destroy(Instance.gameObject);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f;
+
+        if (Camera.main != null)
+            Camera.main.transform.localPosition = originalCamPos;
     }
 }

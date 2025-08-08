@@ -35,7 +35,6 @@ public class PlayTimeManager : MonoBehaviour
         
         LapseTime += Time.unscaledDeltaTime;
         float rate = calcReduceRate(LapseTime);
-        itemGenerator.DecreaseTick(Time.unscaledDeltaTime * rate);
         ChangeTimer(-Time.unscaledDeltaTime * rate);
         timerText.text = remainTime.ToString("F2");
     }

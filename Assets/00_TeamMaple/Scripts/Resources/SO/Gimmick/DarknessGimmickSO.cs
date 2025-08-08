@@ -6,6 +6,7 @@ public class DarknessGimmickSO : StageGimmickSO
 {
     public float duration = 20f;
     public float interval = 30f;
+
     public float itemSpawnInterval = 15f;
     public Vector3 itemSpawnCenter;
     public float itemSpawnRadius = 10f;
@@ -14,17 +15,10 @@ public class DarknessGimmickSO : StageGimmickSO
 
     public override GameObject Execute(Vector3 origin)
     {
-        var obj = new GameObject("DarknessCycleRunner");
-        var runner = obj.AddComponent<DarknessCycleRunner>();
-        runner.duration = duration;
-        runner.interval = interval;
-        runner.itemSpawnInterval = itemSpawnInterval;
-        runner.darknessPrefab = darknessPrefab;
-        runner.gimmickItemPrefab = gimmickItemPrefab;
-        runner.itemSpawnCenter = itemSpawnCenter == Vector3.zero ? origin : itemSpawnCenter;
-        runner.itemSpawnRadius = itemSpawnRadius;
-        runner.Init();
-        return obj;
+        var runnerObj = new GameObject("DarknessCycleRunner");
+        var runner = runnerObj.AddComponent<DarknessCycleRunner>();
+        runner.Init(this, origin);
+        return runnerObj;
     }
 
     private void OnEnable()
@@ -35,22 +29,22 @@ public class DarknessGimmickSO : StageGimmickSO
 
 public class DarknessCycleRunner : MonoBehaviour
 {
-    public float duration;
-    public float interval;
-    public float itemSpawnInterval;
-
-    public GameObject darknessPrefab;
-    public GameObject gimmickItemPrefab;
-    public Vector3 itemSpawnCenter;
-    public float itemSpawnRadius;
-
+    private DarknessGimmickSO data;
     private GameObject currentRunner;
     private Coroutine cycleRoutine;
+    private Coroutine itemRoutine;
 
-    public void Init()
+    private Vector3 itemSpawnCenter;
+    private float itemSpawnRadius;
+
+    public void Init(DarknessGimmickSO so, Vector3 origin)
     {
+        data = so;
+        itemSpawnCenter = data.itemSpawnCenter == Vector3.zero ? origin : data.itemSpawnCenter;
+        itemSpawnRadius = data.itemSpawnRadius;
+
         cycleRoutine = StartCoroutine(RunDarknessCycle());
-        StartCoroutine(SpawnItemRoutine());
+        itemRoutine = StartCoroutine(SpawnItemRoutine());
     }
 
     private IEnumerator RunDarknessCycle()
@@ -64,21 +58,37 @@ public class DarknessCycleRunner : MonoBehaviour
 
             currentRunner = new GameObject("DarknessRunner");
             var runner = currentRunner.AddComponent<DarknessRunner>();
-            runner.duration = duration;
-            runner.darknessPrefab = darknessPrefab;
-            runner.Init();
+            runner.Init(data);
 
-            yield return new WaitForSeconds(interval);
+            yield return new WaitForSeconds(data.interval);
         }
     }
 
     private IEnumerator SpawnItemRoutine()
     {
+        int itemLayer = LayerMask.NameToLayer("Item");
+        int itemMask = 1 << itemLayer;
+
         while (true)
         {
-            yield return new WaitForSeconds(itemSpawnInterval);
+            yield return new WaitForSeconds(data.itemSpawnInterval);
 
-            if (gimmickItemPrefab != null)
+            Collider[] hits = Physics.OverlapSphere(transform.position, 100f, itemMask);
+            bool anyValid = false;
+
+            foreach (var hit in hits)
+            {
+                if (hit.isTrigger && hit.gameObject.activeInHierarchy)
+                {
+                    anyValid = true;
+                    break;
+                }
+            }
+
+            if (anyValid)
+                continue;
+
+            if (data.gimmickItemPrefab != null)
             {
                 Vector3 randomPos = itemSpawnCenter + new Vector3(
                     Random.Range(-itemSpawnRadius, itemSpawnRadius),
@@ -86,16 +96,17 @@ public class DarknessCycleRunner : MonoBehaviour
                     Random.Range(-itemSpawnRadius, itemSpawnRadius)
                 );
 
-                var item = Instantiate(gimmickItemPrefab, randomPos, Quaternion.identity);
-                item.GetComponent<GimmickItem>()?.Init(StageGimmickType.Darkness);
+                var item = Instantiate(data.gimmickItemPrefab, randomPos, Quaternion.Euler(-90, 0, 0));
+                item.layer = itemLayer;
+                item.GetComponent<GimmickItem>()?.Init(StageGimmickType.Darkness, this, data.pickupEffect, null, 0f);
             }
         }
     }
 
     private void OnDestroy()
     {
-        if (cycleRoutine != null)
-            StopCoroutine(cycleRoutine);
+        if (cycleRoutine != null) StopCoroutine(cycleRoutine);
+        if (itemRoutine != null) StopCoroutine(itemRoutine);
     }
 }
 
@@ -103,24 +114,27 @@ public class DarknessRunner : MonoBehaviour
 {
     public static DarknessRunner Instance { get; private set; }
 
-    public float duration = 15f;
-    public GameObject darknessPrefab;
-
+    private float duration;
+    private GameObject darknessPrefab;
     private GameObject darknessInstance;
     private Material darknessMaterial;
     private Transform player;
+
     private float timer = 0f;
     private bool suppressed = false;
 
-    public void Init()
+    public void Init(DarknessGimmickSO data)
     {
         Instance = this;
+
+        duration = data.duration;
+        darknessPrefab = data.darknessPrefab;
 
         player = LocalPlayer.Instance.transform;
 
         if (darknessPrefab == null)
         {
-            Debug.LogWarning("❌ darknessPrefab is null!");
+            Debug.LogWarning("[Darkness] 프리팹 누락");
             return;
         }
 
