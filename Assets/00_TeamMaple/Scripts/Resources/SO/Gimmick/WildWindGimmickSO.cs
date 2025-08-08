@@ -8,7 +8,7 @@ public class WildWindGimmickSO : StageGimmickSO
     public float windDuration = 20f;     // 바람 지속 시간
     public float windInterval = 30f;     // 바람 간격 주기
     public Vector3 windDirection = Vector3.left; // 초기 바람 방향
-    public AnimationCurve decayCurve = AnimationCurve.Linear(0, 1f, 1, 0.6f); // 효과 점차 감소
+    public AnimationCurve decayCurve = AnimationCurve.Linear(0, 1f, 1, 0f); // ✅ 시간에 따라 점점 약해짐
     public GameObject windVisualPrefab; // 바람 시각화 프리팹
     public bool alternateDirection = true; // 좌우로 번갈아 바람
     public float windForce = 10f; // 바람 세기 조절
@@ -64,19 +64,20 @@ public class WildWindRunner : MonoBehaviour
 
         while (true)
         {
-            Quaternion rotation;
             CurrentWindDirection = currentDirection;
 
-            if (currentDirection.x < 0)
-                rotation = Quaternion.Euler(90f, 180f, 0f); // ← 왼쪽 방향일 땐 180도
-            else
-                rotation = Quaternion.Euler(90f, 0f, 0f);    // → 오른쪽 방향일 땐 0도
+            if (data.windVisualPrefab != null)
+            {
+                Quaternion rotation = (currentDirection.x < 0)
+                    ? Quaternion.Euler(90f, 180f, 0f)
+                    : Quaternion.Euler(90f, 0f, 0f);
 
-            windVisual = Instantiate(
-                data.windVisualPrefab,
-                player.position,
-                rotation
-            );
+                windVisual = Instantiate(
+                    data.windVisualPrefab,
+                    player.position + Vector3.up * 2f,
+                    rotation
+                );
+            }
 
             timer = 0f;
             windActive = true;
@@ -93,7 +94,6 @@ public class WildWindRunner : MonoBehaviour
             if (windVisual != null)
                 Destroy(windVisual);
 
-            // ✅ 바람 종료 시 속도 초기화
             if (playerRb != null)
             {
                 Vector3 velocity = playerRb.linearVelocity;
@@ -114,14 +114,15 @@ public class WildWindRunner : MonoBehaviour
     {
         if (!windActive || playerRb == null) return;
 
-        float strength = data.decayCurve.Evaluate(timer / data.windDuration);
-        Vector3 targetVelocity = CurrentWindDirection * strength * data.windForce;
+        float normalizedTime = timer / data.windDuration;
+        float decay = data.decayCurve.Evaluate(normalizedTime);
+        Vector3 targetVelocity = CurrentWindDirection * decay * data.windForce;
+
         Vector3 velocity = playerRb.linearVelocity;
         velocity.x = targetVelocity.x;
         velocity.z = targetVelocity.z;
         playerRb.linearVelocity = velocity;
 
-        // ✅ 반지름 기준 클램프
         Vector3 center = Vector3.zero;
         Vector3 offset = player.position - center;
         if (offset.magnitude > data.groundClampRadius)

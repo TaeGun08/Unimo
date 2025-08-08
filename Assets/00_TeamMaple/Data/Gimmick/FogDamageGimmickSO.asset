@@ -16,12 +16,14 @@ MonoBehaviour:
   groundMaterial: {fileID: 2100000, guid: 6ac204a8d5f00b94cb2eef96c426be33, type: 2}
   backgroundMaterial: {fileID: 2100000, guid: 8cc594911374c7545bf72c97c6cd5831, type: 2}
   environmentMaterial: {fileID: 2100000, guid: ad0487a650611954a9bb846d776bbdde, type: 2}
-  fogPrefab: {fileID: 6800348859880142683, guid: 9731c53f8e8d22d429e4e43fb1083bae,
+  fogVisualPrefab: {fileID: 6800348859880142683, guid: b6c21c683fa73b04d947b240604ff51f,
     type: 3}
-  safeZonePrefab: {fileID: 7115442464004383770, guid: 2a24ce3a69921be4d97ee39a8cc3bdcb,
+  safeZoneTriggerPrefab: {fileID: 7115442464004383770, guid: 2a24ce3a69921be4d97ee39a8cc3bdcb,
     type: 3}
-  tickInterval: 1
+  safeZoneVisualPrefab: {fileID: 8552177292040167558, guid: 2c980830cc7116b45b843c4d4afcc105,
+    type: 3}
+  fogRadius: 50
+  initialSafeRadius: 20
+  shrinkDuration: 60
+  damageInterval: 1
   damagePercent: 0.01
-  initialSafeRadius: 8
-  finalSafeRadius: 2
-  shrinkDuration: 30
