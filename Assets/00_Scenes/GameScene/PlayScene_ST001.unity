@@ -3352,6 +3352,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 399878376}
   m_CullTransparentMesh: 1
+--- !u!1 &403753319
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 403753320}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &403753320
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403753319}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &410035799
 GameObject:
   m_ObjectHideFlags: 0
@@ -12591,7 +12622,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 12.710388, y: -515}
+  m_AnchoredPosition: {x: 12.710449, y: -515}
   m_SizeDelta: {x: -89.27612, y: 104}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1816991869
@@ -15750,7 +15781,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4959bd93f64648b45a1ace685e76492d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drag: 3
+  drag: 0.4
+  directionSmoothness: 3
+  mapCenter: {x: 0, y: 0, z: 0}
+  mapRadius: 16
 --- !u!114 &7723116977559001209 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5958562109759819987, guid: 35ca479c1a46ff444b6adde214f7cc9f,
@@ -16988,3 +17022,4 @@ SceneRoots:
   - {fileID: 1536289781}
   - {fileID: 1581787325}
   - {fileID: 1160823817}
+  - {fileID: 403753320}

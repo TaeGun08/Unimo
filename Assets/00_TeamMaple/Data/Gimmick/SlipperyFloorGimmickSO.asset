@@ -17,3 +17,5 @@ MonoBehaviour:
   backgroundMaterial: {fileID: 2100000, guid: 9e6dbe30e9baef149aa08fa6fda27a0c, type: 2}
   environmentMaterial: {fileID: 2100000, guid: c4bef0590b9136d439afce0afa165d31, type: 2}
   slipperyDuration: 120
+  slipperyForce: 10
+  maxSlipSpeed: 3
