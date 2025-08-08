@@ -38,8 +38,6 @@ public class PoisonGasGimmickSO : StageGimmickSO
 
 public class PoisonGasRunner : MonoBehaviour
 {
-    public static PoisonGasRunner Instance { get; private set; }
-
     private PoisonGasGimmickSO data;
     private Vector3 center;
     private Coroutine routine;
@@ -51,9 +49,14 @@ public class PoisonGasRunner : MonoBehaviour
     private float itemSpawnRadius;
     private GameObject gimmickItemPrefab;
 
+    // ✅ 신규: 플레이어별 가스 제거 권한 타이머
+    private Dictionary<GameObject, float> gasClearTimerDict = new();
+
+    // ✅ (선택) 아이템 획득 시 이펙트
+    public GameObject itemPickupEffect;
+
     public void Init(PoisonGasGimmickSO so, Vector3 origin)
     {
-        Instance = this;
         data = so;
         center = origin;
 
@@ -79,63 +82,50 @@ public class PoisonGasRunner : MonoBehaviour
                 continue;
             }
 
-            bool spawned = false;
-            int maxAttempts = 20;
-
-            for (int attempt = 0; attempt < maxAttempts; attempt++)
+            Vector3 groundPos = GetValidGroundPosition();
+            if (groundPos != Vector3.zero)
             {
-                Vector3 randomPos = center + new Vector3(
-                    Random.Range(-data.spawnRadius, data.spawnRadius),
-                    0,
-                    Random.Range(-data.spawnRadius, data.spawnRadius)
-                );
+                GameObject gas = Instantiate(data.gasPrefab, groundPos, Quaternion.identity);
+                gas.SetActive(true);
+                gas.transform.localScale = Vector3.zero;
 
-                Vector3 rayOrigin = randomPos + Vector3.up * 20f;
-
-                if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, 40f))
+                PoisonArea area = gas.GetComponent<PoisonArea>();
+                if (area != null)
                 {
-                    if (!hit.collider.CompareTag("Ground"))
-                    {
-                        Debug.Log($"[PoisonGasRunner] [{attempt + 1}] Ground 아님 → 재시도");
-                        continue;
-                    }
-
-                    Vector3 groundPos = hit.point;
-                    groundPos.y -= 0.25f;
-
-                    GameObject gas = Instantiate(data.gasPrefab, groundPos, Quaternion.identity);
-                    gas.SetActive(true);
-                    gas.transform.localScale = Vector3.zero;
-
-                    PoisonArea area = gas.GetComponent<PoisonArea>();
-                    if (area != null)
-                    {
-                        area.Init(
-                            tick: data.tickInterval,
-                            percent: data.percentDamage,
-                            delay: data.initialDelay
-                        );
-
-                        area.scaleDuration = data.scaleDuration;
-                        area.targetScale = data.targetScale;
-                    }
-
-                    spawnedGases.Add(gas);
-                    Destroy(gas, data.gasDuration);
-
-                    Debug.Log($"[PoisonGasRunner] 생성 성공 at {groundPos}");
-                    spawned = true;
-                    break;
+                    area.Init(data.tickInterval, data.percentDamage, data.initialDelay);
+                    area.scaleDuration = data.scaleDuration;
+                    area.targetScale = data.targetScale;
                 }
-            }
 
-            if (!spawned)
-            {
-                Debug.LogWarning("[PoisonGasRunner] 최대 시도 실패 → 이번 생성 건너뜀");
+                spawnedGases.Add(gas);
+                Destroy(gas, data.gasDuration);
+                Debug.Log($"[PoisonGasRunner] 가스 생성 at {groundPos}");
             }
 
             yield return new WaitForSeconds(data.interval);
         }
+    }
+
+    private Vector3 GetValidGroundPosition()
+    {
+        for (int i = 0; i < 20; i++)
+        {
+            Vector3 pos = center + new Vector3(
+                Random.Range(-data.spawnRadius, data.spawnRadius),
+                0f,
+                Random.Range(-data.spawnRadius, data.spawnRadius)
+            );
+
+            Vector3 rayOrigin = pos + Vector3.up * 20f;
+            if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, 40f) &&
+                hit.collider.CompareTag("Ground"))
+            {
+                Vector3 groundPos = hit.point;
+                groundPos.y -= 0.25f;
+                return groundPos;
+            }
+        }
+        return Vector3.zero;
     }
 
     private IEnumerator SpawnItemRoutine()
@@ -158,29 +148,69 @@ public class PoisonGasRunner : MonoBehaviour
         }
     }
 
-    public static void RemoveNearbyGas()
+    private void Update()
     {
-        if (Instance == null) return;
+        if (gasClearTimerDict.Count == 0) return;
 
-        int count = 0;
-        foreach (var gas in Instance.spawnedGases)
+        List<GameObject> expired = new();
+
+        foreach (var kvp in gasClearTimerDict)
         {
-            if (gas != null && Vector3.Distance(gas.transform.position, LocalPlayer.Instance.transform.position) < 5f)
+            GameObject player = kvp.Key;
+            float timeLeft = kvp.Value - Time.deltaTime;
+
+            if (timeLeft <= 0f)
             {
-                Destroy(gas);
-                count++;
+                expired.Add(player);
+            }
+            else
+            {
+                gasClearTimerDict[player] = timeLeft;
+
+                foreach (var gas in spawnedGases.ToArray())
+                {
+                    if (gas == null) continue;
+                    if (Vector3.Distance(gas.transform.position, player.transform.position) < 5f)
+                    {
+                        Destroy(gas);
+                        spawnedGases.Remove(gas);
+                        Debug.Log("[PoisonGas] 가스 제거: 플레이어 근처 접근");
+                    }
+                }
             }
         }
 
-        Instance.spawnedGases.RemoveAll(g => g == null);
+        foreach (var p in expired)
+            gasClearTimerDict.Remove(p);
+    }
 
-        Debug.Log($"[PoisonGas] 플레이어 주변 가스 {count}개 제거됨");
+    // ✅ 외부에서 호출: 아이템 획득 시 30초 타이머 시작
+    public static void ApplyTemporaryGasClear(float duration)
+    {
+        var runner = FindObjectOfType<PoisonGasRunner>();
+        if (runner == null) return;
+
+        var player = LocalPlayer.Instance?.gameObject;
+        if (player == null) return;
+
+        if (runner.gasClearTimerDict.ContainsKey(player))
+            runner.gasClearTimerDict[player] = duration;
+        else
+            runner.gasClearTimerDict.Add(player, duration);
+
+        Debug.Log($"[PoisonGas] {duration}초간 가스 제거 권한 부여");
+
+        // ✅ (선택) 이펙트 표시
+        if (runner.itemPickupEffect != null)
+        {
+            GameObject vfx = Instantiate(runner.itemPickupEffect, player.transform.position + Vector3.up * 1.5f, Quaternion.identity);
+            Destroy(vfx, 2f);
+        }
     }
 
     private void OnDestroy()
     {
         if (routine != null) StopCoroutine(routine);
         if (itemRoutine != null) StopCoroutine(itemRoutine);
-        if (Instance == this) Instance = null;
     }
 }

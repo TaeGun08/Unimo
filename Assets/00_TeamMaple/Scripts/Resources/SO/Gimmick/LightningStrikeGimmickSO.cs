@@ -1,4 +1,4 @@
-// LightningStrikeGimmickSO.cs (전체 리팩토링 버전)
+// LightningStrikeGimmickSO.cs + Runner
 using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -13,7 +13,6 @@ public class LightningStrikeGimmickSO : StageGimmickSO
     public float radius = 6f;
     public float stunDuration = 2f;
 
-    // 아이템 생성 관련 설정
     public float itemSpawnInterval = 15f;
     public Vector3 itemSpawnCenter;
     public float itemSpawnRadius = 10f;
@@ -40,13 +39,13 @@ public class LightningStrikeRunner : MonoBehaviour
     private Coroutine itemRoutine;
     private bool strikeInProgress = false;
 
-    // 아이템 관련
     private float itemSpawnInterval;
     private float itemSpawnRadius;
     private Vector3 itemSpawnCenter;
     private GameObject gimmickItemPrefab;
+    private GameObject pickupEffect;
+    private GameObject durationEffect;
 
-    // 면역 관련
     private bool isImmune = false;
     private Coroutine immuneRoutine;
 
@@ -59,6 +58,8 @@ public class LightningStrikeRunner : MonoBehaviour
         itemSpawnCenter = data.itemSpawnCenter == Vector3.zero ? origin : data.itemSpawnCenter;
         itemSpawnRadius = data.itemSpawnRadius;
         gimmickItemPrefab = data.gimmickItemPrefab;
+        pickupEffect = data.pickupEffect;
+        durationEffect = data.durationEffect;
 
         strikeRoutine = StartCoroutine(StrikeLoop());
         itemRoutine = StartCoroutine(SpawnItemRoutine());
@@ -143,9 +144,26 @@ public class LightningStrikeRunner : MonoBehaviour
 
     private IEnumerator SpawnItemRoutine()
     {
+        int itemLayer = LayerMask.NameToLayer("Item");
+        int itemMask = 1 << itemLayer;
+
         while (true)
         {
             yield return new WaitForSeconds(itemSpawnInterval);
+
+            Collider[] hits = Physics.OverlapSphere(transform.position, 100f, itemMask);
+            bool anyValid = false;
+            foreach (var hit in hits)
+            {
+                if (hit.isTrigger && hit.gameObject.activeInHierarchy)
+                {
+                    anyValid = true;
+                    break;
+                }
+            }
+
+            if (anyValid)
+                continue;
 
             if (gimmickItemPrefab != null)
             {
@@ -155,8 +173,10 @@ public class LightningStrikeRunner : MonoBehaviour
                     Random.Range(-itemSpawnRadius, itemSpawnRadius)
                 );
 
-                var item = Instantiate(gimmickItemPrefab, randomPos, Quaternion.identity);
-                item.GetComponent<GimmickItem>()?.Init(StageGimmickType.LightningStrike);
+                var rotation = Quaternion.Euler(-90f, 0f, 0f);
+                var item = Instantiate(gimmickItemPrefab, randomPos, rotation);
+                item.layer = itemLayer;
+                item.GetComponent<GimmickItem>()?.Init(StageGimmickType.LightningStrike, this, pickupEffect, durationEffect, 10f);
             }
         }
     }
@@ -178,6 +198,15 @@ public class LightningStrikeRunner : MonoBehaviour
 
         isImmune = false;
         Debug.Log("[낙뢰] 면역 상태 종료");
+    }
+
+    public static void ApplyLightningImmune(float duration)
+    {
+        var runner = FindObjectOfType<LightningStrikeRunner>();
+        if (runner != null)
+        {
+            runner.GrantLightningImmunity(duration);
+        }
     }
 
     private void OnDestroy()

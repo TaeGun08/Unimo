@@ -18,6 +18,8 @@ MonoBehaviour:
   environmentMaterial: {fileID: 2100000, guid: ad0487a650611954a9bb846d776bbdde, type: 2}
   gimmickItemPrefab: {fileID: 3256139227051182340, guid: 60247f436f8984b4f9725e751560e672,
     type: 3}
+  pickupEffect: {fileID: 0}
+  durationEffect: {fileID: 0}
   fogVisualPrefab: {fileID: 6800348859880142683, guid: b6c21c683fa73b04d947b240604ff51f,
     type: 3}
   safeZoneTriggerPrefab: {fileID: 7115442464004383770, guid: 2a24ce3a69921be4d97ee39a8cc3bdcb,
@@ -26,7 +28,7 @@ MonoBehaviour:
     type: 2}
   fogRadius: 30
   initialSafeRadius: 22.5
-  shrinkDuration: 20
+  shrinkDuration: 30
   damageInterval: 1
   damagePercent: 0.01
   itemSpawnInterval: 15

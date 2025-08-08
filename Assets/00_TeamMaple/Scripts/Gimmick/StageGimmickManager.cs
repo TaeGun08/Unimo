@@ -73,10 +73,6 @@ public class StageGimmickManager : MonoBehaviour
 
                     if (type != StageGimmickType.None)
                         stageToGimmickMap[i].Add(type);
-
-                    // 블랙홀 자동 적용
-                    if (i >= 501 && type != StageGimmickType.BlackHole)
-                        stageToGimmickMap[i].Add(StageGimmickType.BlackHole);
                 }
             }
         }

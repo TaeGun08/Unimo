@@ -10,7 +10,9 @@ public abstract class StageGimmickSO : ScriptableObject
     public Material environmentMaterial; // 선택 사항
     
     [Header("Gimmick Items")]
-    public GameObject gimmickItemPrefab; // ✅ 아이템 프리팹 등록
+    public GameObject gimmickItemPrefab; // ✅ 아이템 프리팹
+    public GameObject pickupEffect;      // ✅ 획득 시 이펙트
+    public GameObject durationEffect;    // ✅ 지속 이펙트
     
     public abstract GameObject Execute(Vector3 origin);
 }

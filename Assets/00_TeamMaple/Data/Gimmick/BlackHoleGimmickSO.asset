@@ -16,14 +16,15 @@ MonoBehaviour:
   groundMaterial: {fileID: 0}
   backgroundMaterial: {fileID: 0}
   environmentMaterial: {fileID: 0}
+  gimmickItemPrefab: {fileID: 0}
+  pickupEffect: {fileID: 0}
+  durationEffect: {fileID: 0}
   blackHolePrefab: {fileID: 7211636859201599547, guid: 2f05ccb6fbf6c97459dd52cb0060cf10,
     type: 3}
-  outerForce: 0.3
-  innerForce: 0.4
-  innerRadius: 1.5
   outerRadius: 6
-  teleportRadius: 10
+  innerRadius: 1.5
+  teleportRadius: 16
   groundLayer:
     serializedVersion: 2
     m_Bits: 16384
-  spawnDelay: 10
+  spawnDelay: 5
