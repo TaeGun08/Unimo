@@ -16,6 +16,8 @@ MonoBehaviour:
   groundMaterial: {fileID: 2100000, guid: 6db0fe34d460c1b4b9e688f5f2033471, type: 2}
   backgroundMaterial: {fileID: 2100000, guid: b135f39f9abf97e419eb19930137f3ec, type: 2}
   environmentMaterial: {fileID: 2100000, guid: cf34a7c4909063b43aa3ed97ec32e05b, type: 2}
+  gimmickItemPrefab: {fileID: 3076824550520303404, guid: d313115484d97c149b5ea455a0590bf4,
+    type: 3}
   delayBeforeStart: 5
   windDuration: 20
   windInterval: 30
@@ -49,3 +51,6 @@ MonoBehaviour:
   alternateDirection: 1
   windForce: 2
   groundClampRadius: 16
+  itemSpawnInterval: 15
+  itemSpawnCenter: {x: 0, y: 0, z: 0}
+  itemSpawnRadius: 10

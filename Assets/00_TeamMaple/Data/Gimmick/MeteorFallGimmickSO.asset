@@ -16,6 +16,8 @@ MonoBehaviour:
   groundMaterial: {fileID: 2100000, guid: e8278f86d848fac449eeedbabf9afcd5, type: 2}
   backgroundMaterial: {fileID: 2100000, guid: 9d1ad4a7608d9454398303da92bd091f, type: 2}
   environmentMaterial: {fileID: 2100000, guid: fecf13dfd57d0d74cbe106bc4e390b9b, type: 2}
+  gimmickItemPrefab: {fileID: 5231943999669521273, guid: e249d98f51cf2c247950326715d7d376,
+    type: 3}
   meteorPrefab: {fileID: 1448005828616997895, guid: 3c5b3c55ec6a03a499459aff1745f253,
     type: 3}
   markerPrefab: {fileID: 701437982668235559, guid: 43621e523a79cf141a9cea53badd5299,
@@ -25,3 +27,6 @@ MonoBehaviour:
   fallDirection: {x: 0.5, y: -1, z: 0}
   fallHeight: 50
   fallSpeed: 20
+  itemSpawnInterval: 15
+  itemSpawnCenter: {x: 0, y: 0, z: 0}
+  itemSpawnRadius: 10

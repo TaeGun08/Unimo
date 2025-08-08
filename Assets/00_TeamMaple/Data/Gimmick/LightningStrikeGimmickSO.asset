@@ -16,6 +16,8 @@ MonoBehaviour:
   groundMaterial: {fileID: 2100000, guid: 8255b28ea0cacec409a44d39a280ac91, type: 2}
   backgroundMaterial: {fileID: 2100000, guid: 363e2e1eb9810714b879e1c7dfdb4cad, type: 2}
   environmentMaterial: {fileID: 2100000, guid: 54a7138fff0cf2445a35d24a48faaa73, type: 2}
+  gimmickItemPrefab: {fileID: 5900163431343043406, guid: 8330a25c611edac4dab8f716462564a9,
+    type: 3}
   markerPrefab: {fileID: 701437982668235559, guid: a246385e8d0847e478aa6d4f7dab1ddc,
     type: 3}
   lightningPrefab: {fileID: 659125156172680609, guid: 68239b501819b8d47a64fbda7a12cebc,
@@ -24,3 +26,6 @@ MonoBehaviour:
   interval: 0.1
   radius: 6
   stunDuration: 2
+  itemSpawnInterval: 15
+  itemSpawnCenter: {x: 0, y: 0, z: 0}
+  itemSpawnRadius: 10

@@ -16,6 +16,8 @@ MonoBehaviour:
   groundMaterial: {fileID: 2100000, guid: 50594f8aabc6f3443be8292851dc9131, type: 2}
   backgroundMaterial: {fileID: 2100000, guid: ae8b273b5f41ba144b1724abce23e4e2, type: 2}
   environmentMaterial: {fileID: 2100000, guid: 3dd27b7480560eb4a854da57fdd19271, type: 2}
+  gimmickItemPrefab: {fileID: 6275670826507079761, guid: 14f10e3667506904fb6f1c259de48f2c,
+    type: 3}
   gasPrefab: {fileID: 7737821957911359092, guid: 0ee0d02d91df97f44be8333f0f2e2f4c,
     type: 3}
   gasDuration: 60
@@ -26,3 +28,6 @@ MonoBehaviour:
   tickInterval: 3
   percentDamage: 0.1
   initialDelay: 0
+  itemSpawnInterval: 15
+  itemSpawnCenter: {x: 0, y: 0, z: 0}
+  itemSpawnRadius: 10

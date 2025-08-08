@@ -16,8 +16,11 @@ MonoBehaviour:
   groundMaterial: {fileID: 2100000, guid: ab71adaf01bb6d34c91f4b091829de00, type: 2}
   backgroundMaterial: {fileID: 2100000, guid: 9af0eb5e917fe89448577e9247355804, type: 2}
   environmentMaterial: {fileID: 2100000, guid: 3029cbf75a1741143aa1646830f7b767, type: 2}
+  gimmickItemPrefab: {fileID: 7735017414658353597, guid: 53b47839b0aee8a4f80967655f24a765,
+    type: 3}
   slowTimeScale: 0.3
-  fastTimeScale: 3
   slowDuration: 3
-  fastDuration: 2
   normalDuration: 5
+  itemSpawnInterval: 15
+  itemSpawnCenter: {x: 0, y: 0, z: 0}
+  itemSpawnRadius: 10

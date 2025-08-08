@@ -16,6 +16,11 @@ MonoBehaviour:
   groundMaterial: {fileID: 2100000, guid: 1072b60c7cb5b144abf40cdbf6c3337f, type: 2}
   backgroundMaterial: {fileID: 2100000, guid: 9e6dbe30e9baef149aa08fa6fda27a0c, type: 2}
   environmentMaterial: {fileID: 2100000, guid: c4bef0590b9136d439afce0afa165d31, type: 2}
+  gimmickItemPrefab: {fileID: 7202863402977768618, guid: b0191b2e697048d419a0c98b2e9667f1,
+    type: 3}
   slipperyDuration: 120
   slipperyForce: 10
   maxSlipSpeed: 3
+  itemSpawnInterval: 15
+  itemSpawnCenter: {x: 0, y: 0, z: 0}
+  itemSpawnRadius: 10
