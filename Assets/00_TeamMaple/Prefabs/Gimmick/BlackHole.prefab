@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4218768451994314244}
   - component: {fileID: 8493790586000616310}
   - component: {fileID: 7590217905954265872}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: BlackHole
-  m_TagString: Untagged
+  m_TagString: BlackHole
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 4633048244430192204}
   - component: {fileID: 3070593358570937854}
   - component: {fileID: 880864977945909650}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}

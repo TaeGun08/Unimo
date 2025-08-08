@@ -13,8 +13,8 @@ TagManager:
   - Missile
   - Door
   - Ground
-  - New tag
   - Meteor
+  - BlackHole
   layers:
   - Default
   - TransparentFX
@@ -32,7 +32,7 @@ TagManager:
   - Unimo
   - Ground
   - Meteor
-  - 
+  - BlackHole
   - 
   - 
   - 

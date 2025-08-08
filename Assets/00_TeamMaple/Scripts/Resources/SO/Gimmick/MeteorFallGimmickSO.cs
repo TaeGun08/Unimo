@@ -42,8 +42,16 @@ public class MeteorFallRunner : MonoBehaviour
     {
         data = so;
         center = origin;
+
+        // ✅ 기믹 시작 시 플레이어에게 추가 체력 10%
+        var statHolder = LocalPlayer.Instance.PlayerStatHolder;
+        int bonusHp = Mathf.CeilToInt(statHolder.Hp.MaxValue * 0.1f);
+        statHolder.Hp.Add(bonusHp);
+        Debug.Log($"[Meteor] 추가 체력 부여됨: {bonusHp}");
+
         routine = StartCoroutine(FallRoutine());
     }
+
 
     private IEnumerator FallRoutine()
     {

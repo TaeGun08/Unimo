@@ -25,6 +25,9 @@ public class Meteor : MonoBehaviour
 
     void Start()
     {
+        int meteorLayer = LayerMask.NameToLayer("Meteor");
+        int blackholeLayer = LayerMask.NameToLayer("BlackHole");
+        
         rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -32,10 +35,10 @@ public class Meteor : MonoBehaviour
             rb.linearVelocity = fallDirection.normalized * fallSpeed;
         }
 
-        int meteorLayer = LayerMask.NameToLayer("Meteor");
-        if (gameObject.layer != meteorLayer)
+        if (meteorLayer >= 0 && blackholeLayer >= 0)
         {
-            gameObject.layer = meteorLayer;
+            Physics.IgnoreLayerCollision(meteorLayer, blackholeLayer, true);
+            Debug.Log("[Meteor] 블랙홀과 충돌 무시 설정 완료");
         }
 
         Physics.IgnoreLayerCollision(meteorLayer, meteorLayer, true);
@@ -92,15 +95,17 @@ public class Meteor : MonoBehaviour
             ApplyDamageOverTime();
 
             // ✅ 넉백 방향 계산 (Y 제거)
-            Vector3 knockbackDir = LocalPlayer.Instance.transform.position - transform.position;
-            knockbackDir.y = 0f;
+            Vector3 knockbackDir = (LocalPlayer.Instance.transform.position - transform.position);
+            knockbackDir.y = 0f; // Y 성분 제거 → 수평 넉백
+            knockbackDir = knockbackDir.normalized;
 
             var combat = new CombatEvent
             {
-                Damage = 1, // 혹은 0
+                Damage = 1,
                 Position = transform.position,
-                KnockbackDir = transform.position
+                KnockbackDir = knockbackDir // ✅ 방향만 전달
             };
+
 
             LocalPlayer.Instance.CombatEvent = combat;
             LocalPlayer.Instance.playerController.ChangeState(IPlayerState.EState.Hit);
