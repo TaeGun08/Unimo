@@ -99,6 +99,13 @@ public class UnimoStatUI : MonoBehaviour
             UpGradeStatLine($"{stat.Ko()} {stat.Format(getter(data))}");
         }
 
+        if (Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1].ToString() == "100")
+        {
+            NextLevel.text = "100";
+            
+            return;
+        }
+        
         // 다음 레벨 업그레이드 수치 가져오기
         ShowUpgradeStat(Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]);
         
@@ -400,6 +407,7 @@ public class UnimoStatUI : MonoBehaviour
         upgradeEngineNextBaseX = 40f;
         upgradeEngineNextBaseY = 90f; 
         
+        Debug.Log($"Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]:: {Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]}");
         unimoStatData = unimoStatDataSo.GetFinalUnimoStatData(Base_Mng.Data.data.CharCount, Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1]);
         equipmentStatData = equipmentStatDataSo.GetFinalEquipmnetStatData(Base_Mng.Data.data.EQCount, Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1]);
         
