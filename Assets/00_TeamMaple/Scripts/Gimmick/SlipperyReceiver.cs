@@ -1,5 +1,4 @@
-// ✅ SlipperyReceiver.cs 전체 수정: 슬리퍼리 면역 기능 포함
-
+// ✅ SlipperyReceiver.cs — 면역/이동 초기화(속도 0) 지원
 using UnityEngine;
 using System.Collections;
 
@@ -29,7 +28,6 @@ public class SlipperyReceiver : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         joystick = FindObjectOfType<VirtualJoystickCtrl_ST001>();
-
         if (joystick == null)
             Debug.LogWarning("[SlipperyReceiver] VirtualJoystickCtrl_ST001을 찾을 수 없습니다.");
     }
@@ -46,15 +44,24 @@ public class SlipperyReceiver : MonoBehaviour
             Vector3 inputDir = new Vector3(input.x, 0f, input.y).normalized;
             lastMoveDir = Vector3.Lerp(lastMoveDir, inputDir, Time.fixedDeltaTime * directionSmoothness);
 
+#if UNITY_6_0_OR_NEWER
             if (rb.linearVelocity.magnitude < maxSpeed)
                 rb.AddForce(lastMoveDir * slipperyForce, ForceMode.Acceleration);
+#else
+            if (rb.linearVelocity.magnitude < maxSpeed)
+                rb.AddForce(lastMoveDir * slipperyForce, ForceMode.Acceleration);
+#endif
         }
         else
         {
             lastMoveDir = Vector3.Lerp(lastMoveDir, Vector3.zero, Time.fixedDeltaTime * directionSmoothness);
         }
 
+#if UNITY_6_0_OR_NEWER
         rb.linearDamping = drag;
+#else
+        rb.linearDamping = drag;
+#endif
     }
 
     private void LateUpdate()
@@ -79,7 +86,23 @@ public class SlipperyReceiver : MonoBehaviour
         }
     }
 
-    public void SetSlippery(bool enable, float force = 0f, float max = 0f)
+    // ⬇️ 완전 정지용 유틸(속도, 각속도, 누적방향 초기화)
+    public void ResetSlipMotion(bool resetAngular = true)
+    {
+        if (rb == null) return;
+
+#if UNITY_6_0_OR_NEWER
+        rb.linearVelocity = Vector3.zero;
+        if (resetAngular) rb.angularVelocity = Vector3.zero;
+#else
+        rb.linearVelocity = Vector3.zero;
+        if (resetAngular) rb.angularVelocity = Vector3.zero;
+#endif
+        lastMoveDir = Vector3.zero;
+    }
+
+    // hardReset: false(자연 종료), true(아이템 면역 진입 시 강제 정지)
+    public void SetSlippery(bool enable, float force = 0f, float max = 0f, bool hardReset = false)
     {
         if (enable && isImmune)
         {
@@ -93,22 +116,30 @@ public class SlipperyReceiver : MonoBehaviour
         {
             slipperyForce = force;
             maxSpeed = max;
+#if UNITY_6_0_OR_NEWER
             rb.linearDamping = drag;
+#else
+            rb.linearDamping = drag;
+#endif
             Debug.Log("[SlipperyReceiver] 슬리퍼리 적용됨");
         }
         else
         {
+#if UNITY_6_0_OR_NEWER
             rb.linearDamping = 0f;
-            lastMoveDir = Vector3.zero;
+#else
+            rb.linearDamping = 0f;
+#endif
+            if (hardReset) ResetSlipMotion(true);
+            else lastMoveDir = Vector3.zero;
+
             Debug.Log("[SlipperyReceiver] 슬리퍼리 종료");
         }
     }
 
     public void ApplySlipImmune(float duration)
     {
-        if (immuneRoutine != null)
-            StopCoroutine(immuneRoutine);
-
+        if (immuneRoutine != null) StopCoroutine(immuneRoutine);
         immuneRoutine = StartCoroutine(SlipImmuneCoroutine(duration));
     }
 
@@ -116,9 +147,7 @@ public class SlipperyReceiver : MonoBehaviour
     {
         isImmune = true;
         Debug.Log($"[SlipperyReceiver] 슬리퍼리 면역 적용: {duration}초");
-
         yield return new WaitForSeconds(duration);
-
         isImmune = false;
         immuneRoutine = null;
         Debug.Log("[SlipperyReceiver] 슬리퍼리 면역 해제됨");

@@ -51,7 +51,7 @@ public class GimmickItem : MonoBehaviour
                 PoisonGasRunner.ApplyTemporaryGasClear(30f);
                 break;
             case StageGimmickType.SlipperyFloor:
-                SlipperyFloorRunner.ApplySlipImmunity(30f);
+                SlipperyFloorRunner.Instance?.GrantSlipImmunity(30f,playerTf);
                 break;
             case StageGimmickType.MeteorFall:
                 MeteorFallRunner.RemoveBurning();
