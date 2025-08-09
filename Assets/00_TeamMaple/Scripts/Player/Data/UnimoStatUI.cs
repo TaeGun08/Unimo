@@ -234,7 +234,7 @@ public class UnimoStatUI : MonoBehaviour
         Add(data.StatType2);
         Add(data.StatType3);
 
-        return "특화 능력치 : " + (parts.Count > 0 ? string.Join(" / ", parts) : "없음");
+        return (parts.Count > 0 ? string.Join(" / ", parts) : "없음");
     }
     
     public void ShowUpgradeEngineStat(int currentLevel)
