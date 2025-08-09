@@ -18,7 +18,7 @@ MonoBehaviour:
   environmentMaterial: {fileID: 2100000, guid: ad0487a650611954a9bb846d776bbdde, type: 2}
   gimmickItemPrefab: {fileID: 3256139227051182340, guid: 60247f436f8984b4f9725e751560e672,
     type: 3}
-  pickupEffect: {fileID: 0}
+  pickupEffect: {fileID: 100000, guid: 38a3c57baf4b8f742adc8ff9a681f081, type: 3}
   durationEffect: {fileID: 0}
   fogVisualPrefab: {fileID: 6800348859880142683, guid: b6c21c683fa73b04d947b240604ff51f,
     type: 3}

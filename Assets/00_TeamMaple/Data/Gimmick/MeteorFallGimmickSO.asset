@@ -18,6 +18,8 @@ MonoBehaviour:
   environmentMaterial: {fileID: 2100000, guid: fecf13dfd57d0d74cbe106bc4e390b9b, type: 2}
   gimmickItemPrefab: {fileID: 5231943999669521273, guid: e249d98f51cf2c247950326715d7d376,
     type: 3}
+  pickupEffect: {fileID: 100000, guid: 1e90bae3193547c47bb7725ce245cd45, type: 3}
+  durationEffect: {fileID: 0}
   meteorPrefab: {fileID: 1448005828616997895, guid: 3c5b3c55ec6a03a499459aff1745f253,
     type: 3}
   markerPrefab: {fileID: 701437982668235559, guid: 43621e523a79cf141a9cea53badd5299,

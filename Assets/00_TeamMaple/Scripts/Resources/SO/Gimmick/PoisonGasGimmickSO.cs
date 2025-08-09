@@ -5,25 +5,28 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PoisonGasGimmickSO", menuName = "StageGimmick/PoisonGas")]
 public class PoisonGasGimmickSO : StageGimmickSO
 {
+    [Header("가스 생성")]
     public GameObject gasPrefab;
     public float gasDuration = 60f;
     public float interval = 20f;
     public float spawnRadius = 8f;
     public float scaleDuration = 2f;
     public float targetScale = 3f;
-    public float tickInterval = 3f;
-    public float percentDamage = 0.1f;
-    public float initialDelay = 0f;
 
+    [Header("데미지")]
+    public float tickInterval = 3f;   // ✅ 3초 주기
+    public float percentDamage = 0.1f;
+
+    [Header("아이템 스폰")]
     public float itemSpawnInterval = 15f;
     public Vector3 itemSpawnCenter;
     public float itemSpawnRadius = 10f;
-
+    
     public override GameObject Execute(Vector3 origin)
     {
         Debug.Log("[PoisonGas] 기믹 실행됨");
 
-        PoisonGasRunner runner = new GameObject("PoisonGasRunner").AddComponent<PoisonGasRunner>();
+        var runner = new GameObject("PoisonGasRunner").AddComponent<PoisonGasRunner>();
         runner.Init(this, origin);
         return runner.gameObject;
     }
@@ -40,8 +43,9 @@ public class PoisonGasRunner : MonoBehaviour
     private Vector3 center;
     private Coroutine routine;
     private Coroutine itemRoutine;
-    private List<GameObject> spawnedGases = new();
+    private readonly List<GameObject> spawnedGases = new();
 
+    // 아이템/이펙트
     private float itemSpawnInterval;
     private Vector3 itemSpawnCenter;
     private float itemSpawnRadius;
@@ -49,27 +53,29 @@ public class PoisonGasRunner : MonoBehaviour
     private GameObject pickupEffectPrefab;
     private GameObject durationEffectPrefab;
 
-    private Dictionary<GameObject, float> gasClearTimerDict = new();
-    private Dictionary<GameObject, GameObject> durationEffectDict = new();
+    // 아이템 효과 관리
+    private readonly Dictionary<GameObject, float> gasClearTimerDict = new();
+    private readonly Dictionary<GameObject, GameObject> durationEffectDict = new();
 
     public void Init(PoisonGasGimmickSO so, Vector3 origin)
     {
         data = so;
         center = origin;
 
-        itemSpawnInterval = data.itemSpawnInterval;
-        itemSpawnCenter = data.itemSpawnCenter == Vector3.zero ? origin : data.itemSpawnCenter;
-        itemSpawnRadius = data.itemSpawnRadius;
-        gimmickItemPrefab = data.gimmickItemPrefab;
-        pickupEffectPrefab = data.pickupEffect;
+        itemSpawnInterval    = data.itemSpawnInterval;
+        itemSpawnCenter      = data.itemSpawnCenter == Vector3.zero ? origin : data.itemSpawnCenter;
+        itemSpawnRadius      = data.itemSpawnRadius;
+        gimmickItemPrefab    = data.gimmickItemPrefab;
+        pickupEffectPrefab   = data.pickupEffect;
         durationEffectPrefab = data.durationEffect;
 
-        routine = StartCoroutine(GasRoutine());
+        routine     = StartCoroutine(GasRoutine());
         itemRoutine = StartCoroutine(SpawnItemRoutine());
     }
 
     private IEnumerator GasRoutine()
     {
+        // 시작 5초 대기 후 생성 시작(기존 동작 유지)
         yield return new WaitForSeconds(5f);
 
         while (true)
@@ -88,12 +94,13 @@ public class PoisonGasRunner : MonoBehaviour
                 gas.SetActive(true);
                 gas.transform.localScale = Vector3.zero;
 
-                PoisonArea area = gas.GetComponent<PoisonArea>();
+                var area = gas.GetComponent<PoisonArea>();
                 if (area != null)
                 {
-                    area.Init(data.tickInterval, data.percentDamage, data.initialDelay);
+                    // ✅ 첫 데미지를 'tickInterval'만큼 지연
+                    area.Init(data.tickInterval, data.percentDamage, data.tickInterval);
                     area.scaleDuration = data.scaleDuration;
-                    area.targetScale = data.targetScale;
+                    area.targetScale   = data.targetScale;
                 }
 
                 spawnedGases.Add(gas);
@@ -130,7 +137,7 @@ public class PoisonGasRunner : MonoBehaviour
     private IEnumerator SpawnItemRoutine()
     {
         int itemLayer = LayerMask.NameToLayer("Item");
-        int itemMask = 1 << itemLayer;
+        int itemMask  = 1 << itemLayer;
 
         while (true)
         {
@@ -138,16 +145,13 @@ public class PoisonGasRunner : MonoBehaviour
 
             Collider[] hits = Physics.OverlapSphere(transform.position, 100f, itemMask);
             bool exists = false;
-
             foreach (var hit in hits)
             {
                 if (hit.GetComponent<GimmickItem>() != null && hit.gameObject.activeInHierarchy)
                 {
-                    exists = true;
-                    break;
+                    exists = true; break;
                 }
             }
-
             if (exists) continue;
 
             if (gimmickItemPrefab != null)
@@ -160,7 +164,15 @@ public class PoisonGasRunner : MonoBehaviour
 
                 var item = Instantiate(gimmickItemPrefab, randomPos, Quaternion.Euler(-90f, 0f, 0f));
                 item.layer = itemLayer;
-                item.GetComponent<GimmickItem>()?.Init(StageGimmickType.PoisonGas, this, pickupEffectPrefab, durationEffectPrefab, 30f);
+
+                // 러너가 이펙트/타이머 직접 관리
+                item.GetComponent<GimmickItem>()?.Init(
+                    StageGimmickType.PoisonGas,
+                    this,
+                    pickupEffectPrefab,
+                    durationEffectPrefab,
+                    30f // 가스 클리어 권한 지속시간
+                );
             }
         }
     }
@@ -186,6 +198,7 @@ public class PoisonGasRunner : MonoBehaviour
             {
                 gasClearTimerDict[player] = timeLeft;
 
+                // 권한이 있는 동안, 플레이어 근처 가스 제거
                 foreach (var gas in spawnedGases.ToArray())
                 {
                     if (gas == null) continue;
@@ -194,7 +207,6 @@ public class PoisonGasRunner : MonoBehaviour
                         Destroy(gas);
                         spawnedGases.Remove(gas);
                         Debug.Log("[PoisonGas] 가스 제거: 플레이어 근처 접근");
-
                         removeNow = true;
                         break;
                     }
@@ -245,16 +257,15 @@ public class PoisonGasRunner : MonoBehaviour
 
         Debug.Log($"[PoisonGas] {duration}초간 가스 제거 권한 부여");
 
+        // 러너 관리형: 이펙트도 여기서 1개만 관리
         if (runner.pickupEffectPrefab != null)
         {
-            Debug.Log($"[PoisonGas] 픽업 이펙트 생성: {runner.pickupEffectPrefab.name}");
             GameObject vfx = Instantiate(runner.pickupEffectPrefab, player.transform.position + Vector3.up * 1.5f, Quaternion.identity);
             Destroy(vfx, 2f);
         }
 
         if (runner.durationEffectPrefab != null && !runner.durationEffectDict.ContainsKey(player))
         {
-            Debug.Log($"[PoisonGas] 지속 이펙트 생성: {runner.durationEffectPrefab.name}");
             GameObject effect = Instantiate(runner.durationEffectPrefab, player.transform);
             effect.transform.localPosition = Vector3.up * 1.5f;
             runner.durationEffectDict.Add(player, effect);

@@ -18,6 +18,8 @@ MonoBehaviour:
   environmentMaterial: {fileID: 2100000, guid: 9ce8aa1a5c216f24eb29991a25a2fe67, type: 2}
   gimmickItemPrefab: {fileID: 4035746911033078952, guid: a58ea74026491d04fa400ca3ec205365,
     type: 3}
+  pickupEffect: {fileID: 100000, guid: 131e2c466dc67954791fdf4eaa2bc35c, type: 3}
+  durationEffect: {fileID: 0}
   duration: 15
   interval: 30
   itemSpawnInterval: 15

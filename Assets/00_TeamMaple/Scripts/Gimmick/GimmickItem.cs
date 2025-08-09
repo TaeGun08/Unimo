@@ -8,7 +8,6 @@ public class GimmickItem : MonoBehaviour
     private GameObject pickupEffect;
     private GameObject durationEffect;
 
-    private const float defaultDuration = 30f;
     private float effectDuration = 30f;
 
     public void Init(StageGimmickType type, MonoBehaviour runner = null, GameObject pickup = null, GameObject duration = null, float effectDuration = 30f)
@@ -22,24 +21,28 @@ public class GimmickItem : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // 플레이어 감지
         if (other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
-
-        Debug.Log("[GimmickItem] 플레이어가 아이템을 획득함");
 
         Transform playerTf = LocalPlayer.Instance.transform;
 
-        // ✅ 공통 이펙트 출력
-        GimmickEffectHelper.PlayPickupEffect(pickupEffect, playerTf);
+        // 러너가 이펙트를 직접 관리하는 기믹 목록
+        bool managedByRunner =
+            gimmickType == StageGimmickType.PoisonGas ||
+            gimmickType == StageGimmickType.SlipperyFloor ||
+            gimmickType == StageGimmickType.TimeSlow;
 
-        if (gimmickType is StageGimmickType.LightningStrike or
-            StageGimmickType.PoisonGas or
-            StageGimmickType.SlipperyFloor or
-            StageGimmickType.WildWind or
-            StageGimmickType.TimeSlow)
+        // ✅ 공통 이펙트는 러너 "비관리형"에만 출력 (중복 생성 방지)
+        if (!managedByRunner)
         {
-            GimmickEffectHelper.AttachDurationEffect(durationEffect, playerTf, effectDuration);
-        }
+            GimmickEffectHelper.PlayPickupEffect(pickupEffect, playerTf);
 
+            // 필요 타입만 지속 이펙트 부착 (러너가 안 하는 것들만)
+            if (gimmickType is StageGimmickType.LightningStrike or StageGimmickType.WildWind)
+            {
+                GimmickEffectHelper.AttachDurationEffect(durationEffect, playerTf, effectDuration);
+            }
+        }
 
         // ✅ 각 기믹 기능 호출
         switch (gimmickType)
@@ -47,29 +50,42 @@ public class GimmickItem : MonoBehaviour
             case StageGimmickType.LightningStrike:
                 LightningStrikeRunner.ApplyLightningImmune(10f);
                 break;
+
             case StageGimmickType.PoisonGas:
-                PoisonGasRunner.ApplyTemporaryGasClear(30f);
+                // 러너가 픽업/지속 이펙트, 타이머, 제거까지 “한 개만” 관리
+                PoisonGasRunner.ApplyTemporaryGasClear(effectDuration);
                 break;
+
             case StageGimmickType.SlipperyFloor:
-                SlipperyFloorRunner.Instance?.GrantSlipImmunity(30f,playerTf);
+                // 러너가 이펙트(1개), 면역, 재적용까지 관리
+                SlipperyFloorRunner.Instance?.GrantSlipImmunity(effectDuration, playerTf);
                 break;
+
             case StageGimmickType.MeteorFall:
                 MeteorFallRunner.RemoveBurning();
                 break;
+
             case StageGimmickType.Darkness:
                 DarknessRunner.Instance?.Suppress();
                 break;
+
             case StageGimmickType.WildWind:
                 WildWindRunner.ApplyWindResist(20f);
                 break;
+
             case StageGimmickType.FogDamage:
                 FogDamageRunner.Instance?.TriggerSafeZoneExpansion();
                 break;
+
             case StageGimmickType.Earthquake:
                 EarthquakeRunner.RemoveSlow();
                 break;
+
             case StageGimmickType.TimeSlow:
-                TimeSlowCycleRunner.ApplyTimeSlowImmune(10f);
+                // 러너가 즉시 해제 + 면역 + 이펙트(1개) 관리 (Earthquake 패턴)
+                (runner as TimeSlowCycleRunner)?.GrantTimeSlowImmunity(effectDuration, playerTf);
+                // 만약 runner 참조가 없는 경우라도 최소한 현재 슬로우는 해제
+                if (runner == null) TimeSlowRunner.RemoveSlow();
                 break;
         }
 

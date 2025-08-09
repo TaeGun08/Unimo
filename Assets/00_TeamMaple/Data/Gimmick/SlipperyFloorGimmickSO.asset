@@ -18,9 +18,13 @@ MonoBehaviour:
   environmentMaterial: {fileID: 2100000, guid: c4bef0590b9136d439afce0afa165d31, type: 2}
   gimmickItemPrefab: {fileID: 7202863402977768618, guid: b0191b2e697048d419a0c98b2e9667f1,
     type: 3}
+  pickupEffect: {fileID: 100000, guid: 38a3c57baf4b8f742adc8ff9a681f081, type: 3}
+  durationEffect: {fileID: 7896538145953625972, guid: e6c885be56a188f4691a087ded573492,
+    type: 3}
   slipperyDuration: 120
   slipperyForce: 10
   maxSlipSpeed: 3
   itemSpawnInterval: 15
   itemSpawnCenter: {x: 0, y: 0, z: 0}
   itemSpawnRadius: 10
+  itemImmuneDuration: 30

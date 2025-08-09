@@ -22,7 +22,7 @@ MonoBehaviour:
   blackHolePrefab: {fileID: 7211636859201599547, guid: 2f05ccb6fbf6c97459dd52cb0060cf10,
     type: 3}
   outerRadius: 6
-  innerRadius: 1.5
+  innerRadius: 2
   teleportRadius: 16
   groundLayer:
     serializedVersion: 2

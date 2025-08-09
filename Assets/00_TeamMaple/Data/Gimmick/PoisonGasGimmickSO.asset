@@ -18,16 +18,18 @@ MonoBehaviour:
   environmentMaterial: {fileID: 2100000, guid: 3dd27b7480560eb4a854da57fdd19271, type: 2}
   gimmickItemPrefab: {fileID: 6275670826507079761, guid: 14f10e3667506904fb6f1c259de48f2c,
     type: 3}
+  pickupEffect: {fileID: 100000, guid: a8bc4c8952534334bbfcf03c2547fdb3, type: 3}
+  durationEffect: {fileID: 7896538145953625972, guid: e6c885be56a188f4691a087ded573492,
+    type: 3}
   gasPrefab: {fileID: 7737821957911359092, guid: 0ee0d02d91df97f44be8333f0f2e2f4c,
     type: 3}
   gasDuration: 60
   interval: 20
-  spawnRadius: 8
+  spawnRadius: 16
   scaleDuration: 2
   targetScale: 6
   tickInterval: 3
   percentDamage: 0.1
-  initialDelay: 0
   itemSpawnInterval: 15
   itemSpawnCenter: {x: 0, y: 0, z: 0}
   itemSpawnRadius: 10

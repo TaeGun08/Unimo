@@ -18,7 +18,10 @@ MonoBehaviour:
   environmentMaterial: {fileID: 2100000, guid: faf17fd4c630b5d4aba15b37225c53e4, type: 2}
   gimmickItemPrefab: {fileID: 5437397017733910561, guid: 3810875190d9b6645abdcded52d4da7b,
     type: 3}
+  pickupEffect: {fileID: 100000, guid: 131e2c466dc67954791fdf4eaa2bc35c, type: 3}
+  durationEffect: {fileID: 0}
   shakeDuration: 5
+  interval: 30
   intensity: 0.3
   itemSpawnInterval: 15
   itemSpawnCenter: {x: 0, y: 0, z: 0}
