@@ -1,4 +1,3 @@
-
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -30,7 +29,7 @@ public class GetRewardScript : MonoBehaviour
     private string starR3;
 
     [SerializeField] private TMP_Text[] flowerTexts;
-    
+
     [SerializeField] private StageFlowerConditionData stageFlowerConditions;
 
     private void Start()
@@ -42,7 +41,7 @@ public class GetRewardScript : MonoBehaviour
         flowerTexts[0].text = texts[0].text;
         flowerTexts[1].text = texts[1].text;
         flowerTexts[2].text = texts[2].text;
-        
+
         if (Base_Mng.Data.data.BonusStageOn && StageLoader.IsBonusStageByIndex(Base_Mng.Data.data.CurrentStage))
         {
             currentStageId = Base_Mng.Data.data.CurrentStage + 999;
@@ -69,13 +68,14 @@ public class GetRewardScript : MonoBehaviour
 
     private void GetReward()
     {
-        float condition = float.Parse(stageFlowerConditions.GetData(Base_Mng.Data.data.CurrentStage + 1000).Star3Condition);
+        float condition =
+            float.Parse(stageFlowerConditions.GetData(Base_Mng.Data.data.CurrentStage + 1000).Star3Condition);
 
         int getStar = stageManager.GetStars(Base_Mng.Data.data.CurrentStage + 1000);
-        
-        redTrade = StringMethod.ToCurrencyDouble(texts[0].text) * 
+
+        redTrade = StringMethod.ToCurrencyDouble(texts[0].text) *
                    (StringMethod.ToCurrencyDouble(starR2) / (condition * 0.67d));
-        
+
         yellowTrade = StringMethod.ToCurrencyDouble(texts[1].text) *
                       (StringMethod.ToCurrencyDouble(starY1) / (condition * 0.67d));
 
@@ -86,14 +86,16 @@ public class GetRewardScript : MonoBehaviour
         YellowText.text = "0";
         RedText.text = "0";
         BlueText.text = "0";
-        
+
+        int starCount = 0;
+
         if (getStar == 0)
         {
             YellowText.text = StringMethod.ToCurrencyString(yellowTrade);
             RedText.text = StringMethod.ToCurrencyString(redTrade);
             BlueText.text = StringMethod.ToCurrencyString(blueTrade);
         }
-        
+
         if (!(starBar.value < 0.6f))
         {
             switch (starBar.value)
@@ -102,13 +104,12 @@ public class GetRewardScript : MonoBehaviour
                 {
                     Debug.Log("3성 보상");
                     stageManager.UpdateStageStars(Base_Mng.Data.data.CurrentStage + 1000, 3);
-
+                    starCount = 3;
                     if (Base_Mng.Data.data.Stage3Star == 0)
                     {
                         Base_Mng.Data.data.Stage3Star++;
                     }
-                    
-                    _= ActiveTrueStars(3);
+
                     if (getStar != 1 && getStar < 2)
                     {
                         yellowTrade += StringMethod.ToCurrencyDouble(starY1);
@@ -123,12 +124,12 @@ public class GetRewardScript : MonoBehaviour
                     redTrade += StringMethod.ToCurrencyDouble(starR3);
                     break;
                 }
-                case < 1f and >= 0.8f when getStar != 2 :
+                case < 1f and >= 0.8f when getStar != 2:
                 {
                     if (getStar >= 2) return;
                     Debug.Log("2성 보상");
                     stageManager.UpdateStageStars(Base_Mng.Data.data.CurrentStage + 1000, 2);
-                    _= ActiveTrueStars(2);
+                    starCount = 2;
                     if (getStar != 1 && getStar < 2)
                     {
                         yellowTrade += StringMethod.ToCurrencyDouble(starY1);
@@ -140,14 +141,14 @@ public class GetRewardScript : MonoBehaviour
                 case < 0.8f and >= 0.6f when getStar != 1:
                     if (getStar >= 1) return;
                     Debug.Log("1성 보상");
-                    _= ActiveTrueStars(1);
+                    starCount = 1;
                     stageManager.UpdateStageStars(Base_Mng.Data.data.CurrentStage + 1000, 1);
-                    
+
                     yellowTrade += StringMethod.ToCurrencyDouble(starY1);
                     break;
             }
 
-            
+
             if (Base_Mng.Data.data.HighStage == Base_Mng.Data.data.CurrentStage)
             {
                 Base_Mng.Data.data.HighStage++;
@@ -159,6 +160,8 @@ public class GetRewardScript : MonoBehaviour
             }
         }
 
+        _ = ActiveTrueStars(getStar != 0 ? getStar : starCount);
+
         if (getStar != 0) return;
         Base_Mng.Data.data.Red += redTrade;
         Base_Mng.Data.data.Yellow += yellowTrade;
@@ -169,7 +172,7 @@ public class GetRewardScript : MonoBehaviour
         {
             Base_Mng.Data.data.BlackHole++;
         }
-        
+
         if (Base_Mng.Data.data.StageClear50 < 50)
         {
             Base_Mng.Data.data.StageClear50++;
@@ -190,9 +193,10 @@ public class GetRewardScript : MonoBehaviour
 
     private void GetBonusReward()
     {
-        float condition = float.Parse(stageFlowerConditions.GetData(Base_Mng.Data.data.CurrentStage + 999).Star3Condition);
+        float condition =
+            float.Parse(stageFlowerConditions.GetData(Base_Mng.Data.data.CurrentStage + 999).Star3Condition);
 
-        redTrade = (StringMethod.ToCurrencyDouble(texts[0].text) * 
+        redTrade = (StringMethod.ToCurrencyDouble(texts[0].text) *
                     (StringMethod.ToCurrencyDouble(starR2) / (condition * 0.67d))) * 3f;
 
         yellowTrade = (StringMethod.ToCurrencyDouble(texts[1].text) *
@@ -214,9 +218,9 @@ public class GetRewardScript : MonoBehaviour
         Base_Mng.Data.data.CurrentStage = Base_Mng.Data.data.HighStage;
 
         Base_Mng.Data.data.GetTicket--;
-        
+
         Base_Mng.Data.data.BonusStageOn = false;
-        
+
         if (Base_Mng.Data.data.BonusStage < 10)
         {
             Base_Mng.Data.data.BonusStage++;
