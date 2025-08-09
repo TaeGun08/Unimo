@@ -434,7 +434,7 @@ public class UnimoStatUI : MonoBehaviour
         int nextLevel = Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1] + 1;
         UnimoStatLevelUpCost levelData = unimoStatLevelUpCostSO.GetData(nextLevel);
         
-        if (Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1] >= 100)
+        if (Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1] == 100)
         {
             Debug.Log("최대 레벨입니다.");
             return;
@@ -461,7 +461,7 @@ public class UnimoStatUI : MonoBehaviour
          int nextLevel = Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1] + 1;
          EquipmentStatLevelUpCost levelData = equipLevelUpCostSO.GetData(equipmentStatData.Rank, nextLevel);
         
-         if (Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1] >= 5)
+         if (Base_Mng.Data.data.EQLevel[Base_Mng.Data.data.EQCount - 1] == 5)
          {
              Debug.Log("최대 레벨입니다.");
              return;
