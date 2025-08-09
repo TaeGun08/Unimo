@@ -1,5 +1,3 @@
-// ✅ MeteorFallGimmickSO 및 Runner 전체 수정 (아이템 생성 포함)
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,12 +7,13 @@ public class MeteorFallGimmickSO : StageGimmickSO
 {
     public GameObject meteorPrefab;
     public GameObject markerPrefab;
+
     public float interval = 5f;
     public float spawnRadius = 10f;
     public Vector3 fallDirection = new Vector3(0.5f, -1f, 0f);
     public float fallHeight = 50f;
     public float fallSpeed = 20f;
-    
+
     public float itemSpawnInterval = 15f;
     public Vector3 itemSpawnCenter;
     public float itemSpawnRadius = 10f;
@@ -46,6 +45,7 @@ public class MeteorFallRunner : MonoBehaviour
     private Vector3 itemSpawnCenter;
     private float itemSpawnRadius;
     private GameObject gimmickItemPrefab;
+    private GameObject pickupEffectPrefab;
 
     public void Init(MeteorFallGimmickSO so, Vector3 origin)
     {
@@ -61,6 +61,7 @@ public class MeteorFallRunner : MonoBehaviour
         itemSpawnCenter = data.itemSpawnCenter == Vector3.zero ? origin : data.itemSpawnCenter;
         itemSpawnRadius = data.itemSpawnRadius;
         gimmickItemPrefab = data.gimmickItemPrefab;
+        pickupEffectPrefab = data.pickupEffect;
 
         routine = StartCoroutine(FallRoutine());
         itemRoutine = StartCoroutine(SpawnItemRoutine());
@@ -143,9 +144,26 @@ public class MeteorFallRunner : MonoBehaviour
 
     private IEnumerator SpawnItemRoutine()
     {
+        int itemLayer = LayerMask.NameToLayer("Item");
+        int itemMask = 1 << itemLayer;
+
         while (true)
         {
             yield return new WaitForSeconds(itemSpawnInterval);
+
+            Collider[] hits = Physics.OverlapSphere(transform.position, 100f, itemMask);
+            bool exists = false;
+
+            foreach (var hit in hits)
+            {
+                if (hit.GetComponent<GimmickItem>() != null && hit.gameObject.activeInHierarchy)
+                {
+                    exists = true;
+                    break;
+                }
+            }
+
+            if (exists) continue;
 
             if (gimmickItemPrefab != null)
             {
@@ -155,8 +173,9 @@ public class MeteorFallRunner : MonoBehaviour
                     Random.Range(-itemSpawnRadius, itemSpawnRadius)
                 );
 
-                var item = Instantiate(gimmickItemPrefab, randomPos, Quaternion.identity);
-                item.GetComponent<GimmickItem>()?.Init(StageGimmickType.MeteorFall, this);
+                var item = Instantiate(gimmickItemPrefab, randomPos, Quaternion.Euler(-90f, 0f, 0f));
+                item.layer = itemLayer;
+                item.GetComponent<GimmickItem>()?.Init(StageGimmickType.MeteorFall, this, pickupEffectPrefab, null, 0f);
             }
         }
     }
@@ -179,7 +198,6 @@ public class MeteorFallRunner : MonoBehaviour
             Debug.Log("[Meteor] DOT 상태가 없거나 이미 해제됨");
         }
     }
-
 
     public void NotifyMeteorDestroyed(GameObject meteor)
     {

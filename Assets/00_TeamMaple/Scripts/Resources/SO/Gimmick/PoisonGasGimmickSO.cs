@@ -1,5 +1,3 @@
-// ✅ PoisonGasGimmickSO 및 Runner 전체 수정 (아이템 생성 및 제거 기능 포함)
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +14,7 @@ public class PoisonGasGimmickSO : StageGimmickSO
     public float tickInterval = 3f;
     public float percentDamage = 0.1f;
     public float initialDelay = 0f;
-    
+
     public float itemSpawnInterval = 15f;
     public Vector3 itemSpawnCenter;
     public float itemSpawnRadius = 10f;
@@ -48,12 +46,11 @@ public class PoisonGasRunner : MonoBehaviour
     private Vector3 itemSpawnCenter;
     private float itemSpawnRadius;
     private GameObject gimmickItemPrefab;
+    private GameObject pickupEffectPrefab;
+    private GameObject durationEffectPrefab;
 
-    // ✅ 신규: 플레이어별 가스 제거 권한 타이머
     private Dictionary<GameObject, float> gasClearTimerDict = new();
-
-    // ✅ (선택) 아이템 획득 시 이펙트
-    public GameObject itemPickupEffect;
+    private Dictionary<GameObject, GameObject> durationEffectDict = new();
 
     public void Init(PoisonGasGimmickSO so, Vector3 origin)
     {
@@ -64,6 +61,8 @@ public class PoisonGasRunner : MonoBehaviour
         itemSpawnCenter = data.itemSpawnCenter == Vector3.zero ? origin : data.itemSpawnCenter;
         itemSpawnRadius = data.itemSpawnRadius;
         gimmickItemPrefab = data.gimmickItemPrefab;
+        pickupEffectPrefab = data.pickupEffect;
+        durationEffectPrefab = data.durationEffect;
 
         routine = StartCoroutine(GasRoutine());
         itemRoutine = StartCoroutine(SpawnItemRoutine());
@@ -130,9 +129,26 @@ public class PoisonGasRunner : MonoBehaviour
 
     private IEnumerator SpawnItemRoutine()
     {
+        int itemLayer = LayerMask.NameToLayer("Item");
+        int itemMask = 1 << itemLayer;
+
         while (true)
         {
             yield return new WaitForSeconds(itemSpawnInterval);
+
+            Collider[] hits = Physics.OverlapSphere(transform.position, 100f, itemMask);
+            bool exists = false;
+
+            foreach (var hit in hits)
+            {
+                if (hit.GetComponent<GimmickItem>() != null && hit.gameObject.activeInHierarchy)
+                {
+                    exists = true;
+                    break;
+                }
+            }
+
+            if (exists) continue;
 
             if (gimmickItemPrefab != null)
             {
@@ -142,8 +158,9 @@ public class PoisonGasRunner : MonoBehaviour
                     Random.Range(-itemSpawnRadius, itemSpawnRadius)
                 );
 
-                var item = Instantiate(gimmickItemPrefab, randomPos, Quaternion.identity);
-                item.GetComponent<GimmickItem>()?.Init(StageGimmickType.PoisonGas);
+                var item = Instantiate(gimmickItemPrefab, randomPos, Quaternion.Euler(-90f, 0f, 0f));
+                item.layer = itemLayer;
+                item.GetComponent<GimmickItem>()?.Init(StageGimmickType.PoisonGas, this, pickupEffectPrefab, durationEffectPrefab, 30f);
             }
         }
     }
@@ -154,14 +171,16 @@ public class PoisonGasRunner : MonoBehaviour
 
         List<GameObject> expired = new();
 
-        foreach (var kvp in gasClearTimerDict)
+        foreach (var kvp in new Dictionary<GameObject, float>(gasClearTimerDict))
         {
             GameObject player = kvp.Key;
             float timeLeft = kvp.Value - Time.deltaTime;
 
+            bool removeNow = false;
+
             if (timeLeft <= 0f)
             {
-                expired.Add(player);
+                removeNow = true;
             }
             else
             {
@@ -175,7 +194,25 @@ public class PoisonGasRunner : MonoBehaviour
                         Destroy(gas);
                         spawnedGases.Remove(gas);
                         Debug.Log("[PoisonGas] 가스 제거: 플레이어 근처 접근");
+
+                        removeNow = true;
+                        break;
                     }
+                }
+            }
+
+            if (removeNow)
+            {
+                expired.Add(player);
+
+                if (durationEffectDict.TryGetValue(player, out var effect))
+                {
+                    var ps = effect.GetComponent<ParticleSystem>();
+                    if (ps != null) ps.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+
+                    Destroy(effect);
+                    durationEffectDict.Remove(player);
+                    Debug.Log("[PoisonGas] 지속 이펙트 제거 완료");
                 }
             }
         }
@@ -184,7 +221,6 @@ public class PoisonGasRunner : MonoBehaviour
             gasClearTimerDict.Remove(p);
     }
 
-    // ✅ 외부에서 호출: 아이템 획득 시 30초 타이머 시작
     public static void ApplyTemporaryGasClear(float duration)
     {
         var runner = FindObjectOfType<PoisonGasRunner>();
@@ -193,18 +229,35 @@ public class PoisonGasRunner : MonoBehaviour
         var player = LocalPlayer.Instance?.gameObject;
         if (player == null) return;
 
-        if (runner.gasClearTimerDict.ContainsKey(player))
+        if (runner.gasClearTimerDict.TryGetValue(player, out float existing))
+        {
+            if (existing >= duration)
+            {
+                Debug.Log("[PoisonGas] 기존 지속시간이 더 김 → 재적용 안 함");
+                return;
+            }
             runner.gasClearTimerDict[player] = duration;
+        }
         else
+        {
             runner.gasClearTimerDict.Add(player, duration);
+        }
 
         Debug.Log($"[PoisonGas] {duration}초간 가스 제거 권한 부여");
 
-        // ✅ (선택) 이펙트 표시
-        if (runner.itemPickupEffect != null)
+        if (runner.pickupEffectPrefab != null)
         {
-            GameObject vfx = Instantiate(runner.itemPickupEffect, player.transform.position + Vector3.up * 1.5f, Quaternion.identity);
+            Debug.Log($"[PoisonGas] 픽업 이펙트 생성: {runner.pickupEffectPrefab.name}");
+            GameObject vfx = Instantiate(runner.pickupEffectPrefab, player.transform.position + Vector3.up * 1.5f, Quaternion.identity);
             Destroy(vfx, 2f);
+        }
+
+        if (runner.durationEffectPrefab != null && !runner.durationEffectDict.ContainsKey(player))
+        {
+            Debug.Log($"[PoisonGas] 지속 이펙트 생성: {runner.durationEffectPrefab.name}");
+            GameObject effect = Instantiate(runner.durationEffectPrefab, player.transform);
+            effect.transform.localPosition = Vector3.up * 1.5f;
+            runner.durationEffectDict.Add(player, effect);
         }
     }
 

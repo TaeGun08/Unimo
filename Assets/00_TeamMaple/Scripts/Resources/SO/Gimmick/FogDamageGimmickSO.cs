@@ -16,7 +16,6 @@ public class FogDamageGimmickSO : StageGimmickSO
     public float damageInterval = 1f;
     public float damagePercent = 0.03f;
 
-    // ✅ 아이템 관련 설정
     public float itemSpawnInterval = 15f;
     public Vector3 itemSpawnCenter;
     public float itemSpawnRadius = 10f;
@@ -50,11 +49,11 @@ public class FogDamageRunner : MonoBehaviour
 
     private bool isExpanded = false;
 
-    // ✅ 아이템 관련 필드
     private float itemSpawnInterval;
     private Vector3 itemSpawnCenter;
     private float itemSpawnRadius;
     private GameObject gimmickItemPrefab;
+    private GameObject pickupEffectPrefab;
 
     private Coroutine itemSpawnRoutine;
 
@@ -67,13 +66,12 @@ public class FogDamageRunner : MonoBehaviour
         transform.position = origin;
         transform.localScale = Vector3.one;
 
-        // ✅ 아이템 정보 설정
         itemSpawnInterval = config.itemSpawnInterval;
         itemSpawnCenter = config.itemSpawnCenter == Vector3.zero ? origin : config.itemSpawnCenter;
         itemSpawnRadius = config.itemSpawnRadius;
         gimmickItemPrefab = config.gimmickItemPrefab;
+        pickupEffectPrefab = config.pickupEffect;
 
-        // Fog Visual 생성
         if (config.fogVisualPrefab != null)
         {
             var fog = Instantiate(config.fogVisualPrefab, transform);
@@ -81,7 +79,6 @@ public class FogDamageRunner : MonoBehaviour
             fog.transform.localRotation = Quaternion.identity;
         }
 
-        // SafeZone Trigger 생성
         if (config.safeZoneTriggerPrefab != null)
         {
             var trigger = Instantiate(config.safeZoneTriggerPrefab, transform.position, Quaternion.identity, transform);
@@ -89,7 +86,6 @@ public class FogDamageRunner : MonoBehaviour
             safeZoneTrigger.localScale = Vector3.one * config.initialSafeRadius * 2f;
         }
 
-        // SafeZone 시각화
         if (config.safeZoneVisualMaterial != null)
         {
             var visualObj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -107,7 +103,6 @@ public class FogDamageRunner : MonoBehaviour
         shrinkTimer = 0f;
         currentRadius = config.initialSafeRadius;
 
-        // ✅ 아이템 생성 루틴 시작
         itemSpawnRoutine = StartCoroutine(SpawnItemRoutine());
     }
 
@@ -187,9 +182,26 @@ public class FogDamageRunner : MonoBehaviour
 
     private IEnumerator SpawnItemRoutine()
     {
+        int itemLayer = LayerMask.NameToLayer("Item");
+        int itemMask = 1 << itemLayer;
+
         while (true)
         {
             yield return new WaitForSeconds(itemSpawnInterval);
+
+            Collider[] hits = Physics.OverlapSphere(transform.position, 100f, itemMask);
+            bool exists = false;
+
+            foreach (var hit in hits)
+            {
+                if (hit.GetComponent<GimmickItem>() != null && hit.gameObject.activeInHierarchy)
+                {
+                    exists = true;
+                    break;
+                }
+            }
+
+            if (exists) continue;
 
             if (gimmickItemPrefab != null)
             {
@@ -199,8 +211,9 @@ public class FogDamageRunner : MonoBehaviour
                     Random.Range(-itemSpawnRadius, itemSpawnRadius)
                 );
 
-                var item = Instantiate(gimmickItemPrefab, randomPos, Quaternion.identity);
-                item.GetComponent<GimmickItem>()?.Init(StageGimmickType.FogDamage);
+                var item = Instantiate(gimmickItemPrefab, randomPos, Quaternion.Euler(-90f, 0f, 0f));
+                item.layer = itemLayer;
+                item.GetComponent<GimmickItem>()?.Init(StageGimmickType.FogDamage, this, pickupEffectPrefab, null, 0f);
             }
         }
     }
