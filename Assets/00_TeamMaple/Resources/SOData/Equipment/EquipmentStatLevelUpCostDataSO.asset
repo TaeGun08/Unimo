@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ec712272cde594d8922007498242cb, type: 3}
   m_Name: EquipmentStatLevelUpCostDataSO
   m_EditorClassIdentifier: 
-  nCsv: {fileID: 4900000, guid: 7967481796fccb1459992f7405cfc316, type: 3}
-  rCsv: {fileID: 4900000, guid: 24d43970b29e60944acc8edfb91f9705, type: 3}
-  srCsv: {fileID: 4900000, guid: 4760cc4566cb8da45820a6b33221c21b, type: 3}
+  nCsv: {fileID: 4900000, guid: f1c93280197baf7498d67253fe991e18, type: 3}
+  rCsv: {fileID: 4900000, guid: 4935976ba8e73484c83e15c556b1f2da, type: 3}
+  srCsv: {fileID: 4900000, guid: 668c3d9dec6a69241a49837c546d734d, type: 3}
