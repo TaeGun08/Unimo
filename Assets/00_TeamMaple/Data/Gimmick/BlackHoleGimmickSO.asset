@@ -23,7 +23,7 @@ MonoBehaviour:
     type: 3}
   outerRadius: 6
   innerRadius: 2
-  teleportRadius: 16
+  teleportRadius: 10
   groundLayer:
     serializedVersion: 2
     m_Bits: 16384

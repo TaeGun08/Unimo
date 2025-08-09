@@ -225,8 +225,6 @@ public class WildWindRunner : MonoBehaviour
         if (immuneRoutine != null) StopCoroutine(immuneRoutine);
 
         // 먹는 순간 즉시 영향 제거
-        if (windVisual) { Destroy(windVisual); windVisual = null; }
-        CurrentWindDirection = Vector3.zero;
         ZeroHorizontalVelocity();
 
         immuneRoutine = StartCoroutine(WindImmuneRoutine(duration));

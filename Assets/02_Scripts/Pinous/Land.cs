@@ -1,5 +1,4 @@
-// ✅ Land.cs 전체 수정: 해금 저장 확인용 디버그 로그 + Start() 시 GetLandAnimation 보장
-
+// ✅ Land.cs 전체 수정: 밸류 일괄 해금/저장 + Start 복구 + 로그
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +8,7 @@ public class Land : MonoBehaviour
     public static Land instance = null;
 
     [SerializeField] private LandAnimator[] animators;
-    [SerializeField] private GameObject[] objects; // MainTree 비주얼용 (레벨 1~5)
+    [SerializeField] private GameObject[] objects; // 메인 트리 비주얼(레벨 1~N)
     [SerializeField] private Transform[] landCheck;
     [SerializeField] private FlowerGenerator_Lobby[] Generators;
     public GameObject GlowParticle, StarParticle;
@@ -28,6 +27,10 @@ public class Land : MonoBehaviour
 
     private void Start()
     {
+        // 저장된 해금 상태 복구
+        if (Base_Mng.Data.data.unlockedLands == null)
+            Base_Mng.Data.data.unlockedLands = new List<int>();
+
         foreach (int index in Base_Mng.Data.data.unlockedLands)
         {
             if (index >= 0 && index < objects.Length)
@@ -35,39 +38,63 @@ public class Land : MonoBehaviour
                 var go = objects[index].transform.parent.gameObject;
                 go.SetActive(true);
                 go.transform.localScale = Vector3.one;
-
-                GetLandAnimation(index); // ✅ 애니메이션도 실행
+                GetLandAnimation(index); // 애니 실행 보장
             }
         }
 
+        // 최소 1레벨 비주얼 보장
         int level = Base_Mng.Data.data.Level;
-
         if (level >= 1 && objects.Length > 0)
         {
-            objects[0].transform.parent.gameObject.SetActive(true);
-            objects[0].transform.parent.localScale = Vector3.one;
+            var root = objects[0].transform.parent.gameObject;
+            root.SetActive(true);
+            root.transform.localScale = Vector3.one;
         }
 
         Generators[0].InitGenFlower();
         GetUnimo();
     }
 
+    // ⭐ 밸류에 따른 일괄 해금 API
+    // tier=0 → 1~3, tier=1 → 1~5, tier>=2 → 모두
+    public void UnlockLandsByValue(int valueTier)
+    {
+        var list = Base_Mng.Data.data.unlockedLands;
+        if (list == null) Base_Mng.Data.data.unlockedLands = list = new List<int>();
+
+        int maxIdx = (objects != null) ? objects.Length - 1 : 0;
+        int targetMax = (valueTier <= 0) ? 2 : (valueTier == 1 ? 4 : maxIdx);
+
+        updated = false;
+        for (int i = 0; i <= targetMax && i <= maxIdx; i++)
+        {
+            if (!list.Contains(i))
+            {
+                list.Add(i);
+                var go = objects[i].transform.parent.gameObject;
+                go.SetActive(true);
+                go.transform.localScale = Vector3.one;
+                GetLandAnimation(i);
+                updated = true;
+            }
+        }
+
+        if (updated)
+        {
+            Base_Mng.Data.Save();
+            Debug.Log($"[🌱 Land] 일괄 해금 저장 완료 (tier={valueTier}) → {string.Join(",", list)}");
+        }
+    }
+
     public void GetUnimo()
     {
         for (int i = 0; i < Base_Mng.Data.AltaCount.Length; i++)
-        {
             if (i > 0 && Base_Mng.Data.data.Level >= Base_Mng.Data.AltaCount[i - 1])
-            {
                 CacheValue++;
-            }
-        }
+
         for (int i = 0; i < Base_Mng.Data.data.GetCharacterData.Length; i++)
-        {
             if (Base_Mng.Data.data.GetCharacterData[i])
-            {
                 GetCharacter(i);
-            }
-        }
     }
 
     public void GetCharacter(int i)
@@ -162,27 +189,27 @@ public class Land : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         Canvas_Holder.instance.Get_Toast("LevelUP02");
 
-        int nextIndex = value * 2;
-        if (nextIndex < animators.Length) GetLandAnimation(nextIndex);
-        if (nextIndex + 1 < animators.Length) GetLandAnimation(nextIndex + 1);
-
+        // 다음 두 칸 해금 & 저장
+        updated = false;
         if (!Base_Mng.Data.data.unlockedLands.Contains(value))
         {
             Base_Mng.Data.data.unlockedLands.Add(value);
             updated = true;
         }
-
         if (!Base_Mng.Data.data.unlockedLands.Contains(value + 1))
         {
             Base_Mng.Data.data.unlockedLands.Add(value + 1);
             updated = true;
         }
-
         if (updated)
         {
             Base_Mng.Data.Save();
-            Debug.Log($"[🌱 Land] Save 호출됨. 해금 랜드 인덱스: {value} / {value + 1}");
-            Debug.Log("▶ 저장된 리스트: " + string.Join(", ", Base_Mng.Data.data.unlockedLands));
+            Debug.Log($"[🌱 Land] Save 호출됨. 해금 인덱스: {value},{value + 1} / 리스트: {string.Join(",", Base_Mng.Data.data.unlockedLands)}");
         }
+
+        // 해금된 애니도 실행
+        int nextIndex = value * 2;
+        if (nextIndex < animators.Length) GetLandAnimation(nextIndex);
+        if (nextIndex + 1 < animators.Length) GetLandAnimation(nextIndex + 1);
     }
 }
