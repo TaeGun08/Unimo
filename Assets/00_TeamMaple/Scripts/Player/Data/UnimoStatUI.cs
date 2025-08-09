@@ -138,9 +138,9 @@ public class UnimoStatUI : MonoBehaviour
         int nextLevel = Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1] + 1;
         UnimoStatLevelUpCost levelData = unimoStatLevelUpCostSO.GetData(nextLevel);
         
-        Yellow_u.text = levelData.need_yel.ToString();
-        Orange_u.text = levelData.need_org.ToString();
-        Green_u.text = levelData.need_grn.ToString();
+        Yellow_u.text = StringMethod.ToCurrencyString(levelData.need_yel) ;
+        Orange_u.text = StringMethod.ToCurrencyString(levelData.need_org);
+        Green_u.text = StringMethod.ToCurrencyString(levelData.need_grn);
     }
     
     // 엔진 강화 UI
@@ -183,9 +183,9 @@ public class UnimoStatUI : MonoBehaviour
         var levelData = equipLevelUpCostSO.GetData(grade, nextLevel);
         if (levelData == null) return;
 
-        Yellow.text = levelData.need_yel.ToString();
-        Orange.text = levelData.need_org.ToString();
-        Green.text = levelData.need_grn.ToString();
+        Yellow.text = StringMethod.ToCurrencyString(levelData.need_yel);
+        Orange.text = StringMethod.ToCurrencyString(levelData.need_org);
+        Green.text = StringMethod.ToCurrencyString(levelData.need_grn);
     }
     
     [SerializeField] private Image[] topStarImages;   
@@ -434,7 +434,7 @@ public class UnimoStatUI : MonoBehaviour
         int nextLevel = Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1] + 1;
         UnimoStatLevelUpCost levelData = unimoStatLevelUpCostSO.GetData(nextLevel);
         
-        if (Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1] >= 50)
+        if (Base_Mng.Data.data.CharLevel[Base_Mng.Data.data.CharCount - 1] >= 100)
         {
             Debug.Log("최대 레벨입니다.");
             return;
