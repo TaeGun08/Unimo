@@ -1,100 +1,132 @@
-using DG.Tweening.Core.Easing;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UI_Change : UI_Base
 {
-    int BlueStarCount, OrangeStarCount, YellowStarCount;
+    double blueCostTotal;   // 소모 블루 총합
+    double orangeGain;      // 오렌지 획득량
+    double yellowGain;      // 옐로우 획득량
 
     public Slider OrangeSlider, YellowSlider;
     public TextMeshProUGUI Blue, Orange, Yellow;
-    int blueCount;
-    float orange, yellow;
+
+    double BlueOwned => Base_Mng.Data.data.Blue;
+    double SecondBase => Base_Mng.Data.data.Second_Base;
+
     public override void Start()
     {
-        blueCount = (int)Base_Mng.Data.data.Blue;
-
-        CountCheck();
-
+        SetupSlidersMax();
         OrangeSlider.onValueChanged.AddListener(ValueChangeSlider_Orange);
         YellowSlider.onValueChanged.AddListener(ValueChangeSlider_Yellow);
-        TextCheck();
-
+        RecalcAndRefresh();
         base.Start();
     }
 
-    private void CountCheck()
+    void SetupSlidersMax()
     {
-        OrangeSlider.maxValue = (float)blueCount;
-        YellowSlider.maxValue = (float)blueCount;
+        // 슬라이더는 float이므로 안전 클램프
+        float max = Mathf.Max(0f, (float)Mathf.Min((float)BlueOwned, 1e9f));
+        OrangeSlider.minValue = 0f;
+        YellowSlider.minValue = 0f;
+        OrangeSlider.maxValue = max;
+        YellowSlider.maxValue = max;
+
+        if (OrangeSlider.value > max) OrangeSlider.value = max;
+        if (YellowSlider.value > max) YellowSlider.value = max;
     }
 
-    void TextCheck()
+    void RecalcAndRefresh()
     {
-        Blue.text = BlueStarCount.ToString();
-        Blue.color = Base_Mng.Data.data.Blue >= BlueStarCount ? Color.green : Color.red;
-        Orange.text = OrangeStarCount.ToString();
-        Yellow.text = StringMethod.ToCurrencyString(YellowStarCount);
+        // 현재 슬라이더 값으로 계산
+        orangeGain = (double)OrangeSlider.value * 500.0;
+        yellowGain = (double)YellowSlider.value * SecondBase;
+        blueCostTotal = (orangeGain / 500.0) + (yellowGain / SecondBase);
+
+        // UI 표시 (A,B,C... 단위 변환)
+        Blue.text   = FormatWithLetter(blueCostTotal);
+        Blue.color  = (BlueOwned + 1e-9) >= blueCostTotal ? Color.green : Color.red;
+        Orange.text = FormatWithLetter(orangeGain);
+        Yellow.text = FormatWithLetter(yellowGain);
     }
 
-    void BlueCount()
+    // 숫자를 1e3 = A, 1e6 = B ... 연속 알파벳 단위로 변환
+    string FormatWithLetter(double value)
     {
-        BlueStarCount = (OrangeStarCount / 500) + (int)(YellowStarCount / Base_Mng.Data.data.Second_Base);
+        if (value < 1000)
+            return value.ToString("0.##");
+
+        int exponent = (int)(Math.Floor(Math.Log10(value) / 3)); // 3자리마다 단위
+        double shortValue = value / Math.Pow(1000, exponent);
+
+        string letter = GetLetterUnit(exponent - 1); // 1e3 → A
+        return shortValue.ToString("0.##") + letter;
     }
 
-    // Orange
+    // 0→A, 1→B, ... 25→Z, 26→AA ...
+    string GetLetterUnit(int index)
+    {
+        string result = "";
+        while (index >= 0)
+        {
+            result = (char)('A' + (index % 26)) + result;
+            index = index / 26 - 1;
+        }
+        return result;
+    }
+
     void ValueChangeSlider_Orange(float value)
     {
-        var index = YellowStarCount / Base_Mng.Data.data.Second_Base;
-        var DetectedYellow = Base_Mng.Data.data.Blue - index;
-        if (value >= DetectedYellow)
-        {
-            value = (float)DetectedYellow;
-            OrangeSlider.value = value;
-        }
+        double alreadyAllocatedByYellow = yellowGain / SecondBase;
+        double remainBlue = Math.Max(0.0, BlueOwned - alreadyAllocatedByYellow);
 
-        OrangeStarCount = (int)(value * 500);
-        BlueCount();
-        TextCheck();
+        // 두 인자 모두 float
+        float maxCap = Mathf.Min((float)remainBlue, 1e9f);
+        float clamped = Mathf.Clamp(value, 0f, maxCap);  // 네임드 인자 제거
+
+        if (!Mathf.Approximately(clamped, value))
+            OrangeSlider.value = clamped;
+
+        RecalcAndRefresh();
     }
 
-    // Yellow
     void ValueChangeSlider_Yellow(float value)
     {
-        var index = OrangeStarCount / 500;
-        var DetectedYellow = Base_Mng.Data.data.Blue - index;
-        if(value >= DetectedYellow)
-        {
-            value = (float)DetectedYellow;
-            YellowSlider.value = value;
-        }
-        YellowStarCount = (int)(value * Base_Mng.Data.data.Second_Base);
-        BlueCount();
-        TextCheck();
+        double alreadyAllocatedByOrange = orangeGain / 500.0;
+        double remainBlue = Math.Max(0.0, BlueOwned - alreadyAllocatedByOrange);
+
+        float maxCap = Mathf.Min((float)remainBlue, 1e9f);
+        float clamped = Mathf.Clamp(value, 0f, maxCap);
+
+        if (!Mathf.Approximately(clamped, value))
+            YellowSlider.value = clamped;
+
+        RecalcAndRefresh();
     }
+
+
     public override void DisableOBJ()
     {
         base.DisableOBJ();
     }
+
     public void GetExchange()
     {
-        if(BlueStarCount == 0)
+        if (blueCostTotal <= 0.0)
         {
             Canvas_Holder.instance.Get_Toast("NoneBlue");
             return;
         }
-        if(Base_Mng.Data.data.Blue >= BlueStarCount)
+
+        if ((BlueOwned + 1e-9) >= blueCostTotal)
         {
-            Base_Mng.Data.data.Blue -= BlueStarCount;
-            Base_Mng.Data.data.Red += OrangeStarCount;
-            Base_Mng.Data.data.Yellow += YellowStarCount;
+            Base_Mng.Data.data.Blue   -= blueCostTotal;
+            Base_Mng.Data.data.Red    += orangeGain;
+            Base_Mng.Data.data.Yellow += yellowGain;
+
             Main_UI.instance.Text_Check();
             Canvas_Holder.instance.Get_Toast("SuccessChange");
-
             DisableOBJ();
         }
         else

@@ -28535,7 +28535,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraMover: 1
   state: 3
-  ResourcesName: '##Vane'
+  ResourcesName: '##NewVane'
 --- !u!65 &2212432598599009521
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -76101,8 +76101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c98dea03bd7ee441a78b3b7203d6845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  productionInterval: 240
   maxPending: 10
+  secondsPerOne: 11520
 --- !u!114 &8075917867019591718
 MonoBehaviour:
   m_ObjectHideFlags: 0

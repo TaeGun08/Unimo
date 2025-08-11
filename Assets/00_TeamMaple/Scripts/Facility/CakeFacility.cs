@@ -1,127 +1,90 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
 public class CakeFacility : MonoBehaviour
 {
     public static CakeFacility Instance { get; private set; }
 
-    private Data_Mng dataMng;
-    [SerializeField] private float productionInterval = 100f; // 8 hours
-    [SerializeField] private int maxPending = 10;
-    private const string TimerKey = "Cake_Timer";
-    
-    public float GetProductionInterval() => productionInterval;
-    public float GetCurrentTimer() => timer;
-    public int GetMaxPending() => maxPending;
-    
-    public int GetPendingReward() => pendingAmount;
+    [SerializeField] int    maxPending      = 10;      // 저장 한도
+    [SerializeField] float  secondsPerOne   = 11520f;  // 8시간/1개
 
-    private float timer = 0f;
-    private int pendingAmount = 0;
-    private bool isProducing = false;
+    int     pending;        // 완료돼 수령 대기 중
+    float   timer;          // 다음 1개까지 진행 시간
+    DateTime lastUtc;       // 오프라인 기준
 
-    private const string PendingKey = "Cake_PendingAmount";
-    private const string LastExitKey = "Cake_LastExitTime";
-
-    private void Awake()
+    void Awake()
     {
-        Instance = this;
-        pendingAmount = PlayerPrefs.GetInt(PendingKey, 0);
-        timer = PlayerPrefs.GetFloat(TimerKey, 0f);
-        dataMng = Base_Mng.Data;
+        if (Instance == null) Instance = this;
+        Load();
+        ApplyOfflineProduction();
     }
 
-
-    private void Start()
+    void Update()
     {
-        CalculateOfflineProduction();
-        StartProduction();
-    }
-
-    private void Update()
-    {
-        if (!isProducing) return;
+        if (pending >= maxPending) return;
 
         timer += Time.deltaTime;
-
-        if (timer >= productionInterval)
+        while (timer >= secondsPerOne && pending < maxPending)
         {
-            timer -= productionInterval;
-
-            if (pendingAmount < maxPending)
-            {
-                pendingAmount++;
-                PlayerPrefs.SetInt(PendingKey, pendingAmount);
-                Debug.Log($"[케이크] 초록 별꿀 +1 누적 (대기: {pendingAmount})");
-            }
-            else
-            {
-                Debug.Log($"[케이크] 생산 중단 (대기량 {pendingAmount}개 ≥ 최대 {maxPending})");
-                isProducing = false;
-            }
+            timer -= secondsPerOne;
+            pending++;
         }
     }
 
-    private void OnApplicationQuit()
-    {
-        SaveExitTime();
-    }
+    // === 외부 접근 ===
+    public int   GetPendingReward()        => pending;
+    public int   GetMaxPending()           => maxPending;
+    public float GetProductionInterval()   => secondsPerOne;
+    public float GetCurrentTimer()         => timer;
 
-    private void OnApplicationPause(bool pause)
-    {
-        if (pause)
-            SaveExitTime();
-    }
-
-    private void SaveExitTime()
-    {
-        PlayerPrefs.SetString(LastExitKey, DateTime.Now.ToString("O"));
-        PlayerPrefs.SetInt(PendingKey, pendingAmount);
-        PlayerPrefs.SetFloat(TimerKey, timer);
-        PlayerPrefs.Save();
-    }
-
-    private void CalculateOfflineProduction()
-    {
-        if (!PlayerPrefs.HasKey(LastExitKey)) return;
-
-        if (!DateTime.TryParse(PlayerPrefs.GetString(LastExitKey), out DateTime lastExit)) return;
-
-        TimeSpan elapsed = DateTime.Now - lastExit;
-        int produced = Mathf.FloorToInt((float)(elapsed.TotalSeconds / productionInterval));
-
-        pendingAmount = Mathf.Min(pendingAmount + produced, maxPending);
-
-        PlayerPrefs.SetInt(PendingKey, pendingAmount);
-        PlayerPrefs.Save();
-
-        Debug.Log($"[오프라인 보상] 초록 별꿀 +{produced}개 누적 (총 대기: {pendingAmount})");
-    }
-
-    public void StartProduction()
-    {
-        isProducing = true;
-    }
-
-    public void StopProduction()
-    {
-        isProducing = false;
-        SaveExitTime();
-    }
-
+    // ★ 수령: pending만 0으로. timer는 건드리지 않음!
     public void CollectReward()
     {
-        if (pendingAmount <= 0) return;
+        if (pending <= 0) return;
 
-        dataMng.AssetPlus(Asset_State.Green, pendingAmount);
-        Debug.Log($"[케이크] 초록 별꿀 {pendingAmount}개 수령됨");
+        Base_Mng.Data.data.Green += pending;
+        pending = 0;
 
-        pendingAmount = 0;
-        timer = 0f;
-        PlayerPrefs.SetInt(PendingKey, 0);
-        PlayerPrefs.Save();
-
-        StartProduction();
+        Save();
+        Main_UI.instance.Text_Check();
+        Canvas_Holder.instance.Get_Toast("CollectSuccess");
     }
 
+    // === 오프라인 생산 반영 ===
+    void ApplyOfflineProduction()
+    {
+        var now = DateTime.UtcNow;
+        var gap = Math.Max(0, (int)(now - lastUtc).TotalSeconds);
+
+        if (gap > 0 && pending < maxPending)
+        {
+            double total = timer + gap;
+            int add = Mathf.Min((int)(total / secondsPerOne), maxPending - pending);
+            pending += add;
+            timer = (float)(total - add * secondsPerOne);
+        }
+
+        lastUtc = now;
+        Save();
+    }
+
+    void OnApplicationPause(bool pause) { if (pause) Save(); }
+    void OnApplicationQuit()            { Save(); }
+
+    void Save()
+    {
+        PlayerPrefs.SetInt("cake_pending", pending);
+        PlayerPrefs.SetFloat("cake_timer", timer);
+        PlayerPrefs.SetString("cake_lastUtc", DateTime.UtcNow.ToString("o"));
+        PlayerPrefs.Save();
+    }
+
+    void Load()
+    {
+        pending = PlayerPrefs.GetInt("cake_pending", 0);
+        timer   = PlayerPrefs.GetFloat("cake_timer", 0f);
+        var s   = PlayerPrefs.GetString("cake_lastUtc", "");
+        lastUtc = string.IsNullOrEmpty(s) ? DateTime.UtcNow :
+                  DateTime.Parse(s, null, System.Globalization.DateTimeStyles.RoundtripKind);
+    }
 }

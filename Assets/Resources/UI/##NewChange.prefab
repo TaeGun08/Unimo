@@ -1913,11 +1913,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GetTransform: {fileID: 2565345323236099266}
   startTransformPos: 0
-  animator: {fileID: 0}
-  OrangeSlider: {fileID: 0}
+  animator: {fileID: 4787476963140407864}
+  OrangeSlider: {fileID: 1910028570487032138}
   YellowSlider: {fileID: 5963094042831112990}
   Blue: {fileID: 4035549772091290001}
-  Orange: {fileID: 0}
+  Orange: {fileID: 2534500127686266058}
   Yellow: {fileID: 1925663612111123751}
 --- !u!1 &4799502731220105571
 GameObject:

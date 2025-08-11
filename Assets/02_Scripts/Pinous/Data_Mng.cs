@@ -167,13 +167,13 @@ public class Data_Mng
         {
             data.EXP = 0;
             data.Level++;
-            if (data.Level >= 99)
+            if (data.Level >= 149)
             {
                 Base_Mng.m_Analytics.RecordCustomEventWithParameters("Level", data.Level);
                 if (data.GetGameTwo == false)
                 {
                     data.GetGameTwo = true;
-                    Canvas_Holder.instance.GetUI("##Game");
+                    Canvas_Holder.instance.GetUI("##NewChange");
                 }
             }
             LevelCheck();
