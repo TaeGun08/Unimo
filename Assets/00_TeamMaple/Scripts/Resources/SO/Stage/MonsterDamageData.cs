@@ -19,6 +19,8 @@ public class MonsterDamageData : ParsingStageData<MonsterDamageDataRecord>
     {
         switch (type)
         {
+            case Monstertype.None:
+                return 0;
             case Monstertype.Monster1:
                 return float.Parse(GetData(id + 1000).Monster_1Damage);
             case Monstertype.Monster2:

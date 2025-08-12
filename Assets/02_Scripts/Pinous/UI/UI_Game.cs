@@ -40,6 +40,11 @@ public class UI_Game : UI_Base
         images[1].sprite = so.GetSprites.EngineSprite[Base_Mng.Data.data.EQCount - 1];
         
         stageCount = Base_Mng.Data.data.HighStage;
+
+        if (stageCount > 999)
+        {
+            stageCount = 999;
+        }
         
         InitializeStage();
     }

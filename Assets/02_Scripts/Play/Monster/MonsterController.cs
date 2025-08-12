@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum Monstertype
 {
+    None,
     Monster1,
     Monster2,
     Monster3,
